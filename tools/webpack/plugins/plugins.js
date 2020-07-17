@@ -75,8 +75,8 @@ require('@/src/plugins/bootstrap-multiselectsplitter/bootstrap-multiselectsplitt
 require('bootstrap-select/dist/js/bootstrap-select.js');
 
 // Bootstrap Switch - Bootstrap switch/toggle is a simple component used for activating one of two predefined options: https://mdbootstrap.com/docs/jquery/forms/switch/
-require('bootstrap-switch/dist/js/bootstrap-switch.js');
-require('@/src/js/vendors/plugins/bootstrap-switch.init.js');
+// require('bootstrap-switch/dist/js/bootstrap-switch.js');
+// require('@/src/js/vendors/plugins/bootstrap-switch.init.js');
 
 // Select2 - Select2 is a jQuery based replacement for select boxes: https://select2.org/
 require('select2/dist/js/select2.full.js');
