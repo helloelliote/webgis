@@ -131,6 +131,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
+.coverage
 coverage
 *.lcov
 
@@ -191,7 +192,7 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+#dist
 
 # Gatsby files
 .cache/
@@ -220,4 +221,3 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/intellij,node,database,dotenv
 
 build/
-.coverage/

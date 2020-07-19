@@ -26,7 +26,7 @@ window.wNumb = require('wnumb');
 window.moment = require('moment');
 
 // ES6-Shim - ECMAScript 6 compatibility shims for legacy JS engines.  Learn more: https://github.com/paulmillr/es6-shim
-require("es6-shim/es6-shim.min.js");
+require('es6-shim/es6-shim.min.js');
 
 // Perfect-Scrollbar - Minimalistic but perfect custom scrollbar plugin.  Learn more:  https://github.com/mdbootstrap/perfect-scrollbar
 window.PerfectScrollbar = require('perfect-scrollbar/dist/perfect-scrollbar');
@@ -44,8 +44,8 @@ window.Sticky = require('sticky-js');
 window.ApexCharts = require('apexcharts/dist/apexcharts.min.js');
 
 // FormValidation - Best premium validation library for JavaScript. Zero dependencies. Learn more: https://formvalidation.io/
-window.FormValidation = require("@/src/plugins/formvalidation/dist/amd/index.js");
-window.FormValidation.plugins.Bootstrap = require("@/src/plugins/formvalidation/dist/amd/plugins/Bootstrap.js").default;
+window.FormValidation = require('@/src/plugins/formvalidation/dist/amd/index.js');
+window.FormValidation.plugins.Bootstrap = require('@/src/plugins/formvalidation/dist/amd/plugins/Bootstrap.js').default;
 
 // jQuery BlockUI - The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX: http://malsup.com/jquery/block/
 require('block-ui/jquery.blockUI.js');

@@ -9,13 +9,9 @@ import usersRouter from './routes/users';
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'build'));
+app.set('views', path.join(__dirname));
 app.set('view engine', 'html');
-app.engine('html', exphbs({
-  extname: '.html',
-  // layoutsDir: path.join(__dirname, '..', 'web', 'demo11', 'dist'),
-  // partialsDir: path.join(__dirname, '..', 'web', 'demo11', 'dist', 'partials'),
-}));
+app.engine('html', exphbs({ extname: '.html' }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
