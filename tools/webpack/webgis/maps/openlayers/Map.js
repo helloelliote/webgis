@@ -1,7 +1,5 @@
-var container = document.getElementById('map');
-var options = {
-  center: new kakao.maps.LatLng(33.450701, 126.570667),
-  level: 3,
-};
+import { kakaoMap } from '../kakao/Map';
+import { geoCoder } from '../kakao/geoCoder';
+import { roadview, roadviewClient, RoadviewWalker } from '../kakao/roadview';
 
-var map = new kakao.maps.Map(container, options);
+kakaoMap.setMaxLevel(9);
