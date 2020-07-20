@@ -1,6 +1,6 @@
 'use strict';
 
-import { default as MapError } from '../../map/Error';
+import { default as MapError } from '../../maps/Error';
 
 describe('map.Error', () => {
   test('is instanceof Error', () => {

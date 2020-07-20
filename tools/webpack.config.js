@@ -25,7 +25,7 @@ let demo = getDemos(rootPath)[0];
 // under demo paths
 const demoPath = rootPath + '/' + demo;
 // const distPath = demoPath + '/dist';
-const distPath = path.resolve(__dirname, '..', 'build', 'public');
+const distPath = path.resolve(__dirname, '..', '.build', 'public');
 const assetDistPath = distPath + '/assets';
 const srcPath = demoPath + '/src';
 
@@ -155,7 +155,7 @@ function getEntryFiles() {
 
   // webgis
   Object.assign(entries,
-    { 'js/maps.bundle': ['./webpack/webgis/index.js'] },
+    { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
   );
 
   return entries;

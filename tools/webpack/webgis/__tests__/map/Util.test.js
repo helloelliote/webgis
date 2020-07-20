@@ -1,7 +1,7 @@
 'use strict';
 
-import { setAbstract } from '../../map/Util';
-import { default as MapError } from '../../map/Error';
+import { setAbstract } from '../../maps/Util';
+import { default as MapError } from '../../maps/Error';
 
 describe('map.Util', () => {
   describe('#setAbstract()', () => {

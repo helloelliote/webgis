@@ -1,6 +1,6 @@
 'use strict';
 
-import { default as MapObject } from '../../map/Object';
+import { default as MapObject } from '../../maps/Object';
 
 describe('map.Object', () => {
   test('#get()', () => {
