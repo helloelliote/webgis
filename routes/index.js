@@ -1,10 +1,7 @@
-import express from 'express';
+import { default as main } from './main';
+import { default as api } from './api';
 
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-export default router;
+export default function(app) {
+  app.get('/', main.index);
+  app.post('/api', api.postgresQuery);
+}

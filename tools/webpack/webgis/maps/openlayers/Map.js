@@ -1,5 +1,17 @@
-import { kakaoMap } from '../kakao/Map';
-import { geoCoder } from '../kakao/geoCoder';
-import { roadview, roadviewClient, RoadviewWalker } from '../kakao/roadview';
+const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-kakaoMap.setMaxLevel(9);
+// Make a request using the Fetch API
+fetch('/api', {
+  credentials: 'same-origin', // <-- includes cookies in the request
+  headers: {
+    'CSRF-Token': token, // <-- is the csrf token as a header
+  },
+  method: 'POST',
+  body: {
+    favoriteColor: 'blue',
+  },
+}).then(function(response) {
+  return response.json();
+}).then(function(result) {
+  console.log(result);
+});
