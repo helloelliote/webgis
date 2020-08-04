@@ -6,7 +6,7 @@ import { default as MapError } from '../../maps/Error';
 describe('map.Util', () => {
   describe('#setAbstract()', () => {
 
-    class ParentClass {
+    class ExampleParentClass {
       constructor() {
       }
 
@@ -15,7 +15,7 @@ describe('map.Util', () => {
       }
     }
 
-    class ChildClass extends ParentClass {
+    class ExampleChildClass extends ExampleParentClass {
       constructor() {
         super();
       }
@@ -28,13 +28,13 @@ describe('map.Util', () => {
       }
     }
 
-    test('calling abstract function throws an error', () => {
-      const parent = new ParentClass();
+    test('directly calling abstract functions throws an error', () => {
+      const parent = new ExampleParentClass();
       expect(() => {parent.getAge();}).toThrow(MapError);
     });
 
-    test('...and must override', () => {
-      const child = new ChildClass();
+    test('...and must override first to use', () => {
+      const child = new ExampleChildClass();
       expect(child.getAge()).toBe(12);
     });
   });

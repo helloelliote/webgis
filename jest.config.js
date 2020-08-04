@@ -8,4 +8,7 @@ module.exports = {
   },
   // notify: true,
   timers: 'fake',
+  setupFiles: [
+    '<rootDir>/.env',
+  ],
 };

@@ -1,6 +1,8 @@
+'use strict';
+
 import { Pool } from 'pg';
 
-export default class Postgresql {
+class Postgresql {
 
   constructor(options) {
     if (Postgresql.exists) {
@@ -28,25 +30,29 @@ export default class Postgresql {
   }
 
   executeQuery(text, params) {
-    return this._pool.connect().then(client => {
-      return client
-        .query(text, params)
-        .then(value => {
-          if (value.rowCount > 0) {
-            return value.rows;
-          }
-        }, reason => {
-        // rejection
-        })
-        .finally(() => {
-          client.release();
-        });
-    }, reason => {
-      // rejection
-    });
+    return this._pool
+      .connect()
+      .then(client => {
+        return client
+          .query(text, params)
+          .then(result => {
+            return result;
+          })
+          .catch(Postgresql.onError)
+          .finally(Postgresql.onFinally(client));
+      })
+      .catch(Postgresql.onError);
   }
 
-  end() {
-    this._pool.end().then(() => {});
+  static onError(err) {
+    return new Error(err.code);
+  }
+
+  static onFinally(client) {
+    if (client) {
+      client.release();
+    }
   }
 }
+
+export default new Postgresql();

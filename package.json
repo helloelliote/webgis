@@ -8,6 +8,7 @@
     "test": "jest --coverage"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-pg-simple": "^6.1.0",
     "cookie-parser": "~1.4.4",
@@ -23,7 +24,10 @@
     "http-errors": "^1.8.0",
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
-    "pg": "^8.3.0"
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.3.0",
+    "rate-limiter-flexible": "^2.1.10"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

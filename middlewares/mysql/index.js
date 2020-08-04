@@ -1,6 +1,8 @@
+'use strict';
+
 import mysql from 'mysql2';
 
-export default class Mysql {
+class Mysql {
 
   constructor(options) {
     if (Mysql.exists) {
@@ -28,12 +30,18 @@ export default class Mysql {
   }
   
   executeQuery(text, params) {
-    return this._pool.promise()
+    return this._pool
+      .promise()
       .query(text, params)
-      .then(([result, fields]) => {
+      .then(([result]) => {
         return result;
-      }, reason => {
-
-      });
+      })
+      .catch(Mysql.onError);
+  }
+  
+  static onError(err) {
+    return new Error(err.code);
   }
 }
+
+export default new Mysql();

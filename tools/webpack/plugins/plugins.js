@@ -47,6 +47,8 @@ window.PerfectScrollbar = require('perfect-scrollbar/dist/perfect-scrollbar');
 window.FormValidation = require('@/src/plugins/formvalidation/dist/amd/index.js');
 window.FormValidation.plugins.Bootstrap = require('@/src/plugins/formvalidation/dist/amd/plugins/Bootstrap.js').default;
 
+require('jquery-form');
+
 // jQuery BlockUI - The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX: http://malsup.com/jquery/block/
 // require('block-ui/jquery.blockUI.js');
 

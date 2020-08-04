@@ -15,7 +15,7 @@ describe('map.Object', () => {
       expect(mapObject.get('phone')).toBe('01020200714');
     });
 
-    test('#set() undefined to parameter value', () => {
+    test('#set() undefined parameter value throws an Error', () => {
       const mapObject = new MapObject({ user: 'John', email: 'john@test.com' });
       expect(() => { mapObject.set('address'); }).toThrow();
     });
