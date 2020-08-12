@@ -189,7 +189,7 @@ $theme-text-colors: (
     "info":       $info,
     "warning":    $warning,
     "danger":     $danger,
-    "light":      light,
+    "light":      $light,
     "dark":       $dark,
     "dark-75":    $dark-75,
     "dark-65":    $dark-65,
@@ -280,7 +280,7 @@ $spacers: (
 	25: ($spacer * 6.25), 	// 87.5px
 	26: ($spacer * 6.5), 	// 91px
 	27: ($spacer * 6.75), 	// 94.5px
-	38: ($spacer * 7), 		// 99px
+	28: ($spacer * 7), 		// 99px
 	29: ($spacer * 7.25),   // 102.5px
 	30: ($spacer * 7.5), 	// 106px
 	31: ($spacer * 7.75), 	// 109.5px

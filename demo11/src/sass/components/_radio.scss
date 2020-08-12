@@ -20,7 +20,8 @@
 		display: flex;
         align-items: center;
         justify-content: center;
-
+        flex-shrink: 0;
+        
         &:after {
 			content:'';
             display: none; // Hide check

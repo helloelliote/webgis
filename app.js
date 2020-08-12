@@ -8,12 +8,13 @@ import bodyParser from 'body-parser';
 import postgresql from './middlewares/postgresql';
 import session from 'express-session';
 import connect_pg_simple from 'connect-pg-simple';
-import csurf from 'csurf';
+import csrf from 'csurf';
 import rateLimiter from './middlewares/rate-limiter';
 import cors from 'cors';
 import passport from 'passport';
 import passportSetup from './middlewares/passport';
-import mountRoutes from './routes';
+import routes from './routes';
+import routesApi from './routes/api';
 
 const app = express();
 
@@ -34,6 +35,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+const csrfOptions = {
+  cookie: {
+    httpOnly: true,
+    sameSite: 'strict',
+  },
+};
+app.use(csrf(csrfOptions));
+
 const postgresqlSession = connect_pg_simple(session);
 const sessionOptions = {
   secret: process.env.SESSION_KEY,
@@ -50,23 +59,24 @@ const sessionOptions = {
 };
 app.use(session(sessionOptions));
 
-const csrfOptions = {
-  cookie: {
-    httpOnly: true,
-    sameSite: 'strict',
-  },
-};
-app.use(csurf(csrfOptions));
-
 app.use(rateLimiter);
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 passportSetup(passport);
 
-mountRoutes(app, passport);
+const router = express.Router();
+
+routes(router, passport);
+routesApi(router);
+
+app.use('/', router);
+app.use('/api', router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

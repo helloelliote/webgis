@@ -38,3 +38,11 @@
         width: $size valueif($important, !important, null);
     }
 }
+
+@mixin svg-logo-color($color, $important: false){
+    svg{
+        path{
+            fill: $color valueif($important, !important, null);
+        }
+    }
+}

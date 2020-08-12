@@ -159,7 +159,7 @@ $nav-icon-width: 2rem;
 
 		.nav-link {
 			border: 0;
-			border-bottom: 1px solid transparent; 
+			border-bottom: 1px solid transparent;
 			transition: $transition-link;
 			padding: 0.85rem 0;
 			margin: 0 1rem;
@@ -351,6 +351,49 @@ $nav-icon-width: 2rem;
 		}
 	}
 
+	// Group mode
+	&.nav-group {
+		.nav-item {
+			padding: 0;
+			margin: 0;
+
+			.nav-link {
+				@include border-radius(0);
+			}
+
+			&:first-child {
+				.nav-link {
+					@include border-top-left-radius($rounded-pill);
+					@include border-bottom-left-radius($rounded-pill);
+				}
+			}
+
+			&:last-child {
+				.nav-link {
+					@include border-top-right-radius($rounded-pill);
+					@include border-bottom-right-radius($rounded-pill);
+				}
+			}
+		}
+
+		// Rounded
+		&.nav-rounded {
+			&:first-child {
+				.nav-link {
+					@include border-top-left-radius($border-radius);
+					@include border-bottom-left-radius($border-radius);
+				}
+			}
+
+			&:last-child {
+				.nav-link {
+					@include border-top-right-radius($border-radius);
+					@include border-bottom-right-radius($border-radius);
+				}
+			}
+		}
+	}
+
 	// Item
 	.nav-item {
 		margin-right: 0.25rem;
@@ -411,6 +454,7 @@ $nav-icon-width: 2rem;
 .nav.nav-pills {
 	// State colors
 	@each $name, $color in $theme-colors {
+		// Default
 		&.nav-#{$name} {
 			// Hover state
 			.show > .nav-link,
@@ -464,6 +508,7 @@ $nav-icon-width: 2rem;
 			}
 		}
 
+		// Light
 		&.nav-light-#{$name} {
 			// Hover state
 			.show > .nav-link,
@@ -514,6 +559,65 @@ $nav-icon-width: 2rem;
 				&:after {
 					color: $color;
 				}
+			}
+		}
+
+		// Group
+		&.nav-group.nav-#{$name} {
+			.nav-link {
+				color: $color;
+				background-color: theme-light-color($name);
+				border: 0;
+
+				.nav-text {
+					color: $color;
+				}
+
+				.nav-icon {
+					i {
+						color: $color;
+					}
+
+					// Svg icon
+					.svg-icon {
+						@include svg-icon-color($color);
+					}
+				}
+
+				&:after {
+					color: $color;
+				}
+			}
+
+			// Hover state
+			.show > .nav-link,
+			.nav-link:hover,
+			.nav-link.active {
+				color: theme-inverse-color($name);
+				background-color: $color;
+
+				.nav-text {
+					color: theme-inverse-color($name);
+				}
+
+				.nav-icon {
+					i {
+						color: theme-inverse-color($name);
+					}
+
+					// Svg icon
+					.svg-icon {
+						@include svg-icon-color(theme-inverse-color($name));
+					}
+				}
+
+				&:after {
+					color: theme-inverse-color($name);
+				}
+			}
+
+			.nav-link:hover {
+				background-color:  theme-hover-color($name);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 'use strict';
 
-import LocalStrategySignIn from './local-signin';
-import LocalStrategySignup from './local-signup';
+import LocalStrategySignIn from './local-strategy-signin';
+import LocalStrategySignup from './local-strategy-signup';
 
 export default function (passport) {
   passport.serializeUser(function (user, done) {

@@ -52,6 +52,9 @@ require('jquery-form');
 // jQuery BlockUI - The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX: http://malsup.com/jquery/block/
 // require('block-ui/jquery.blockUI.js');
 
+//Tempus Dominus - The Tempus Dominus provides a flexible datetimepicker widget in the Bootstrap style: https://tempusdominus.github.io/bootstrap-4/
+require('tempusdominus-bootstrap-4');
+
 // Bootstrap Datepicker - Bootstrap-datepicker provides a flexible datepicker widget in the Bootstrap style: https://bootstrap-datepicker.readthedocs.io/en/latest/
 require('bootstrap-datepicker/dist/js/bootstrap-datepicker.js');
 require('@/src/js/vendors/plugins/bootstrap-datepicker.init.js');
@@ -62,9 +65,6 @@ require('@/src/js/vendors/plugins/bootstrap-datepicker.init.js');
 
 // Date Range Picker - A JavaScript component for choosing date ranges, dates and times: https://www.daterangepicker.com/
 require('bootstrap-daterangepicker/daterangepicker.js');
-
-// Eonasdan/bootstrap-datetimepicker: Date/time picker - Date/time picker widget based on twitter bootstrap
-// require('eonasdan-bootstrap-datetimepicker');
 
 // Bootstrap Touchspin - A mobile and touch friendly input spinner component for Bootstrap 3: https://www.virtuosoft.eu/code/bootstrap-touchspin/
 // require('bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js');

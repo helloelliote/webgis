@@ -121,8 +121,6 @@ var KTWizard = function(elementId, options) {
          * Handles wizard click wizard
          */
         goTo: function(number, eventHandle) {
-            console.log('go to:' + number);
-
             // Skip if this step is already shown
             if (number === the.currentStep || number > the.totalSteps || number < 0) {
                 return;

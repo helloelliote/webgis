@@ -9,6 +9,9 @@ class Postgresql {
       return Postgresql.instance;
     }
 
+    Postgresql.instance = this;
+    Postgresql.exists = true;
+
     options = Object.assign({}, options);
 
     this._pool = new Pool({
@@ -18,9 +21,6 @@ class Postgresql {
       password: process.env.PGPASSWORD,
       database: process.env.PGDATABASE,
     });
-
-    Postgresql.instance = this;
-    Postgresql.exists = true;
 
     return this;
   }
@@ -39,7 +39,7 @@ class Postgresql {
             return result;
           })
           .catch(Postgresql.onError)
-          .finally(Postgresql.onFinally(client));
+          .finally(() => Postgresql.onFinally(client));
       })
       .catch(Postgresql.onError);
   }

@@ -1392,6 +1392,10 @@
 						Plugin.dataRender();
 					},
 					populate: function() {
+						datatable.dataSet = datatable.dataSet || [];
+						// no records available
+						if (datatable.dataSet.length === 0) return;
+
 						var icons = Plugin.getOption('layout.icons.pagination');
 						var title = Plugin.getOption('translate.toolbar.pagination.items.default');
 						// pager root element
@@ -2869,7 +2873,28 @@
 				datatable = initialDatatable;
 				$(datatable).trigger(pfx + 'datatable-on-destroy');
 				Plugin.isInit = false;
+
+				// clean up variables
 				initialDatatable = null;
+				datatable.dataSet = null;
+				datatable.originalDataSet = null;
+				datatable.tableHead = null;
+				datatable.tableBody = null;
+				datatable.table = null;
+				datatable.wrap = null;
+				datatable.API = {
+					record: null,
+					value: null,
+					params: null,
+				};
+
+				Plugin.ajaxParams = {};
+				Plugin.pagingObject = {};
+				Plugin.nodeTr = [];
+				Plugin.nodeTd = [];
+				Plugin.nodeCols = [];
+				Plugin.recentNode = [];
+
 				return initialDatatable;
 			},
 

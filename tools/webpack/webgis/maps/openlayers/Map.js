@@ -1,7 +1,7 @@
 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 // Make a request using the Fetch API
-fetch('/api', {
+fetch('/api/test', {
   credentials: 'same-origin', // <-- includes cookies in the request
   headers: {
     'CSRF-Token': token, // <-- is the csrf token as a header
@@ -10,8 +10,8 @@ fetch('/api', {
   body: {
     favoriteColor: 'blue',
   },
-}).then(function(response) {
+}).then(function (response) {
   return response.json();
-}).then(function(result) {
+}).then(function (result) {
   console.log(result);
 });

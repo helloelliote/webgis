@@ -9,6 +9,9 @@ class Mysql {
       return Mysql.instance;
     }
 
+    Mysql.instance = this;
+    Mysql.exists = true;
+
     options = Object.assign({}, options);
 
     this._pool = mysql.createPool({
@@ -18,9 +21,6 @@ class Mysql {
       password: process.env.MSPASSWORD,
       database: process.env.MSDATABASE,
     });
-
-    Mysql.instance = this;
-    Mysql.exists = true;
 
     return this;
   }
