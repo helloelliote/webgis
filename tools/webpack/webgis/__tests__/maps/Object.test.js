@@ -2,7 +2,7 @@
 
 import { default as MapObject } from '../../maps/Object';
 
-describe('map.Object', () => {
+describe('maps.Object', () => {
   test('#get()', () => {
     const mapObject = new MapObject({ user: 'John', email: 'john@test.com' });
     expect(mapObject.get('user')).toBe('John');
