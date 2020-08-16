@@ -241,7 +241,7 @@ function mainConfig() {
           },
         },
         {
-          test: /^.*-worker.*$/,
+          test: /^.worker.*$/,
           use: {
             loader: 'worker-loader',
             options: {

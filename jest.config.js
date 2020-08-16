@@ -1,5 +1,3 @@
-const { defaults } = require('jest-config');
-
 module.exports = {
   coverageDirectory: '.coverage',
   displayName: {
@@ -9,6 +7,6 @@ module.exports = {
   // notify: true,
   timers: 'fake',
   setupFiles: [
-    '<rootDir>/.env',
+    '<rootDir>/.jest/env.js',
   ],
 };
