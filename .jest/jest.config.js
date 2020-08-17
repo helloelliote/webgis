@@ -1,12 +1,13 @@
 module.exports = {
+  rootDir: '../',
   coverageDirectory: '.coverage',
   displayName: {
     name: 'webgis',
     color: 'blue',
   },
-  // notify: true,
+  notify: true,
   timers: 'fake',
   setupFiles: [
-    '<rootDir>/.jest/env.js',
+    '<rootDir>/.jest/jest.env.js',
   ],
 };

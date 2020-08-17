@@ -19,11 +19,7 @@ module.exports = {
     // 'array-bracket-spacing': [ 'warn', 'always', {'singleValue': false} ],
     'object-curly-spacing': ['warn', 'always'],
     'comma-spacing': ['warn', { 'before': false, 'after': true }],
-    'space-before-function-paren': ['warn', {
-      'anonymous': 'always',
-      'named': 'never',
-      'asyncArrow': 'always',
-    }],
+    'space-before-function-paren': ['warn', { 'anonymous': 'always', 'named': 'never', 'asyncArrow': 'always' }],
     'arrow-spacing': ['warn'],
     'comma-dangle': ['warn', 'always-multiline'],
   },
