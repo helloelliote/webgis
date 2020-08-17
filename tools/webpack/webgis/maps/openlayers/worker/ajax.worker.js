@@ -1,19 +1,19 @@
 'use strict';
 
-let mimeType;
+let messageData;
 
 self.onmessage = event => {
-  mimeType = event.data['Mime-Type'];
-  onFetch(event.data);
+  messageData = event.data;
+  onFetch();
 };
 
-function onFetch(data) {
-  return fetch(data['URL'], 
+function onFetch() {
+  return fetch(messageData['URL'],
     {
       mode: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
-        'CSRF-Token': data['CSRF-Token'],
+        'CSRF-Token': messageData['CSRF-Token'],
       },
     })
     .then(resolveResponse)
@@ -21,7 +21,7 @@ function onFetch(data) {
     .then(resolveContentByType)
     .then(result => self.postMessage(result))
     .catch(err => self.postMessage(err))
-    .finally(() => {});
+    .finally(() => { messageData = null; });
 }
 
 function resolveResponse(response) {
@@ -30,7 +30,7 @@ function resolveResponse(response) {
 }
 
 function resolveBodyByType(response) {
-  switch (mimeType) {
+  switch (messageData['Mime-Type']) {
     case 'image/jpg':
       return response.blob();
     default:
@@ -39,19 +39,23 @@ function resolveBodyByType(response) {
 }
 
 function resolveContentByType(response) {
-  switch (mimeType) {
-    case 'image/jpg': // TODO: Image -> Blob process
-      // for (let i = 0, len = response.length; i < len; i++) {
-      //   if (response[i][payload.table.image] === null) {
-      //     continue;
-      //   }
-      //   const buffer = response[i][payload.table.image].data;
-      //   const uint8Array = new Uint8Array(buffer);
-      //   const blob = new Blob([uint8Array], { type: mimeType });
-      //   response[i][payload.table.image] = URL.createObjectURL(blob);
-      // }
-      return response;
+  switch (messageData['Mime-Type']) {
+    case 'image/jpg':
+      return createImageBlobUrl(response);
     default:
       return response;
+  }
+
+  function createImageBlobUrl(response) {
+    for (let i = 0, len = response.length; i < len; i++) {
+      if (response[i][messageData['column']] === null) {
+        continue;
+      }
+      const buffer = response[i][messageData['column']].data;
+      const uint8Array = new Uint8Array(buffer);
+      const blob = new Blob([uint8Array], { type: messageData['Mime-Type'] });
+      response[i][messageData['column']] = URL.createObjectURL(blob);
+    }
+    return response;
   }
 }
