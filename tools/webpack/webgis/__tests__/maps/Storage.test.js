@@ -2,7 +2,7 @@
 
 import { LocalStorage, SessionStorage } from '../../maps/Storage';
 
-describe('LocalStorage (extends map.Storage)', () => {
+describe('LocalStorage (extends maps.Storage)', () => {
   describe('constructor', () => {
     test('set default name and version', () => {
       const storage = new LocalStorage();
@@ -51,7 +51,7 @@ describe('LocalStorage (extends map.Storage)', () => {
   });
 });
 
-describe('SessionStorage (extends map.Storage)', () => {
+describe('SessionStorage (extends maps.Storage)', () => {
   describe('constructor', () => {
     test('set default name and version', () => {
       const storage = new SessionStorage();

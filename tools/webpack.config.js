@@ -189,8 +189,12 @@ function mainConfig() {
       },
       extensions: ['.js', '.scss'],
     },
-    devtool: 'source-map',
+    devtool: false,
     plugins: [
+      new webpack.SourceMapDevToolPlugin({
+        exclude: [/.*\.worker\..*$/],
+        columns: false,
+      }),
       new WebpackMessages({
         name: theme,
         logger: str => console.log(`>> ${str}`),
@@ -230,18 +234,14 @@ function mainConfig() {
               ],
             ],
             plugins: [
-              [
-                '@babel/plugin-proposal-class-properties',
-                {
-                  loose: false,
-                },
-              ],
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-proposal-private-methods',
             ],
             cacheDirectory: true,
           },
         },
         {
-          test: /^.*-worker.*$/,
+          test: /.*\.worker\..*$/,
           use: {
             loader: 'worker-loader',
             options: {
@@ -273,7 +273,7 @@ function mainConfig() {
             {
               loader: 'postcss-loader', // Run post css actions
               options: {
-                plugins: function() { // post css plugins, can be exported to postcss.config.js
+                plugins: function () { // post css plugins, can be exported to postcss.config.js
                   return [
                     // require('precss'),
                     require('autoprefixer'),
