@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-'use strict';
-
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
 import { default as OlProjection } from 'ol/proj/Projection';

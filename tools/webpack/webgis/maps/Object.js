@@ -1,5 +1,3 @@
-'use strict';
-
 import { setUid } from './Util.js';
 import { default as MapError } from './Error.js';
 

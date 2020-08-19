@@ -1,5 +1,3 @@
-'use strict';
-
 export default class MapError extends Error {
   constructor(message, code) {
     super(message);

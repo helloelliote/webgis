@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node -r dotenv/config ./.build/app.bundle.js dotenv_config_path=./build/.env",
-    "build": "webpack --config webpack.server.js",
+    "buildServer": "webpack --config webpack.server.js",
     "test": "jest --coverage"
   },
   "dependencies": {

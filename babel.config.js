@@ -1,17 +1,5 @@
-module.exports = function(api) {
-  api.cache(true);
-
-  const presets = [
-    '@babel/preset-env',
-  ];
-
-  const plugins = [
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-transform-runtime',
-  ];
-
-  return {
-    presets,
-    plugins,
-  };
+module.exports = function (api) {
+  api.cache.forever();
+  console.log('HOLA!');
+  return {};
 };

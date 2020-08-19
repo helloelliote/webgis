@@ -1,5 +1,3 @@
-'use strict';
-
 import { default as MapObject } from './Object.js';
 import { default as MapError } from './Error.js';
 

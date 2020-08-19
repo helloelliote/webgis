@@ -1,5 +1,3 @@
-'use strict';
-
 import { default as MapError } from './Error.js';
 
 export function setAbstract() {

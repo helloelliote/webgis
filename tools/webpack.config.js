@@ -173,7 +173,15 @@ function mainConfig() {
     },
     optimization: {
       // js and css minimizer
-      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [
+        new TerserJSPlugin({
+          terserOptions: {
+            ecma: 2015,
+            module: true,
+          },
+        }), 
+        new OptimizeCSSAssetsPlugin({}),
+      ],
     },
     entry: getEntryFiles(),
     output: {
@@ -229,15 +237,14 @@ function mainConfig() {
           loader: 'babel-loader',
           options: {
             presets: [
-              [
-                '@babel/preset-env',
-              ],
+              '@babel/preset-env',
             ],
             plugins: [
               '@babel/plugin-proposal-class-properties',
-              '@babel/plugin-proposal-private-methods',
+              '@babel/plugin-transform-runtime',
             ],
             cacheDirectory: true,
+            rootMode: 'upward',
           },
         },
         {
