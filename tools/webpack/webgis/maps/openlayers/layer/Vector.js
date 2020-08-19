@@ -1,24 +1,38 @@
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
+import Layer from './Layer';
 import SourceLoader from '../worker/sourceLoader.worker';
+import property from './Layer.property';
+import { default as geoJson } from '../format';
 
-function createVectorLayer(name) {
+export default class Vector extends Layer {
+
+  constructor(options) {
+    super(options);
+  }
+
+  toggleLayers(keyArray) {
+    super.toggleLayers(keyArray, createVectorLayer);
+  }
+}
+
+function createVectorLayer(key) {
   return new VectorLayer({
-    className: name,
-    maxZoom: 19,
-    minzoom: 9,
-    source: createVectorSource(name),
+    className: key,
+    maxZoom: property[key].maxZ,
+    minZoom: 9,
+    source: createVectorSource(key),
     // style: TODO: A style function
   });
 }
 
-function createVectorSource(name) {
+function createVectorSource(key) {
   const vectorSource = 
     new VectorSource({
-      format: '',
+      format: geoJson,
       overlaps: false,
       loader: function (extent, resolution, projection) {
-        const url = createVectorSourceRequestUrl(name);
+        const url = createVectorSourceRequestUrl(key);
         const sourceLoader = new SourceLoader();
         sourceLoader.postMessage(url);
         sourceLoader.onerror = error => {
@@ -40,22 +54,20 @@ function createVectorSource(name) {
   return vectorSource;
 }
 
-function createVectorSourceRequestUrl(name) {
+function createVectorSourceRequestUrl(key) {
   const requestParams = {
     service: 'WFS',
     version: '2.0.0',
     request: 'GetFeature',
     outputFormat: 'application/json',
-    typename: ``, // TODO: Add config
-    propertyName: ``, // TODO: Add config
+    typename: `${window.webgis.workspace}:${key}`,
+    propertyName: `${property[key].propertyName}`,
   };
-  const requestUri = Object
+  const requestUrl = Object
     .entries(requestParams)
     .map(([key, value]) => {
       return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
     })
     .join('&');
-  return ``; // TODO: Return requestUri along with config
+  return `${window.webgis.geoserverHost}/geoserver/${window.webgis.workspace}/wfs?${requestUrl}`;
 }
-
-export default createVectorLayer;

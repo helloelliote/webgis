@@ -1,24 +1,35 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
-import TileState from 'ol/TileState';
+import Layer from './Layer';
 import SourceLoader from '../worker/sourceLoader.worker';
 
-function createTileLayer(name) {
+export default class WmsTile extends Layer {
+
+  constructor(options) {
+    super(options);
+  }
+
+  toggleLayers(keyArray) {
+    super.toggleLayers(keyArray, createTileLayer);
+  }
+}
+
+function createTileLayer(key) {
   return new TileLayer({
-    className: name,
+    className: key,
     maxZoom: 19,
     minZoom: 15,
-    source: createTileSource(name),
+    source: createTileSource(key),
   });
 }
 
-function createTileSource(name) {
+function createTileSource(key) {
   return new TileWMS({
-    url: createTileSourceRequestUrl(name),
+    url: createTileSourceRequestUrl(),
     hidpi: false,
     params: {
       FORMAT: 'image/png',
-      // LAYERS: ``, // TODO: Workspace 들어간 url
+      LAYERS: `${window.webgis.workspace}:${key}`,
       STYLES: null,
       TILED: false,
       VERSION: '1.1.1',
@@ -30,7 +41,7 @@ function createTileSource(name) {
       const sourceLoader = new SourceLoader();
       sourceLoader.postMessage(src);
       sourceLoader.onerror = error => {
-        tileSource.setState(TileState.ERROR);
+        tileSource.setState(3);
       };
       sourceLoader.onmessage = response => {
         (async () => {
@@ -47,9 +58,6 @@ function createTileSource(name) {
   });
 }
 
-function createTileSourceRequestUrl(name) {
-  const host = '';
-  return ``; // TODO: Workspace 들어간 url
+function createTileSourceRequestUrl() {
+  return `${window.webgis.geoserverHost}/geoserver/${window.webgis.workspace}/wms`;
 }
-
-export default createTileLayer;
