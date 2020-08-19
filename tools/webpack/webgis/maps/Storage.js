@@ -9,6 +9,13 @@ import { default as MapError } from './Error.js';
 class Storage extends MapObject {
 
   constructor(options, storage) {
+    options = Object.assign({}, options);
+    if (!options.name) {
+      options.name = 'webgis';
+    }
+    if (!options.version) {
+      options.version = '1.0.0';
+    }
     super(options);
 
     this._options = options;
@@ -25,7 +32,7 @@ class Storage extends MapObject {
   }
 
   /**
-   * 
+   *
    * @param key
    * @returns {*}
    * @override
@@ -39,7 +46,7 @@ class Storage extends MapObject {
   }
 
   /**
-   * 
+   *
    * @param key
    * @param value
    * @override
@@ -47,7 +54,7 @@ class Storage extends MapObject {
   set(key, value) {
     this.setItem(key, value);
   }
-  
+
   setItem(key, value) {
     this._parsedStorage[key] = value;
     let json = JSON.stringify(this._parsedStorage);
@@ -63,7 +70,7 @@ class Storage extends MapObject {
   }
 }
 
-class LocalStorage extends Storage {
+export class LocalStorage extends Storage {
 
   constructor(options) {
     super(options, localStorage);
@@ -105,7 +112,7 @@ class LocalStorage extends Storage {
 /**
  * @classdesc
  */
-class SessionStorage extends Storage {
+export class SessionStorage extends Storage {
 
   constructor(options) {
     super(options, sessionStorage);
