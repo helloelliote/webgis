@@ -32,7 +32,7 @@ class Storage extends MapObject {
   }
 
   /**
-   * 
+   *
    * @param key
    * @returns {*}
    * @override
@@ -46,7 +46,7 @@ class Storage extends MapObject {
   }
 
   /**
-   * 
+   *
    * @param key
    * @param value
    * @override
@@ -54,7 +54,7 @@ class Storage extends MapObject {
   set(key, value) {
     this.setItem(key, value);
   }
-  
+
   setItem(key, value) {
     this._parsedStorage[key] = value;
     let json = JSON.stringify(this._parsedStorage);
@@ -75,8 +75,15 @@ export class LocalStorage extends Storage {
   constructor(options) {
     super(options, localStorage);
 
+    if (LocalStorage.exists) {
+      return LocalStorage.instance;
+    }
+    LocalStorage.instance = this;
+    LocalStorage.exists = true;
+
     this._key_latitude = 'lat';
     this._key_longitude = 'lng';
+    return this;
   }
 
   get latitude() {
@@ -109,5 +116,17 @@ export class SessionStorage extends Storage {
 
   constructor(options) {
     super(options, sessionStorage);
+
+    if (SessionStorage.exists) {
+      return SessionStorage.instance;
+    }
+    SessionStorage.instance = this;
+    SessionStorage.exists = true;
+
+    return this;
   }
 }
+
+export const customLocalStorage = new LocalStorage();
+
+export const customSessionStorage = new SessionStorage();
