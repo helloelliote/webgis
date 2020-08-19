@@ -9,13 +9,6 @@ import { default as MapError } from './Error.js';
 class Storage extends MapObject {
 
   constructor(options, storage) {
-    options = Object.assign({}, options);
-    if (!options.name) {
-      options.name = 'webgis';
-    }
-    if (!options.version) {
-      options.version = '1.0.0';
-    }
     super(options);
 
     this._options = options;
@@ -70,13 +63,20 @@ class Storage extends MapObject {
   }
 }
 
-export class LocalStorage extends Storage {
+class LocalStorage extends Storage {
 
   constructor(options) {
     super(options, localStorage);
 
+    if (LocalStorage.exists) {
+      return LocalStorage.instance;
+    }
+    LocalStorage.instance = this;
+    LocalStorage.exists = true;
+
     this._key_latitude = 'lat';
     this._key_longitude = 'lng';
+    return this;
   }
 
   get latitude() {
@@ -105,9 +105,21 @@ export class LocalStorage extends Storage {
 /**
  * @classdesc
  */
-export class SessionStorage extends Storage {
+class SessionStorage extends Storage {
 
   constructor(options) {
     super(options, sessionStorage);
+
+    if (SessionStorage.exists) {
+      return SessionStorage.instance;
+    }
+    SessionStorage.instance = this;
+    SessionStorage.exists = true;
+
+    return this;
   }
 }
+
+export const customLocalStorage = new LocalStorage();
+
+export const customSessionStorage = new SessionStorage();
