@@ -24,7 +24,8 @@ let demo = getDemos(rootPath)[0];
 
 // under demo paths
 const demoPath = rootPath + '/' + demo;
-const distPath = demoPath + '/dist';
+// const distPath = demoPath + '/dist';
+const distPath = path.resolve(__dirname, '..', '.build', 'public');
 const assetDistPath = distPath + '/assets';
 const srcPath = demoPath + '/src';
 
@@ -156,6 +157,11 @@ function getEntryFiles() {
     entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = file;
   });
 
+  // webgis
+  Object.assign(entries,
+    { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
+  );
+
   return entries;
 }
 
@@ -171,7 +177,15 @@ function mainConfig() {
     },
     optimization: {
       // js and css minimizer
-      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [
+        new TerserJSPlugin({
+          terserOptions: {
+            ecma: 2015,
+            module: true,
+          },
+        }), 
+        new OptimizeCSSAssetsPlugin({}),
+      ],
     },
     entry: getEntryFiles(),
     output: {
@@ -218,6 +232,32 @@ function mainConfig() {
     module: {
       rules: [
         {
+          test: /\.m?js$/,
+          exclude: [/(node_modules|bower_components)/, /__tests__/],
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+            ],
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-transform-runtime',
+            ],
+            cacheDirectory: true,
+            rootMode: 'upward',
+          },
+        },
+        {
+          test: /.*\.worker\..*$/,
+          use: {
+            loader: 'worker-loader',
+            options: {
+              inline: true,
+              fallback: false,
+            },
+          },
+        },
+        {
           test: /\.css$/,
           use: [
             MiniCssExtractPlugin.loader,
@@ -240,7 +280,7 @@ function mainConfig() {
             {
               loader: 'postcss-loader', // Run post css actions
               options: {
-                plugins: function() { // post css plugins, can be exported to postcss.config.js
+                plugins: function () { // post css plugins, can be exported to postcss.config.js
                   return [
                     // require('precss'),
                     require('autoprefixer'),
@@ -334,7 +374,7 @@ function getDemos(pathDemos) {
   });
 
   if (demos.length === 0) {
-    demos = ['demo1'];
+    demos = ['demo11'];
     if (args.indexOf('alldemos') !== -1) {
       try {
         // sync reusable source code with demo1 for all other demos
