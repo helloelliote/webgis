@@ -63,14 +63,7 @@ var KTApp = function() {
             KTUtil.scrollInit(this, {
                 mobileNativeScroll: true,
                 handleWindowResize: true,
-                rememberPosition: (el.data('remember-position') == 'true' ? true : false),
-                height: function() {
-                    if (KTUtil.isBreakpointDown('lg') && el.data('mobile-height')) {
-                        return el.data('mobile-height');
-                    } else {
-                        return el.data('height');
-                    }
-                }
+                rememberPosition: (el.data('remember-position') == 'true' ? true : false)
             });
         });
     }

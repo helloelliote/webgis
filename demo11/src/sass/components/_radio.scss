@@ -21,7 +21,7 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        
+
         &:after {
 			content:'';
             display: none; // Hide check
@@ -167,9 +167,11 @@
 // Inline radio
 .radio-inline {
     display: flex;
+    flex-wrap: wrap;
 
     .radio {
         margin-right: get($radio-config, itemSpace);
+        margin-bottom: get($radio-config, inlineItemSpace);
 
         span {
             margin-right: get($radio-config, labelSpace);

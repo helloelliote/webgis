@@ -131,10 +131,15 @@ $example-spacer-x: 1.5rem;
             padding: 0;
             background-color: $gray-100;
             @include border-radius($border-radius);
+            font-size: 1rem;
 
             code {
                 padding: 0;
                 margin: 0;
+
+                .token.operator {
+                    background: none;
+                }
             }
         }
     }
