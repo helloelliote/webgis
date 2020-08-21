@@ -10,7 +10,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
 const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
-const ConcatPlugin = require('webpack-concat-plugin');
+const MergeIntoSingle = require('webpack-merge-and-include-globally');
 
 // paths
 const rootPath = path.resolve(__dirname, '..');
@@ -18,7 +18,7 @@ const rootPath = path.resolve(__dirname, '..');
 // arguments/params from the line command
 const args = getParameters();
 // get theme name
-let theme = getTheme();
+let theme = 'metronic';
 // get selected demo, default demo1
 let demo = getDemos(rootPath)[0];
 
@@ -37,58 +37,62 @@ const js = args.indexOf('js') !== -1;
 const css = args.indexOf('css') !== -1 || args.indexOf('scss') !== -1;
 
 addtionalSettings();
-// importDatatables();
+importDatatables();
 
 function importDatatables() {
-  // Optional: Import datatables.net
-  extraPlugins.push(new ConcatPlugin({
-    name: 'datatables',
-    outputPath: 'plugins/custom/datatables/',
-    fileName: '[name].bundle.js',
-    filesToConcat: [
-      'datatables.net/js/jquery.dataTables.js',
-      'datatables.net-bs4/js/dataTables.bootstrap4.js',
-      '@/src/js/vendors/plugins/datatables.init.js',
-      'datatables.net-autofill/js/dataTables.autoFill.min.js',
-      'datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
-      'jszip/dist/jszip.min.js',
-      'pdfmake/build/pdfmake.min.js',
-      'pdfmake/build/vfs_fonts.js',
-      'datatables.net-buttons/js/dataTables.buttons.min.js',
-      'datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
-      'datatables.net-buttons/js/buttons.colVis.js',
-      'datatables.net-buttons/js/buttons.flash.js',
-      'datatables.net-buttons/js/buttons.html5.js',
-      'datatables.net-buttons/js/buttons.print.js',
-      'datatables.net-colreorder/js/dataTables.colReorder.min.js',
-      'datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
-      'datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
-      'datatables.net-keytable/js/dataTables.keyTable.min.js',
-      'datatables.net-responsive/js/dataTables.responsive.min.js',
-      'datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
-      'datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
-      'datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
-      'datatables.net-scroller/js/dataTables.scroller.min.js',
-      'datatables.net-select/js/dataTables.select.min.js',
-    ],
-  }));
-  extraPlugins.push(new ConcatPlugin({
-    name: 'datatables',
-    outputPath: 'plugins/custom/datatables/',
-    fileName: '[name].bundle.css',
-    filesToConcat: [
-      'datatables.net-bs4/css/dataTables.bootstrap4.css',
-      'datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
-      'datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
-      'datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
-      'datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
-      'datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
-      'datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
-      'datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
-      'datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
-      'datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
-      'datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
-      'datatables.net-select-bs4/css/select.bootstrap4.min.css',
+  var rtlExt = '';
+  if (args.indexOf('rtl') !== -1) {
+    rtlExt = 'rtl.';
+  }
+  // Optional: bundle datatables.net
+  extraPlugins.push(new MergeIntoSingle({
+    files: [
+      {
+        src: [
+          'node_modules/datatables.net/js/jquery.dataTables.js',
+          'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js',
+          '@/src/js/vendors/plugins/datatables.init.js',
+          'node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js',
+          'node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
+          'node_modules/jszip/dist/jszip.min.js',
+          'node_modules/pdfmake/build/pdfmake.min.js',
+          'node_modules/pdfmake/build/vfs_fonts.js',
+          'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
+          'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
+          'node_modules/datatables.net-buttons/js/buttons.colVis.js',
+          'node_modules/datatables.net-buttons/js/buttons.flash.js',
+          'node_modules/datatables.net-buttons/js/buttons.html5.js',
+          'node_modules/datatables.net-buttons/js/buttons.print.js',
+          'node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js',
+          'node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
+          'node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
+          'node_modules/datatables.net-keytable/js/dataTables.keyTable.min.js',
+          'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
+          'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
+          'node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
+          'node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
+          'node_modules/datatables.net-scroller/js/dataTables.scroller.min.js',
+          'node_modules/datatables.net-select/js/dataTables.select.min.js',
+        ],
+        dest: 'plugins/custom/datatables/datatables.bundle.js',
+      },
+      {
+        src: [
+          'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css',
+          'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
+          'node_modules/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
+          'node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
+          'node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
+          'node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
+          'node_modules/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
+          'node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
+          'node_modules/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
+          'node_modules/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
+          'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
+          'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css',
+        ],
+        dest: 'plugins/custom/datatables/datatables.bundle.' + rtlExt + 'css',
+      },
     ],
   }));
 }
@@ -103,12 +107,12 @@ function addtionalSettings() {
 
   if (!js && css) {
     // exclude js files
-    exclude.push('.js$');
+    exclude.push('\.js$');
   }
 
   if (js && !css) {
     // exclude css files
-    exclude.push('.s?css$');
+    exclude.push('\.s?css$');
   }
 
   if (exclude.length) {
@@ -197,12 +201,8 @@ function mainConfig() {
       },
       extensions: ['.js', '.scss'],
     },
-    devtool: false,
+    devtool: 'source-map',
     plugins: [
-      new webpack.SourceMapDevToolPlugin({
-        exclude: [/.*\.worker\..*$/],
-        columns: false,
-      }),
       new WebpackMessages({
         name: theme,
         logger: str => console.log(`>> ${str}`),
@@ -347,9 +347,9 @@ function mainConfig() {
     },
     // webpack dev server config
     devServer: {
-      contentBase: demoPath,
+      contentBase: demoPath + '/dist',
       compress: true,
-      port: 4004,
+      port: 3000,
     },
   };
 }
@@ -361,20 +361,6 @@ function getParameters() {
     return arg.replace(/--/i, '');
   });
   return argv;
-}
-
-function getTheme() {
-  // debug
-  // console.log('getTheme()');
-
-  const themes = ['metronic', 'keen', 'craft'];
-  let theme = themes[0];
-  themes.forEach((th) => {
-    if (args.indexOf(th) === 0) {
-      theme = th;
-    }
-  });
-  return theme;
 }
 
 function getDemos(pathDemos) {
@@ -393,7 +379,7 @@ function getDemos(pathDemos) {
       try {
         // sync reusable source code with demo1 for all other demos
         demos = fs.readdirSync(pathDemos).filter((file) => {
-          return !/(^|\/)\.[^/.]/g.test(file) && /^demo\d+$/g.test(file) && file !== 'demo0';
+          return !/(^|\/)\.[^\/\.]/g.test(file) && /^demo\d+$/g.test(file) && file !== 'demo0';
         });
       }
       catch (err) {

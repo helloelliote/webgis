@@ -6,14 +6,13 @@
 .timeline.timeline-1 {
 	position: relative;
 
-	$time-width: 60px;
-	$badge-width: 30px;
+
 
 	.timeline-sep {
 		z-index: 0;
 		content: '';
 		position: absolute;
-		left: $time-width + $badge-width / 2 - 2px;
+		left: get($timeline-config, time-width) + get($timeline-config, badge-width) / 2 - 2px;
 		width: 4px;
 		top: 0;
 		bottom: 0;
@@ -29,15 +28,15 @@
 		.timeline-label {
 			display: flex;
 			flex-wrap: wrap;
-			flex: 0 0 $time-width;
+			flex: 0 0 get($timeline-config, time-width);
 			font-weight: 500;
 			color: $text-muted;
 		}
 
 		.timeline-badge {
 			display: flex;
-			width: $badge-width;
-			height: $badge-width;
+			width: get($timeline-config, badge-width);
+			height: get($timeline-config, badge-width);
 			flex-shrink: 0;
 			align-items: center;
 			justify-content: center;
@@ -50,7 +49,7 @@
 			.svg-icon,
 			i {
 				line-height: 0;
-			}			
+			}
 		}
 
 

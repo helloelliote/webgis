@@ -2,12 +2,6 @@
 // Timeline 6
 //
 
-// Variables
-$timeline-6-label-width: 50px;
-$timeline-6-bar-width: 40px;
-$timeline-6-badge-size: 13px;
-$timeline-6-bar-border-width: 4px;
-
 .timeline.timeline-6 {
 	position: relative;
 
@@ -15,7 +9,7 @@ $timeline-6-bar-border-width: 4px;
 		content: '';
 		position: absolute;
 		left: 50.5px;
-		width: $timeline-6-bar-border-width;
+		width: get($timeline-6-config, bar-border-width);
 		top: 0;
 		bottom: 0;
 		background-color: $gray-200;
@@ -32,7 +26,7 @@ $timeline-6-bar-border-width: 4px;
         }
 
 		.timeline-label {
-            width: $timeline-6-label-width;
+            width: get($timeline-6-config, label-width);
             flex-shrink: 0;
 			font-size: 1rem;
 			font-weight: 500;
@@ -43,8 +37,8 @@ $timeline-6-bar-border-width: 4px;
 		.timeline-badge {
             flex-shrink: 0;
             background: white;
-            width: $timeline-6-badge-size;
-            height: $timeline-6-badge-size;
+            width: get($timeline-6-config, badge-size);
+            height: get($timeline-6-config, badge-size);
             border-radius: 100%;
             display: flex;
             justify-content: center;
@@ -54,7 +48,7 @@ $timeline-6-bar-border-width: 4px;
 			margin-top: 1px;
 			margin-left: -0.5rem;
 			padding: 3px !important;
-			border: 6px solid #fff !important;
+			border: 6px solid get($timeline-6-config, border-color) !important;
 
             span {
                 display: block;

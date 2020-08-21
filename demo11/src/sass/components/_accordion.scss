@@ -2,13 +2,6 @@
 // Accordion
 //
 
-// Variables
-$accordion-card-spacer-x: 1.25rem;
-$accordion-card-spacer-y: 1rem;
-$accordion-card-title-font-size: 1.15rem;
-$accordion-card-icon-font-size: 1.4rem;
-$accordion-svg-toggle-width: 3rem;
-
 // Default Accordion
 .accordion {
 	.card {
@@ -26,9 +19,9 @@ $accordion-svg-toggle-width: 3rem;
 			background-color: $gray-100;
 
 			.card-title {
-				padding: $accordion-card-spacer-y $accordion-card-spacer-x;
+				padding: get($accordion-config, card-spacer-y) get($accordion-config, card-spacer-x);
 				margin: 0;
-				font-size: $accordion-card-title-font-size;
+				font-size: get($accordion-config, card-title-font-size);
 				font-weight: 500;
 				color: $primary;
 				display: flex;
@@ -38,7 +31,7 @@ $accordion-svg-toggle-width: 3rem;
 
 				> i {
 					margin-right: 1rem;
-					font-size: $accordion-card-icon-font-size;
+					font-size: get($accordion-config, card-icon-font-size);
 					color: $primary;
 					transition: $transition;
 				}
@@ -68,7 +61,7 @@ $accordion-svg-toggle-width: 3rem;
 		}
 
 		.card-body {
-			padding: $accordion-card-spacer-y $accordion-card-spacer-x;
+			padding: get($accordion-config, card-spacer-y) get($accordion-config, card-spacer-x);
 			font-size: 1rem;
 		}
 	}
@@ -95,7 +88,7 @@ $accordion-svg-toggle-width: 3rem;
 			border: 0;
 
 			.card-title {
-				padding: $accordion-card-spacer-y 0;
+				padding: get($accordion-config, card-spacer-y) 0;
 
 				&:after {
 					right: 0;
@@ -104,7 +97,7 @@ $accordion-svg-toggle-width: 3rem;
 		}
 
 		.card-body {
-			padding: 0 0 $accordion-card-spacer-y 0;
+			padding: 0 0 get($accordion-config, card-spacer-y) 0;
 		}
 
 		// remove border for the last item

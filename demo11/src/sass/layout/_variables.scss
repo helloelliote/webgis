@@ -631,10 +631,10 @@ $header-menu-config: (
 							self: (
 								bg-color: (
 									default: null,
-									open: $gray-100,
-									here: $gray-100,
+									open: null,
+									here: null,
 									active: $gray-100,
-									hover: $gray-100
+									hover: null
 								)
 							),
 							// Icon
@@ -719,10 +719,10 @@ $header-menu-config: (
 									self: (
 										bg-color: (
 											default: null,
-											open: $gray-100,
-											here: $gray-100,
+											open: null,
+											here: null,
 											active: $gray-100,
-											hover: $gray-100
+											hover: null
 										)
 									),
 									// Icon

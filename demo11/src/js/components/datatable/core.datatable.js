@@ -1401,7 +1401,7 @@
 						// pager root element
 						pg.pager = $('<div/>').addClass(pfx + 'datatable-pager ' + pfx + 'datatable-paging-loaded');
 						// numbering links
-						var pagerNumber = $('<ul/>').addClass(pfx + 'datatable-pager-nav mb-5 mb-sm-0');
+						var pagerNumber = $('<ul/>').addClass(pfx + 'datatable-pager-nav my-2 mb-sm-0');
 						pg.pagerLayout['pagination'] = pagerNumber;
 
 						// pager first/previous button
@@ -1418,15 +1418,6 @@
 								attr('title', title.prev).
 								addClass(pfx + 'datatable-pager-link ' + pfx + 'datatable-pager-link-prev').
 								append($('<i/>').addClass(icons.prev)).
-								on('click', pg.gotoMorePage)).
-							appendTo(pagerNumber);
-
-						// more previous pages
-						$('<li/>').
-							append($('<a/>').
-								attr('title', title.more).
-								addClass(pfx + 'datatable-pager-link ' + pfx + 'datatable-pager-link-more-prev').
-								html($('<i/>').addClass(icons.more)).
 								on('click', pg.gotoMorePage)).
 							appendTo(pagerNumber);
 
@@ -1462,15 +1453,6 @@
 								appendTo(pagerNumber);
 						}
 
-						// more next pages
-						$('<li/>').
-							append($('<a/>').
-								attr('title', title.more).
-								addClass(pfx + 'datatable-pager-link ' + pfx + 'datatable-pager-link-more-next').
-								html($('<i/>').addClass(icons.more)).
-								on('click', pg.gotoMorePage)).
-							appendTo(pagerNumber);
-
 						// pager next/last button
 						$('<li/>').
 							append($('<a/>').
@@ -1490,7 +1472,7 @@
 
 						// page info
 						if (Plugin.getOption('toolbar.items.info')) {
-							pg.pagerLayout['info'] = $('<div/>').addClass(pfx + 'datatable-pager-info').append($('<span/>').addClass(pfx + 'datatable-pager-detail'));
+							pg.pagerLayout['info'] = $('<div/>').addClass(pfx + 'datatable-pager-info my-2 mb-sm-0').append($('<span/>').addClass(pfx + 'datatable-pager-detail'));
 						}
 
 						$.each(Plugin.getOption('toolbar.layout'), function(i, layout) {

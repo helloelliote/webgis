@@ -176,11 +176,141 @@ $burger-icon-config: (
     )
 ) !default;
 
+// Accordion
+$accordion-config: (
+	card-spacer-x: 1.25rem,
+	card-spacer-y: 1rem,
+	card-title-font-size: 1.15rem,
+	card-icon-font-size: 1.4rem,
+	svg-toggle-width: 3rem
+) !default;
+
+// Bullet
+$bullet-config: (
+	border-radius: 2rem,
+	hor-width: 10px,
+	hor-height: 2px,
+	ver-width: 2px,
+	ver-height: 10px,
+	dot-size: 4px,
+	bar-width: 4px
+) !default;
+
+// Loader
+$loader-config: (
+	size: 1.4rem,
+	width: 2px,
+	size-sm: 1rem,
+	width-sm: 1px,
+	size-lg: 2rem,
+	width-lg: 3px
+) !default;
+
+// Spinner
+$spinner-config: (
+	size: 	1.5rem,
+	size-sm: 1.25rem,
+	size-lg: 2rem
+) !default;
+
+// Timeline
+$timeline-config: (
+	time-width: 60px,
+	badge-width: 30px
+) !default;
+
+// Timeline 3
+$timeline-3-config: (
+	media-size: 50px,
+	border-width: 2px
+) !default;
+
+// Timeline 5
+$timeline-5-config: (
+	media-size: 35px
+) !default;
+
+// Timeline 6
+$timeline-6-config: (
+	label-width: 50px,
+	bar-width: 40px,
+	badge-size: 13px,
+	bar-border-width: 4px,
+	border-color: $white
+) !default;
+
+// Navi
+$navi-config: (
+	link-px: 1.5rem,
+	link-py: 0.75rem,
+
+	header-px: 1.5rem,
+	header-py: 0.75rem,
+
+	footer-px: 1.5rem,
+	footer-py: 0.75rem,
+
+	section-px: 1.5rem,
+	section-py: 0.75rem,
+
+	link-elem-space: 0.75rem,
+
+	link-opacity-disabled: 0.6,
+
+	separator: $border-color,
+	border: $border-color,
+
+	link-bg-hover: $gray-100,
+	link-bg-active: $gray-100,
+
+	link-bullet-bg: $gray-300,
+	link-bullet-bg-hover: $primary,
+	link-bullet-bg-active: $primary,
+
+	link-text-font-size: 1rem,
+	link-text-font-size-lg: 1.1rem,
+	link-text-font-size-xl: 1.2rem,
+
+	link-text-color: $dark-75,
+	link-text-color-hover: $primary,
+	link-text-color-active: $primary,
+
+	link-icon-circle-width: 4rem,
+	link-icon-circle-width-lg: 4.5rem,
+	link-icon-circle-width-xl: 5rem,
+	link-icon-width: 2rem,
+	link-icon-width-lg: 3rem,
+	link-icon-width-xl: 4rem,
+
+	link-icon-font-size: 1.25rem,
+	link-icon-font-size-lg: 1.5rem,
+	link-icon-font-size-xl: 1.75rem,
+
+	link-icon-svg-size: 22px,
+	link-icon-svg-size-lg: 28px,
+	link-icon-svg-size-xl: 32px,
+
+	link-icon-color: $gray-500,
+	link-icon-light-color: $gray-400,
+	link-icon-color-hover: $primary,
+	link-icon-color-active: $primary,
+
+	link-icon-circle-bg: $gray-100,
+	link-icon-circle-bg-hover: $gray-200,
+	link-icon-circle-bg-active: $gray-200,
+
+	link-arrow-font-size: 0.6rem,
+	link-arrow-color: $gray-500,
+	link-arrow-color-hover: $primary,
+	link-arrow-color-active: $primary,
+) !default;
+
 // Checkbox
 $checkbox-config: (
 	transition: all 0.3s ease,
 	itemSpace: 1rem,
 	labelSpace: 0.75rem,
+	inlineItemSpace: 0.35rem,
 	types: (
 		solid: (
 			theme: (
@@ -219,6 +349,7 @@ $checkbox-config: (
 $radio-config: (
 	transition: all 0.3s ease,
 	itemSpace: 1rem,
+	inlineItemSpace: 0.35rem,
 	labelSpace: 0.75rem,
 	types: (
 		solid: (

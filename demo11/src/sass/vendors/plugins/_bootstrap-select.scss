@@ -7,6 +7,7 @@
 $bootstrap-select-general-padding: 10px 15px;
 $bootstrap-select-title-padding: 10px 15px;
 
+// Base
  .bootstrap-select {
     > .dropdown-toggle {
         position: relative;
@@ -35,25 +36,25 @@ $bootstrap-select-title-padding: 10px 15px;
         &.btn-secondary {
             background: $white !important;
             color: $input-plaintext-color;
-            border-color: $input-border-color;
+            border-color: $input-border-color !important;
             box-shadow: none;
 
             &.focus,
             &.active {
-                border-color: $input-focus-border-color !important;
+                border-color: $input-border-color !important;
             }
 
             &.disabled,
             &:disabled {
-                background: $input-disabled-bg;
-                border-color: $input-disabled-bg;
+                background: $input-disabled-bg !important;
+                opacity: 1;
             }
 
             .filter-option {
-                color: $dark-50;
+                color: $input-color;
 
                 .bs-icon {
-                    color: $dark-50;
+                    color: $input-color;
                     margin-right: 0.1rem;
                 }
             }
@@ -212,8 +213,6 @@ $bootstrap-select-title-padding: 10px 15px;
             &.btn-light,
             &.btn-secondary {
                 border-color: $input-focus-border-color !important;
-                border-bottom-right-radius: 0;
-                border-bottom-left-radius: 0;
             }
         }
     }
@@ -239,11 +238,17 @@ $bootstrap-select-title-padding: 10px 15px;
     }
 
     .dropdown-menu {
-        margin-top: 0;
         border-top: none !important;
-        border: 1px solid #E4E6EF;
+        border: 0;
         box-shadow: $dropdown-box-shadow;
-        border-top-right-radius: 0;
-        border-top-left-radius: 0;
     }
+}
+
+// Display inside content
+.content {
+     .bootstrap-select {
+         .dropdown-menu {
+             z-index: $zindex-dropdown - 5;
+         }
+     }
 }

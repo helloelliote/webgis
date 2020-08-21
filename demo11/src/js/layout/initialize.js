@@ -22,13 +22,13 @@ KTUtil.ready(function() {
     KTLayoutAsideMenu.init('kt_aside_menu');
 
     // Init Subheader
-    // KTLayoutSubheader.init('kt_subheader');
+    KTLayoutSubheader.init('kt_subheader');
 
     // Init Content
     KTLayoutContent.init('kt_content');
 
     // Init Footer
-    // KTLayoutFooter.init('kt_footer');
+    KTLayoutFooter.init('kt_footer');
 
     //////////////////////////////////////////////
     // Layout Extended Partials(optional to use)//
@@ -36,19 +36,19 @@ KTUtil.ready(function() {
 
 
     // Init Scrolltop
-    // KTLayoutScrolltop.init('kt_scrolltop');
+    KTLayoutScrolltop.init('kt_scrolltop');
 
     // Init Sticky Card
-    // KTLayoutStickyCard.init('kt_page_sticky_card');
+    KTLayoutStickyCard.init('kt_page_sticky_card');
 
     // Init Stretched Card
-    // KTLayoutStretchedCard.init('kt_page_stretched_card');
+    KTLayoutStretchedCard.init('kt_page_stretched_card');
 
     // Init Code Highlighter & Preview Blocks(used to demonstrate the theme features)
-	// KTLayoutExamples.init();
+	KTLayoutExamples.init();
 
     // Init Demo Selection Panel
-	// KTLayoutDemoPanel.init('kt_demo_panel');
+	KTLayoutDemoPanel.init('kt_demo_panel');
 
     // Init Chat App(quick modal chat)
     KTLayoutChat.init();

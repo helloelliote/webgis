@@ -2,9 +2,6 @@
 // Timeline 2
 //
 
-// Variables
-$timeline-2-py: 0.5rem;
-
 .timeline.timeline-2 {
     position: relative;
     padding: 0;
@@ -20,13 +17,13 @@ $timeline-2-py: 0.5rem;
         bottom: 5px;
         left: 4px;
         z-index: 0;
-        margin: $timeline-2-py 0;
+        margin: 0.5rem 0;
     }
 
     .timeline-item {
         display: flex;
         align-items: center;
-        padding: $timeline-2-py 0;
+        padding: 0.5rem 0;
 
         .timeline-badge {
             position: relative;

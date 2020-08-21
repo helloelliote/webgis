@@ -1,10 +1,6 @@
 //
-// Notes
+// Timeline 5
 //
-
-
-// Variables
-$timeline-5-media-size: 35px;
 
 .timeline.timeline-5 {
     .timeline-items {
@@ -20,8 +16,8 @@ $timeline-5-media-size: 35px;
                 position: absolute;
                 top: 0;
                 border-radius: 100%;
-                width: $timeline-5-media-size;
-                height: $timeline-5-media-size;
+                width: get($timeline-5-config, media-size);
+                height: get($timeline-5-config, media-size);
                 display: flex;
                 justify-content: center;
                 align-items: center;

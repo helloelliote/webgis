@@ -52,7 +52,7 @@ var KTLayoutHeaderMenu = function() {
 		                var height = parseInt(KTUtil.getViewPort().height);
 
 		                if (tabs) {
-		                    height = height - parseInt(KTUtil.actualHeight(tabs));
+		                    height = height - parseInt(KTUtil.css(tabs, 'height'));
 		                    height = height - parseInt(KTUtil.css(tabs, 'marginTop'));
 		                    height = height - parseInt(KTUtil.css(tabs, 'marginBottom'));
 		                }
@@ -64,8 +64,6 @@ var KTLayoutHeaderMenu = function() {
 
 		                height = height - parseInt(KTUtil.css(_offcanvasElement, 'paddingTop'));
 		                height = height - parseInt(KTUtil.css(_offcanvasElement, 'paddingBottom'));
-
-		                height = height - 2;
 
 		                return height;
 		            }

@@ -154,9 +154,11 @@
 // Inline checkbox
 .checkbox-inline {
     display: flex;
-
+    flex-wrap: wrap;
+    
     .checkbox {
         margin-right: get($checkbox-config, itemSpace);
+        margin-bottom: get($checkbox-config, inlineItemSpace);
 
         span {
             margin-right: get($checkbox-config, labelSpace);

@@ -14,6 +14,7 @@
 
 		// Top
 		.header-top {
+			animation: header-scroll-animation .5s ease 1;
 			height: get($header-config, desktop, height) - get($header-config, desktop, height-bottom);
 			display: flex;
 			align-items: stretch;
@@ -51,6 +52,11 @@
 			box-shadow: get($header-config, desktop, scroll-shadow);
 			height: get($header-config, desktop, scroll-height);
 			animation: header-scroll-animation .5s ease 1;
+
+			.header-top {
+				height: get($header-config, desktop, scroll-height);
+				animation: header-scroll-animation .5s ease 1;
+			}
 
 			.header-bottom {
 				display: none;
