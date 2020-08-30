@@ -1,5 +1,3 @@
-'use strict';
-
 import { default as MapError } from '../../maps/Error';
 
 describe('maps.Error', () => {

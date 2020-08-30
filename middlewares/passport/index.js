@@ -1,5 +1,3 @@
-'use strict';
-
 import LocalStrategySignIn from './local-strategy-signin';
 import LocalStrategySignup from './local-strategy-signup';
 

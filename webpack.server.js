@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const TerserJSPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const args = getParameters();
@@ -17,6 +18,17 @@ module.exports = {
   target: 'node',
   mode: args.indexOf('prod') === 0 ? 'production' : 'development',
   stats: 'errors-warnings',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserJSPlugin({
+        terserOptions: {
+          ecma: 2015,
+          module: true,
+        },
+      }),
+    ],
+  },
   entry: {
     app: './bin/www.js',
   },

@@ -1,5 +1,5 @@
 import { RateLimiterPostgres } from 'rate-limiter-flexible';
-import postgresql from '../postgresql';
+import postgresql from '../postgresql/index';
 
 /**
  * @link https://github.com/animir/node-rate-limiter-flexible/wiki/Overall-example#login-endpoint-protection

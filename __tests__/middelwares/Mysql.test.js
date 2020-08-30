@@ -1,4 +1,4 @@
-import { default as mysql } from '../../middlewares/mysql';
+import { default as mysql } from '../../middlewares/mysql/index';
 import { Pool as MysqlPool } from 'mysql2';
 
 describe('#pool()', () => {

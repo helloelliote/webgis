@@ -1,5 +1,3 @@
-'use strict';
-
 import { default as MapObject } from '../../maps/Object';
 
 describe('maps.Object', () => {

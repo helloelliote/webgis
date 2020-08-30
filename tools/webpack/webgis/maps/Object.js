@@ -1,5 +1,5 @@
-import { setUid } from './Util.js';
-import { default as MapError } from './Error.js';
+import { setUid } from './Util';
+import { default as MapError } from './Error';
 
 export default class BaseObject {
 

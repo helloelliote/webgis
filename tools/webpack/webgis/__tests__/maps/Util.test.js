@@ -1,5 +1,3 @@
-'use strict';
-
 import { setAbstract } from '../../maps/Util';
 import { default as MapError } from '../../maps/Error';
 

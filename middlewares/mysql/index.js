@@ -1,5 +1,3 @@
-'use strict';
-
 import mysql from 'mysql2';
 
 class Mysql {

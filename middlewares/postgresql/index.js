@@ -1,5 +1,3 @@
-'use strict';
-
 import { Pool } from 'pg';
 
 class Postgresql {

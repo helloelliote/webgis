@@ -1,4 +1,4 @@
-import { default as MapError } from './Error.js';
+import { default as MapError } from './Error';
 
 export function setAbstract() {
   return ((function() {

@@ -1,5 +1,3 @@
-'use strict';
-
 import { LocalStorage, SessionStorage } from '../../maps/Storage';
 
 describe('LocalStorage (extends maps.Storage)', () => {

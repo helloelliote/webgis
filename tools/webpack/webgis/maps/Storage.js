@@ -1,5 +1,5 @@
-import { default as MapObject } from './Object.js';
-import { default as MapError } from './Error.js';
+import { default as MapObject } from './Object';
+import { default as MapError } from './Error';
 
 /**
  * @classdesc

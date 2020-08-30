@@ -1,5 +1,3 @@
-'use strict';
-
 export default {
   index(req, res, next) {
     res.render('signin', {

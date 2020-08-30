@@ -176,6 +176,7 @@ function mainConfig() {
       hints: false,
     },
     optimization: {
+      minimize: true,
       // js and css minimizer
       minimizer: [
         new TerserJSPlugin({

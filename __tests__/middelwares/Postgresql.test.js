@@ -1,4 +1,4 @@
-import { default as postgresql } from '../../middlewares/postgresql';
+import { default as postgresql } from '../../middlewares/postgresql/index';
 import { Pool } from 'pg';
 
 afterAll(() => {

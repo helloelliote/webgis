@@ -1,5 +1,3 @@
-'use strict';
-
 import { default as main } from './main';
 import { default as passportRoute } from './passport';
 

@@ -1,4 +1,4 @@
-import { default as MapStyle } from './Style.js';
+import { default as MapStyle } from './Style';
 
 export default class Point extends MapStyle  {
   constructor(options) {

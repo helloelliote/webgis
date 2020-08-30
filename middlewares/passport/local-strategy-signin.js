@@ -1,5 +1,5 @@
 import passportLocal from 'passport-local';
-import postgresql from '../postgresql';
+import postgresql from '../postgresql/index';
 import bcrypt from 'bcryptjs';
 
 function onPassportLocalSignIn(req, username, password, done) {

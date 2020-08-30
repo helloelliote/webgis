@@ -1,6 +1,4 @@
-'use strict';
-
-import postgresql from '../middlewares/postgresql';
+import postgresql from '../middlewares/postgresql/index';
 
 export default function (router) {
   router.get('/test', function (req, res, next){
