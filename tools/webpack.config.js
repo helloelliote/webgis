@@ -176,17 +176,8 @@ function mainConfig() {
       hints: false,
     },
     optimization: {
-      minimize: true,
       // js and css minimizer
-      minimizer: [
-        new TerserJSPlugin({
-          terserOptions: {
-            ecma: 2015,
-            module: true,
-          },
-        }), 
-        new OptimizeCSSAssetsPlugin({}),
-      ],
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },
     entry: getEntryFiles(),
     output: {
@@ -214,6 +205,10 @@ function mainConfig() {
       }),
       new CopyWebpackPlugin([
         {
+          from: path.resolve(__dirname, '..', 'views'),
+          to: path.resolve(__dirname, '..', '.build', 'views'),
+        },
+        {
           // copy media
           from: srcPath + '/media',
           to: assetDistPath + '/media',
@@ -238,7 +233,14 @@ function mainConfig() {
           loader: 'babel-loader',
           options: {
             presets: [
-              '@babel/preset-env',
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    node: 'current', // !!!DO NOT REMOVE!!!
+                  },
+                },
+              ],
             ],
             plugins: [
               '@babel/plugin-proposal-class-properties',
@@ -375,7 +377,7 @@ function getDemos(pathDemos) {
   });
 
   if (demos.length === 0) {
-    demos = ['demo11'];
+    demos = ['demo5'];
     if (args.indexOf('alldemos') !== -1) {
       try {
         // sync reusable source code with demo1 for all other demos

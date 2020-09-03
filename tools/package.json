@@ -1,6 +1,6 @@
 {
     "name": "metronic",
-    "version": "7.0.9",
+    "version": "7.1.0",
     "description": "Packages used by yarn, npm, gulp and webpack",
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^11.2.0",
@@ -27,7 +27,7 @@
         "apexcharts": "^3.18.1",
         "autosize": "^4.0.2",
         "block-ui": "^2.70.1",
-        "bootstrap": "4.5.0",
+        "bootstrap": "4.5.2",
         "bootstrap-datepicker": "^1.9.0",
         "bootstrap-daterangepicker": "^3.0.5",
         "bootstrap-markdown": "^2.10.0",
