@@ -162,6 +162,11 @@ function getEntryFiles() {
     { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
   );
 
+  // Custom styles
+  Object.assign(entries,
+    { 'css/style.custom.bundle': ['./webpack/webgis/metronic/style.scss'] },
+  );
+
   return entries;
 }
 

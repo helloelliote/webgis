@@ -378,7 +378,8 @@ $body-color:                						$dark-75 !default;
 // Font, line-height, and color for body text, headings, and more.
 
 // Font family
-$font-family-base:            						Poppins, Helvetica, "sans-serif" !default;
+//$font-family-base:            						Poppins, Helvetica, "sans-serif" !default;
+$font-family-base:            						NanumSquareRound, "sans-serif" !default;
 
 $font-size-base:              						1rem !default; // Assumes the browser default, typically `13px`
 $font-size-lg:               	 					$font-size-base * 1.08 !default;   // 14.04px
@@ -568,8 +569,8 @@ $table-compact-head-letter-spacing:                 0.1rem !default; // Custom v
 $card-box-shadow: 									0px 0px 30px 0px rgba(82,63,105,0.05) !default; // card custom shadow
 $card-border-color:                 				$gray-200 !default;
 $card-cap-bg:                       				$white !default;
-$card-spacer-y:                     				2rem !default;
-$card-spacer-x:                    					2.25rem !default;
+$card-spacer-y:                     				1rem !default;
+$card-spacer-x:                    					2rem !default;
 $card-border-radius:                				$border-radius !default;
 
 $card-header-spacer-y:                              0.5rem !default; // Custom variable

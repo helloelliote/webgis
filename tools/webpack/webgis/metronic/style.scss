@@ -1,0 +1,82 @@
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/components/_variables.demo.scss
+
+// Theme colors
+$primary: #3699FF;
+$primary-hover: #187DE4;
+$primary-light: #E1F0FF;
+$primary-inverse: #FFFFFF;
+
+// Border Radiues
+$border-radius: .5rem;
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_content.scss:34
+
+// // Desktop Mode
+//@include media-breakpoint-up(lg) {
+//	.content {
+//		padding: get($page-spacers, y, desktop) 0;
+//	}
+//}
+
+.content {
+  padding: 0 0;
+}
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/components/_variables.bootstrap.scss:380
+
+// // Font family
+$font-family-base: Poppins, Helvetica, "sans-serif" !default;
+
+////////////////////////////////////////////////////////////////
+
+.form-control {
+  height: calc(1.5em + 1rem + 2px);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.bootstrap-select > .dropdown-toggle {
+  padding: 0.5rem 1rem;
+}
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_variables.scss:33
+
+// Header
+$header-config: (
+  // Desktop Mode
+        desktop: (
+          // Fixed Mode
+                fixed: (
+                        height: 80px,
+                )
+        ),
+) !default;
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/components/_variables.bootstrap.scss:571
+
+$card-spacer-y: 2rem !default;
+$card-spacer-x: 2.25rem !default;
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/vendors/plugins/_datatables.scss:38
+
+.dataTables_wrapper {
+  .dataTable {
+    th, td {
+      padding: 0.5rem;
+    }
+  }
+}
