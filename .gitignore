@@ -220,5 +220,5 @@ typings/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,node,database,dotenv
 
-build/
 .build/
+.resources/

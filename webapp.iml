@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/__tests__" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.build" />
       <excludeFolder url="file://$MODULE_DIR$/.coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/resource" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="@types/jest" level="application" />
