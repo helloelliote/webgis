@@ -13,7 +13,9 @@
       </div>
       <div class="col-md-6">
         <!--begin::Card-->
-        <div class="card card-custom gutter-b example example-compact card-fit card-border card-stretch" id="someHi">
+        <div class="card card-custom gutter-b example example-compact card-fit card-border card-stretch overlay"
+             id="someHi">
+          <!--        <div class="card card-custom gutter-b example example-compact card-fit card-border card-stretch overlay overlay-block" id="someHi">-->
           <!--                      <div class="card-header">-->
           <!--                        <h3 class="card-title">3 Columns Form Layout</h3>-->
           <!--                        <div class="card-toolbar">-->
@@ -30,14 +32,14 @@
                 <div class="col-lg-4">
                   <label>접수번호:</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" placeholder="" disabled/>
+                    <input type="text" class="form-control" placeholder="" disabled value="2020-002303"/>
                     <span><i class="la la-info-circle"></i></span>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <label>접수자:</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" placeholder=""/>
+                    <input type="text" class="form-control" placeholder="" value="홍길동"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
@@ -58,14 +60,14 @@
                 <div class="col-lg-4">
                   <label>민원인:</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" placeholder=""/>
+                    <input type="text" class="form-control" placeholder="" value="김철수"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <label>연락처:</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control kt_inputmask_3" placeholder=""/>
+                    <input type="text" class="form-control kt_inputmask_3" placeholder="" value="0543302203"/>
                     <span><i class="la la-phone"></i></span>
                   </div>
                 </div>
@@ -94,7 +96,7 @@
               <div class="form-group row">
                 <div class="col-lg-4">
                   <label>접수내용 (복수 선택 가능):</label>
-                  <select class="form-control selectpicker" title="선택하세요" multiple>
+                  <select class="form-control selectpicker" data-size="8" title="선택하세요" multiple>
                     <option>단수</option>
                     <option>도로 누수</option>
                     <option>저수압</option>
@@ -108,7 +110,7 @@
                 </div>
                 <div class="col-lg-2">
                   <label>관경 (mm):</label>
-                  <input type="text" class="form-control" placeholder=""/>
+                  <input type="text" class="form-control" placeholder="" value="120"/>
                 </div>
                 <div class="col-lg-2">
                   <label>보수내용:</label>
@@ -137,7 +139,7 @@
               <div class="form-group row">
                 <div class="col-lg-4">
                   <label>대행 업체:</label>
-                  <select class="form-control selectpicker" title="선택하세요">
+                  <select class="form-control selectpicker">
                     <option>건우설비</option>
                     <option>대도건설</option>
                     <option>대영수도</option>
@@ -152,14 +154,15 @@
                 <div class="col-lg-2">
                   <label>대표자:</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" placeholder="" disabled/>
+                    <input type="text" class="form-control" placeholder="" disabled value="대표자"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
                 <div class="col-lg-3">
                   <label>연락처:</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" placeholder="" disabled/>
+                    <input type="text" class="form-control form-control kt_inputmask_3" placeholder=""
+                           id="kt_inputmask_3" disabled value="0544030034"/>
                     <span><i class="la la-phone"></i></span>
                   </div>
                 </div>
@@ -178,13 +181,16 @@
             <div class="card-footer">
               <div class="row">
                 <div class="col-lg-4">
-                  <button class="btn btn-light-primary mr-2"><i class="la la-check-circle"></i> 등록</button>
+                  <button class="btn btn-light-success mr-2"><i class="la la-check-circle"></i> 등록</button>
                   <button type="reset" class="btn btn-secondary-outline">초기화</button>
                 </div>
               </div>
             </div>
           </form>
           <!--end::Form-->
+          <div class="overlay-layer bg-gray-o-50" style="border-radius: 0.5rem;display: none">
+            <div class="spinner spinner-success spinner-lg"></div>
+          </div>
         </div>
         <!--end::Card-->
       </div>

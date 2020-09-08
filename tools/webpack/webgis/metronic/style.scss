@@ -3,13 +3,19 @@
 // demo5/src/sass/components/_variables.demo.scss
 
 // Theme colors
-$primary: #3699FF;
+$primary: #0194f2;
 $primary-hover: #187DE4;
 $primary-light: #E1F0FF;
 $primary-inverse: #FFFFFF;
 
 // Border Radiues
 $border-radius: .5rem;
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_variables.scss:7
+
+$root-font-size:                                    13px; // custom parameter
 
 ////////////////////////////////////////////////////////////////
 
@@ -80,3 +86,27 @@ $card-spacer-x: 2.25rem !default;
     }
   }
 }
+
+////////////////////////////////////////////////////////////////
+
+.btn {
+  padding: 0.4rem 1rem;
+}
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_header.scss:27
+
+//// Desktop Mode
+//@include media-breakpoint-up(lg) {
+//  // Base
+//  .header {
+//    background-color: get($header-config, desktop, default, bg-color);
+//  }
+//}
+
+.header {
+  background-color: #dbf0f9;
+}
+
+////////////////////////////////////////////////////////////////
