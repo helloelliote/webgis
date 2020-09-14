@@ -1,21 +1,60 @@
+//
+// scss variables (declared by $ symbol) must be edited within the .scss file itself
+//
+
 ////////////////////////////////////////////////////////////////
 
-// demo5/src/sass/components/_variables.demo.scss
+// Bootstrap global defaults: These must be edited within the .scss file itself
+
+// demo5/src/sass/components/_variables.bootstrap.scss:380
+
+// // Font family
+//$font-family-base: Poppins, Helvetica, "sans-serif" !default;
+
+// demo5/src/sass/components/_variables.bootstrap.scss:570
+
+//$card-border-color:                 				$gray-200 !default;
+
+// demo5/src/sass/components/_variables.bootstrap.scss:572
+
+//$card-spacer-y: 2rem !default;
+//$card-spacer-x: 2.25rem !default;
+
+////////////////////////////////////////////////////////////////
+
+// Metronic global defaults: These must be edited within the .scss file itself
+
+// demo5/src/sass/components/_variables.demo.scss:6
 
 // Theme colors
-$primary: #0194f2;
-$primary-hover: #187DE4;
-$primary-light: #E1F0FF;
-$primary-inverse: #FFFFFF;
+//$primary:       									#F64E60;
+//$primary-hover:    									#EE2D41;
+//$primary-light:    									#FFE2E5;
+//$primary-inverse:  									#FFFFFF;
+
+// demo5/src/sass/components/_variables.demo.scss:12
 
 // Border Radiues
-$border-radius: .5rem;
+//$border-radius:            						    .85rem;
 
 ////////////////////////////////////////////////////////////////
 
 // demo5/src/sass/layout/_variables.scss:7
 
-$root-font-size:                                    13px; // custom parameter
+//$root-font-size:                                    13px; // custom parameter
+
+// demo5/src/sass/layout/_variables.scss:33
+
+// Header
+$header-config: (
+  // Desktop Mode
+        desktop: (
+          // Fixed Mode
+                fixed: (
+                        height: 80px,
+                )
+        ),
+) !default;
 
 ////////////////////////////////////////////////////////////////
 
@@ -34,49 +73,6 @@ $root-font-size:                                    13px; // custom parameter
 
 ////////////////////////////////////////////////////////////////
 
-// demo5/src/sass/components/_variables.bootstrap.scss:380
-
-// // Font family
-$font-family-base: Poppins, Helvetica, "sans-serif" !default;
-
-////////////////////////////////////////////////////////////////
-
-.form-control {
-  height: calc(1.5em + 1rem + 2px);
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.bootstrap-select > .dropdown-toggle {
-  padding: 0.5rem 1rem;
-}
-
-////////////////////////////////////////////////////////////////
-
-// demo5/src/sass/layout/_variables.scss:33
-
-// Header
-$header-config: (
-  // Desktop Mode
-        desktop: (
-          // Fixed Mode
-                fixed: (
-                        height: 80px,
-                )
-        ),
-) !default;
-
-////////////////////////////////////////////////////////////////
-
-// demo5/src/sass/components/_variables.bootstrap.scss:571
-
-$card-spacer-y: 2rem !default;
-$card-spacer-x: 2.25rem !default;
-
-////////////////////////////////////////////////////////////////
-
 // demo5/src/sass/vendors/plugins/_datatables.scss:38
 
 .dataTables_wrapper {
@@ -85,12 +81,6 @@ $card-spacer-x: 2.25rem !default;
       padding: 0.5rem;
     }
   }
-}
-
-////////////////////////////////////////////////////////////////
-
-.btn {
-  padding: 0.4rem 1rem;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -107,6 +97,31 @@ $card-spacer-x: 2.25rem !default;
 
 .header {
   background-color: #dbf0f9;
+}
+
+////////////////////////////////////////////////////////////////
+
+// views/partials/_header.html
+
+.quick-search-inline {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+////////////////////////////////////////////////////////////////
+
+// Source reference not found
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  height: calc(1.5em + 1rem + 2px);
+}
+
+.bootstrap-select > .dropdown-toggle {
+  padding: 0.5rem 1rem;
 }
 
 ////////////////////////////////////////////////////////////////

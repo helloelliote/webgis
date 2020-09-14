@@ -42,13 +42,13 @@
 
 <!--end::Main-->
 
-<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-notifications.html"}]/-->{{> _extras/offcanvas/quick-notifications}}
+<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-notifications.html"}]/-->
 
-<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-actions.html"}]/-->{{> _extras/offcanvas/quick-actions}}
+<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-actions.html"}]/-->
 
-<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-user.html"}]/-->{{> _extras/offcanvas/quick-user}}
+<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-user.html"}]/-->
 
-<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-panel.html"}]/-->{{> _extras/offcanvas/quick-panel}}
+<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-panel.html"}]/-->
 
 <!--[html-partial:include:{"file":"partials/_extras/chat.html"}]/-->{{> _extras/chat}}
 
@@ -140,6 +140,10 @@
 <script src="assets/js/pages/widgets.js"></script>
 <script src="assets/js/pages/crud/datatables/search-options/advanced-search.js"></script>
 <!--<script src="assets/js/pages/crud/datatables/extensions/buttons.js"></script>-->
+<script>
+  $('.navi-link').removeClass('active');
+  $('#navi-link-2').addClass('active');
+</script>
 <!--end::Page Scripts-->
 </body>
 
