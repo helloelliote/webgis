@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
+import Projection from 'ol/proj/Projection';
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
-import { default as OlProjection } from 'ol/proj/Projection';
 import { fromLonLat, toLonLat } from 'ol/proj';
-import { roundCustom } from '../math';
+import { roundCustom } from '../../math';
 
 /**
  * @see https://epsg.io/{four_digit_code} for more EPSG projection definitions
  */
-class Projection {
+class ProjectionFactory extends Projection {
 
   constructor(opt_code) {
     const _defaultProjectionCode = opt_code ? opt_code :'EPSG:5187';
@@ -21,31 +21,25 @@ class Projection {
     proj4.defs([_defaultProjectionDefinition]);
     register(proj4);
 
-    this._olProjection = new OlProjection({
+    super({
       code: _defaultProjectionCode,
       extent: _projectionExtent,
     });
   }
 
-  get instance() {
-    return this._olProjection;
-  }
-
   get code() {
-    return this._olProjection.getCode();
+    return super.getCode();
   }
 }
 
-const projection = new Projection();
+const projection = new ProjectionFactory();
 
-function coordToLatLng(coordinate, callback) {
-  const lonLat = toLonLat(coordinate, projection.code);
-  const kakaoLatLng = new kakao.maps.LatLng(lonLat[0], lonLat[1]);
-  if (callback) {
-    callback(kakaoLatLng);
-  } else {
-    return kakaoLatLng;
-  }
+function coordsToLatLng(coordinate) {
+  return new Promise(resolve => {
+    const lonLat = toLonLat(coordinate, projection.code);
+    const latLng = new kakao.maps.LatLng(lonLat[1], lonLat[0]);
+    resolve(latLng);
+  });
 }
 
 function latLngToCoord(lat, lng) {
@@ -53,7 +47,7 @@ function latLngToCoord(lat, lng) {
 }
 
 export {
-  coordToLatLng,
+  coordsToLatLng,
   latLngToCoord,
 };
 
