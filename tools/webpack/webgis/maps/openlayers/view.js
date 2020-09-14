@@ -1,7 +1,7 @@
 /* eslint-disable no-fallthrough */
 
 import View from 'ol/View';
-import { default as projection, coordsToLatLng } from './projection';
+import { default as projection, coordsToLatLng } from './projection/Projection';
 import { map as kakaoMap, mapContainer as kakaoMapContainer } from '../kakao/Map';
 import { roundCustom } from '../math';
 import { fromLonLat } from 'ol/proj';
