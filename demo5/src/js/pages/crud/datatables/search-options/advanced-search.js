@@ -190,6 +190,11 @@ var KTDatatablesSearchOptionsAdvancedSearch = function() {
 		});
 
 		$('#kt_datepicker').datepicker({
+			/**
+			 * @link https://bootstrap-datepicker.readthedocs.io/en/latest/options.html#language
+			 * */
+			language: 'ko',
+			orientation: 'bottom',
 			todayHighlight: true,
 			templates: {
 				leftArrow: '<i class="la la-angle-left"></i>',

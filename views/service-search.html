@@ -22,14 +22,16 @@
       <!--[html-partial:include:{"file":"partials/_header.html"}]/-->{{> _header}}
 
       <!--begin::Content-->
+      <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
-      <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->
+        <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->{{> _subheader/_subheader-service-search}}
 
-      <!--[html-partial:include:{"file":"partials/_content.html"}]/-->{{> _content}}
+        <!--[html-partial:include:{"file":"partials/_content.html"}]/-->{{> _content-service-search}}
+      </div>
 
       <!--end::Content-->
 
-      <!--[html-partial:include:{"file":"partials/_footer.html"}]/-->
+      <!--[html-partial:include:{"file":"partials/_footer.html"}]/-->{{> _footer}}
     </div>
 
     <!--end::Wrapper-->
@@ -55,8 +57,6 @@
 <!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->
 
 <!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
-
-{{> _modal/_duty-schedule}}
 <script>
   var HOST_URL = 'https://preview.keenthemes.com/metronic/theme/html/tools/preview';
 </script>
@@ -133,24 +133,16 @@
 <!--end::Global Theme Bundle-->
 
 <!--begin::Page Vendors(used by this page)-->
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=162a033764cd83534e05d07b405f4580&libraries=services"
-        type="text/javascript"></script>
 <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Page Vendors-->
 
 <!--begin::Page Scripts(used by this page)-->
 <script src="assets/js/pages/widgets.js"></script>
-<script src="assets/js/pages/crud/datatables/data-sources/ajax-client-side-custom.js"></script>
+<script src="assets/js/pages/crud/datatables/search-options/advanced-search.js"></script>
+<!--<script src="assets/js/pages/crud/datatables/extensions/buttons.js"></script>-->
 <script>
-  var mapContainer = document.getElementById('map-kakao');
-  var mapOption = {
-    center: new kakao.maps.LatLng(36.828536, 128.625697),
-    level: 3,
-  };
-
-  var map = new kakao.maps.Map(mapContainer, mapOption);
-
   $('.navi-link').removeClass('active');
+  $('#navi-link-2').addClass('active');
 </script>
 <!--end::Page Scripts-->
 </body>

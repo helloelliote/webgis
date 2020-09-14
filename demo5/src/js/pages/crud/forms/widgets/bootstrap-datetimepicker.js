@@ -4,7 +4,16 @@ var KTBootstrapDatetimepicker = function () {
     // Private functions
     var baseDemos = function () {
         // Demo 1
-        $('#kt_datetimepicker_1').datetimepicker();
+        $('#kt_datetimepicker_1').datetimepicker({
+            /**
+             * @link https://tempusdominus.github.io/bootstrap-4/Options/#locale
+             * */
+            locale: window.moment.locale('ko'),
+            format: 'YYYY/MM/DD a hh:mm',
+            buttons: {
+                showToday: true
+            },
+        });
 
         // Demo 2
         $('#kt_datetimepicker_2').datetimepicker({

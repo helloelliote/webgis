@@ -1,0 +1,127 @@
+//
+// scss variables (declared by $ symbol) must be edited within the .scss file itself
+//
+
+////////////////////////////////////////////////////////////////
+
+// Bootstrap global defaults: These must be edited within the .scss file itself
+
+// demo5/src/sass/components/_variables.bootstrap.scss:380
+
+// // Font family
+//$font-family-base: Poppins, Helvetica, "sans-serif" !default;
+
+// demo5/src/sass/components/_variables.bootstrap.scss:570
+
+//$card-border-color:                 				$gray-200 !default;
+
+// demo5/src/sass/components/_variables.bootstrap.scss:572
+
+//$card-spacer-y: 2rem !default;
+//$card-spacer-x: 2.25rem !default;
+
+////////////////////////////////////////////////////////////////
+
+// Metronic global defaults: These must be edited within the .scss file itself
+
+// demo5/src/sass/components/_variables.demo.scss:6
+
+// Theme colors
+//$primary:       									#F64E60;
+//$primary-hover:    									#EE2D41;
+//$primary-light:    									#FFE2E5;
+//$primary-inverse:  									#FFFFFF;
+
+// demo5/src/sass/components/_variables.demo.scss:12
+
+// Border Radiues
+//$border-radius:            						    .85rem;
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_variables.scss:7
+
+//$root-font-size:                                    13px; // custom parameter
+
+// demo5/src/sass/layout/_variables.scss:33
+
+// Header
+$header-config: (
+  // Desktop Mode
+        desktop: (
+          // Fixed Mode
+                fixed: (
+                        height: 80px,
+                )
+        ),
+) !default;
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_content.scss:34
+
+// // Desktop Mode
+//@include media-breakpoint-up(lg) {
+//	.content {
+//		padding: get($page-spacers, y, desktop) 0;
+//	}
+//}
+
+.content {
+  padding: 0 0;
+}
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/vendors/plugins/_datatables.scss:38
+
+.dataTables_wrapper {
+  .dataTable {
+    th, td {
+      padding: 0.5rem;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/layout/_header.scss:27
+
+//// Desktop Mode
+//@include media-breakpoint-up(lg) {
+//  // Base
+//  .header {
+//    background-color: get($header-config, desktop, default, bg-color);
+//  }
+//}
+
+.header {
+  background-color: #dbf0f9;
+}
+
+////////////////////////////////////////////////////////////////
+
+// views/partials/_header.html
+
+.quick-search-inline {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+////////////////////////////////////////////////////////////////
+
+// Source reference not found
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  height: calc(1.5em + 1rem + 2px);
+}
+
+.bootstrap-select > .dropdown-toggle {
+  padding: 0.5rem 1rem;
+}
+
+////////////////////////////////////////////////////////////////

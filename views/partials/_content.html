@@ -1,20 +1,27 @@
-
 <!--begin::Entry-->
-						<div class="d-flex flex-column-fluid">
 
-							<!--begin::Container-->
-							<div class="container-fluid">
+<div id="map-container" class="parent" style="height: 100%;width: 100%">
+  <div
+      style="
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      float: left;
+    "
+  >
+    <div
+        id="map-kakao"
+        class="child"
+        style="
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      "
+    ></div>
+  </div>
+</div>
 
-								<!--[html-partial:begin:{"id":"demo5/dist/inc/view/demos/pages/index","page":"index"}]/-->
-
-								<!--[html-partial:begin:{"id":"demo1/dist/inc/view/partials/content/dashboards/demo5","page":"index"}]/-->
-
-								<!--[html-partial:end:{"id":"demo1/dist/inc/view/partials/content/dashboards/demo5","page":"index"}]/-->
-
-								<!--[html-partial:end:{"id":"demo5/dist/inc/view/demos/pages/index","page":"index"}]/-->
-							</div>
-
-							<!--end::Container-->
-						</div>
-
-						<!--end::Entry-->
+<!--end::Entry-->

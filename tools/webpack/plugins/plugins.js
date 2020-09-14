@@ -61,6 +61,7 @@ require('jquery-mask-plugin');
 
 // Bootstrap Datepicker - Bootstrap-datepicker provides a flexible datepicker widget in the Bootstrap style: https://bootstrap-datepicker.readthedocs.io/en/latest/
 require('bootstrap-datepicker/dist/js/bootstrap-datepicker.js');
+require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.ko.min.js');
 require('@/src/js/vendors/plugins/bootstrap-datepicker.init.js');
 
 // Bootstrap Timepicker - Easily select a time for a text input using your mouse or keyboards arrow keys: https://jdewit.github.io/bootstrap-timepicker/
