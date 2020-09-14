@@ -260,8 +260,7 @@ function mainConfig() {
           use: {
             loader: 'worker-loader',
             options: {
-              inline: true,
-              fallback: false,
+              inline: 'no-fallback',
             },
           },
         },
