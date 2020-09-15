@@ -1,5 +1,7 @@
 import { default as MapObject } from '../../Object';
 import MapError from '../../Error';
+import LayerGroup from 'ol/layer/Group';
+import Collection from 'ol/Collection';
 
 export default class Layer extends MapObject {
 
@@ -7,6 +9,14 @@ export default class Layer extends MapObject {
     super(options);
 
     this._layerMap = new Map();
+
+    this._layerGroup = new LayerGroup();
+
+    this._updateLayerGroup = function () {
+      this._layerGroup.setLayers(
+        new Collection([...this._layerMap.values()]),
+      );
+    };
   }
 
   get keys() {
@@ -14,15 +24,7 @@ export default class Layer extends MapObject {
   }
 
   get layers() {
-    return this._layerMap.values();
-  }
-
-  addLayer(key, layer) {
-    this._layerMap.set(key, layer);
-  }
-
-  removeLayer(key) {
-    this._layerMap.delete(key);
+    return this._layerGroup;
   }
 
   getLayer(key) {
@@ -32,19 +34,26 @@ export default class Layer extends MapObject {
       throw new MapError();
     }
   }
+
+  clearLayers() {
+    this._layerMap.clear();
+    this._updateLayerGroup();
+  }
   
   toggleLayers(keyArray, layerCreatorFunction) {
     if (!(keyArray instanceof Array)) {
       throw new MapError();
     }
-    let that = this;
     keyArray.forEach(function (key) {
-      if (that._layerMap.has(key)) {
-        that._layerMap.delete(key);
+      if (this._layerMap.has(key)) {
+        this._layerMap.delete(key);
+        // TODO: #removeClass from aside menu
       } else {
         let newLayer = layerCreatorFunction(key);
-        that._layerMap.set(key, newLayer);
+        this._layerMap.set(key, newLayer);
+        // TODO: #addClass from aside menu
       }
-    });
+    }, this);
+    this._updateLayerGroup();
   }
 }
