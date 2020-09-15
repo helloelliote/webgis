@@ -1,4 +1,6 @@
-export { default as Style } from './style/Style.js';
-export { default as Line } from './style/Line.js';
-export { default as Point } from './style/Point.js';
-export { default as Polygon } from './style/Polygon.js';
+/**
+ * @module openlayers/style
+ */
+export { default as lineStyle } from './style/Line.js';
+export { default as pointStyle } from './style/Point.js';
+export { default as polygonStyle } from './style/Polygon.js';
