@@ -228,6 +228,11 @@ function mainConfig() {
           from: path.resolve(__dirname, 'node_modules') + '/tinymce/plugins',
           to: assetDistPath + '/plugins/custom/tinymce/plugins',
         },
+        {
+          // copy media (custom)
+          from: './webpack/webgis/media',
+          to: assetDistPath + '/media',
+        },
       ]),
     ].concat(extraPlugins),
     module: {

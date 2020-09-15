@@ -1,4 +1,4 @@
-import { default as StyleFactory } from './Style';
+import { default as StyleMap } from './Style';
 import { Style, Fill, Stroke, Icon, Text } from 'ol/style';
 
 const selectLineStyle = new Style({
@@ -16,7 +16,7 @@ const closedPipeStyle = new Style({
   }),
 });
 
-const arrowheadStyle = new StyleFactory({
+const arrowheadStyle = new StyleMap({
   identifier: 'line',
   styleFunction: function (opt) {
     return new Style({
@@ -44,7 +44,7 @@ const labelStyle = new Text({
   }),
 });
 
-const lineStyle = new StyleFactory({
+const lineStyleMap = new StyleMap({
   identifier: 'line',
   styleFunction: function (opt) {
     return new Style({
@@ -58,5 +58,4 @@ const lineStyle = new StyleFactory({
   },
 });
 
-export { selectLineStyle, closedPipeStyle, arrowheadStyle };
-export default lineStyle;
+export { lineStyleMap, selectLineStyle, closedPipeStyle, arrowheadStyle };

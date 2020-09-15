@@ -1,5 +1,5 @@
-import { default as StyleFactory } from './Style';
-import { Style, Fill, Stroke, Icon, Circle } from 'ol/style';
+import { default as StyleMap } from './Style';
+import { Style, Fill, Stroke, Icon, Circle, Text } from 'ol/style';
 
 const selectPointStyle = new Style({
   image: new Circle({
@@ -10,7 +10,7 @@ const selectPointStyle = new Style({
   }),
 });
 
-const pointStyle = new StyleFactory({
+const pointStyleMap = new StyleMap({
   identifier: 'point',
   styleFunction: function (opt) {
     return new Style({
@@ -38,5 +38,4 @@ const pointStyle = new StyleFactory({
   },
 });
 
-export { selectPointStyle };
-export default pointStyle;
+export { pointStyleMap, selectPointStyle };

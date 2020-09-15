@@ -1,11 +1,11 @@
-import { default as StyleFactory } from './Style';
-import { Style, Fill, Stroke } from 'ol/style';
+import { default as StyleMap } from './Style';
+import { Style, Fill, Stroke, Text } from 'ol/style';
 
 const selectPolygonFill = new Fill({
   color: '#eeff4180',
 });
 
-const polygonStyle = new StyleFactory({
+const polygonStyleMap = new StyleMap({
   identifier: 'polygon',
   styleFunction: function (opt) {
     return new Style({
@@ -32,5 +32,4 @@ const polygonStyle = new StyleFactory({
   },
 });
 
-export { selectPolygonFill };
-export default polygonStyle;
+export { polygonStyleMap, selectPolygonFill };
