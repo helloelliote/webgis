@@ -35,17 +35,15 @@ $header-config: (
 	desktop: (
 		// Default Mode
 		default: (
-			//height: 80px,
-			height: 60px,
+			height: 50px,
 			bg-color: $white,
-			border: 1px solid $gray-200
+			border: 0px
 		),
 
 		// Fixed Mode
 		fixed: (
 			zindex: 97,
-			//height: 80px,
-			height: 60px,
+			height: 50px,
 			transition: all 0.3s ease
 		)
 	),

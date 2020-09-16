@@ -43,18 +43,44 @@
 
 //$root-font-size:                                    13px; // custom parameter
 
-// demo5/src/sass/layout/_variables.scss:33
+// demo5/src/sass/layout/_variables.scss:35
 
 // Header
-$header-config: (
-  // Desktop Mode
-        desktop: (
-          // Fixed Mode
-                fixed: (
-                        height: 80px,
-                )
-        ),
-) !default;
+//$header-config: (
+//	// Desktop Mode
+//	desktop: (
+//		// Default Mode
+//		default: (
+//			height: 80px,
+//			bg-color: $white,
+//			border: 1px solid $gray-200
+//		),
+//
+//		// Fixed Mode
+//		fixed: (
+//			zindex: 97,
+//			//height: 80px,
+//			height: 60px,
+//			transition: all 0.3s ease
+//		)
+//	),
+//
+//	// Tablet & Mobile Modes
+//	tablet-and-mobile: (
+//		// Default Mode
+//		default: (
+//			height: 55px,
+//			bg-color: $white,
+//			border: 1px solid $gray-200
+//		),
+//
+//		// Fixed Mode
+//		fixed: (
+//			zindex: 97,
+//			height: 55px
+//		)
+//	)
+//) !default;
 
 ////////////////////////////////////////////////////////////////
 
@@ -96,7 +122,7 @@ $header-config: (
 //}
 
 .header {
-  background-color: #dbf0f9;
+  background-color: #0078D7;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -104,7 +130,7 @@ $header-config: (
 // views/partials/_header.html
 
 .quick-search-inline {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -117,7 +143,8 @@ $header-config: (
 }
 
 .form-control {
-  height: calc(1.5em + 1rem + 2px);
+  height: calc(1.0em + 1rem + 2px);
+  line-height: 1;
 }
 
 .bootstrap-select > .dropdown-toggle {
