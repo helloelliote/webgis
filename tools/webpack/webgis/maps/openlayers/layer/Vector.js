@@ -93,17 +93,17 @@ function createVectorStyle(feature) {
         if (feature.get('폐관일자')) {
           return closedPipeStyle;
         } else {
-          const lineStyle = lineStyleMap.get(layer);
+          const lineStyle = lineStyleMap[layer];
           if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
             return lineStyle;
           } else {
-            lineStyle.getText().setText(feature.get('관라벨'));
+            lineStyle.setLabel(feature.get('관라벨'));
           }
           if (!styleDirectionFilter.has(layer)) {
             return lineStyle;
           } else {
             let segments = [];
-            const _style = arrowheadStyle.get(layer);
+            const _style = arrowheadStyle[layer];
             feature.getGeometry().forEachSegment(function (start, end) {
               _style.setGeometry(new Point(end));
               _style.getImage().setRotation(fromPoints(start, end, false));
@@ -116,46 +116,48 @@ function createVectorStyle(feature) {
         if (feature.get('폐관일자')) {
           return closedPipeStyle;
         } else {
-          const lineStyle = lineStyleMap.get(layer);
-          if (layer === '가정급수관' || layer === 'swl_hmpipe_ls')
+          const lineStyle = lineStyleMap[layer];
+          if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
             return lineStyle;
-          else lineStyle.getText().setText(feature.get('관라벨'));
+          } else {
+            lineStyle.setLabel(feature.get('관라벨'));
+          }
           return lineStyle;
         }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
-        let pointStyle = pointStyleMap.get(layer);
+        let pointStyle = pointStyleMap[layer];
         // noinspection JSNonASCIINames,FallThroughInSwitchStatementJS
         switch (layer) {
           case '가압장':
           case '배수지':
-            pointStyle.getText().setText(feature.get(`${layer}명`));
+            pointStyle.setLabel(feature.get(`${layer}명`));
             break;
           case '블럭유량계':
-            pointStyle.getText().setText(feature.get('유량계명칭'));
+            pointStyle.setLabel(feature.get('유량계명칭'));
             break;
           case '제수변': {
             const valve1State = feature.get('개폐여부');
             if (valve1State === '개' || valve1State === '미분류') break;
             if (valve1State === '반개')
-              pointStyle = pointStyleMap.get('제수변_반개');
-            else pointStyle = pointStyleMap.get('제수변_폐');
+              pointStyle = pointStyleMap['제수변_반개'];
+            else pointStyle = pointStyleMap['제수변_폐'];
             break;
           }
           case '지수전': {
             const valve2State = feature.get('개폐여부');
             if (valve2State === '개' || valve2State === '미분류') break;
             if (valve2State === '반개')
-              pointStyle = pointStyleMap.get('지수전_반개');
-            else pointStyle = pointStyleMap.get('지수전_폐');
+              pointStyle = pointStyleMap['지수전_반개'];
+            else pointStyle = pointStyleMap['지수전_폐'];
             break;
           }
           case '펌프시설':
           case '하수펌프장':
-            pointStyle.getText().setText(feature.get('하수펌프장명'));
+            pointStyle.setLabel(feature.get('하수펌프장명'));
             break;
           case 'wtl_userlabel_ps':
-            pointStyle.getText().setText(feature.get('주기명'));
+            pointStyle.setLabel(feature.get('주기명'));
             break;
           default:
             break;
@@ -173,34 +175,34 @@ function createVectorStyle(feature) {
       }
       case GeometryType.POLYGON:
       case GeometryType.MULTI_POLYGON: {
-        const polygonStyle = polygonStyleMap.get(layer);
+        const polygonStyle = polygonStyleMap[layer];
         switch (layer) {
           case '가압장':
           case '배수지':
           case '정수장':
           case '하수처리장':
-            polygonStyle.getText().setText(feature.get(`${layer}명`));
+            polygonStyle.setLabel(feature.get(`${layer}명`));
             break;
           case 'viw_wtl_wtsa_as':
-            polygonStyle.getText().setText(feature.get('급수구역명'));
+            polygonStyle.setLabel(feature.get('급수구역명'));
             break;
           case 'viw_wtl_wtssa_as':
-            polygonStyle.getText().setText(feature.get('급수분구명'));
+            polygonStyle.setLabel(feature.get('급수분구명'));
             break;
           case 'viw_wtl_wtsba_as':
-            polygonStyle.getText().setText(feature.get('급수블럭명'));
+            polygonStyle.setLabel(feature.get('급수블럭명'));
             break;
           case 'viw_swl_aodr_as':
-            polygonStyle.getText().setText(feature.get('배수구역명'));
+            polygonStyle.setLabel(feature.get('배수구역명'));
             break;
           case 'viw_swl_dodr_as':
-            polygonStyle.getText().setText(feature.get('배수분구명'));
+            polygonStyle.setLabel(feature.get('배수분구명'));
             break;
           case 'viw_swl_aodp_as':
-            polygonStyle.getText().setText(feature.get('처리구역명'));
+            polygonStyle.setLabel(feature.get('처리구역명'));
             break;
           case 'viw_swl_dodp_as':
-            polygonStyle.getText().setText(feature.get('처리분구명'));
+            polygonStyle.setLabel(feature.get('처리분구명'));
             break;
           default:
             break;
@@ -212,16 +214,16 @@ function createVectorStyle(feature) {
       }
     }
   }
+}
 
-  // To convert radians to degrees, divide by (Math.PI / 180). Multiply by this to convert the other way.
-  function fromDegree(degree, clockwise = true) {
-    return degree * 0.01745 * (clockwise ? 1 : -1);
-  }
+// To convert radians to degrees, divide by (Math.PI / 180). Multiply by this to convert the other way.
+function fromDegree(degree, clockwise = true) {
+  return degree * 0.01745 * (clockwise ? 1 : -1);
+}
 
-  // The angle in radians between the positive x-axis and the ray from (0,0) to the point.
-  function fromPoints(start, end, clockwise = true) {
-    const dx = end[0] - start[0];
-    const dy = end[1] - start[1];
-    return Math.atan2(dy, dx) * (clockwise ? 1 : -1);
-  }
+// The angle in radians between the positive x-axis and the ray from (0,0) to the point.
+function fromPoints(start, end, clockwise = true) {
+  const dx = end[0] - start[0];
+  const dy = end[1] - start[1];
+  return Math.atan2(dy, dx) * (clockwise ? 1 : -1);
 }

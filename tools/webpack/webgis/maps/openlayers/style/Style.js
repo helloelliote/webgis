@@ -1,6 +1,11 @@
 import { default as MapObject } from '../../Object';
 import { default as MapError } from '../../Error';
 import { default as config }  from './style.config';
+import { Style } from 'ol/style';
+
+Style.prototype.setLabel = function (value) {
+  this.getText().setText(value);
+};
 
 export default class StyleMap extends MapObject {
 
@@ -8,18 +13,14 @@ export default class StyleMap extends MapObject {
     if (!options['identifier'] || !options['styleFunction']) {
       throw new MapError();
     }
-    super(options);
+    super();
 
-    const styleEntries = Object.entries(config[options['identifier']]);
+    const styleEntries = new Map(Object.entries(config[options['identifier']]));
 
-    this._map = new Map();
+    const styleFunctions = options['styleFunction'];
 
-    for (const [key, value] of styleEntries) {
-      this._map.set(key, options['styleFunction'](value));
+    for (let [key, value] of styleEntries) {
+      this[key] = styleFunctions(value);
     }
-  }
-  
-  get(key) {
-    return this._map.get(key);
   }
 }
