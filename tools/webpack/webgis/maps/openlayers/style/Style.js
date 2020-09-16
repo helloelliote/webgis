@@ -1,60 +1,26 @@
 import { default as MapObject } from '../../Object';
-import { Circle, Fill, Icon, Image, Stroke, Style, Text } from 'ol/style';
+import { default as MapError } from '../../Error';
+import { default as config }  from './style.config';
+import { Style } from 'ol/style';
 
-export default class MapStyle extends MapObject {
+Style.prototype.setLabel = function (value) {
+  this.getText().setText(value);
+};
+
+export default class StyleMap extends MapObject {
+
   constructor(options) {
-    super(options);
-  }
+    if (!options['identifier'] || !options['styleFunction']) {
+      throw new MapError();
+    }
+    super();
 
-  setFilters() {
+    const styleEntries = new Map(Object.entries(config[options['identifier']]));
 
-  }
+    const styleFunctions = options['styleFunction'];
 
-  addLabel() {
-
-  }
-
-  setRotation() {
-
+    for (let [key, value] of styleEntries) {
+      this[key] = styleFunctions(value);
+    }
   }
 }
-
-// flyweight class
-// class Icecream {
-//   constructor(flavour, price) {
-//     this.flavour = flavour;
-//     this.price = price;
-//   }
-// }
-//
-// // factory for flyweight objects
-// class IcecreamFactory {
-//   constructor() {
-//     this._icecreams = [];
-//   }
-//
-//   createIcecream(flavour, price) {
-//     let icecream = this.getIcecream(flavour);
-//     if (icecream) {
-//       return icecream;
-//     } else {
-//       const newIcecream = new Icecream(flavour, price);
-//       this._icecreams.push(newIcecream);
-//       return newIcecream;
-//     }
-//   }
-//
-//   getIcecream(flavour) {
-//     return this._icecreams.find(icecream => icecream.flavour === flavour);
-//   }
-// }
-//
-// // usage
-//
-// // const factory = new IcecreamFactory();
-// //
-// // const chocoVanilla = factory.createIcecream('chocolate and vanilla', 15);
-// // const vanillaChoco = factory.createIcecream('chocolate and vanilla', 15);
-// //
-// // // reference to the same object
-// // console.log(chocoVanilla === vanillaChoco); // true
