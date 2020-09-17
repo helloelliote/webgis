@@ -79,7 +79,7 @@ function createVectorSourceRequestUrl(key) {
   return `${window.webgis.geoserverHost}/geoserver/${window.webgis.workspace}/wfs?${requestUrl}`;
 }
 
-function createVectorStyle(feature) {
+export function createVectorStyle(feature) {
   let layer =
     feature.get('레이어') ||
     feature.get('layer') ||
@@ -89,7 +89,7 @@ function createVectorStyle(feature) {
   } else {
     layer = layer.trim();
     switch (feature.getGeometry().getType()) {
-      case GeometryType.LINE_STRING:
+      case GeometryType.LINE_STRING: {
         if (feature.get('폐관일자')) {
           return closedPipeStyle;
         } else {
@@ -112,7 +112,8 @@ function createVectorStyle(feature) {
             return [lineStyle, segments.pop()];
           }
         }
-      case GeometryType.MULTI_LINE_STRING:
+      }
+      case GeometryType.MULTI_LINE_STRING: {
         if (feature.get('폐관일자')) {
           return closedPipeStyle;
         } else {
@@ -124,6 +125,7 @@ function createVectorStyle(feature) {
           }
           return lineStyle;
         }
+      }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
         let pointStyle = pointStyleMap[layer];
