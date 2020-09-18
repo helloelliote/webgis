@@ -2,7 +2,7 @@
 import Projection from 'ol/proj/Projection';
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
-import { fromLonLat, toLonLat } from 'ol/proj';
+import { fromLonLat } from 'ol/proj';
 import { roundCustom } from '../../math';
 
 /**
@@ -34,21 +34,10 @@ class ProjectionFactory extends Projection {
 
 const projection = new ProjectionFactory();
 
-function coordsToLatLng(coordinate) {
-  return new Promise(resolve => {
-    const lonLat = toLonLat(coordinate, projection.code);
-    const latLng = new kakao.maps.LatLng(lonLat[1], lonLat[0]);
-    resolve(latLng);
-  });
-}
-
-function latLngToCoord(lat, lng) {
+function latLngToCoords(lat, lng) {
   return fromLonLat([roundCustom(lng), roundCustom(lat)], projection.code);
 }
 
-export {
-  coordsToLatLng,
-  latLngToCoord,
-};
+export { latLngToCoords };
 
 export default projection;
