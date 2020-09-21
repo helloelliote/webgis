@@ -30,10 +30,10 @@ const mapOptions = {
   useStyleMap: true,
   mapTypes: new naver.maps.MapTypeRegistry({
     'normal': naver.maps.NaverStyleMapTypeOption.getNormalMap({
-      overlayType: 'bg.ol.lko', // bg.ol.sw.ar.lko
+      overlayType: 'bg.ol.sw.ar.lko',
     }),
     'hybrid': naver.maps.NaverStyleMapTypeOption.getHybridMap({
-      overlayType: 'bg.ol.lko',
+      overlayType: 'bg.ol.sw.ar.lko',
     }),
   }),
 };

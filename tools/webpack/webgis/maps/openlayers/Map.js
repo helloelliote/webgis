@@ -5,6 +5,7 @@ import { default as defaultInteractions, SelectInteraction } from './interaction
 
 import Vector from './layer/Vector';
 // import { showAddressPopover } from '../kakao/geoCoder';
+import { onContextMenu } from '../naver/geoCoder';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers([
@@ -25,6 +26,6 @@ const map = new Map({
 
 map.addInteraction(new SelectInteraction({ map: map }));
 
-// map.on('contextmenu', showAddressPopover);
+map.on('contextmenu', onContextMenu);
 
 map.on('moveend', onMoveEnd);
