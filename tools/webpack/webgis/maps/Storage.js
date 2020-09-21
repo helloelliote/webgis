@@ -85,7 +85,8 @@ export class LocalStorage extends Storage {
   }
 
   get latitude() {
-    return super.get(this._key_latitude);
+    const latitude =  super.get(this._key_latitude);
+    return latitude !== 0 ? latitude : window.webgis.center.latitude;
   }
 
   set latitude(value) {
@@ -96,7 +97,8 @@ export class LocalStorage extends Storage {
   }
 
   get longitude() {
-    return super.get(this._key_longitude);
+    const longitude =  super.get(this._key_longitude);
+    return longitude !== 0 ? longitude : window.webgis.center.longitude;
   }
 
   set longitude(value) {
