@@ -4,7 +4,7 @@ import { coordsToLatLng } from './Map';
 
 const geoCoder = new kakao.maps.services.Geocoder();
 
-function showAddressPopover(event) {
+function onContextMenu(event) {
   event.preventDefault();
   coordsToLatLng(event.coordinate)
     .then(convertCoordinateToAddress)
@@ -46,5 +46,5 @@ function createAddressHtmlElement(result) {
 }
 
 export {
-  showAddressPopover,
+  onContextMenu,
 };
