@@ -7,8 +7,8 @@ const localStorage = new LocalStorage();
 const mapContainer = document.getElementById('map');
 const mapOptions = {
   center: new kakao.maps.LatLng(
-    35.856171,
-    129.224803,
+    localStorage.latitude,
+    localStorage.longitude,
   ),
   level: 3,
   draggable: false,
@@ -34,13 +34,10 @@ window.addEventListener('resize', function () {
 { passive: true },
 );
 
-kakao.maps.Map.prototype.setZoom = function (value) {
-  map.setLevel(value);
-};
-
 const viewSyncOptions = {
   zoom: {
     base: 12.3,
+    max: 14,
     decimal: 0.3,
     coefficient: -1,
     delta: 15,
@@ -55,5 +52,9 @@ function coordsToLatLng(coordinate, projection = 'EPSG:5187') {
     resolve(latLng);
   });
 }
+
+kakao.maps.Map.prototype.setZoom = function (value) {
+  map.setLevel(value);
+};
 
 export { map, mapContainer, viewSyncOptions, coordsToLatLng };

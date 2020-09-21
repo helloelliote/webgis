@@ -1,5 +1,5 @@
 import Map from 'ol/Map';
-import { view, syncZoomLevels } from './view';
+import { view, onMoveEnd } from './view';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
 
@@ -27,4 +27,4 @@ map.addInteraction(new SelectInteraction({ map: map }));
 
 // map.on('contextmenu', showAddressPopover);
 
-map.on('moveend', syncZoomLevels);
+map.on('moveend', onMoveEnd);

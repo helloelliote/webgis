@@ -7,32 +7,25 @@ const localStorage = new LocalStorage();
 const mapContainer = document.getElementById('map');
 const mapOptions = {
   center: new naver.maps.LatLng(
-    35.856171,
-    129.224803,
+    localStorage.latitude,
+    localStorage.longitude,
   ),
   zoom: 17,
-  minZoom: 10,
+  minZoom: 11,
   maxZoom: 21,
   // Controls
-  scaleControl: true,
   scaleControlOptions: {
     position: naver.maps.Position.BOTTOM_LEFT,
   },
-  logoControl: false,
-  zoomControl: false, // TODO: https://navermaps.github.io/maps.js.ncp/docs/naver.maps.ZoomControl.html
-  mapTypeControl: false,
-  mapDataControl: false,
   // Interactions
   draggable: false,
   pinchZoom: false,
   scrollWheel: false,
-  keyboardShortcuts: false,
   disableDoubleClickZoom: true,
   disableDoubleTapZoom: true,
   disableTwoFingerTapZoom: true,
   // Others
   tileTransition: false,
-  disableKineticPan: true,
   // StyleMap
   useStyleMap: true,
   mapTypes: new naver.maps.MapTypeRegistry({
@@ -64,6 +57,7 @@ window.addEventListener('resize', function () {
 const viewSyncOptions = {
   zoom: {
     base: 12.34,
+    max: 16,
     decimal: 0.34,
     coefficient: 1,
     delta: 5,
