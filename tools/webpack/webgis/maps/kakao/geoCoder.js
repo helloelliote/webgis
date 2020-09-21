@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { coordsToLatLng } from '../openlayers/projection/Projection';
+import { coordsToLatLng } from './Map';
 
 const geoCoder = new kakao.maps.services.Geocoder();
 

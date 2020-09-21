@@ -1,10 +1,10 @@
 import Map from 'ol/Map';
-import { view, syncZoomLevels } from './view';
+import { view, onMoveEnd } from './view';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
 
 import Vector from './layer/Vector';
-import { showAddressPopover } from '../kakao/geoCoder';
+// import { showAddressPopover } from '../kakao/geoCoder';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers([
@@ -25,6 +25,6 @@ const map = new Map({
 
 map.addInteraction(new SelectInteraction({ map: map }));
 
-map.on('contextmenu', showAddressPopover);
+// map.on('contextmenu', showAddressPopover);
 
-map.on('moveend', syncZoomLevels);
+map.on('moveend', onMoveEnd);
