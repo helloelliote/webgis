@@ -1,6 +1,5 @@
 import { LocalStorage } from '../Storage';
 import { roundCustom } from '../math';
-import { toLonLat } from 'ol/proj';
 
 const localStorage = new LocalStorage();
 
@@ -45,16 +44,8 @@ const viewSyncOptions = {
   rotation: -0.02307,
 };
 
-function coordsToLatLng(coordinate, projection = 'EPSG:5187') {
-  return new Promise(resolve => {
-    const lonLat = toLonLat(coordinate, projection);
-    const latLng = new kakao.maps.LatLng(lonLat[1], lonLat[0]);
-    resolve(latLng);
-  });
-}
-
 kakao.maps.Map.prototype.setZoom = function (value) {
   map.setLevel(value);
 };
 
-export { map, mapContainer, viewSyncOptions, coordsToLatLng };
+export { map, mapContainer, viewSyncOptions };

@@ -1,18 +1,20 @@
 /* eslint-disable no-undef */
 
-import { coordsToLatLng } from './Map';
+import { coordinateToLatLng } from './util';
 
 const service = naver.maps.Service;
 
-function onContextMenu(event) {
-  event.preventDefault();
-  coordsToLatLng(event.coordinate)
-    .then(convertCoordinateToAddress)
-    .then(createAddressHtmlElement)
-    .catch(() => {});
+function searchCoordinateToAddress(coordinate) {
+  return new Promise((resolve, reject) => {
+    coordinateToLatLng(coordinate)
+      .then(getAddressFromLatLng)
+      .then(getAddressHtmlElement)
+      .then(content => { resolve(content); })
+      .catch((err) => { reject(err); });
+  });
 }
 
-function convertCoordinateToAddress(latLng) {
+function getAddressFromLatLng(latLng) {
   return new Promise((resolve) => {
     service.reverseGeocode({ coords: latLng, orders: 'addr,roadaddr' }, (status, res) => {
       if (status === naver.maps.Service.Status.OK) {
@@ -22,18 +24,23 @@ function convertCoordinateToAddress(latLng) {
   });
 }
 
-function createAddressHtmlElement(result) {
-  const content = [];
-  if (result['roadAddress'] !== '') {
-    content.push(`도로명 주소: ` + `<a href="#" class="addr-clipboard">${result['roadAddress']}</a>`);
-  }
-  if (result['jibunAddress'] !== '') {
-    content.push(`지  번 주소: ` + `<a href="#" class="addr-clipboard">${result['jibunAddress']}</a>`);
-  }
-  content.join('<br />');
-  // TODO: Setup popover to display content results
+function getAddressHtmlElement(address) {
+  return new Promise(resolve => {
+    const htmlContent = [];
+    if (address['roadAddress'] !== '') {
+      htmlContent.push(
+        `도로명 주소: <a href="#" class="addr-clipboard">${address['roadAddress']}</a>`,
+      );
+    }
+    if (address['jibunAddress'] !== '') {
+      htmlContent.push(
+        `지&nbsp;&nbsp;&nbsp;번 주소: <a href="#" class="addr-clipboard">${address['jibunAddress']}</a>`,
+      );
+    }
+    resolve(htmlContent.join('<br />'));
+  });
 }
 
 export {
-  onContextMenu,
+  searchCoordinateToAddress,
 };

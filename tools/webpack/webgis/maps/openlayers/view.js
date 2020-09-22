@@ -2,7 +2,10 @@ import View from 'ol/View';
 import { fromLonLat } from 'ol/proj';
 import { LocalStorage } from '../Storage';
 import { default as projection } from './projection/Projection';
-import { map, mapContainer, viewSyncOptions, coordsToLatLng } from '../naver/Map';
+import { map, mapContainer, viewSyncOptions } from '../naver/Map';
+import { coordinateToLatLng } from '../naver/util';
+// import { map, mapContainer, viewSyncOptions } from '../kakao/Map';
+// import { coordinateToLatLng } from '../kakao/util';
 
 const localStorage = new LocalStorage();
 
@@ -28,13 +31,13 @@ const view = new View({
 });
 
 view.on('change:center', function () {
-  coordsToLatLng(view.getCenter(), projection.code)
+  coordinateToLatLng(view.getCenter(), projection.code)
     .then(function (latLng) {
       map.setCenter(latLng);
     });
 });
 
-function onMoveEnd() {
+function syncZoomLevel() {
   let newZoom = Math.floor(view.getZoom());
   if (newZoom !== currentZoom) {
     if (5 < newZoom && newZoom <= max) {
@@ -57,5 +60,5 @@ function onMoveEnd() {
 
 export {
   view,
-  onMoveEnd,
+  syncZoomLevel,
 };

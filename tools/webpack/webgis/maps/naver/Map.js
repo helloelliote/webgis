@@ -1,6 +1,5 @@
 import { LocalStorage } from '../Storage';
 import { roundCustom } from '../math';
-import { toLonLat } from 'ol/proj';
 
 const localStorage = new LocalStorage();
 
@@ -65,12 +64,4 @@ const viewSyncOptions = {
   rotation: 0,
 };
 
-function coordsToLatLng(coordinate, projection = 'EPSG:5187') {
-  return new Promise(resolve => {
-    const lonLat = toLonLat(coordinate, projection);
-    const latLng = new naver.maps.LatLng(lonLat[1], lonLat[0]);
-    resolve(latLng);
-  });
-}
-
-export { map, mapContainer, viewSyncOptions, coordsToLatLng };
+export { map, mapContainer, viewSyncOptions };
