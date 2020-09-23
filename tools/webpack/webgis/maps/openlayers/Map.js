@@ -19,13 +19,12 @@ const map = new Map({
   layers: [
     vectorLayer.layers,
   ],
-  overlays: [
-    addressOverlay,
-  ],
   controls: defaultControls,
   interactions: defaultInteractions,
   moveTolerance: 20,
 });
+
+map.addOverlay(addressOverlay);
 
 map.addInteraction(new SelectInteraction({ map: map }));
 
@@ -35,8 +34,14 @@ function onContextMenu(event) {
   event.preventDefault();
   searchCoordinateToAddress(event.coordinate)
     .then(htmlContent => {
-      addressOverlay.setContent(htmlContent);
+      addressOverlay.popover('dispose');
       addressOverlay.setPosition(event.coordinate);
+      addressOverlay.popover({
+        container: addressOverlay.getElement(),
+        html: true,
+        content: htmlContent,
+      });
+      addressOverlay.popover('show');
     });
 }
 

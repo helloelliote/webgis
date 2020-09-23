@@ -13,4 +13,5 @@ window.webgis = {
 
 // require('./kakao/Map');
 require('./naver/Map');
+require('./openlayers/overlay/notification');
 require('./openlayers/Map');

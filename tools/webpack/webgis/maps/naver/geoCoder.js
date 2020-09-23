@@ -29,12 +29,12 @@ function getAddressHtmlElement(address) {
     const htmlContent = [];
     if (address['roadAddress'] !== '') {
       htmlContent.push(
-        `도로명 주소: <a href="#" class="addr-clipboard">${address['roadAddress']}</a>`,
+        `도로명 주소: <a href="javascript:;" class="addr-clipboard">${address['roadAddress']}</a>`,
       );
     }
     if (address['jibunAddress'] !== '') {
       htmlContent.push(
-        `지&nbsp;&nbsp;&nbsp;번 주소: <a href="#" class="addr-clipboard">${address['jibunAddress']}</a>`,
+        `지&nbsp;&nbsp;&nbsp;번 주소: <a href="javascript:;" class="addr-clipboard">${address['jibunAddress']}</a>`,
       );
     }
     resolve(htmlContent.join('<br />'));
