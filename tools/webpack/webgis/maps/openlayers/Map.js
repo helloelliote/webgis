@@ -37,6 +37,7 @@ function onContextMenu(event) {
       addressOverlay.popover('dispose');
       addressOverlay.setPosition(event.coordinate);
       addressOverlay.popover({
+        container: addressOverlay.getElement(),
         html: true,
         content: htmlContent,
       });

@@ -1,27 +1,16 @@
 import Overlay from 'ol/Overlay';
 
+Overlay.prototype.popover = function (options) {
+  $(this.getElement()).popover(options);
+};
+
 const addressOverlay = new Overlay({
   element: document.getElementById('popup'),
 });
 
 const addressOverlayElement = addressOverlay.getElement();
 
-$(addressOverlayElement).popover({
-  container: addressOverlayElement,
-  placement: 'auto',
-});
-
-Overlay.prototype.popover = function (options) {
-  $(addressOverlayElement).popover(options);
-};
-
-$(addressOverlayElement).on('shown.bs.popover', function () {
-  $(addressOverlayElement).focus();
-});
-
-$(addressOverlayElement).on('hidden.bs.popover', function () {
-  addressOverlay.setPosition(undefined);
-});
+$(addressOverlayElement).popover({ placement: 'auto' });
 
 $(document).on('click', '.addr-clipboard', function (event) {
   event.stopPropagation();
@@ -35,6 +24,9 @@ $(document).on('click', '.addr-clipboard', function (event) {
   document.execCommand('copy');
   document.body.removeChild(el);
   $(addressOverlayElement).popover('hide');
+  $.notify({
+    message:'선택한 주소가 클립보드에 저장되었습니다',
+  });
 });
 
 export default addressOverlay;
