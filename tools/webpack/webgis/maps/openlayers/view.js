@@ -2,7 +2,6 @@ import View from 'ol/View';
 import { fromLonLat } from 'ol/proj';
 import { LocalStorage } from '../Storage';
 import { default as projection } from './projection/Projection';
-import { default as geoJson } from './format';
 import { map, mapContainer, viewSyncOptions } from '../naver/Map';
 import { coordinateToLatLng } from '../naver/util';
 // import { map, mapContainer, viewSyncOptions } from '../kakao/Map';
@@ -38,17 +37,6 @@ function onChangeCenter() {
     .then(function (latLng) {
       map.setCenter(latLng);
     });
-}
-
-$(document).on('click', '.quick-search-result-item', onClickQuickSearchResultItem);
-
-function onClickQuickSearchResultItem() {
-  if (view.getZoom() < 10) {
-    view.setZoom(9 + decimal);
-  }
-  const feature = geoJson.readFeature($(this).next('p').html());
-  view.adjustCenter([0.00001, 0.00001]);
-  view.fit(feature.getGeometry());
 }
 
 function syncZoomLevel() {
