@@ -37,6 +37,6 @@ window.KTLayoutQuickPanel = require('@/src/js/layout/extended/quick-panel.js');
 window.KTLayoutQuickSearch = require('@/src/js/layout/extended/quick-search.js');
 window.KTLayoutQuickUser = require('@/src/js/layout/extended/quick-user.js');
 window.KTLayoutScrolltop = require('@/src/js/layout/extended/scrolltop.js');
-window.KTLayoutSearch = window.KTLayoutSearchInline = require('@/src/js/layout/extended/search.js');
+// window.KTLayoutSearch = window.KTLayoutSearchInline = require('@/src/js/layout/extended/search.js');
 
 require('@/src/js/layout/initialize.js');
