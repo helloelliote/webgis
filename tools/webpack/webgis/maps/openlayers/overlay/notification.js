@@ -43,11 +43,11 @@ const notifySettings = {
   onClose: null,
   onClosed: null,
   icon_type: 'class',
-  template: `<div data-notify="container" class="col-6 col-sm-3 alert alert-custom shadow-lg alert-{0}" role="alert">
+  template: `<div data-notify="container" class="col-3 alert alert-custom shadow-lg alert-{0}" role="alert">
   <button type="button" aria-hidden="true" class="close" data-notify="dismiss"></button>
-  <span data-notify="icon" class="alert-icon font-size-h5 font-size-lg-h6"></span>
-  <span data-notify="title" class="alert-text font-size-h5 font-size-lg-h6">{1}</span>
-  <span data-notify="message" class="alert-text font-size-h5 font-size-lg-h5">{2}</span>
+  <span data-notify="icon" class="alert-icon font-size-lg font-size-lg-h6"></span>
+  <span data-notify="title" class="alert-text font-size-lg font-size-lg-h6">{1}</span>
+  <span data-notify="message" class="alert-text font-size-lg font-size-lg-h6">{2}</span>
   <div class="progress" data-notify="progressbar">
     <div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0"
          aria-valuemax="100" style="width: 0%;"></div>
