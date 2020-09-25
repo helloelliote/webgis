@@ -39,7 +39,7 @@ export default class Layer extends MapObject {
     this._layerMap.clear();
     this._updateLayerGroup();
   }
-  
+
   toggleLayers(keyArray, layerCreatorFunction) {
     if (!(keyArray instanceof Array)) {
       throw new MapError();

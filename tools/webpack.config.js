@@ -137,8 +137,7 @@ function getEntryFiles() {
     let loc = file.replace('webpack/', '').replace('./', '');
     if (path.basename(file) === 'gmaps.js') {
       loc = loc.replace('.js', '');
-    }
-    else {
+    } else {
       loc = loc.replace('.js', '.bundle');
     }
     entries[loc] = file;
@@ -400,8 +399,7 @@ function getDemos(pathDemos) {
         demos = fs.readdirSync(pathDemos).filter((file) => {
           return !/(^|\/)\.[^\/\.]/g.test(file) && /^demo\d+$/g.test(file) && file !== 'demo0';
         });
-      }
-      catch (err) {
+      } catch (err) {
         console.error('Failed to read demo folder: ' + pathDemos);
       }
     }

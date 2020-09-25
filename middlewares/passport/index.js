@@ -9,7 +9,7 @@ export default function (passport) {
   passport.deserializeUser(function (user, done) {
     done(null, user);
   });
-  
+
   passport.use('local-signin', LocalStrategySignIn);
   passport.use('local-signup', LocalStrategySignup);
 }

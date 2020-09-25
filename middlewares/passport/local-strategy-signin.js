@@ -12,7 +12,7 @@ FROM private.sys_login AS login_tb
 WHERE login_tb.username = $1
 LIMIT 1
 `;
-  
+
   postgresql
     .executeQuery(sqlSelectUsernameAndStatus, [username])
     .then(isNotNull)

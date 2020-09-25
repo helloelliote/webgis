@@ -14,9 +14,9 @@ INSERT
 INTO private.sys_membership (email, phone, userid_fk, companyid_fk, roleid_fk, active, reset)
 VALUES ($8, NULL, (SELECT id FROM ins1), (SELECT sel1.id FROM sel1), (SELECT sel2.id FROM sel2), FALSE, TRUE)
 `;
-  
+
   const sqlInsertNewUserParams = parseInsertParams(reqPayload);
-  
+
   postgresql.executeQuery(sqlInsertNewUser, sqlInsertNewUserParams)
     .then(function () {
       return done(null, true);
@@ -37,7 +37,7 @@ function parseInsertParams(reqPayload) {
     reqPayload['RoleName'],
     reqPayload['EmailNew'],
   ];
-  
+
   function setPasswordHash(reqPayload) {
     bcrypt.hash(reqPayload['LoginKeyNew'], 10, function (err, hash) {
       return hash;

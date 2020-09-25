@@ -1,5 +1,5 @@
 import { default as StyleMap } from './Style';
-import { Style, Fill, Stroke, Text } from 'ol/style';
+import { Fill, Stroke, Style, Text } from 'ol/style';
 
 const selectPolygonFill = new Fill({
   color: '#eeff4180',

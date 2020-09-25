@@ -1,7 +1,7 @@
 import { default as MapError } from './Error';
 
 export function setAbstract() {
-  return ((function() {
+  return ((function () {
     throw new MapError('Calling an abstract method.\n(Implement overriding method(s))');
   })());
 }

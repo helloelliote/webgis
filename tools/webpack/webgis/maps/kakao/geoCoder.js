@@ -9,8 +9,12 @@ function searchCoordinateToAddress(coordinate) {
     coordinateToLatLng(coordinate)
       .then(getAddressFromLatLng)
       .then(getAddressHtmlElement)
-      .then(content => { resolve(content); })
-      .catch((err) => { reject(err); });
+      .then(content => {
+        resolve(content);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 

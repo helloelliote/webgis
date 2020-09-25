@@ -1,10 +1,10 @@
 import Map from 'ol/Map';
 import Vector from './layer/Vector';
-import { view, syncZoomLevel } from './view';
+import { syncZoomLevel, view } from './view';
 import { default as addressOverlay } from './overlay/Address';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
-import { onClickQuickSearchResultFacility, onClickQuickSearchResultAddress } from './event';
+import { onClickQuickSearchResultAddress, onClickQuickSearchResultFacility } from './event';
 // import { searchCoordinateToAddress } from '../kakao/geoCoder';
 import { searchCoordinateToAddress } from '../naver/geoCoder';
 

@@ -22,7 +22,7 @@ class Postgresql {
 
     return this;
   }
-  
+
   get pool() {
     return this._pool;
   }

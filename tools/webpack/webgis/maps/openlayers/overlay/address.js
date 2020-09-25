@@ -25,7 +25,7 @@ $(document).on('click', '.addr-clipboard', function (event) {
   document.body.removeChild(el);
   $(addressOverlayElement).popover('hide');
   $.notify({
-    message:'선택한 주소가 클립보드에 저장되었습니다',
+    message: '선택한 주소가 클립보드에 저장되었습니다',
   });
 });
 

@@ -7,7 +7,7 @@ import Layer from './Layer';
 import property from './Layer.property';
 import SourceLoader from '../worker/sourceLoader.worker';
 import { default as geoJson } from '../format';
-import { lineStyleMap, arrowheadStyle, closedPipeStyle } from '../style/Line';
+import { arrowheadStyle, closedPipeStyle, lineStyleMap } from '../style/Line';
 import { pointStyleMap } from '../style/Point';
 import { polygonStyleMap } from '../style/Polygon';
 import { styleDirectionFilter, styleRotationFilter } from '../filter';
@@ -34,7 +34,7 @@ function createVectorLayer(key) {
 }
 
 function createVectorSource(key) {
-  const vectorSource = 
+  const vectorSource =
     new VectorSource({
       format: geoJson,
       overlaps: false,

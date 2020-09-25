@@ -11,7 +11,7 @@ import { roundCustom } from '../../math';
 class ProjectionFactory extends Projection {
 
   constructor(opt_code) {
-    const _defaultProjectionCode = opt_code ? opt_code :'EPSG:5187';
+    const _defaultProjectionCode = opt_code ? opt_code : 'EPSG:5187';
     const _defaultProjectionDefinition = [
       'EPSG:5187',
       '+proj=tmerc +lat_0=38 +lon_0=129 +k=1 +x_0=200000 +y_0=600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',

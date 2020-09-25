@@ -29,7 +29,7 @@ kakao.maps.event.addListener(map, 'tilesloaded', function () {
 
 window.addEventListener('resize', function () {
   map.relayout();
-}, 
+},
 { passive: true },
 );
 

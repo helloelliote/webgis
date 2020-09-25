@@ -19,7 +19,9 @@ function onFetch() {
     .then(resolveContentByType)
     .then(result => self.postMessage(result))
     .catch(err => self.postMessage(err))
-    .finally(() => { messageData = null; });
+    .finally(() => {
+      messageData = null;
+    });
 }
 
 function resolveResponse(response) {

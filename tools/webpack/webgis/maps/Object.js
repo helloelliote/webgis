@@ -7,7 +7,7 @@ export default class BaseObject {
     setUid(this);
 
     this._values = {};
-    
+
     if (options !== undefined) {
       for (const key in options) {
         this._values[key] = options[key];

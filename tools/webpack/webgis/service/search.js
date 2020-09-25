@@ -1,6 +1,6 @@
 'use strict';
 
-const { formatFacilitySearch, formatAddressSearch } = require('./format/search');
+const {formatFacilitySearch, formatAddressSearch} = require('./format/search');
 
 const KTLayoutSearch = function () {
   // Private properties
@@ -22,15 +22,15 @@ const KTLayoutSearch = function () {
   let _spinnerClass = 'spinner spinner-sm spinner-primary';
   let _resultClass = 'quick-search-has-result';
   let _minLength = 2;
-  
+
   let _toggle;
   let _toggleIndex = 0;
   let _toggleArray = [
     {
-      class: 'label-primary', 
+      class: 'label-primary',
       url: `${window.location.origin}/api/wtl/search`,
       headers: {
-        'CSRF-Token': $("meta[name='csrf-token']").attr('content'),
+        'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
       },
       format: formatFacilitySearch,
     },

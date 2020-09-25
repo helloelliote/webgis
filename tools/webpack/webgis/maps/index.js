@@ -1,5 +1,3 @@
-import { customSessionStorage } from './Storage';
-
 window.webgis = {
   // workspace: customSessionStorage.get('workspace'),
   workspace: 'gyeongju_a',

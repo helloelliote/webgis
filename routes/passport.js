@@ -4,10 +4,10 @@ export default {
       _csrfToken: req.csrfToken(),
     });
   },
-  
+
   login(req, res, next, passport) {
     passport.authenticate('local-signin', signInUser)(req, res, next);
-    
+
     function signInUser(err, user, info) {
       req.login(user, function (err) {
         if (err) {

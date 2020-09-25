@@ -26,7 +26,7 @@ class Mysql {
   get pool() {
     return this._pool;
   }
-  
+
   executeQuery(text, params) {
     return this._pool
       .promise()
@@ -36,7 +36,7 @@ class Mysql {
       })
       .catch(Mysql.onError);
   }
-  
+
   static onError(err) {
     return new Error(err.code);
   }

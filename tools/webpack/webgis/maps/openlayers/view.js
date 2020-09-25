@@ -2,7 +2,7 @@ import View from 'ol/View';
 import { fromLonLat } from 'ol/proj';
 import { LocalStorage } from '../Storage';
 import { default as projection } from './projection/Projection';
-import { map, mapContainer, viewSyncOptions } from '../naver/Map';
+import { map, viewSyncOptions } from '../naver/Map';
 import { coordinateToLatLng } from '../naver/util';
 // import { map, mapContainer, viewSyncOptions } from '../kakao/Map';
 // import { coordinateToLatLng } from '../kakao/util';

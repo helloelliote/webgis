@@ -2,7 +2,8 @@ export default class Ajax {
 
   constructor(module) {
     this._instance = module;
-    this._instance.onerror = function (err) {};
+    this._instance.onerror = function (err) {
+    };
     this._queryParameter = new URLSearchParams();
     this._mimeType = 'text/plain';
     this._requestUrl = '';
@@ -17,7 +18,9 @@ export default class Ajax {
       .setContentType(opt_type)
       .setRequestUrl(url)
       .sendQuery(this._instance)
-      .catch((err) => { this._instance.terminate(); })
+      .catch((err) => {
+        this._instance.terminate();
+      })
       .finally(() => this.clear());
   }
 
@@ -61,7 +64,7 @@ export default class Ajax {
   }
 
   clear() {
-    for(let [key] of this._queryParameter.entries()) {
+    for (let [key] of this._queryParameter.entries()) {
       this._queryParameter.delete(key);
     }
   }
