@@ -20,7 +20,7 @@ let currentZoom;
 const view = new View({
   projection: projection,
   center: fromLonLat([
-    localStorage.longitude, 
+    localStorage.longitude,
     localStorage.latitude,
   ], projection),
   zoom: base,
@@ -30,12 +30,14 @@ const view = new View({
   rotation: viewSyncOptions.rotation,
 });
 
-view.on('change:center', function () {
+view.on('change:center', onChangeCenter);
+
+function onChangeCenter() {
   coordinateToLatLng(view.getCenter(), projection.code)
     .then(function (latLng) {
       map.setCenter(latLng);
     });
-});
+}
 
 function syncZoomLevel() {
   let newZoom = Math.floor(view.getZoom());

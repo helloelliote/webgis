@@ -160,13 +160,15 @@ function getEntryFiles() {
   // webgis
   Object.assign(entries,
     { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
+    { 'js/serv.bundle': ['./webpack/webgis/service/index.js'] },
   );
 
   // webgis
   Object.assign(entries,
     { 'css/maps.bundle': ['./webpack/webgis/maps/style.scss'] },
+    { 'css/serv.bundle': ['./webpack/webgis/service/style.scss'] },
   );
- 
+
   // Custom styles
   Object.assign(entries,
     { 'css/style.custom.bundle': ['./webpack/webgis/metronic/style.scss'] },
