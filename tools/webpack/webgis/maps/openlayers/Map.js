@@ -4,7 +4,7 @@ import { view, syncZoomLevel } from './view';
 import { default as addressOverlay } from './overlay/Address';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
-import { onClickQuickSearchResult } from './event';
+import { onClickQuickSearchResultFacility, onClickQuickSearchResultAddress } from './event';
 // import { searchCoordinateToAddress } from '../kakao/geoCoder';
 import { searchCoordinateToAddress } from '../naver/geoCoder';
 
@@ -53,4 +53,5 @@ function onMoveEnd(event) {
   syncZoomLevel();
 }
 
-$(document).on('click', '.quick-search-result-item', view, onClickQuickSearchResult);
+$(document).on('click', '.quick-search-result-facility', view, onClickQuickSearchResultFacility);
+$(document).on('click', '.quick-search-result-address', view, onClickQuickSearchResultAddress);

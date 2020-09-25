@@ -1,6 +1,6 @@
 'use strict';
 
-const formatSearch = require('./format/search');
+const { formatFacilitySearch, formatAddressSearch } = require('./format/search');
 
 const KTLayoutSearch = function () {
   // Private properties
@@ -22,6 +22,36 @@ const KTLayoutSearch = function () {
   let _spinnerClass = 'spinner spinner-sm spinner-primary';
   let _resultClass = 'quick-search-has-result';
   let _minLength = 2;
+  
+  let _toggle;
+  let _toggleIndex = 0;
+  let _toggleArray = [
+    {
+      class: 'label-primary', 
+      url: `${window.location.origin}/api/wtl/search`,
+      headers: {
+        'CSRF-Token': $("meta[name='csrf-token']").attr('content'),
+      },
+      format: formatFacilitySearch,
+    },
+    // Reserved for SWL search
+    // {
+    //   class: 'label-danger',
+    //   url: `${window.location.origin}/api/wtl/search`,
+    //   headers: {
+    //     'CSRF-Token': $("meta[name='csrf-token']").attr('content'),
+    //   },
+    //   format: formatFacilitySearch,
+    // },
+    {
+      class: 'label-info',
+      url: 'https://dapi.kakao.com/v2/local/search/keyword.json',
+      headers: {
+        'Authorization': 'KakaoAK 2b80b94ece8eb5cace6ef21359edac62',
+      },
+      format: formatAddressSearch,
+    },
+  ];
 
   // Private functions
   const _showProgress = function () {
@@ -77,11 +107,8 @@ const KTLayoutSearch = function () {
 
     setTimeout(function () {
       $.ajax({
-        url: window.location.origin + '/api/wtl/search',
-        headers: {
-          'Content-Type': 'application/json',
-          'CSRF-Token': $("meta[name='csrf-token']").attr('content'),
-        },
+        url: _toggleArray[_toggleIndex].url,
+        headers: _toggleArray[_toggleIndex].headers,
         data: {
           query: _query,
         },
@@ -89,12 +116,13 @@ const KTLayoutSearch = function () {
         success: function (res) {
           _hasResult = true;
           _hideProgress();
-          formatSearch(res).then(function (result) {
-            KTUtil.addClass(_target, _resultClass);
-            KTUtil.setHTML(_resultWrapper, result);
-            _showDropdown();
-            KTUtil.scrollUpdate(_resultWrapper);
-          });
+          _toggleArray[_toggleIndex].format(res)
+            .then(function (result) {
+              KTUtil.addClass(_target, _resultClass);
+              KTUtil.setHTML(_resultWrapper, result);
+              _showDropdown();
+              KTUtil.scrollUpdate(_resultWrapper);
+            });
         },
         error: function (res) {
           _hasResult = false;
@@ -138,6 +166,15 @@ const KTLayoutSearch = function () {
     }, _requestTimeout);
   };
 
+  const _handleSearchToggle = function () {
+    _input.value = null;
+    _toggle.classList.replace(
+      _toggleArray[_toggleIndex++ % _toggleArray.length].class,
+      _toggleArray[_toggleIndex % _toggleArray.length].class,
+    );
+    _toggleIndex = _toggleIndex % _toggleArray.length;
+  };
+
   // Public methods
   return {
     init: function (id) {
@@ -155,6 +192,7 @@ const KTLayoutSearch = function () {
       _resultDropdownToggle = KTUtil.find(_target, '[data-toggle="dropdown"]');
       _inputGroup = KTUtil.find(_target, '.input-group');
       _closeIconContainer = KTUtil.find(_target, '.input-group .input-group-append');
+      _toggle = KTUtil.find(_target, '.input-group-prepend .input-group-text a');
 
       // Attach input keyup handler
       KTUtil.addEvent(_input, 'keyup', _handleSearch);
@@ -168,6 +206,7 @@ const KTLayoutSearch = function () {
         }
       };
 
+      KTUtil.addEvent(_toggle, 'click', _handleSearchToggle);
       KTUtil.addEvent(_closeIcon, 'click', _handleCancel);
     },
   };

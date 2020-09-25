@@ -166,6 +166,7 @@ function getEntryFiles() {
   // webgis
   Object.assign(entries,
     { 'css/maps.bundle': ['./webpack/webgis/maps/style.scss'] },
+    { 'css/serv.bundle': ['./webpack/webgis/service/style.scss'] },
   );
 
   // Custom styles

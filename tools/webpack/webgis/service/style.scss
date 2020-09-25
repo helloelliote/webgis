@@ -1,0 +1,16 @@
+.quick-search-form {
+  .input-group-prepend {
+    .label-primary::before {
+      content: '상수도';
+    }
+
+    // Reserved for SWL search
+    //.label-danger::before {
+    //  content: '하수도';
+    //}
+
+    .label-info::before {
+      content: '장소 및 주소';
+    }
+  }
+}
