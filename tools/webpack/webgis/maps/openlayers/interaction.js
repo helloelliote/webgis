@@ -45,9 +45,9 @@ export class SelectInteraction extends Select {
       },
     });
 
-    this.feature = new Feature();
+    this._feature = new Feature();
 
-    this.overaly = new FeatureOverlay({
+    this._overaly = new FeatureOverlay({
       source: new VectorSource(),
       map: options['map'],
     });
@@ -56,15 +56,15 @@ export class SelectInteraction extends Select {
   }
 
   onSelectEvent(event) {
-    this.overaly.setOverlay(null);
+    this._overaly.setOverlay(null);
     const feature = event.selected[0];
     if (!feature) return;
     switch (feature.getGeometry().getType()) {
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
-        this.feature.setStyle(selectPointStyle);
-        this.feature.setGeometry(feature.getGeometry());
-        this.overaly.setOverlay(this.feature);
+        this._feature.setStyle(selectPointStyle);
+        this._feature.setGeometry(feature.getGeometry());
+        this._overaly.setOverlay(this._feature);
         break;
       }
       default:

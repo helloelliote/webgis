@@ -19,4 +19,12 @@ export default class FeatureOverlay extends VectorLayer {
       this._highlight = feature;
     }
   }
+
+  addFeature(feature) {
+    this.getSource().addFeature(feature);
+  }
+
+  clear() {
+    this.getSource().clear();
+  }
 }
