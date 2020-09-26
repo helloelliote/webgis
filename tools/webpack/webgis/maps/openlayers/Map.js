@@ -27,7 +27,9 @@ const map = new Map({
 
 map.addOverlay(addressOverlay);
 
-map.addInteraction(new SelectInteraction({ map: map }));
+const selectInteraction = new SelectInteraction({ map: map });
+
+map.addInteraction(selectInteraction);
 
 map.on('contextmenu', onContextMenu);
 
@@ -53,5 +55,10 @@ function onMoveEnd(event) {
   syncZoomLevel();
 }
 
-$(document).on('click', '.quick-search-result-facility', view, onClickQuickSearchResultFacility);
-$(document).on('click', '.quick-search-result-address', view, onClickQuickSearchResultAddress);
+$(document).on('click', '.quick-search-result-facility', view, onClickQuickSearchResultAddress);
+$(document).on('click', '.quick-search-result-address', view, onClickQuickSearchResultFacility);
+
+export {
+  map,
+  selectInteraction,
+};

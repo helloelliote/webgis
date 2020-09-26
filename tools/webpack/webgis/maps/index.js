@@ -13,3 +13,4 @@ window.webgis = {
 require('./naver/Map');
 require('./openlayers/overlay/notification');
 require('./openlayers/Map');
+require('./naver/roadview');

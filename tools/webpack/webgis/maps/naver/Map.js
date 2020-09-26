@@ -3,7 +3,6 @@ import { roundCustom } from '../math';
 
 const localStorage = new LocalStorage();
 
-const mapContainer = document.getElementById('map');
 const mapOptions = {
   center: new naver.maps.LatLng(
     localStorage.latitude,
@@ -37,7 +36,7 @@ const mapOptions = {
   }),
 };
 
-const map = new naver.maps.Map(mapContainer, mapOptions);
+const map = new naver.maps.Map('map', mapOptions);
 
 // map.setMapTypeId(naver.maps.MapTypeId['HYBRID']);
 
@@ -64,4 +63,7 @@ const viewSyncOptions = {
   rotation: 0,
 };
 
-export { map, mapContainer, viewSyncOptions };
+export {
+  map,
+  viewSyncOptions,
+};
