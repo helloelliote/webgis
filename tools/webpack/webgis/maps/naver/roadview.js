@@ -11,9 +11,8 @@ import { coordinateToLatLng } from './util';
 
 let isActive = false;
 
-let mapContainer = document.getElementById('map-container');
-let rvIconSource = new VectorSource();
-let rvIconLayer = new VectorLayer({
+const rvIconSource = new VectorSource();
+const rvIconLayer = new VectorLayer({
   source: rvIconSource,
   style: new Style({
     image: new Icon({
@@ -23,12 +22,17 @@ let rvIconLayer = new VectorLayer({
 });
 olMap.addLayer(rvIconLayer);
 
-let rvLayer = new naver.maps.StreetLayer();
+const rvLayer = new naver.maps.StreetLayer();
 let rvPanorama;
+
+const rvContainer = document.getElementById('map-container');
+const rvButton = document.getElementById('btn-map-roadview');
+rvButton.addEventListener('click', onClickRoadviewButton);
 
 function onClickRoadviewButton() {
   isActive = !isActive;
-  mapContainer.className = isActive ? 'grid-parent parent' : 'parent';
+  rvContainer.classList.toggle('grid-parent', isActive);
+  rvButton.classList.toggle('active', isActive);
   window.dispatchEvent(new Event('resize'));
   
   if (isActive) {
@@ -43,7 +47,7 @@ function onClickRoadviewButton() {
     rvLayer.setMap(null);
     olMap.addInteraction(selectInteraction);
     olMap.un('singleclick', onSingleClick);
-    naver.maps.Event.removeListener(rvPanorama, 'pano_changed', onPanoramaChanged);
+    rvIconSource.clear();
   }
 }
 
@@ -61,6 +65,3 @@ function onPanoramaChanged() {
   rvIconSource.clear();
   rvIconSource.addFeature(new Feature(new Point(coords)));
 }
-
-const rvButton = document.getElementById('btn-map-roadview');
-rvButton.addEventListener('click', onClickRoadviewButton);
