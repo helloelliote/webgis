@@ -4,7 +4,7 @@ import { LocalStorage } from '../Storage';
 import { default as projection } from './projection/Projection';
 import { map, viewSyncOptions } from '../naver/Map';
 import { coordinateToLatLng } from '../naver/util';
-// import { map, mapContainer, viewSyncOptions } from '../kakao/Map';
+// import { map, viewSyncOptions } from '../kakao/Map';
 // import { coordinateToLatLng } from '../kakao/util';
 
 const localStorage = new LocalStorage();
@@ -61,6 +61,6 @@ function syncZoomLevel() {
 }
 
 export {
-  view,
   syncZoomLevel,
+  view,
 };
