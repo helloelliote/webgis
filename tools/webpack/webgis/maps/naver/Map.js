@@ -3,6 +3,8 @@ import { roundCustom } from '../math';
 
 const localStorage = new LocalStorage();
 
+let isMapTypeHybrid = false;
+
 const mapOptions = {
   center: new naver.maps.LatLng(
     localStorage.latitude,
@@ -38,13 +40,29 @@ const mapOptions = {
 
 const map = new naver.maps.Map('map', mapOptions);
 
-// map.setMapTypeId(naver.maps.MapTypeId['HYBRID']);
-
 naver.maps.Event.addListener(map, 'tilesloaded', function () {
   const center = map.getCenter();
   localStorage.latitude = roundCustom(center.lat());
   localStorage.longitude = roundCustom(center.lng());
 });
+
+const mapTypeButton = document.getElementById('btn-map-hybrid');
+mapTypeButton.addEventListener('click', onClickHybridButton);
+
+function onClickHybridButton(event) {
+  event.preventDefault();
+
+  isMapTypeHybrid = !isMapTypeHybrid;
+  mapTypeButton.classList.toggle('active', isMapTypeHybrid);
+
+  if (isMapTypeHybrid) {
+    mapTypeButton.innerHTML = '위성 지도';
+    map.setMapTypeId(naver.maps.MapTypeId.HYBRID)
+  } else {
+    mapTypeButton.innerHTML = '일반 지도';
+    map.setMapTypeId(naver.maps.MapTypeId.NORMAL);
+  }
+}
 
 window.addEventListener('resize', function () {
   map.refresh();

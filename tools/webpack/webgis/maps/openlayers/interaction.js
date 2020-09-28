@@ -56,6 +56,7 @@ export class SelectInteraction extends Select {
   }
 
   onSelectEvent(event) {
+    event.preventDefault();
     this._overaly.setOverlay(null);
     const feature = event.selected[0];
     if (!feature) return;

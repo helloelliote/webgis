@@ -15,7 +15,8 @@ const rvIcon = new FeatureOverlay({
   source: new VectorSource(),
   style: new Style({
     image: new Icon({
-      src: `/assets/media/symbols/RE004.png`, // TODO: Get a roadview icon
+      anchor: [0.5, 1.0],
+      src: `/assets/media/symbols/RV.png`, // TODO: Get a roadview icon
     }),
   }),
 });
@@ -28,7 +29,9 @@ const rvContainer = document.getElementById('map-container');
 const rvButton = document.getElementById('btn-map-roadview');
 rvButton.addEventListener('click', onClickRoadviewButton);
 
-function onClickRoadviewButton() {
+function onClickRoadviewButton(event) {
+  event.preventDefault();
+
   isActive = !isActive;
   rvContainer.classList.toggle('grid-parent', isActive);
   rvButton.classList.toggle('active', isActive);
@@ -53,6 +56,7 @@ function onClickRoadviewButton() {
 }
 
 function onSingleClick(event) {
+  event.preventDefault();
   coordinateToLatLng(event.coordinate, projection.code)
     .then(function (latLng) {
       rvPanorama.setPosition(latLng);

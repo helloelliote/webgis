@@ -8,6 +8,7 @@ const centerX = Math.round(mapContainer.clientWidth / 2);
 const centerY = Math.round(mapContainer.clientHeight / 2);
 
 function onClickQuickSearchResultFacility(event) {
+  event.preventDefault();
   // TODO: (Maybe) highlight selected item
   // Move view (assigned to event.data) center on selected item
   const coordinate = $(event.target).next('p').html();
@@ -17,6 +18,7 @@ function onClickQuickSearchResultFacility(event) {
 }
 
 function onClickQuickSearchResultAddress(event) {
+  event.preventDefault();
   // TODO: (Maybe) Add an icon feature on selected location
   // Move view (assigned to event.data) center on selected item
   const lagLng = $(event.target).next('p').html().split(',');
@@ -26,6 +28,7 @@ function onClickQuickSearchResultAddress(event) {
 }
 
 function onClickTopbarLogo(event) {
+  event.preventDefault();
   // Move view (assigned to event.data) center on predefined, default location
   const [lng, lat] = [window.webgis.center.longitude, window.webgis.center.latitude];
   const center = fromLonLat([lng, lat], projection);
