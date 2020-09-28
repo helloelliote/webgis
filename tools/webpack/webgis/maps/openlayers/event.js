@@ -35,6 +35,31 @@ function onClickTopbarLogo(event) {
   (event.data).setCenter(center);
 }
 
+function onClickTableCode(event) {
+  event.preventDefault();
+  let layerName = $(this).attr('id');
+  $(this).toggleClass('ki-bold-check-1 ki-hide');
+  $(this).toggleClass('text-primary text-danger');
+  (event.data['vectorLayer']).toggleLayers([layerName]);
+  // let childrenIcon = $(this).parent().next('div.menu-submenu')
+  //   .find('ul.menu-subnav li.menu-item a span.menu-label i');
+  // childrenIcon.toggleClass('ki-bold-check-1 ki-hide');
+  // childrenIcon.toggleClass('text-primary text-danger');
+}
+
+function onWindowLoad(event) {
+  event.preventDefault();
+  const vectorLayer = event.data['vectorLayer'];
+  const menuElement = $('.menu-label');
+  menuElement.find('.ol-table-code-wtl').each((index, element) => {
+    if (vectorLayer.hasLayer(element.id)) {
+      $(element).addClass('ki ki-bold-check-1 text-primary icon-md');
+    } else {
+      $(element).addClass('ki ki-hide text-danger icon-md');
+    }
+  });
+}
+
 export {
-  onClickQuickSearchResultFacility, onClickQuickSearchResultAddress, onClickTopbarLogo,
+  onClickQuickSearchResultFacility, onClickQuickSearchResultAddress, onClickTopbarLogo, onClickTableCode, onWindowLoad,
 };
