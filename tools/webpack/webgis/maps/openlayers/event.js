@@ -35,6 +35,57 @@ function onClickTopbarLogo(event) {
   (event.data).setCenter(center);
 }
 
+function onClickTableCode(event) {
+  event.preventDefault();
+  const vectorLayer = event.data['vectorLayer'];
+  const eventEl = event.target;
+  const elementId = eventEl.id;
+
+  if (vectorLayer.hasLayer(elementId)) {
+    eventEl.classList.add('fa-times-circle', 'text-danger');
+    eventEl.classList.remove('fa-check-circle', 'text-primary');
+  } else {
+    eventEl.classList.add('fa-check-circle', 'text-primary');
+    eventEl.classList.remove('fa-times-circle', 'text-danger');
+  }
+  vectorLayer.toggleLayers([elementId]);
+}
+
+function onWindowLoad(event) {
+  event.preventDefault();
+  const vectorLayer = event.data['vectorLayer'];
+
+  const menuNavEl = document.querySelector('.menu-nav');
+
+  let menuLabelEl = menuNavEl.querySelectorAll('span.menu-label > i.ol-table-code-wtl');
+  menuLabelEl.forEach(element => {
+    if (vectorLayer.hasLayer(element.id)) {
+      element.classList.add('far', 'fa-check-circle', 'text-primary', 'icon-lg');
+    } else {
+      element.classList.add('far', 'fa-times-circle', 'text-danger', 'icon-lg');
+    }
+  });
+  let role = '상수'; // TODO: Add Role
+  switch (role) {
+    case '상수': {
+      let menuItemEl = menuNavEl.querySelectorAll('li.menu-item-wtl');
+      menuItemEl.forEach(element => {
+        element.classList.add('menu-item-open');
+      });
+      break;
+    }
+    case '하수': {
+      let menuItemEl = menuNavEl.querySelectorAll('li.menu-item-swl');
+      menuItemEl.forEach(element => {
+        element.classList.add('menu-item-open');
+      });
+      break;
+    }
+    default:
+      break;
+  }
+}
+
 export {
-  onClickQuickSearchResultFacility, onClickQuickSearchResultAddress, onClickTopbarLogo,
+  onClickQuickSearchResultFacility, onClickQuickSearchResultAddress, onClickTopbarLogo, onClickTableCode, onWindowLoad,
 };

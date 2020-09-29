@@ -27,6 +27,10 @@ export default class Layer extends MapObject {
     return this._layerGroup;
   }
 
+  hasLayer(key) {
+    return this._layerMap.has(key);
+  }
+
   getLayer(key) {
     if (this._layerMap.has(key)) {
       return this._layerMap.get(key);

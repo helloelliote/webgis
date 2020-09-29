@@ -27,7 +27,7 @@ function createVectorLayer(key) {
   return new VectorLayer({
     className: key,
     maxZoom: property[key].maxZ,
-    minZoom: 9,
+    minZoom: property[key].minZ,
     source: createVectorSource(key),
     style: createVectorStyle,
   });
