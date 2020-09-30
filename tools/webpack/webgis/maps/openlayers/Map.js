@@ -5,10 +5,9 @@ import { default as addressOverlay } from './overlay/Address';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
 import {
-  onClickQuickSearchResultAddress,
-  onClickQuickSearchResultFacility,
-  onClickTableCode,
   onClickTopbarLogo,
+  onClickQuickSearchInline,
+  onClickTableCode,
   onWindowLoad,
 } from './event';
 // import { searchCoordinateToAddress } from '../kakao/geoCoder';
@@ -73,13 +72,19 @@ function onMoveEnd(event) {
   syncZoomLevel();
 }
 
-// Fired when the DOM is ready which can be prior to images and other external content is loaded.
-$(document).on('click', '.quick-search-result-facility', view, onClickQuickSearchResultFacility);
-$(document).on('click', '.quick-search-result-address', view, onClickQuickSearchResultAddress);
-$(document).on('click', '#topbar-logo', view, onClickTopbarLogo);
-$(document).on('click', '.ol-table-code-wtl', { vectorLayer: vectorLayer }, onClickTableCode);
+// Fired when the DOM is ready which can be prior to images and other external content is loaded.\
+document.getElementById('topbar-logo')
+  .addEventListener('click', onClickTopbarLogo.bind(view), false);
+
+document.getElementById('kt_quick_search_inline')
+  .addEventListener('click', onClickQuickSearchInline.bind(view), false);
+
+[...document.getElementsByClassName('ol-table-code-wtl')].forEach(element => {
+  element.addEventListener('click', onClickTableCode.bind(vectorLayer), false);
+});
+
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)
-$(window).on('load', { vectorLayer: vectorLayer }, onWindowLoad);
+window.addEventListener('load', onWindowLoad.bind(vectorLayer), false);
 
 export {
   map,

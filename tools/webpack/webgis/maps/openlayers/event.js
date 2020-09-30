@@ -7,59 +7,54 @@ const mapContainer = document.getElementById('map-container');
 const centerX = Math.round(mapContainer.clientWidth / 2);
 const centerY = Math.round(mapContainer.clientHeight / 2);
 
-function onClickQuickSearchResultFacility(event) {
-  event.preventDefault();
-  // TODO: (Maybe) highlight selected item
-  // Move view (assigned to event.data) center on selected item
-  const coordinate = $(event.target).next('p').html();
-  const feature = geoJson.readFeature(coordinate);
-  const extent = getCenter(feature.getGeometry().getExtent());
-  (event.data).centerOn(extent, [100, 100], [centerX, centerY]);
-}
-
-function onClickQuickSearchResultAddress(event) {
-  event.preventDefault();
-  // TODO: (Maybe) Add an icon feature on selected location
-  // Move view (assigned to event.data) center on selected item
-  const lagLng = $(event.target).next('p').html().split(',');
-  const [lng, lat] = [lagLng[0], lagLng[1]];
-  const coords = fromLonLat([lng, lat], projection);
-  (event.data).setCenter(coords);
-}
-
 function onClickTopbarLogo(event) {
   event.preventDefault();
-  // Move view (assigned to event.data) center on predefined, default location
   const [lng, lat] = [window.webgis.center.longitude, window.webgis.center.latitude];
   const center = fromLonLat([lng, lat], projection);
-  (event.data).setCenter(center);
+  this.setCenter(center);
+}
+
+function onClickQuickSearchInline(event) {
+  event.preventDefault();
+  let targetEl = event.target;
+  if (targetEl) {
+    if (targetEl.className.includes('quick-search-result-facility')) {
+      const coordinate = targetEl.nextElementSibling.innerHTML;
+      const feature = geoJson.readFeature(coordinate);
+      const extent = getCenter(feature.getGeometry().getExtent());
+      this.centerOn(extent, [100, 100], [centerX, centerY]);
+    } else if (targetEl.className.includes('quick-search-result-address')) {
+      const lagLng = targetEl.nextElementSibling.innerHTML.split(',');
+      const [lng, lat] = [lagLng[0], lagLng[1]];
+      const coords = fromLonLat([lng, lat], projection);
+      this.setCenter(coords);
+    }
+  }
 }
 
 function onClickTableCode(event) {
   event.preventDefault();
-  const vectorLayer = event.data['vectorLayer'];
-  const eventEl = event.target;
-  const elementId = eventEl.id;
+  const targetEl = event.target;
+  const ElementId = targetEl.id;
 
-  if (vectorLayer.hasLayer(elementId)) {
-    eventEl.classList.add('fa-times-circle', 'text-danger');
-    eventEl.classList.remove('fa-check-circle', 'text-primary');
+  if (this.hasLayer(ElementId)) {
+    targetEl.classList.add('fa-times-circle', 'text-danger');
+    targetEl.classList.remove('fa-check-circle', 'text-primary');
   } else {
-    eventEl.classList.add('fa-check-circle', 'text-primary');
-    eventEl.classList.remove('fa-times-circle', 'text-danger');
+    targetEl.classList.add('fa-check-circle', 'text-primary');
+    targetEl.classList.remove('fa-times-circle', 'text-danger');
   }
-  vectorLayer.toggleLayers([elementId]);
+  this.toggleLayers([ElementId]);
 }
 
 function onWindowLoad(event) {
   event.preventDefault();
-  const vectorLayer = event.data['vectorLayer'];
 
   const menuNavEl = document.querySelector('.menu-nav');
 
   let menuLabelEl = menuNavEl.querySelectorAll('span.menu-label > i.ol-table-code-wtl');
   menuLabelEl.forEach(element => {
-    if (vectorLayer.hasLayer(element.id)) {
+    if (this.hasLayer(element.id)) {
       element.classList.add('far', 'fa-check-circle', 'text-primary', 'icon-lg');
     } else {
       element.classList.add('far', 'fa-times-circle', 'text-danger', 'icon-lg');
@@ -87,5 +82,8 @@ function onWindowLoad(event) {
 }
 
 export {
-  onClickQuickSearchResultFacility, onClickQuickSearchResultAddress, onClickTopbarLogo, onClickTableCode, onWindowLoad,
+  onClickTopbarLogo,
+  onClickQuickSearchInline,
+  onClickTableCode,
+  onWindowLoad,
 };

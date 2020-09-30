@@ -56,6 +56,6 @@ const notifySettings = {
 </div>`,
 };
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', () => {
   $.notifyDefaults(notifySettings);
 });

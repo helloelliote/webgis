@@ -1,6 +1,6 @@
 'use strict';
 
-const {formatFacilitySearch, formatAddressSearch} = require('./format/search');
+const { formatFacilitySearch, formatAddressSearch } = require('./format/search');
 
 const KTLayoutSearch = function () {
   // Private properties
