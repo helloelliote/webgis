@@ -5,6 +5,7 @@ window.webgis = {
     latitude: 35.856171,
     longitude: 129.224803,
   },
+  rect: '128.908021,35.631390,129.582420,36.087606',
   host: ((window.location.origin).toString()),
   geoserverHost: ((window.location.origin).toString()).replace(/3000/gi, '8000'),
 };

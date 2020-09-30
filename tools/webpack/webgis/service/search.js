@@ -44,8 +44,8 @@ const KTLayoutSearch = function () {
     //   format: formatFacilitySearch,
     // },
     {
-      class: 'label-info',
-      url: 'https://dapi.kakao.com/v2/local/search/keyword.json',
+      class: 'label-info', // TODO: https://developers.kakao.com/docs/latest/ko/local/dev-guide
+      url: `https://dapi.kakao.com/v2/local/search/keyword.json?rect=${window.webgis.rect}`,
       headers: {
         'Authorization': 'KakaoAK 2b80b94ece8eb5cace6ef21359edac62',
       },
@@ -133,7 +133,7 @@ const KTLayoutSearch = function () {
           KTUtil.scrollUpdate(_resultWrapper);
         },
       });
-    }, 1000);
+    }, 250);
   };
 
   const _handleCancel = function (e) {
