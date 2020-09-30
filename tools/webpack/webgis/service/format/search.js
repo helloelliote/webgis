@@ -64,7 +64,7 @@ function formatFacilitySearch(response) {
 
 const DOCUMENTS = 'documents';
 const PLACE = 'place_name';
-const ADDR = 'address_name'; // TODO: 'road_address_name' & 'address_name'
+const ADDR = 'address_name';
 const ROAD_ADDR = 'road_address_name';
 const COORDS_X = 'x';
 const COORDS_Y = 'y';
@@ -76,10 +76,11 @@ function formatAddressSearch(response) {
     const itemWrapperEl = _itemWrapperEl.cloneNode(true);
     results.forEach(item => {
       const itemEl = _itemEl.cloneNode(true);
+      let addr = item[ROAD_ADDR] !== '' ? item[ROAD_ADDR] : item[ADDR];
       itemEl.querySelector('a').classList.add('quick-search-result-address');
       itemEl.querySelector('a').innerHTML = item[PLACE];
       itemEl.querySelector('p').innerHTML = item[COORDS_X] + ',' + item[COORDS_Y];
-      itemEl.querySelector('span').innerHTML = item[ROAD_ADDR];
+      itemEl.querySelector('span').innerHTML = addr;
       itemWrapperEl.appendChild(itemEl);
     });
     const sectionEl = _sectionEl.cloneNode(true);
