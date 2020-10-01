@@ -20,21 +20,21 @@ const _itemEl = htmlToElement(`<div class="d-flex align-items-center flex-grow-1
 </div>`);
 
 const ROWS = 'rows';
-const CNAME = 'cname';
+const CNAME = 'cname'; // TODO: Do not use original column names, use alias instead
 const COORDINATE = 'coordinate';
 const FAC_NAM = 'fac_nam';
 const HJD_NAM = 'hjd_nam';
 const BJD_NAM = 'bjd_nam';
 
 function formatFacilitySearch(response) {
-  return new Promise(function (resolve) {
+  return new Promise(resolve => {
     // Use #clone() to create a new element from the template.
     const resultEl = _resultEl.cloneNode(true);
     const results = response[ROWS];
     // Create an array of unique 'cname' values. Each entry will make a separate section element.
     const categorySet = [...new Set(results.map(result => result[CNAME]))];
     // For each 'cname' category section, read and write each item inside a wrapper element.
-    categorySet.forEach(function (category) {
+    categorySet.forEach(category => {
       const itemWrapperEl = _itemWrapperEl.cloneNode(true);
       // Create an array of items that have the target 'cname' value.
       const items = results.filter(result => result[CNAME] === category);
@@ -70,7 +70,7 @@ const COORDS_X = 'x';
 const COORDS_Y = 'y';
 
 function formatAddressSearch(response) {
-  return new Promise(function (resolve) {
+  return new Promise(resolve => {
     const resultEl = _resultEl.cloneNode(true);
     const results = response[DOCUMENTS];
     const itemWrapperEl = _itemWrapperEl.cloneNode(true);

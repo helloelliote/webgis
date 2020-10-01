@@ -14,3 +14,17 @@
     }
   }
 }
+
+.topbar-item {
+  .nav {
+    .topbar-item {
+      .dropdown-menu {
+        max-height: calc(75vh);
+        overflow-y: auto;
+        .navi .navi-item .navi-link .navi-text {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
