@@ -21,17 +21,17 @@ const OLWaterSection = function () {
   let _queryObject = {
     viw_wtl_wtsa_as: {
       parent: null,
-      name: '급수구역명',
+      column: '급수구역명',
       child: 'viw_wtl_wtssa_as',
     },
     viw_wtl_wtssa_as: {
       parent: 'viw_wtl_wtsa_as',
-      name: '급수분구명',
+      column: '급수분구명',
       child: 'viw_wtl_wtsba_as',
     },
     viw_wtl_wtsba_as: {
       parent: 'viw_wtl_wtssa_as',
-      name: '급수블럭명',
+      column: '급수블럭명',
       child: null,
     },
   };
@@ -50,7 +50,7 @@ const OLWaterSection = function () {
   };
 
   const _processSearch = function () {
-    if (_hasResult && _query === _resultWrapper.id) {
+    if (_query === _resultWrapper.id) {
       KTUtil.addClass(_resultWrapper, _resultClass);
       _showDropdown();
       KTUtil.scrollUpdate(_resultDropdown);
@@ -61,26 +61,58 @@ const OLWaterSection = function () {
     _query = _resultWrapper.id;
 
     KTUtil.removeClass(_resultWrapper, _resultClass);
-    _hideDropdown();
+    
+    $.ajax({
+      url: `${window.location.origin}/api/wtl/section`,
+      headers: {
+        'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
+      },
+      data: {
+        table: _query,
+        column: _queryObject[_query]['column'],
+      },
+      dataType: 'json',
+      success: function (res) {
+        formatSectionSearch(res)
+          .then(function (result) {
+            KTUtil.addClass(_resultWrapper, _resultClass);
+            KTUtil.setHTML(_resultDropdown, result);
+            _showDropdown();
+            KTUtil.scrollUpdate(_resultDropdown);
+          });
+        // .then(_processSearchPost);
+      },
+      error: function (res) {
+        KTUtil.addClass(_target, _resultClass);
+        KTUtil.setHTML(_resultDropdown, '<span class="font-weight-bold text-muted">Connection error. Please try again later..</div>');
+        _showDropdown();
+        KTUtil.scrollUpdate(_resultDropdown);
+      },
+    });
+  };
+  
+  const _processSearchPost = function () {
+    KTUtil.addEvent(_resultDropdown, 'click', function (event) {
+      const elementId = event.target.id.split(':');
+      const [table, column, section] = [elementId[0], elementId[1], elementId[2]];
+      const child = _queryObject[table]['child'];
 
-    setTimeout(function () {
       $.ajax({
         url: `${window.location.origin}/api/wtl/section`,
         headers: {
           'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
         },
         data: {
-          table: _query,
-          column: _queryObject[_query]['name'],
+          child: child,
+          childColumn: _queryObject[child]['column'],
+          column: column,
+          section: section,
         },
         dataType: 'json',
         success: function (res) {
           formatSectionSearch(res)
             .then(function (result) {
-              KTUtil.addClass(_resultWrapper, _resultClass);
-              KTUtil.setHTML(_resultDropdown, result);
-              _showDropdown();
-              KTUtil.scrollUpdate(_resultDropdown);
+              // TODO: Fill in child sections
             });
         },
         error: function (res) {
@@ -90,7 +122,7 @@ const OLWaterSection = function () {
           KTUtil.scrollUpdate(_resultDropdown);
         },
       });
-    }, 250);
+    });
   };
 
   const _handleSearch = function (event) {
@@ -134,7 +166,7 @@ const OLWaterSection = function () {
 
       KTUtil.addEvent(_toggle, 'click', _handleSearchToggle);
       _resultWrapperGroup.forEach(_wrapper => {
-        KTUtil.addEvent(_wrapper, 'click', _handleSearch);
+        KTUtil.addEvent(_wrapper.querySelector('button'), 'click', _handleSearch);
       });
     },
   };

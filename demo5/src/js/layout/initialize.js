@@ -68,5 +68,5 @@ KTUtil.ready(function() {
     // Init Search Dropdown For Tablet & Mobile Mode
     KTLayoutSearch().init('kt_quick_search_dropdown');
 
-    OLWaterSection().init('ol-water-section');
+    OLWaterSection().init('ol-section-code-wtl');
 });

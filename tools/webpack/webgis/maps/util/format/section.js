@@ -10,15 +10,14 @@ function htmlToElement(html) {
 
 const _resultEl = htmlToElement(`<ul class="navi navi-hover navi-active navi-accent py-5"></ul>`);
 const _itemEl = htmlToElement(`<li class="navi-item">
-  <a href="javascript:;" class="navi-link">
-    <span class="navi-text">
-    </span>
-  </a>
+  <a href="javascript:;" class="navi-link navi-text"></a>
 </li><div class="separator separator-dashed my-1"></div>`);
 // const _separatorEl = htmlToElement('<div class="separator separator-dashed my-0"></div>');
 
 const ROWS = 'rows';
-const NAME = 'name';
+const TABLE = 'table';
+const COLUMN = 'column';
+const SECTION = 'section';
 
 function formatSectionSelect(response) {
   return new Promise(resolve => {
@@ -26,7 +25,8 @@ function formatSectionSelect(response) {
     const results = response[ROWS];
     results.forEach(item => {
       const itemEl = _itemEl.cloneNode(true);
-      itemEl.querySelector('span').innerHTML = item[NAME];
+      itemEl.querySelector('a').id = item[TABLE] + ':' + item[COLUMN] + ':' + item[SECTION];
+      itemEl.querySelector('a').innerHTML = item[SECTION];
       resultEl.appendChild(itemEl);
       // const separatorEl = _separatorEl.cloneNode(true);
       // resultEl.appendChild(separatorEl);

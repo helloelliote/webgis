@@ -21,7 +21,8 @@
       .dropdown-menu {
         max-height: calc(75vh);
         overflow-y: auto;
-        .navi .navi-item .navi-link .navi-text {
+        .navi .navi-item .navi-link {
+          display: grid;
           text-align: center;
         }
       }

@@ -37,7 +37,9 @@ export class SelectInteraction extends Select {
           }
           case GeometryType.POLYGON:
           case GeometryType.MULTI_POLYGON: {
-            return createVectorStyle(feature).clone().setFill(selectPolygonFill);
+            let selectStyle = createVectorStyle(feature).clone();
+            selectStyle.setFill(selectPolygonFill);
+            return selectStyle;
           }
           default:
             return createDefaultStyle(feature, 0);
