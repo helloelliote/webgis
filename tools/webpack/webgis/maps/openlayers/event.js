@@ -32,19 +32,44 @@ function onClickQuickSearchInline(event) {
   }
 }
 
+function onClickSectionCode(event) {
+  event.preventDefault();
+  const elementId = event.target.id.split(':');
+  const [table, column, section] = [elementId[0], elementId[1], elementId[2]];
+
+  const view = this['view'];
+  const size = this['size'];
+
+  $.ajax({
+    url: `${window.location.origin}/api/wtl/section`,
+    headers: {
+      'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
+    },
+    data: {
+      table, column, section,
+    },
+    dataType: 'json',
+    success: function (res) {
+      let feature = geoJson.readFeature(res['rows'][0]['coordinate']);
+      let extent = getCenter(feature.getGeometry().getExtent());
+      view.centerOn(extent, size, [centerX, centerY]);
+    },
+  });
+}
+
 function onClickTableCode(event) {
   event.preventDefault();
   const targetEl = event.target;
-  const ElementId = targetEl.id;
+  const elementId = targetEl.id;
 
-  if (this.hasLayer(ElementId)) {
+  if (this.hasLayer(elementId)) {
     targetEl.classList.add('fa-times-circle', 'text-danger');
     targetEl.classList.remove('fa-check-circle', 'text-primary');
   } else {
     targetEl.classList.add('fa-check-circle', 'text-primary');
     targetEl.classList.remove('fa-times-circle', 'text-danger');
   }
-  this.toggleLayers([ElementId]);
+  this.toggleLayers([elementId]);
 }
 
 function onWindowLoad(event) {
@@ -84,6 +109,7 @@ function onWindowLoad(event) {
 export {
   onClickTopbarLogo,
   onClickQuickSearchInline,
+  onClickSectionCode,
   onClickTableCode,
   onWindowLoad,
 };

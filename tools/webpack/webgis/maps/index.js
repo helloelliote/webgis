@@ -15,3 +15,5 @@ require('./naver/Map');
 require('./openlayers/overlay/notification');
 require('./openlayers/Map');
 require('./naver/roadview');
+window.OLWaterSection = require('./util/section');
+window.KTLayoutSearch = window.KTLayoutSearchInline = require('./util/search');

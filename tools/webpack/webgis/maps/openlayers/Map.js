@@ -7,6 +7,7 @@ import { default as defaultInteractions, SelectInteraction } from './interaction
 import {
   onClickTopbarLogo,
   onClickQuickSearchInline,
+  onClickSectionCode,
   onClickTableCode,
   onWindowLoad,
 } from './event';
@@ -78,6 +79,10 @@ document.getElementById('topbar-logo')
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline.bind(view), false);
+
+[...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
+  element.addEventListener('click', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);
+});
 
 [...document.getElementsByClassName('ol-table-code-wtl')].forEach(element => {
   element.addEventListener('click', onClickTableCode.bind(vectorLayer), false);
