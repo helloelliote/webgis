@@ -1,0 +1,39 @@
+////////////////////////////////////////////////////////////////
+
+// Source reference not found
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+//.form-control {
+//  height: calc(1.0em + 1rem + 2px);
+//  line-height: 1;
+//}
+
+//.bootstrap-select > .dropdown-toggle {
+//  padding: 0.5rem 1rem;
+//}
+
+////////////////////////////////////////////////////////////////
+
+.container-fluid {
+  .card {
+    background: #fcfcfc;
+  }
+
+  .card-footer {
+    background: #fcfcfc;
+  }
+
+  .overlay-layer {
+    border-radius: 0.25rem;
+    display: none;
+  }
+}
+
+////////////////////////////////////////////////////////////////
+
+.was-validated .form-control:valid, .form-control.is-valid {
+  padding-right: 0;
+}

@@ -16,7 +16,7 @@ var KTInputmask = function () {
         });
         
         // phone number format
-        $(".kt_inputmask_3").inputmask("mask", {
+        $("#kt_inputmask_3").inputmask("mask", {
             "mask": "(999) 999-9999"
         }); 
 
@@ -75,5 +75,5 @@ var KTInputmask = function () {
 }();
 
 jQuery(document).ready(function() {
-    KTInputmask.init();
+    // KTInputmask.init(); // Override: ./tools/webpack/webgis/service/input-mask.js
 });
