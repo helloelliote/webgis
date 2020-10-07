@@ -159,6 +159,7 @@ function getEntryFiles() {
   // webgis
   Object.assign(entries,
     { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
+    { 'js/serv.bundle': ['./webpack/webgis/service/index.js'] },
   );
 
   // webgis

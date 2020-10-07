@@ -57,7 +57,7 @@ function onClickHybridButton(event) {
 
   if (isMapTypeHybrid) {
     mapTypeButton.innerHTML = '위성 지도';
-    map.setMapTypeId(naver.maps.MapTypeId.HYBRID)
+    map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
   } else {
     mapTypeButton.innerHTML = '일반 지도';
     map.setMapTypeId(naver.maps.MapTypeId.NORMAL);
