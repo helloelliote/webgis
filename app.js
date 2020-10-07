@@ -14,7 +14,6 @@ import cors from 'cors';
 import passport from 'passport';
 import passportSetup from './middlewares/passport/index';
 import routes from './routes/index';
-import routesApi from './routes/api';
 
 const app = express();
 
@@ -71,12 +70,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 passportSetup(passport);
 
 const router = express.Router();
-
 routes(router, passport);
-routesApi(router);
-
 app.use('/', router);
-app.use('/api', router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
