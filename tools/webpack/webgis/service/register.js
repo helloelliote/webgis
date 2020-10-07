@@ -1,10 +1,14 @@
+/* eslint-disable no-undef */
 'use strict';
 
 const ServiceRegister = function () {
 
   let validation;
+  let isPending = false;
   // Form elements
+  let _card;
   let _form;
+  let _overlay;
   let _form_reg_idn;
   // let _form_reg_idn;
   // let _form_reg_usr;
@@ -17,15 +21,6 @@ const ServiceRegister = function () {
   // let _form_rep_com;
   let _submit;
   // Form values
-
-  const _initForm = function () {
-    _form_reg_idn = _form.find('input[name="reg_idn"]');
-    // _form_reg_idn.val('초기값');
-    $(_form).on('reset', function () {
-      let _id = _form_reg_idn.val();
-      setTimeout(() => _form_reg_idn.val(_id));
-    });
-  };
 
   const _initValidation = function () {
     validation = FormValidation.formValidation(
@@ -49,17 +44,36 @@ const ServiceRegister = function () {
       event.messageElement.style.display = 'none';
     });
 
-    $('#kt_datetimepicker_1').on('change.datetimepicker', function () {
+    _form.find('#kt_datetimepicker_1').on('change.datetimepicker', function () {
       validation.revalidateField('reg_ymd');
     });
 
-    $('#kt_inputmask_3').on('change', _revalidateField);
+    _form.find('input[name="reg_con"]').on('change', _revalidateField);
 
-    $('#input_reg_loc').on('change', _revalidateField);
+    _form.find('input[name="reg_loc"]').on('change', _revalidateField);
   };
 
   const _revalidateField = function (event) {
     validation.revalidateField(event.target.name);
+  };
+
+  const _initForm = function () {
+    // Automatically adjust textarea height
+    autosize(_form.find('textarea[name="rep_des"]'));
+
+    // Generate registration id upon opening the page
+    _form_reg_idn = _form.find('input[name="reg_idn"]');
+    // _form_reg_idn.val('초기값');
+
+    $(_form).on('reset', function () {
+      // On form reset, remove all validation status as well
+      validation.resetForm();
+      // Save the id and re-fill it after the form resets
+      let _id = _form_reg_idn.val();
+      setTimeout(() => {
+        _form_reg_idn.val(_id);
+      }, 250);
+    });
   };
 
   const _handleForm = function () {
@@ -68,6 +82,8 @@ const ServiceRegister = function () {
 
       validation.validate().then(function (status) {
         if (status === 'Valid') {
+          _toggleBlockOverlay(isPending = true);
+
           _form.ajaxSubmit({
             url: `${window.location.origin}/service/register`,
             method: 'POST',
@@ -76,8 +92,9 @@ const ServiceRegister = function () {
             },
             success: function (response, status, xhr, $form) {
               setTimeout(function () {
+                _toggleBlockOverlay(isPending = false);
                 console.log(response);
-              }, 150);
+              }, 2500);
             },
             error: function (response, status, xhr, $form) {
               console.log(response);
@@ -97,15 +114,26 @@ const ServiceRegister = function () {
     });
   };
 
+  const _toggleBlockOverlay = function (boolean) {
+    if (boolean) {
+      _card.addClass('overlay overlay-block');
+      _overlay.css('display', 'flex');
+    } else {
+      _card.removeClass('overlay overlay-block');
+      _overlay.css('display', 'none');
+    }
+  };
+
   // Public functions
   return {
     init: function () {
-      _form = $('#service_register_form');
+      _card = $('#card_2');
+      _form = _card.find('form');
+      _submit = _form.find('button[type="submit"]');
+      _overlay = _card.find('.overlay-layer');
 
-      _submit = KTUtil.getById('service_register_form_submit');
-
-      _initForm();
       _initValidation();
+      _initForm();
       _handleForm();
     },
   };

@@ -3,7 +3,7 @@
   <!--begin::Container-->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6" id="map-container">
+      <div class="col-md-6">
         <!--begin::Card-->
         <div class="card card-custom example example-compact card-fit card-border card-stretch" id="map">
           <!--begin::Form-->
@@ -13,8 +13,7 @@
       </div>
       <div class="col-md-6">
         <!--begin::Card-->
-        <div
-            class="card card-custom example example-compact card-fit card-border card-stretch overlay" id="card_2">
+        <div class="card card-custom example example-compact card-fit card-border card-stretch" id="card_2">
           <!--begin::Form-->
           <form class="form" id="service_register_form" novalidate="novalidate">
             <div class="card-body">
@@ -22,7 +21,7 @@
                 <div class="col-lg-4">
                   <label>접수번호</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" id="input_reg_idn" name="reg_idn" placeholder="" disabled/>
+                    <input type="text" class="form-control" name="reg_idn" placeholder="" disabled/>
                     <span><i class="la la-info-circle"></i></span>
                   </div>
                 </div>
@@ -73,7 +72,7 @@
                 <div class="col-lg-8">
                   <label>주소*</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control" id="input_reg_loc" name="reg_loc" placeholder="" value=""
+                    <input type="text" class="form-control" name="reg_loc" placeholder="" value=""
                            data-toggle="tooltip" data-placement="bottom" data-theme="dark"
                            title="지도에서 선택해주세요" readonly/>
                     <span><i class="la la-map-marker"></i></span>
@@ -126,7 +125,7 @@
               <div class="form-group row">
                 <div class="col-lg-12">
                   <label>상세 내용</label>
-                  <textarea class="form-control" id="exampleTextarea" name="rep_des" rows="1"></textarea>
+                  <textarea class="form-control" name="rep_des" rows="1"></textarea>
                 </div>
               </div>
               <div class="separator separator-dashed my-5"></div>
@@ -156,7 +155,8 @@
                 <div class="col-lg-3">
                   <label>연락처</label>
                   <div class="input-icon">
-                    <input type="text" class="form-control kt_inputmask_3" id="kt_inputmask_3" name="" placeholder="" readonly/>
+                    <input type="text" class="form-control kt_inputmask_3" name="" placeholder=""
+                           readonly/>
                     <span><i class="la la-phone"></i></span>
                   </div>
                 </div>
@@ -175,18 +175,18 @@
             <div class="card-footer">
               <div class="row justify-content-between">
                 <div class="col-8">
-                  <button class="btn btn-primary mr-2" id="service_register_form_submit">
+                  <button type="submit" class="btn btn-primary mr-2">
                     <i class="la la-check-circle"></i> 등록
                   </button>
-                  <button type="reset" class="btn btn-secondary-outline" id="service_register_form_reset">초기화</button>
+                  <button type="reset" class="btn btn-secondary-outline">초기화</button>
                 </div>
                 <div class="col-4 text-right font-weight-bold p-4">* 필수 입력</div>
               </div>
             </div>
           </form>
           <!--end::Form-->
-          <div class="overlay-layer bg-gray-o-50">
-            <div class="spinner spinner-success spinner-lg"></div>
+          <div class="overlay-layer bg-gray-o-75">
+            <div class="spinner spinner-track spinner-primary spinner-lg"></div>
           </div>
         </div>
         <!--end::Card-->
