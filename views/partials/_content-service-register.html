@@ -1,5 +1,5 @@
 <!--begin::Entry-->
-<div class="d-flex flex-column-fluid">
+<div class="d-flex flex-column-fluid mb-5">
   <!--begin::Container-->
   <div class="container-fluid">
     <div class="row">
@@ -13,81 +13,95 @@
       </div>
       <div class="col-md-6">
         <!--begin::Card-->
-        <div class="card card-custom example example-compact card-fit card-border card-stretch" id="card_2">
+        <div class="card card-custom example example-compact card-fit card-border card-stretch" id="card_register">
           <!--begin::Form-->
           <form class="form" id="service_register_form" novalidate="novalidate">
             <div class="card-body">
               <div class="form-group row">
-                <div class="col-lg-4">
-                  <label>접수번호</label>
-                  <div class="input-icon">
-                    <input type="text" class="form-control" name="reg_idn" placeholder="" disabled/>
-                    <span><i class="la la-info-circle"></i></span>
-                  </div>
+                <label class="col-lg-1 col-form-label">접수번호</label>
+                <div class="col-lg-2">
+                  <input class="form-control" disabled name="reg_idn" placeholder="" readonly type="text"/>
                 </div>
-                <div class="col-lg-4">
-                  <label>접수자*</label>
+                <label class="col-lg-1 col-form-label">접수자</label>
+                <div class="col-lg-3">
                   <div class="input-icon">
-                    <input type="text" class="form-control" name="reg_usr" placeholder=""/>
+                    <input type="text" class="form-control" placeholder="접수자명" name="reg_usr"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
+                <label class="col-lg-1 col-form-label">접수일자</label>
                 <div class="col-lg-4">
-                  <label>접수일자*</label>
-                  <div class="input-group date" id="kt_datetimepicker_1" data-target-input="nearest">
-                    <div class="input-group-prepend" data-target="#kt_datetimepicker_1">
-															<span class="input-group-text">
-																<i class="la la-calendar"></i>
-															</span>
+                  <div class="input-icon date" id="kt_datetimepicker_1" data-target-input="nearest">
+                    <div class="input-icon">
+                      <input type="text" class="form-control datetimepicker-input" name="reg_ymd"
+                             placeholder=""
+                             data-target="#kt_datetimepicker_1" data-toggle="datetimepicker"/>
+                      <span><i class="la la-calendar"></i></span>
                     </div>
-                    <input type="text" class="form-control datetimepicker-input" name="reg_ymd" placeholder=""
-                           data-target="#kt_datetimepicker_1" data-toggle="datetimepicker"/>
+                    <span><i class="la la-calendar"></i></span>
                   </div>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-lg-4">
-                  <label>민원인*</label>
-                  <div class="input-icon">
-                    <input type="text" class="form-control" name="reg_nam" placeholder=""/>
-                    <span><i class="la la-user"></i></span>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <label>연락처*</label>
-                  <div class="input-icon">
-                    <input type="text" class="form-control kt_inputmask_3" name="reg_con" placeholder="" value=""/>
-                    <span><i class="la la-phone"></i></span>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <label>연락처 2</label>
-                  <div class="input-icon">
-                    <input type="text" class="form-control kt_inputmask_3_2" name="reg_con_2" placeholder=""/>
-                    <span><i class="la la-phone"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-lg-8">
-                  <label>주소*</label>
-                  <div class="input-icon">
-                    <input type="text" class="form-control" name="reg_loc" placeholder="" value=""
-                           data-toggle="tooltip" data-placement="bottom" data-theme="dark"
-                           title="지도에서 선택해주세요" readonly/>
-                    <span><i class="la la-map-marker"></i></span>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <label>상세 주소</label>
-                  <input type="text" class="form-control" name="reg_loc_2" placeholder=""/>
                 </div>
               </div>
               <div class="separator separator-dashed my-5"></div>
               <div class="form-group row">
-                <div class="col-lg-4">
-                  <label>접수내용 (복수 선택 가능)*</label>
-                  <select class="form-control selectpicker" name="reg_cde" data-size="6" multiple title="선택하세요">
+                <label class="col-lg-1 col-form-label">민원인</label>
+                <div class="col-lg-3">
+                  <div class="input-icon">
+                    <input type="text" class="form-control" name="reg_nam" placeholder="민원인명"/>
+                    <span><i class="la la-user"></i></span>
+                  </div>
+                </div>
+                <label class="col-lg-1 col-form-label">연락처</label>
+                <div class="col-lg-3">
+                  <div class="input-icon">
+                    <input type="text" class="form-control kt_inputmask_3" name="reg_con"
+                           placeholder="" value=""/>
+                    <span><i class="la la-phone"></i></span>
+                  </div>
+                </div>
+                <label class="col-lg-1 col-form-label">연락처 2</label>
+                <div class="col-lg-3 mb-lg-0">
+                  <div class="input-icon">
+                    <input type="text" class="form-control kt_inputmask_3_2" name="reg_con_2"
+                           placeholder="" value=""/>
+                    <span><i class="la la-phone"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-1 col-form-label">주소</label>
+                <div class="col-lg-6">
+                  <div class="input-icon">
+                    <input type="text" class="form-control" name="reg_loc_road" placeholder="도로명 주소"
+                           value="" data-toggle="tooltip"
+                           data-placement="bottom" data-theme="dark" title="지도에서 선택해주세요" readonly/>
+                    <span><i class="la la-map-marker"></i></span>
+                  </div>
+                </div>
+                <div class="col-lg-5 mb-lg-0">
+                  <div class="input-icon">
+                    <input type="text" class="form-control" name="reg_loc_jibun" placeholder="지번 주소"
+                           value="" data-toggle="tooltip"
+                           data-placement="bottom" data-theme="dark" title="지도에서 선택해주세요" readonly/>
+                    <span><i class="la la-map-marker"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-1 col-form-label">상세주소</label>
+                <div class="col-lg-6">
+                  <div class="input-icon">
+                    <input type="text" class="form-control" name="reg_loc_desc" placeholder="상세 주소"/>
+                    <span><i class="la la-pencil"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="separator separator-dashed my-5"></div>
+              <div class="form-group row">
+                <div class="col-lg-4 mb-lg-0 mb-2">
+                  <label>접수내용</label>
+                  <select class="form-control selectpicker" name="reg_cde" data-size="6" multiple
+                          title="선택하세요 (복수 선택 가능)">
                     <option value="" hidden></option>
                     <option value="1">단수</option>
                     <option value="2">도로 누수</option>
@@ -102,11 +116,13 @@
                 </div>
                 <div class="col-lg-2" style="display: none">
                   <label>관경 (mm)</label>
-                  <input type="text" class="form-control kt_inputmask_10" name="pip_dip" placeholder=""/>
+                  <input type="text" class="form-control kt_inputmask_10" name="pip_dip"
+                         placeholder="관경값"/>
                 </div>
                 <div class="col-lg-2" style="display: none">
                   <label>보수내용</label>
-                  <select class="form-control selectpicker" name="rep_cde" data-size="6" title="선택하세요">
+                  <select class="form-control selectpicker" name="rep_cde" data-size="6"
+                          title="선택하세요">
                     <option value="" hidden></option>
                     <option value="1">새들분기점</option>
                     <option value="2">T 분기점</option>
@@ -117,22 +133,26 @@
                     <option value="7">기타</option>
                   </select>
                 </div>
-                <div class="col-lg-4">
-                  <label>담당자*</label>
-                  <input type="text" class="form-control" name="rep_nam" placeholder=""/>
+                <div class="col-lg-3">
+                  <label>담당자</label>
+                  <div class="input-icon">
+                    <input type="text" class="form-control" name="rep_nam" placeholder="담당자명"/>
+                    <span><i class="la la-user"></i></span>
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
-                <div class="col-lg-12">
-                  <label>상세 내용</label>
-                  <textarea class="form-control" name="rep_des" rows="1"></textarea>
+                <label class="col-lg-1 col-form-label">상세내용</label>
+                <div class="col-lg-11">
+                  <textarea class="form-control" name="rep_des" rows="2" placeholder="민원 상세 내용"></textarea>
                 </div>
               </div>
               <div class="separator separator-dashed my-5"></div>
               <div class="form-group row">
-                <div class="col-lg-4">
-                  <label>대행 업체</label>
-                  <select class="form-control selectpicker" name="rep_com" data-size="6" title="선택하세요">
+                <label class="col-lg-1 col-form-label">대행업체</label>
+                <div class="col-lg-2 mb-lg-0 mb-1">
+                  <select class="form-control selectpicker" name="rep_com" data-size="6"
+                          title="선택하세요">
                     <option value="" hidden></option>
                     <option value="1">건우설비</option>
                     <option value="2">대도건설</option>
@@ -145,32 +165,28 @@
                     <option value="9">기타</option>
                   </select>
                 </div>
-                <div class="col-lg-2">
-                  <label>대표자</label>
+                <div class="col-lg-3 mb-lg-0 mb-1">
                   <div class="input-icon">
-                    <input type="text" class="form-control" name="" placeholder="" readonly/>
+                    <input class="form-control" name="" placeholder="대표자명" readonly disabled ype="text" value=""/>
                     <span><i class="la la-user"></i></span>
                   </div>
+
                 </div>
-                <div class="col-lg-3">
-                  <label>연락처</label>
+                <div class="col-lg-3 mb-lg-0 mb-1">
                   <div class="input-icon">
-                    <input type="text" class="form-control kt_inputmask_3" name="" placeholder=""
-                           readonly/>
+                    <input class="form-control kt_inputmask_3" name="" placeholder="연락처" readonly disabled type="text"
+                           value=""/>
                     <span><i class="la la-phone"></i></span>
                   </div>
                 </div>
-                <div class="col-lg-3">
-                  <label>연락처 2</label>
+                <div class="col-lg-3 mb-lg-0 mb-1">
                   <div class="input-icon">
-                    <input type="text" class="form-control kt_inputmask_3_2" name="" placeholder="" readonly/>
+                    <input class="form-control kt_inputmask_3" name="" placeholder="연락처" readonly disabled
+                           type="text" value=""/>
                     <span><i class="la la-phone"></i></span>
                   </div>
                 </div>
               </div>
-              <!-- begin: Example Code-->
-
-              <!-- end: Example Code-->
             </div>
             <div class="card-footer">
               <div class="row justify-content-between">
@@ -180,7 +196,6 @@
                   </button>
                   <button type="reset" class="btn btn-secondary-outline">초기화</button>
                 </div>
-                <div class="col-4 text-right font-weight-bold p-4">* 필수 입력</div>
               </div>
             </div>
           </form>

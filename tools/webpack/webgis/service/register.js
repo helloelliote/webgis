@@ -8,6 +8,7 @@ const ServiceRegister = function () {
   // Form elements
   let _card;
   let _form;
+  let _submit;
   let _overlay;
   let _form_reg_idn;
   // let _form_reg_idn;
@@ -19,7 +20,6 @@ const ServiceRegister = function () {
   // let _form_reg_cde;
   // let _form_rep_nam;
   // let _form_rep_com;
-  let _submit;
   // Form values
 
   const _initValidation = function () {
@@ -31,7 +31,8 @@ const ServiceRegister = function () {
           'reg_ymd': { validators: { notEmpty: { message: '필수 입력' } } },
           'reg_nam': { validators: { notEmpty: { message: '필수 입력' } } },
           'reg_con': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_loc': { validators: { notEmpty: { message: '필수 입력' } } },
+          'reg_loc_road': { validators: { notEmpty: { message: '필수 입력' } } },
+          'reg_loc_jibun': { validators: { notEmpty: { message: '필수 입력' } } },
           'reg_cde': { validators: { notEmpty: { message: '필수 입력' } } },
           'rep_nam': { validators: { notEmpty: { message: '필수 입력' } } },
         },
@@ -49,8 +50,8 @@ const ServiceRegister = function () {
     });
 
     _form.find('input[name="reg_con"]').on('change', _revalidateField);
-
-    _form.find('input[name="reg_loc"]').on('change', _revalidateField);
+    _form.find('input[name="reg_loc_road"]').on('change', _revalidateField);
+    _form.find('input[name="reg_loc_jibun"]').on('change', _revalidateField);
   };
 
   const _revalidateField = function (event) {
@@ -73,6 +74,18 @@ const ServiceRegister = function () {
       setTimeout(() => {
         _form_reg_idn.val(_id);
       }, 250);
+    });
+
+    // Set datetimepicker
+    $('#kt_datetimepicker_1').datetimepicker({
+      /**
+       * @link https://tempusdominus.github.io/bootstrap-4/Options/#locale
+       * */
+      locale: window.moment.locale('ko'),
+      format: 'YYYY/MM/DD a hh:mm',
+      buttons: {
+        showToday: true,
+      },
     });
   };
 
@@ -127,7 +140,7 @@ const ServiceRegister = function () {
   // Public functions
   return {
     init: function () {
-      _card = $('#card_2');
+      _card = $('#card_register');
       _form = _card.find('form');
       _submit = _form.find('button[type="submit"]');
       _overlay = _card.find('.overlay-layer');
@@ -140,5 +153,5 @@ const ServiceRegister = function () {
 }();
 
 jQuery(document).ready(function () {
-  ServiceRegister.init();
+  if (document.getElementById('card_register')) ServiceRegister.init();
 });

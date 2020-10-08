@@ -6,29 +6,46 @@
   margin-bottom: 1rem;
 }
 
-//.form-control {
-//  height: calc(1.0em + 1rem + 2px);
-//  line-height: 1;
-//}
-
-//.bootstrap-select > .dropdown-toggle {
-//  padding: 0.5rem 1rem;
-//}
+.form-control {
+  //height: calc(1.0em + 1rem + 2px);
+  //line-height: 1;
+}
 
 ////////////////////////////////////////////////////////////////
 
-.container-fluid {
-  .card {
-    background: #fcfcfc;
+#card_register {
+  .input-group-text {
+    border: none;
+  }
+
+  .col-form-label {
+    padding-right: 0;
+  }
+
+  .card-body {
+    background: none;
   }
 
   .card-footer {
-    background: #fcfcfc;
+    background: none;
   }
 
   .overlay-layer {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     display: none;
+  }
+}
+
+#card_search {
+  .overlay-layer {
+    border-radius: 0.5rem;
+    display: none;
+  }
+
+  // demo5/src/sass/vendors/plugins/_datatables.scss:38
+
+  .dataTables_wrapper .dataTable th, .dataTables_wrapper .dataTable td {
+    padding: 0.15rem 0.75rem;
   }
 }
 

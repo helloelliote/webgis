@@ -51,8 +51,8 @@ const mapOptions = {
 const map = new naver.maps.Map('map', mapOptions);
 
 new ResizeObserver(function () {
-  document.getElementById('map').style.height = card_2.offsetHeight;
-}).observe(card_2);
+  document.getElementById('map').style.height = card_register.offsetHeight;
+}).observe(card_register);
 
 const marker = new naver.maps.Marker({
   map: map,
@@ -84,8 +84,11 @@ function onNaverMapClick(event) {
   getAddressFromLatLng(event.coord).then(function (res) {
     let road = res['roadAddress'];
     let jibun = res['jibunAddress'];
-    $('#service_register_form input[name="reg_loc"]')
-      .val(road === '' ? jibun : road + ` (${jibun})`)
+    $('#service_register_form input[name="reg_loc_road"]')
+      .val(road ? road : ' ')
+      .change();
+    $('#service_register_form input[name="reg_loc_jibun"]')
+      .val(jibun ? jibun : ' ')
       .change();
   });
 }

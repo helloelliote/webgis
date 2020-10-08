@@ -1,6 +1,6 @@
 require('../maps/openlayers/overlay/notification');
-require('./naver/Map');
 require('./register');
+require('./search');
 // Plugins
 require('./input-mask');
 // window.OLWaterSection = undefined;
