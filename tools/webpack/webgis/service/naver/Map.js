@@ -81,15 +81,30 @@ function onNaverTilesLoaded() {
 function onNaverMapClick(event) {
   marker.setVisible(true);
   marker.setPosition(event.coord);
-  getAddressFromLatLng(event.coord).then(function (res) {
-    let road = res['roadAddress'];
-    let jibun = res['jibunAddress'];
-    $('#service_register_form input[name="reg_loc_road"]')
+  getAddressFromLatLng(event.coord).then(function (response) {
+    let address = response['address'];
+    let road = address['roadAddress'];
+    let jibun = address['jibunAddress'];
+    $('#service_register_form input[name="apm_adr_road"]')
       .val(road ? road : ' ')
       .change();
-    $('#service_register_form input[name="reg_loc_jibun"]')
+    $('#service_register_form input[name="apm_adr_jibun"]')
       .val(jibun ? jibun : ' ')
       .change();
+
+    let code = response['results'][0]['code']['id'];
+    $('#service_register_form input[name="apl_hjd"]')
+      .val(code);
+
+    let land = response['results'][0]['land'];
+    $('#service_register_form input[name="apl_adr"]')
+      .val(land['number1'] + (land['number2'] === '' ? '' : '-' + land['number2']));
+
+    $('#service_register_form input[name="x"]')
+      .val(event.coord['x']);
+
+    $('#service_register_form input[name="y"]')
+      .val(event.coord['y']);
   });
 }
 

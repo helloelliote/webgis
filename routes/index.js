@@ -19,4 +19,5 @@ export default function (router, passport) {
   router.post('/service/register', service.registerPost);
 
   router.get('/service/search', service.searchGet);
+  router.post('/service/search', service.searchPost);
 }

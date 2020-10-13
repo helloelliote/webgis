@@ -10,16 +10,12 @@ const ServiceRegister = function () {
   let _form;
   let _submit;
   let _overlay;
-  let _form_reg_idn;
-  // let _form_reg_idn;
-  // let _form_reg_usr;
-  // let _form_reg_ymd;
-  // let _form_reg_nam;
-  // let _form_reg_con;
-  // let _form_reg_loc;
-  // let _form_reg_cde;
-  // let _form_rep_nam;
-  // let _form_rep_com;
+  let _form_rcv_num;
+  let _form_rcv_ymd;
+  let _form_apm_tel;
+  let _form_apl_cde;
+  let _form_pip_dip;
+  let _form_lep_cde;
   // Form values
 
   const _initValidation = function () {
@@ -27,14 +23,14 @@ const ServiceRegister = function () {
       KTUtil.getById('service_register_form'),
       {
         fields: {
-          'reg_usr': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_ymd': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_nam': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_con': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_loc_road': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_loc_jibun': { validators: { notEmpty: { message: '필수 입력' } } },
-          'reg_cde': { validators: { notEmpty: { message: '필수 입력' } } },
-          'rep_nam': { validators: { notEmpty: { message: '필수 입력' } } },
+          'rcv_nam': { validators: { notEmpty: { message: '필수 입력' } } },
+          'rcv_ymd': { validators: { notEmpty: { message: '필수 입력' } } },
+          'apm_nam': { validators: { notEmpty: { message: '필수 입력' } } },
+          'apm_tel': { validators: { notEmpty: { message: '필수 입력' } } },
+          'apm_adr_road': { validators: { notEmpty: { message: '필수 입력' } } },
+          'apm_adr_jibun': { validators: { notEmpty: { message: '필수 입력' } } },
+          'pro_nam': { validators: { notEmpty: { message: '필수 입력' } } },
+          'apy_cde': { validators: { notEmpty: { message: '필수 입력' } } },
         },
         plugins: {
           trigger: new FormValidation.plugins.Trigger(),
@@ -45,13 +41,13 @@ const ServiceRegister = function () {
       event.messageElement.style.display = 'none';
     });
 
-    _form.find('#kt_datetimepicker_1').on('change.datetimepicker', function () {
-      validation.revalidateField('reg_ymd');
+    _form_rcv_ymd.on('change.datetimepicker', function () {
+      validation.revalidateField('rcv_ymd');
     });
 
-    _form.find('input[name="reg_con"]').on('change', _revalidateField);
-    _form.find('input[name="reg_loc_road"]').on('change', _revalidateField);
-    _form.find('input[name="reg_loc_jibun"]').on('change', _revalidateField);
+    _form_apm_tel.on('change', _revalidateField);
+    _form.find('input[name="apm_adr_road"]').on('change', _revalidateField);
+    _form.find('input[name="apm_adr_jibun"]').on('change', _revalidateField);
   };
 
   const _revalidateField = function (event) {
@@ -60,32 +56,53 @@ const ServiceRegister = function () {
 
   const _initForm = function () {
     // Automatically adjust textarea height
-    autosize(_form.find('textarea[name="rep_des"]'));
+    autosize(_form.find('textarea[name="apl_exp"]'));
+
+    _form_rcv_ymd.datetimepicker({
+      /**
+       * @link https://tempusdominus.github.io/bootstrap-4/Options/#locale
+       * */
+      locale: window.moment.locale('ko'),
+      format: 'YYYY-MM-DD HH:mm',
+      buttons: {
+        showToday: true,
+      },
+    });
+
+    _form_apm_tel.inputmask('999-9999-9999', {
+      oncomplete: function (event) {
+        $(event.target).change();
+      },
+    });
+
+    _form_pip_dip.inputmask('999', {
+      numericInput: true,
+    });
+
+    _form_apl_cde.on('change', function (event) {
+      if (event.target.value === '도로 누수') {
+        _form_pip_dip.parent().css('display', 'block');
+        _form_lep_cde.parents().eq(1).css('display', 'block');
+      } else {
+        _form_pip_dip.parent().css('display', 'none');
+        _form_lep_cde.parents().eq(1).css('display', 'none');
+        _form_pip_dip.val('');
+        _form_lep_cde.val('default').selectpicker('refresh');
+      }
+    });
 
     // Generate registration id upon opening the page
-    _form_reg_idn = _form.find('input[name="reg_idn"]');
+
     // _form_reg_idn.val('초기값');
 
     $(_form).on('reset', function () {
       // On form reset, remove all validation status as well
       validation.resetForm();
       // Save the id and re-fill it after the form resets
-      let _id = _form_reg_idn.val();
+      let _id = _form_rcv_num.val();
       setTimeout(() => {
-        _form_reg_idn.val(_id);
+        _form_rcv_num.val(_id);
       }, 250);
-    });
-
-    // Set datetimepicker
-    $('#kt_datetimepicker_1').datetimepicker({
-      /**
-       * @link https://tempusdominus.github.io/bootstrap-4/Options/#locale
-       * */
-      locale: window.moment.locale('ko'),
-      format: 'YYYY/MM/DD a hh:mm',
-      buttons: {
-        showToday: true,
-      },
     });
   };
 
@@ -110,7 +127,6 @@ const ServiceRegister = function () {
               }, 2500);
             },
             error: function (response, status, xhr, $form) {
-              console.log(response);
             },
           },
           null,
@@ -144,6 +160,13 @@ const ServiceRegister = function () {
       _form = _card.find('form');
       _submit = _form.find('button[type="submit"]');
       _overlay = _card.find('.overlay-layer');
+
+      _form_rcv_num = _form.find('input[name="rcv_num"]');
+      _form_rcv_ymd = _form.find('input[name="rcv_ymd"]').parent('.date');
+      _form_apm_tel = _form.find('input[name="apm_tel"]');
+      _form_apl_cde = _form.find('select[name="apy_cde"]');
+      _form_pip_dip = _form.find('input[name="pip_dip"]');
+      _form_lep_cde = _form.find('select[name="lep_cde"]');
 
       _initValidation();
       _initForm();

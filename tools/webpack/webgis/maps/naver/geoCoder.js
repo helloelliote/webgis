@@ -22,7 +22,7 @@ function getAddressFromLatLng(latLng) {
   return new Promise((resolve) => {
     service.reverseGeocode({ coords: latLng, orders: 'addr,roadaddr' }, (status, res) => {
       if (status === naver.maps.Service.Status.OK) {
-        resolve(res['v2']['address']);
+        resolve(res['v2']);
       }
     });
   });
