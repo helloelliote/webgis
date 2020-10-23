@@ -25,7 +25,7 @@
       <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
         <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->{{>
-        _subheader/_subheader-service-search}}
+      _subheader/_subheader-service-search}}
 
         <!--[html-partial:include:{"file":"partials/_content.html"}]/-->{{> _content-service-search}}
       </div>
@@ -135,11 +135,13 @@
 
 <!--begin::Page Vendors(used by this page)-->
 <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=48ezy1hyob&submodules=visualization"
+        type="text/javascript"></script>
 <!--end::Page Vendors-->
 
 <!--begin::Page Scripts(used by this page)-->
 <script src="assets/js/pages/widgets.js"></script>
-<script src="assets/js/serv.bundle.js"></script>
+<script src="assets/js/serv.search.js"></script>
 <script>
   $('.navi-link').removeClass('active');
   $('#navi-link-2').addClass('active');
