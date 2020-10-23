@@ -6,28 +6,100 @@
   margin-bottom: 1rem;
 }
 
-//.form-control {
-//  height: calc(1.0em + 1rem + 2px);
-//  line-height: 1;
-//}
-
-//.bootstrap-select > .dropdown-toggle {
-//  padding: 0.5rem 1rem;
-//}
+.form-control {
+  //height: calc(1.0em + 1rem + 2px);
+  //line-height: 1;
+}
 
 ////////////////////////////////////////////////////////////////
 
-.container-fluid {
-  .card {
-    background: #fcfcfc;
+#card_register {
+  .input-group-text {
+    border: none;
+  }
+
+  .col-form-label {
+    padding-right: 0;
+  }
+
+  .card-body {
+    background: none;
   }
 
   .card-footer {
-    background: #fcfcfc;
+    background: none;
   }
 
   .overlay-layer {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
+    display: none;
+  }
+}
+
+////////////////////////////////////////////////////////////////
+
+#card_search {
+  .card-body {
+    padding: 0;
+
+    .ribbon-target {
+      right: -2px;
+      top: 10px;
+    }
+
+    #kt_card_1 {
+      .card-header {
+        min-height: 0;
+      }
+
+      .card-body {
+        padding: 0;
+
+        #card_search_map {
+          width: 100%;
+          height: 45vh;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    #kt_card_2 {
+      .card-body {
+        padding: 0;
+
+        #card_dist_map {
+          width: 100%;
+          height: 80vh;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    #kt_datatable {
+      margin: 0 0 1rem 0 !important;
+
+      td {
+        white-space: nowrap;
+        padding: 0 1rem;
+      }
+
+      th {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .button {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    margin: 0 auto;
+    z-index: 1000;
+    padding: 5px;
+  }
+
+  .overlay-layer {
+    border-radius: 0.5rem;
     display: none;
   }
 }
@@ -36,4 +108,18 @@
 
 .was-validated .form-control:valid, .form-control.is-valid {
   padding-right: 0;
+}
+
+////////////////////////////////////////////////////////////////
+
+// demo5/src/sass/components/_table.scss:46
+
+.table {
+  &.table-head-custom {
+    thead {
+      tr, th {
+        color: black !important;
+      }
+    }
+  }
 }

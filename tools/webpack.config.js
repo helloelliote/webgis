@@ -55,8 +55,8 @@ function importDatatables() {
           'node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js',
           'node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
           'node_modules/jszip/dist/jszip.min.js',
-          'node_modules/pdfmake/build/pdfmake.min.js',
-          'node_modules/pdfmake/build/vfs_fonts.js',
+          // 'node_modules/pdfmake/build/pdfmake.min.js',
+          // 'node_modules/pdfmake/build/vfs_fonts.js',
           'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
           'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
           'node_modules/datatables.net-buttons/js/buttons.colVis.js',
@@ -159,7 +159,20 @@ function getEntryFiles() {
   // webgis
   Object.assign(entries,
     { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
-    { 'js/serv.bundle': ['./webpack/webgis/service/index.js'] },
+    { 'js/serv.register':
+        [
+          './webpack/webgis/service/index.js',
+          './webpack/webgis/service/register/Map.js',
+          './webpack/webgis/service/register/index.js',
+        ],
+    },
+    { 'js/serv.search':
+        [
+          './webpack/webgis/service/index.js',
+          './webpack/webgis/service/search/Map.js',
+          './webpack/webgis/service/search/index.js',
+        ],
+    },
   );
 
   // webgis

@@ -14,15 +14,11 @@ const mapOptions = {
   maxZoom: 21,
   // Controls
   mapDataControl: false,
-  zoomControl: true,
-  zoomControlOptions: {
-    style: naver.maps.ZoomControlStyle.SMALL,
-    position: naver.maps.Position.TOP_LEFT,
-  },
+  zoomControl: false,
   mapTypeControl: true,
   mapTypeControlOptions: {
     style: naver.maps.MapTypeControlStyle.BUTTON,
-    position: naver.maps.Position.TOP_RIGHT,
+    position: naver.maps.Position.TOP_LEFT,
   },
   scaleControlOptions: {
     position: naver.maps.Position.BOTTOM_LEFT,
@@ -49,10 +45,6 @@ const mapOptions = {
 };
 
 const map = new naver.maps.Map('map', mapOptions);
-
-new ResizeObserver(function () {
-  document.getElementById('map').style.height = card_register.offsetHeight;
-}).observe(card_register);
 
 const marker = new naver.maps.Marker({
   map: map,
@@ -132,3 +124,7 @@ function onClickQuickSearchInline(event) {
 function onWindowResize() {
   map.refresh();
 }
+
+new ResizeObserver(function () {
+  document.getElementById('map').style.height = card_register.offsetHeight;
+}).observe(card_register);
