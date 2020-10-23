@@ -1,4 +1,5 @@
 import postgresql from '../middlewares/postgresql';
+import mysql from '../middlewares/mysql';
 import moment from 'moment';
 
 moment.locale('ko');
@@ -11,14 +12,23 @@ export default {
     });
   },
 
+  registerScheduleGet(req, res, next) {
+    mysql.executeQuery(
+      `SELECT * FROM wtt_sch_address;`,
+      [],
+    ).then(result => {
+      res.status(200).json(result);
+    });
+  },
+
   registerPost(req, res, next) {
     const _body = req.body;
     postgresql.executeQuery(
       `INSERT INTO wtt_wser_ma
-         VALUES (DEFAULT, ST_SetSRID(ST_MakePoint($1, $2), 5187), date_part('year', CURRENT_DATE), $3, $4, $5, $6, $7,
-                 (SELECT codeno FROM private.cd_apy WHERE cname = $8), $9,
-                 (SELECT codeno FROM private.cd_lep WHERE cname = $10), $11, $12, $13, NULL, DEFAULT, NULL, NULL, $14,
-                 NULL, DEFAULT);`,
+         VALUES (DEFAULT, ST_SetSRID(ST_MakePoint($1, $2), 5187), $1, $2, date_part('year', CURRENT_DATE), $3, $4, $5,
+                 $6, $7, (SELECT codeno FROM private.cd_apy WHERE cname = $8), $9,
+                 (SELECT codeno FROM private.cd_lep WHERE cname = $10), $11, $12, $13, $14,
+                 (SELECT codeno FROM private.cd_pro WHERE cname = $15), NULL, NULL, $16, $17, DEFAULT);`,
       [
         _body['x'],
         _body['y'],
@@ -33,7 +43,10 @@ export default {
         _body['apm_nam'],
         _body['apm_adr_jibun'] + '/' + _body['apm_adr_road'] + ' ' + _body['apm_adr_desc'],
         _body['apm_tel'],
+        _body['dur_ymd'],
+        _body['pro_cde'],
         _body['pro_nam'],
+        _body['opr_nam'],
       ], // TODO: '상수' Role 처리
     ).then(result => {
       res.status(200).json({ result: result });

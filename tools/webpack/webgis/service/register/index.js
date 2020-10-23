@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 'use strict';
 
+import { formatSchedule } from '../format/register';
+
 const ServiceRegister = function () {
 
   let validation;
@@ -16,6 +18,8 @@ const ServiceRegister = function () {
   let _form_apl_cde;
   let _form_pip_dip;
   let _form_lep_cde;
+  let _form_dur_ymd;
+  let _form_opr_nam;
   // Form values
 
   const _initValidation = function () {
@@ -57,6 +61,11 @@ const ServiceRegister = function () {
   const _initForm = function () {
     // Automatically adjust textarea height
     autosize(_form.find('textarea[name="apl_exp"]'));
+    _form.find('textarea[name="apl_exp"]').maxlength({
+      warningClass: 'label label-primary label-rounded label-inline',
+      limitReachedClass: 'label label-danger label-rounded label-inline',
+      placement: 'top',
+    });
 
     _form_rcv_ymd.datetimepicker({
       /**
@@ -91,7 +100,25 @@ const ServiceRegister = function () {
       }
     });
 
-    // Generate registration id upon opening the page
+    _form_dur_ymd.datetimepicker({
+      locale: window.moment.locale('ko'),
+      format: 'YYYY-MM-DD',
+    });
+
+    $.ajax({
+      url: `${window.location.origin}/service/register/schedule`,
+      headers: {
+        'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
+      },
+      dataType: 'json',
+      success: function (res) {
+        formatSchedule(res).then(function (result) {
+          _form_opr_nam.append(result);
+        });
+      },
+      error: function (res) {
+      },
+    });
 
     // _form_reg_idn.val('초기값');
 
@@ -123,7 +150,6 @@ const ServiceRegister = function () {
             success: function (response, status, xhr, $form) {
               setTimeout(function () {
                 _toggleBlockOverlay(isPending = false);
-                console.log(response);
               }, 2500);
             },
             error: function (response, status, xhr, $form) {
@@ -167,6 +193,8 @@ const ServiceRegister = function () {
       _form_apl_cde = _form.find('select[name="apy_cde"]');
       _form_pip_dip = _form.find('input[name="pip_dip"]');
       _form_lep_cde = _form.find('select[name="lep_cde"]');
+      _form_dur_ymd = _form.find('input[name="dur_ymd"]').parent('.date');
+      _form_opr_nam = _form.find('select[name="opr_nam"]');
 
       _initValidation();
       _initForm();

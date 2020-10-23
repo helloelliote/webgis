@@ -102,7 +102,7 @@
                 </div>
                 <label class="col-lg-1 col-form-label">접수내용</label>
                 <div class="col-lg-3">
-                  <select class="form-control selectpicker" name="apy_cde" data-size="6" title="선택하세요">
+                  <select class="form-control selectpicker" name="apy_cde" title="선택하세요">
                     <option value="" hidden></option>
                     <option value="단수">단수</option>
                     <option value="도로 누수">도로 누수</option>
@@ -119,14 +119,14 @@
                   <input type="text" class="form-control kt_inputmask_10" name="pip_dip" placeholder="관경(mm)"/>
                 </div>
                 <div class="col-lg-2" style="display: none">
-                  <select class="form-control selectpicker" name="lep_cde" data-size="6" title="누수 위치">
+                  <select class="form-control selectpicker" name="lep_cde" title="누수 위치">
                     <option value="" hidden></option>
-                    <option value="관체(이형관/새들)">새들분기점</option>
-                    <option value="관체(이형관/분기T)">T 분기점</option>
-                    <option value="접합부(본체)">클램프 보수</option>
-                    <option value="밸브류(제수변)">제수변 누수</option>
-                    <option value="관체(직관)">균열 누수</option>
-                    <option value="관체(이형관/곡관)">엘보 누수</option>
+                    <option value="새들분기">새들분기점</option>
+                    <option value="T분기">T 분기점</option>
+                    <option value="클램프">클램프 보수</option>
+                    <option value="제수변">제수변 누수</option>
+                    <option value="직관">직관 누수</option>
+                    <option value="엘보">엘보 누수</option>
                     <option value="기타">기타</option>
                   </select>
                 </div>
@@ -134,46 +134,36 @@
               <div class="form-group row">
                 <label class="col-lg-1 col-form-label">상세내용</label>
                 <div class="col-lg-11">
-                  <textarea class="form-control" name="apl_exp" rows="2" placeholder="민원 상세 내용"></textarea>
+                  <textarea class="form-control" name="apl_exp" rows="1" maxlength="120"
+                            placeholder="민원 상세 내용"></textarea>
                 </div>
               </div>
               <div class="separator separator-dashed my-6"></div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">대행업체</label>
-                <div class="col-lg-2 mb-lg-0 mb-1">
-                  <select class="form-control selectpicker" name="rep_nam" data-size="6" title="선택하세요">
-                    <option value="" hidden></option>
-                    <option value="1">건우설비</option>
-                    <option value="2">대도건설</option>
-                    <option value="3">대영수도</option>
-                    <option value="4">미래건설산업</option>
-                    <option value="5">송원개발</option>
-                    <option value="6">영주수도</option>
-                    <option value="7">중앙기업</option>
-                    <option value="8">풍기중앙수도</option>
-                    <option value="9">기타</option>
+                <label class="col-lg-1 col-form-label">처리상태</label>
+                <div class="col-lg-3 mb-lg-0 mb-1">
+                  <select class="form-control selectpicker" name="pro_cde" title="신청접수">
+                    <option value="신청접수" hidden></option>
+                    <option value="신청접수">신청접수</option>
+                    <option value="진행중">진행중</option>
+                    <option value="처리보류">처리보류</option>
+                    <option value="협조/이첩">협조/이첩</option>
+                    <option value="처리완료">처리완료</option>
+                    <option value="처리중단">처리중단</option>
+                    <option value="미분류">미분류</option>
                   </select>
                 </div>
+                <label class="col-lg-1 col-form-label">처리기한</label>
                 <div class="col-lg-3 mb-lg-0 mb-1">
-                  <div class="input-icon">
-                    <input class="form-control" name="rep_nam_nam" placeholder="대표자명" readonly disabled type="text"
-                           value=""/>
-                    <span><i class="la la-user"></i></span>
+                  <div class="date" id="kt_datetimepicker_2" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" placeholder="선택하세요" name="dur_ymd"
+                           data-target="#kt_datetimepicker_2" data-toggle="datetimepicker"/>
                   </div>
                 </div>
+                <label class="col-lg-1 col-form-label">대행업체</label>
                 <div class="col-lg-3 mb-lg-0 mb-1">
-                  <div class="input-icon">
-                    <input class="form-control kt_inputmask_3" name="rep_nam_tel" placeholder="연락처" readonly disabled
-                           type="text" value=""/>
-                    <span><i class="la la-phone"></i></span>
-                  </div>
-                </div>
-                <div class="col-lg-3 mb-lg-0 mb-1">
-                  <div class="input-icon">
-                    <input class="form-control kt_inputmask_3" name="rep_nam_tel_2" placeholder="연락처" readonly disabled
-                           type="text" value=""/>
-                    <span><i class="la la-phone"></i></span>
-                  </div>
+                  <select class="form-control selectpicker" name="opr_nam" data-size="6" title="선택하세요">
+                  </select>
                 </div>
               </div>
             </div>
