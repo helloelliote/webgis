@@ -61,7 +61,7 @@ const ServiceSearch = function () {
           // parameters for custom backend script demo
           columnsDef: [
             '기능', '번호', '접수자', '일자', '민원인', '연락처',
-            '주소', '접수', '진행', '상세', '대행', '처리', 'x', 'y',
+            '주소', '접수', '진행', '상세', '대행', 'x', 'y',
           ],
         },
       },
@@ -77,7 +77,6 @@ const ServiceSearch = function () {
         { data: '진행' },
         { data: '상세' },
         { data: '대행' },
-        { data: '기한' },
         { data: 'x' },
         { data: 'y' },
       ],
@@ -195,7 +194,7 @@ const ServiceSearch = function () {
               break;
           }
 
-          if (column.title() !== '기능') {
+          if (column.title() !== '기능' && column.title() !== 'x' && column.title() !== 'y') {
             $(input).appendTo($('<th>').appendTo(rowFilter));
           }
         });
@@ -222,7 +221,6 @@ const ServiceSearch = function () {
       columnDefs: [
         {
           targets: 0,
-          title: '기능',
           orderable: false,
           render: function (data, type, full, meta) {
             return `<div class="dropdown dropdown-inline">
@@ -242,14 +240,11 @@ const ServiceSearch = function () {
 </div>
 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Edit details">
   <i class="la la-edit"></i>
-</a>
-<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Delete">
-  <i class="la la-trash"></i>
 </a>`;
           },
         },
         {
-          targets: [12, 13],
+          targets: [11, 12],
           orderable: false,
           visible: false,
           searchable: false,

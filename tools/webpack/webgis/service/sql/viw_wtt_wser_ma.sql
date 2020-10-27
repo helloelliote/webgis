@@ -1,4 +1,4 @@
-CREATE VIEW viw_wtt_wser_ma (id, geom, x, y, 번호, 일자, 접수자, 읍면동, 법정동, 접수, 누수, 관경, 상세, 민원인, 주소, 연락처, 진행, 대행, 기한) AS
+CREATE VIEW viw_wtt_wser_ma (id, geom, x, y, 번호, 일자, 접수자, 읍면동, 법정동, 접수, 누수, 관경, 상세, 민원인, 주소, 연락처, 진행, 대행) AS
 SELECT wser_tb.id,
        wser_tb.geom,
        wser_tb.x,
@@ -16,8 +16,7 @@ SELECT wser_tb.id,
        wser_tb.apm_adr AS "주소",
        wser_tb.apm_tel AS "연락처",
        pro_tb.cname    AS "진행",
-       wser_tb.opr_nam AS "대행",
-       wser_tb.dur_ymd AS "기한"
+       wser_tb.opr_nam AS "대행"
 FROM wtt_wser_ma wser_tb
          LEFT JOIN private.cd_apy apy_tb ON wser_tb.apl_cde = apy_tb.codeno
          LEFT JOIN private.cd_lpy lpy_tb ON wser_tb.lep_cde = lpy_tb.codeno
@@ -26,4 +25,3 @@ FROM wtt_wser_ma wser_tb
 
 ALTER TABLE viw_wtt_wser_ma
     OWNER TO postgres;
-

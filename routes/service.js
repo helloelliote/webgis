@@ -25,10 +25,10 @@ export default {
     const _body = req.body;
     postgresql.executeQuery(
       `INSERT INTO wtt_wser_ma
-         VALUES (DEFAULT, ST_SetSRID(ST_MakePoint($1, $2), 5187), $1, $2, date_part('year', CURRENT_DATE), $3, $4, $5,
+         VALUES (DEFAULT, ST_SetSRID(ST_MakePoint($1, $2), 5187), $1, $2, dj_yearly_counter(), $3, $4, $5,
                  $6, $7, (SELECT codeno FROM private.cd_apy WHERE cname = $8), $9,
-                 (SELECT codeno FROM private.cd_lep WHERE cname = $10), $11, $12, $13, $14,
-                 (SELECT codeno FROM private.cd_pro WHERE cname = $15), NULL, NULL, $16, $17, DEFAULT);`,
+                 (SELECT codeno FROM private.cd_lep WHERE cname = $10), $11, $12, $13,
+                 (SELECT codeno FROM private.cd_pro WHERE cname = $14), NULL, NULL, $15, $16, DEFAULT);`,
       [
         _body['x'],
         _body['y'],
@@ -38,12 +38,11 @@ export default {
         _body['apl_adr'],
         _body['apl_exp'],
         _body['apy_cde'],
-        _body['pip_dip'] === '' ? null : _body['pip_dip'],
-        _body['lep_cde'] === '' ? null : _body['lep_cde'],
+        _body['pip_dip'],
+        _body['lep_cde'],
         _body['apm_nam'],
         _body['apm_adr_jibun'] + '/' + _body['apm_adr_road'] + ' ' + _body['apm_adr_desc'],
         _body['apm_tel'],
-        _body['dur_ymd'],
         _body['pro_cde'],
         _body['pro_nam'],
         _body['opr_nam'],
