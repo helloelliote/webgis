@@ -5,6 +5,27 @@ import moment from 'moment';
 moment.locale('ko');
 
 export default {
+  scheduleGet(req, res, next) {
+    mysql.executeQuery(
+      `SELECT * FROM viw_wtt_sch_address;`,
+      [],
+    )
+      .then(formatScheduleSelect)
+      .then(result => {
+        res.status(200).json(result);
+      });
+  },
+
+  scheduleMemoGet(req, res, next) {
+    mysql.executeQuery(
+      `SELECT * FROM wtt_sch_memo;`,
+      [],
+    )
+      .then(result => {
+        res.status(200).json(result);
+      });
+  },
+
   registerGet(req, res, next) {
     res.render('service-register', {
       _csrfToken: req.csrfToken(),
@@ -64,14 +85,29 @@ export default {
       `SELECT * FROM viw_wtt_wser_ma ORDER BY id DESC;`,
       [], // TODO: '상수' Role 처리
     )
-      .then(formatSelect)
+      .then(formatSearchSelect)
       .then(result => {
         res.status(200).json(result);
       });
   },
 };
 
-function formatSelect(response) {
+function formatScheduleSelect(response) {
+  let records = {
+    iTotalRecords: response.length,
+    iTotalDisplayRecords: 5,
+    sEcho: 0,
+    aaData: response,
+  };
+  (records.aaData).forEach(function (record) {
+    record['비상근무기간_시작'] = moment(record['비상근무기간_시작']).format('YYYY.MM.DD');
+    record['비상근무기간_종료'] = moment(record['비상근무기간_종료']).format('YYYY.MM.DD');
+    record['비상근무기간'] = record['비상근무기간_시작'] + ' ~ ' + record['비상근무기간_종료'];
+  });
+  return records;
+}
+
+function formatSearchSelect(response) {
   let records = {
     iTotalRecords: response.rowCount,
     iTotalDisplayRecords: 5,

@@ -13,6 +13,28 @@
 
 ////////////////////////////////////////////////////////////////
 
+#exampleModal {
+  .modal-header {
+    padding: 1rem 1rem;
+  }
+
+  .modal-body {
+    padding: 0 1rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0;
+  }
+
+  .modal-footer {
+    white-space: pre-wrap;
+    justify-content: flex-start;
+  }
+}
+
+////////////////////////////////////////////////////////////////
+
 #card_register {
   .input-group-text {
     border: none;

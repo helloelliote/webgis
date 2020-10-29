@@ -15,6 +15,8 @@ export default function (router, passport) {
   router.get('/api/wtl/search', wtl.search);
   router.get('/api/wtl/section', wtl.section);
 
+  router.get('/service/schedule', service.scheduleGet);
+  router.get('/service/schedule/memo', service.scheduleMemoGet);
   router.get('/service/register', service.registerGet);
   router.get('/service/register/schedule', service.registerScheduleGet);
   router.post('/service/register', service.registerPost);

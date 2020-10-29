@@ -58,6 +58,8 @@
 <!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->
 
 <!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
+
+{{> _modal/_sch-address}}
 <script>
   var HOST_URL = 'https://preview.keenthemes.com/metronic/theme/html/tools/preview';
 </script>
@@ -135,13 +137,13 @@
 
 <!--begin::Page Vendors(used by this page)-->
 <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=48ezy1hyob&submodules=visualization"
-        type="text/javascript"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=48ezy1hyob&submodules=visualization" type="text/javascript"></script>
 <!--end::Page Vendors-->
 
 <!--begin::Page Scripts(used by this page)-->
 <script src="assets/js/pages/widgets.js"></script>
 <script src="assets/js/serv.search.js"></script>
+<script src="assets/js/serv.schedule.js"></script>
 <script>
   $('.navi-link').removeClass('active');
   $('#navi-link-2').addClass('active');
