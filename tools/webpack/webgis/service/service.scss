@@ -13,18 +13,22 @@
 
 ////////////////////////////////////////////////////////////////
 
-#exampleModal {
+#exampleModal, #exampleModal2 {
   .modal-header {
     padding: 1rem 1rem;
   }
 
   .modal-body {
     padding: 0 1rem;
+
+    .dataTables_filter {
+      padding: 1rem 0 0 0;
+    }
   }
 
   .table th,
   .table td {
-    padding: 0.75rem 0;
+    padding: 0.75rem 0.1rem;
   }
 
   .modal-footer {

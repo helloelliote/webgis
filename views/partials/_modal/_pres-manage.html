@@ -1,10 +1,10 @@
 <!-- Modal-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label"
      aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <h5 class="modal-title" id="exampleModal2Label">가압장 관리업체 현황</h5>
         <!--begin::Dropdown-->
         <div class="dropdown dropdown-inline mr-2">
           <button type="button" class="btn btn-light-primary btn-sm font-weight-bolder dropdown-toggle"
@@ -15,13 +15,13 @@
           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
             <ul class="nav flex-column nav-hover">
               <li class="nav-item">
-                <a href="#" class="nav-link" id="export_print_schedule">
+                <a href="#" class="nav-link" id="export_print_pres">
                   <i class="nav-icon la la-print"></i>
                   <span class="nav-text">인쇄</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link" id="export_excel_schedule">
+                <a href="#" class="nav-link" id="export_excel_pres">
                   <i class="nav-icon la la-file-excel-o"></i>
                   <span class="nav-text">Excel</span>
                 </a>
@@ -34,22 +34,17 @@
       </div>
       <div class="modal-body">
         <!--begin: Datatable-->
-        <table class="table table-separate table-head-custom table-responsive-xl hover" id="kt_datatable_schedule">
+        <table class="table table-separate table-head-custom table-responsive-lg hover" id="kt_datatable_pres">
           <thead>
           <tr>
-            <th>업체명</th>
-            <th>비상근무기간</th>
-            <th>대표자</th>
+            <th>가압장명</th>
+            <th>관리업체</th>
             <th>연락처(대표)</th>
-            <th>현장소장</th>
             <th>연락처(현장)</th>
-            <th>비고</th>
           </tr>
           </thead>
         </table>
         <!--end: Datatable-->
-      </div>
-      <div class="modal-footer">
       </div>
     </div>
   </div>

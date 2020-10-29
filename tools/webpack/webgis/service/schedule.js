@@ -7,12 +7,12 @@ const ServiceSchedule = function () {
   let _table;
   let _modalTitle;
   let _modalFooter;
-  let _tab1TableButtonOpts;
+  let _tableButtonOpts;
 
   const _init = function () {
     moment.locale('ko');
 
-    _tab1TableButtonOpts = {
+    _tableButtonOpts = {
       pageSize: 'A4',
       orientation: 'landscape',
       filename: moment().format('YYYYMMDD') + '_민원',
@@ -34,14 +34,6 @@ const ServiceSchedule = function () {
           headers: {
             'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
           },
-          data: {
-            data: {
-              // parameters for custom backend script demo
-              columnsDef: [
-                '업체명', '비상근무기간', '대표자', '연락처(대표)', '현장소장', '연락처(현장)', '비고',
-              ],
-            },
-          },
         },
         columns: [
           { data: '업체명' },
@@ -53,6 +45,8 @@ const ServiceSchedule = function () {
           { data: '비고' },
         ],
 
+        processing: true,
+        serverSide: false,
         autoWidth: true,
         searching: false,
         paging: false,
@@ -60,10 +54,10 @@ const ServiceSchedule = function () {
         order: [[1, 'asc']],
         // FIXME: Export not working
         buttons: [
-          $.extend(true, {}, _tab1TableButtonOpts, {
+          $.extend(true, {}, _tableButtonOpts, {
             extend: 'print',
           }),
-          $.extend(true, {}, _tab1TableButtonOpts, {
+          $.extend(true, {}, _tableButtonOpts, {
             extend: 'excelHtml5',
           }),
         ],
@@ -109,7 +103,7 @@ const ServiceSchedule = function () {
 
       _init();
 
-      _modal.on('show.bs.modal', () => {
+      _modal.on('shown.bs.modal', () => {
         _initTable();
         _initModalFooter();
       });

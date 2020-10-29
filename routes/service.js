@@ -5,6 +5,22 @@ import moment from 'moment';
 moment.locale('ko');
 
 export default {
+  presManageGet(req, res, next) {
+    mysql.executeQuery(
+      `SELECT PRS_NAM AS "가압장명",
+       PRD_NAM AS "관리업체",
+       CEO_TEL AS "연락처(대표)",
+       PM_TEL  AS "연락처(현장소장)"
+       FROM wtl_pres_ps
+       WHERE PRD_NAM IS NOT NULL;`,
+      [],
+    )
+      .then(formatPresManageSelect)
+      .then(result => {
+        res.status(200).json(result);
+      });
+  },
+
   scheduleGet(req, res, next) {
     mysql.executeQuery(
       `SELECT * FROM viw_wtt_sch_address;`,
@@ -91,6 +107,15 @@ export default {
       });
   },
 };
+
+function formatPresManageSelect(response) {
+  return {
+    iTotalRecords: response.length,
+    iTotalDisplayRecords: 5,
+    sEcho: 0,
+    aaData: response,
+  };
+}
 
 function formatScheduleSelect(response) {
   let records = {

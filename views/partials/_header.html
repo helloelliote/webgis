@@ -169,6 +169,41 @@
 
       <!--end::Create-->
 
+      <div class="topbar-item">
+
+        <!--begin::Toggle-->
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                data-offset="0,10">
+          시설
+        </button>
+
+        <!--end::Toggle-->
+
+        <!--begin::Dropdown-->
+        <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-md">
+
+          <!-- TODO: 구별이 쉽게 선택한 메뉴에 primary color 배경을 적용 -->
+          <!--begin::Navigation-->
+          <ul class="navi navi-hover navi-active navi-accent py-5">
+            <li class="navi-item" data-toggle="modal" data-target="#exampleModal2">
+              <a href="javascript:;" class="navi-link">
+													<span class="navi-icon">
+														<i class="la la-file-text icon-xl"></i>
+													</span>
+                <span class="navi-text">&nbsp;가압장 관리업체 현황</span>
+              </a>
+            </li>
+          </ul>
+
+          <!--end::Navigation-->
+
+        </div>
+
+        <!--end::Dropdown-->
+      </div>
+
       <div class="outer ml-4 mr-2">
         <div class="inner"></div>
       </div>
@@ -241,7 +276,7 @@
           <!--begin::Navigation-->
           <ul class="navi navi-hover navi-active navi-accent py-5">
             <li class="navi-item">
-              <a href="/service/register" class="navi-link active" id="navi-link-0">
+              <a href="/service/register" class="navi-link active" id="navi-search-link-0">
 													<span class="navi-icon">
 														<i class="la la-pen icon-xl"></i>
 													</span>
@@ -249,7 +284,7 @@
               </a>
             </li>
             <li class="navi-item">
-              <a href="#" class="navi-link" id="navi-link-1">
+              <a href="#" class="navi-link" id="navi-search-link-1">
 													<span class="navi-icon">
 														<i class="la la-map-marked-alt icon-xl"></i>
 													</span>
@@ -258,7 +293,7 @@
               </a>
             </li>
             <li class="navi-item">
-              <a href="service/search" class="navi-link" id="navi-link-2">
+              <a href="service/search" class="navi-link" id="navi-search-link-2">
 													<span class="navi-icon">
 														<i class="la la-search-plus icon-xl"></i>
 													</span>
