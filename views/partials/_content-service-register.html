@@ -18,21 +18,21 @@
           <form class="form" id="service_register_form" novalidate="novalidate">
             <div class="card-body">
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">접수번호</label>
+                <label class="col-lg-1 col-form-label text-nowrap">접수번호</label>
                 <div class="col-lg-3">
                   <div class="input-icon">
                     <input class="form-control" disabled name="rcv_num" placeholder="등록시 자동생성" type="text"/>
                     <span><i class="la la-info-circle"></i></span>
                   </div>
                 </div>
-                <label class="col-lg-1 col-form-label">접수자</label>
+                <label class="col-lg-1 col-form-label text-nowrap">접수자</label>
                 <div class="col-lg-3">
                   <div class="input-icon">
                     <input type="text" class="form-control" placeholder="접수자명" name="rcv_nam"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
-                <label class="col-lg-1 col-form-label">접수일자</label>
+                <label class="col-lg-1 col-form-label text-nowrap">접수일자</label>
                 <div class="col-lg-3">
                   <div class="date" id="kt_datetimepicker_1" data-target-input="nearest">
                     <input type="text" class="form-control datetimepicker-input" placeholder="선택하세요" name="rcv_ymd"
@@ -42,14 +42,14 @@
               </div>
               <div class="separator separator-dashed my-5"></div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">민원인</label>
+                <label class="col-lg-1 col-form-label text-nowrap">민원인</label>
                 <div class="col-lg-3">
                   <div class="input-icon">
                     <input type="text" class="form-control" name="apm_nam" placeholder="민원인명"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
-                <label class="col-lg-1 col-form-label">연락처</label>
+                <label class="col-lg-1 col-form-label text-nowrap">연락처</label>
                 <div class="col-lg-3">
                   <div class="input-icon">
                     <input type="text" class="form-control kt_inputmask_3" name="apm_tel" placeholder="" value=""/>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">주소</label>
+                <label class="col-lg-1 col-form-label text-nowrap">주소</label>
                 <div class="col-lg-6">
                   <div class="input-icon">
                     <input type="text" class="form-control" name="apm_adr_road" placeholder="도로명 주소"
@@ -77,7 +77,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">상세주소</label>
+                <label class="col-lg-1 col-form-label text-nowrap">상세주소</label>
                 <div class="col-lg-6">
                   <div class="input-icon">
                     <input type="text" class="form-control" name="apm_adr_desc" placeholder="상세 주소"/>
@@ -93,16 +93,16 @@
               </div>
               <div class="separator separator-dashed my-6"></div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">담당자</label>
+                <label class="col-lg-1 col-form-label text-nowrap">담당자</label>
                 <div class="col-lg-3">
                   <div class="input-icon">
                     <input type="text" class="form-control" name="pro_nam" placeholder="담당자명"/>
                     <span><i class="la la-user"></i></span>
                   </div>
                 </div>
-                <label class="col-lg-1 col-form-label">접수내용</label>
+                <label class="col-lg-1 col-form-label text-nowrap">접수내용</label>
                 <div class="col-lg-3">
-                  <select class="form-control selectpicker" name="apy_cde" title="선택하세요">
+                  <select class="form-control selectpicker" name="apy_cde" title="선택하세요" data-size="6">
                     <option value="" hidden></option>
                     <option value="단수">단수</option>
                     <option value="도로 누수">도로 누수</option>
@@ -116,10 +116,21 @@
                   </select>
                 </div>
                 <div class="col-lg-2" style="display: none">
-                  <input type="text" class="form-control kt_inputmask_10" name="pip_dip" placeholder="관경(mm)"/>
+                  <select class="form-control selectpicker" name="pip_dip" title="관경" data-size="6">
+                    <option value="" hidden></option>
+                    <option value="16">16 mm</option>
+                    <option value="20">20 mm</option>
+                    <option value="25">25 mm</option>
+                    <option value="32">32 mm</option>
+                    <option value="40">40 mm</option>
+                    <option value="50">50 mm</option>
+                    <option value="75">75 mm</option>
+                    <option value="100">100 mm</option>
+                    <option value="150">150 mm</option>
+                  </select>
                 </div>
                 <div class="col-lg-2" style="display: none">
-                  <select class="form-control selectpicker" name="lep_cde" title="누수 위치">
+                  <select class="form-control selectpicker" name="lep_cde" title="누수 위치" data-size="6">
                     <option value="" hidden></option>
                     <option value="새들분기">새들분기점</option>
                     <option value="T분기">T 분기점</option>
@@ -132,7 +143,7 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">상세내용</label>
+                <label class="col-lg-1 col-form-label text-nowrap">상세내용</label>
                 <div class="col-lg-11">
                   <textarea class="form-control" name="apl_exp" rows="1" maxlength="120"
                             placeholder="민원 상세 내용"></textarea>
@@ -140,27 +151,15 @@
               </div>
               <div class="separator separator-dashed my-6"></div>
               <div class="form-group row">
-                <label class="col-lg-1 col-form-label">처리상태</label>
+                <label class="col-lg-1 col-form-label text-nowrap">처리상태</label>
                 <div class="col-lg-3 mb-lg-0 mb-1">
-                  <select class="form-control selectpicker" name="pro_cde" title="신청접수">
-                    <option value="신청접수" hidden></option>
+                  <select class="form-control selectpicker" name="pro_cde" title="신청접수" data-size="6">
+                    <option value="신청접수" hidden selected></option>
                     <option value="신청접수">신청접수</option>
-                    <option value="진행중">진행중</option>
-                    <option value="처리보류">처리보류</option>
-                    <option value="협조/이첩">협조/이첩</option>
                     <option value="처리완료">처리완료</option>
-                    <option value="처리중단">처리중단</option>
-                    <option value="미분류">미분류</option>
                   </select>
                 </div>
-                <label class="col-lg-1 col-form-label">처리기한</label>
-                <div class="col-lg-3 mb-lg-0 mb-1">
-                  <div class="date" id="kt_datetimepicker_2" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" placeholder="선택하세요" name="dur_ymd"
-                           data-target="#kt_datetimepicker_2" data-toggle="datetimepicker"/>
-                  </div>
-                </div>
-                <label class="col-lg-1 col-form-label">대행업체</label>
+                <label class="col-lg-1 col-form-label text-nowrap">대행업체</label>
                 <div class="col-lg-3 mb-lg-0 mb-1">
                   <select class="form-control selectpicker" name="opr_nam" data-size="6" title="선택하세요">
                   </select>

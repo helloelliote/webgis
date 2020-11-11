@@ -18,7 +18,6 @@ CREATE TABLE wtt_wser_ma
     apm_nam VARCHAR               NOT NULL,
     apm_adr VARCHAR               NOT NULL,
     apm_tel VARCHAR               NOT NULL,
-    dur_ymd TIMESTAMP,
     pro_cde CHAR(6)               NOT NULL,
     pro_exp VARCHAR,
     pro_ymd TIMESTAMP,

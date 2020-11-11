@@ -18,7 +18,6 @@ const ServiceRegister = function () {
   let _form_apl_cde;
   let _form_pip_dip;
   let _form_lep_cde;
-  let _form_dur_ymd;
   let _form_opr_nam;
   // Form values
 
@@ -84,25 +83,17 @@ const ServiceRegister = function () {
       },
     });
 
-    _form_pip_dip.inputmask('999', {
-      numericInput: true,
-    });
-
     _form_apl_cde.on('change', function (event) {
       if (event.target.value === '도로 누수') {
-        _form_pip_dip.parent().css('display', 'block');
+        _form_pip_dip.parents().eq(1).css('display', 'block');
         _form_lep_cde.parents().eq(1).css('display', 'block');
       } else {
-        _form_pip_dip.parent().css('display', 'none');
+        _form_pip_dip.parents().eq(1).css('display', 'none');
+        _form_pip_dip.parents().eq(1).css('display', 'none');
         _form_lep_cde.parents().eq(1).css('display', 'none');
-        _form_pip_dip.val('');
+        _form_pip_dip.val('default').selectpicker('refresh');
         _form_lep_cde.val('default').selectpicker('refresh');
       }
-    });
-
-    _form_dur_ymd.datetimepicker({
-      locale: window.moment.locale('ko'),
-      format: 'YYYY-MM-DD',
     });
 
     $.ajax({
@@ -191,9 +182,8 @@ const ServiceRegister = function () {
       _form_rcv_ymd = _form.find('input[name="rcv_ymd"]').parent('.date');
       _form_apm_tel = _form.find('input[name="apm_tel"]');
       _form_apl_cde = _form.find('select[name="apy_cde"]');
-      _form_pip_dip = _form.find('input[name="pip_dip"]');
+      _form_pip_dip = _form.find('select[name="pip_dip"]');
       _form_lep_cde = _form.find('select[name="lep_cde"]');
-      _form_dur_ymd = _form.find('input[name="dur_ymd"]').parent('.date');
       _form_opr_nam = _form.find('select[name="opr_nam"]');
 
       _initValidation();
