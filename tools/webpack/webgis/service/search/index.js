@@ -2,7 +2,7 @@
 'use strict';
 
 import moment from 'moment';
-import { onClickSearch, setMapMarker, onTab1MapShown, onTab2MapShown } from './Map';
+import { onClickSearch, onTab1MapShown, onTab2MapShown, setMapMarker } from './Map';
 
 const ServiceSearch = function () {
 
@@ -60,23 +60,24 @@ const ServiceSearch = function () {
         data: {
           // parameters for custom backend script demo
           columnsDef: [
-            '기능', '번호', '접수자', '일자', '민원인', '연락처',
-            '주소', '접수', '진행', '상세', '대행', 'x', 'y',
+            '번호', '접수자', '일자', '민원인', '연락처',
+            '지번 주소', '도로명 주소', '접수내용', '진행상태', '민원상세', '대행업체', '기능', 'x', 'y',
           ],
         },
       },
       columns: [
-        { data: '기능' },
         { data: '번호' },
         { data: '접수자' },
         { data: '일자' },
         { data: '민원인' },
         { data: '연락처' },
-        { data: '주소' },
+        { data: '지번 주소' },
+        { data: '도로명 주소' },
         { data: '접수' },
         { data: '진행' },
         { data: '상세' },
         { data: '대행' },
+        { data: '기능' },
         { data: 'x' },
         { data: 'y' },
       ],
@@ -94,11 +95,12 @@ const ServiceSearch = function () {
             case '일자':
             case '민원인':
             case '연락처':
-            case '주소':
+            case '지번 주소':
+            case '도로명 주소':
               input = $(`<input type="text" class="form-control form-control-sm form-filter datatable-input" data-col-index="` + column.index() + `"/>`);
               break;
 
-            case '접수':
+            case '접수내용':
               // noinspection NonAsciiCharacters
               var status = {
                 '미분류': { title: '미분류', state: 'success' },
@@ -119,7 +121,7 @@ const ServiceSearch = function () {
               });
               break;
 
-            case '진행':
+            case '진행상태':
               // noinspection NonAsciiCharacters
               status = {
                 '미분류': { title: '미분류', state: 'label-light-primary' },
@@ -138,9 +140,9 @@ const ServiceSearch = function () {
               break;
 
             case '기능':
-              var search = $(`<button class="btn btn-danger kt-btn btn-sm d-inline-block">검색</button>`);
+              var search = $(`<button class="btn btn-danger kt-btn btn-sm">검색</button>`);
 
-              var reset = $(`<button class="btn btn-outline-secondary kt-btn btn-sm d-inline-block ml-1">삭제</button>`);
+              var reset = $(`<button class="btn btn-outline-secondary kt-btn btn-sm ml-1">삭제</button>`);
 
               $('<th>').append(search).append(reset).appendTo(rowFilter);
 
@@ -215,45 +217,30 @@ const ServiceSearch = function () {
         hideSearchColumnResponsive();
         // recheck on window resize
         window.onresize = hideSearchColumnResponsive;
-
-        $('#kt_datepicker_1,#kt_datepicker_2').datepicker();
       },
       columnDefs: [
         {
-          targets: 0,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            return `<div class="dropdown dropdown-inline">
-  <a href="javascript:;" class="btn btn-sm btn-clean btn-icon" data-toggle="dropdown">
-    <i class="la la-cog"></i>
-  </a>
-  <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-    <ul class="nav nav-hoverable flex-column">
-      <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-edit"></i><span class="nav-text">Edit Details</span></a>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-leaf"></i><span class="nav-text">Update Status</span></a>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="#"><i class="nav-icon la la-print"></i><span
-          class="nav-text">Print</span></a></li>
-    </ul>
-  </div>
-</div>
-<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Edit details">
-  <i class="la la-edit"></i>
-</a>`;
-          },
-        },
-        {
-          targets: [11, 12],
+          targets: [12, 13],
           orderable: false,
           visible: false,
           searchable: false,
         },
+        //         {
+        //           targets: 13,
+        //           orderable: false,
+        //           render: function (data, type, full, meta) {
+        //             return `<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-hover-light-success">
+        //   <i class="la la-check"></i></a>
+        // <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-hover-light-danger ml-1">
+        //   <i class="la la-remove"></i></a><script>
+        // </script>`;
+        //           },
+        //         },
       ],
 
       autoWidth: true,
       select: 'single',
-      order: [[1, 'desc']],
+      order: [[0, 'desc']],
       buttons: [
         $.extend(true, {}, _tab1TableButtonOpts, {
           extend: 'print',
@@ -340,11 +327,11 @@ const ServiceSearch = function () {
       _initTab1();
       _initTab1Button();
 
-      _tab1Card.collapse();
       _tab1Table.on('select', _onSelectTable);
       _tab1.on('shown.bs.tab', _onTab1Shown);
       _tab2.on('show.bs.tab', _onTab2Show);
       _tab2.on('shown.bs.tab', _onTab2Shown);
+      _tab1Card.collapse();
     },
 
   };

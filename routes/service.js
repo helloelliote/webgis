@@ -135,7 +135,7 @@ function formatScheduleSelect(response) {
 function formatSearchSelect(response) {
   let records = {
     iTotalRecords: response.rowCount,
-    iTotalDisplayRecords: 5,
+    iTotalDisplayRecords: 10,
     sEcho: 0,
     aaData: response.rows,
   };
@@ -143,7 +143,8 @@ function formatSearchSelect(response) {
     record['일자'] = moment(record['일자']).format('YYYY.MM.DD');
     record['기한'] = moment(record['기한']).format('YYYY.MM.DD');
     let address = record['주소'].split('/');
-    record['주소'] = address[1].trim() !== '' ? address[1].trim() : address[0].trim();
+    record['지번 주소'] = address[0] ? address[0].trim() : '';
+    record['도로명 주소'] = address[1] ? address[1].trim() : '';
     let pos = record['누수'] ? record['누수'] + ' ' : '';
     let dip = record['관경'] ? record['관경'] + ' ' + 'mm' + ' ' : '';
     record['상세'] = pos + dip + record['상세'];
