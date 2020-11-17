@@ -1,7 +1,7 @@
 /**
  * @link http://apis.map.kakao.com/web/sample/moveRoadview/
  */
-export default class RoadviewWalker {
+class RoadViewWalker {
   constructor(position) {
 
     //커스텀 오버레이에 사용할 map walker 엘리먼트
@@ -45,7 +45,15 @@ export default class RoadviewWalker {
     this._walker.setPosition(position);
   }
 
+  getMap() {
+    return this._walker.getMap();
+  }
+
   setMap(map) {
     this._walker.setMap(map);
   }
 }
+
+const roadViewWalker = new RoadViewWalker(null);
+
+export default roadViewWalker;

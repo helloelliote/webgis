@@ -3,6 +3,8 @@ import { roundCustom } from '../math';
 
 const localStorage = new LocalStorage();
 
+const mapContainer = document.getElementById('map');
+
 const mapOptions = {
   center: new kakao.maps.LatLng(
     localStorage.latitude,
@@ -16,7 +18,7 @@ const mapOptions = {
   tileAnimation: false,
 };
 
-const map = new kakao.maps.Map('map', mapOptions);
+const map = new kakao.maps.Map(mapContainer, mapOptions);
 map.setMinLevel(1);
 map.setMaxLevel(9);
 
@@ -47,4 +49,4 @@ kakao.maps.Map.prototype.setZoom = function (value) {
   map.setLevel(value);
 };
 
-export { map, viewSyncOptions };
+export { map, mapContainer, viewSyncOptions };

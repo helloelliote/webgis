@@ -2,10 +2,10 @@ import View from 'ol/View';
 import { fromLonLat } from 'ol/proj';
 import { LocalStorage } from '../Storage';
 import { default as projection } from './projection/Projection';
-import { map, viewSyncOptions } from '../naver/Map';
-import { coordinateToLatLng } from '../naver/util';
-// import { map, viewSyncOptions } from '../kakao/Map';
-// import { coordinateToLatLng } from '../kakao/util';
+// import { map, viewSyncOptions } from '../naver/Map';
+// import { coordinateToLatLng } from '../naver/util';
+import { map, mapContainer, viewSyncOptions } from '../kakao/Map';
+import { coordinateToLatLng } from '../kakao/util';
 
 const localStorage = new LocalStorage();
 
@@ -24,7 +24,6 @@ const view = new View({
     localStorage.latitude,
   ], projection),
   zoom: base,
-  maxZoom: 18,
   constrainResolution: false,
   constrainRotation: false,
   rotation: viewSyncOptions.rotation,
@@ -42,19 +41,44 @@ function onChangeCenter() {
 function syncZoomLevel() {
   let newZoom = Math.floor(view.getZoom());
   if (newZoom !== currentZoom) {
-    if (5 < newZoom && newZoom <= max) {
-      view.setZoom(newZoom + decimal);
-      map.setZoom(coefficient * newZoom + delta);
-    } else if (newZoom > max) {
-      view.setZoom(max + decimal);
-      newZoom = max;
+    if (newZoom <= max) {
+      // noinspection FallThroughInSwitchStatementJS
+      switch (newZoom) {
+        // case 5:
+        //   _toggleOverlay(null);
+        case 14:
+          if (mapContainer.style.display !== 'block') {
+            mapContainer.style.display = 'block';
+          }
+        case 13:
+        case 12:
+        case 11:
+        case 10:
+        case 9:
+        case 8:
+        case 7:
+        case 6: {
+          view.setZoom(newZoom + decimal);
+          map.setZoom(coefficient * newZoom + delta);
+          break;
+        }
+        default: {
+          view.setZoom(5 + decimal);
+          newZoom = 5;
+          view.setCenter(fromLonLat([
+            window.webgis.center.longitude,
+            window.webgis.center.latitude,
+          ], projection));
+          break;
+        }
+      }
     } else {
-      view.setZoom(6 + decimal);
-      view.setCenter(fromLonLat([
-        129.224803,
-        35.856171,
-      ], projection));
-      newZoom = 5;
+      if (mapContainer.style.display !== 'none') {
+        mapContainer.style.display = 'none';
+      }
+      if (newZoom > 20) {
+        view.setZoom(20 + decimal);
+      }
     }
     currentZoom = newZoom;
   }
