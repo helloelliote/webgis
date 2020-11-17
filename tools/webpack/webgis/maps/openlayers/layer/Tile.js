@@ -17,7 +17,7 @@ export default class WmsTile extends Layer {
 function createTileLayer(key) {
   return new TileLayer({
     className: key,
-    maxZoom: 19,
+    maxZoom: 21,
     minZoom: 15,
     source: createTileSource(key),
   });
@@ -37,24 +37,6 @@ function createTileSource(key) {
     reprojectionErrorThreshold: 50.0,
     transition: 0,
     wrapX: false,
-    tileLoadFunction: function (tileSource, src) {
-      const sourceLoader = new SourceLoader();
-      sourceLoader.postMessage(src);
-      sourceLoader.onerror = error => {
-        tileSource.setState(3);
-      };
-      sourceLoader.onmessage = response => {
-        (async () => {
-          tileSource.getImage().src = URL.createObjectURL(response.data);
-        })()
-          .catch(() => {
-            // TODO: Error Handling
-          })
-          .finally(() => {
-            // sourceLoader.terminate() // TODO: Check if #terminate() is really safe for tile loading
-          });
-      };
-    },
   });
 }
 

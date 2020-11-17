@@ -1,7 +1,7 @@
 export default {
   geo_line_as: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 15,
     propertyName: [
       'geom',
@@ -9,7 +9,7 @@ export default {
   },
   n3a_a0010000: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 15,
     propertyName: [
       'geom',
@@ -17,7 +17,7 @@ export default {
   },
   n3a_b0010000: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 15,
     propertyName: [
       'geom',
@@ -25,7 +25,7 @@ export default {
   },
   n3p_f0020000: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 11,
     propertyName: [
       'geom',
@@ -33,7 +33,7 @@ export default {
   },
   swl_hmpipe_ls: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -43,7 +43,7 @@ export default {
   },
   swl_pipe_as: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 10,
     propertyName: [
       'geom',
@@ -84,7 +84,7 @@ export default {
   },
   viw_swl_conn_ls: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 10,
     propertyName: [
       'geom',
@@ -126,7 +126,7 @@ export default {
   },
   viw_swl_dran_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 7,
     propertyName: [
       'geom',
@@ -136,7 +136,7 @@ export default {
   },
   viw_swl_hmconn_ls: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -144,7 +144,7 @@ export default {
   },
   viw_swl_hmspot_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -152,7 +152,7 @@ export default {
   },
   viw_swl_manh_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -160,7 +160,7 @@ export default {
   },
   viw_swl_pipe_lm: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 10,
     propertyName: [
       'geom',
@@ -168,7 +168,7 @@ export default {
   },
   viw_swl_pump_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',
@@ -177,7 +177,7 @@ export default {
   },
   viw_swl_spew_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 10,
     propertyName: [
       'geom',
@@ -185,7 +185,7 @@ export default {
   },
   viw_swl_spot_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -193,7 +193,7 @@ export default {
   },
   viw_swl_vent_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 13,
     propertyName: [
       'geom',
@@ -201,7 +201,7 @@ export default {
   },
   viw_wtl_fire_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 13,
     propertyName: [
       'geom',
@@ -212,7 +212,7 @@ export default {
   },
   viw_wtl_flow_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',
@@ -224,7 +224,7 @@ export default {
   },
   viw_wtl_gain_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',
@@ -234,7 +234,7 @@ export default {
   },
   viw_wtl_manh_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 13,
     propertyName: [
       'geom',
@@ -245,7 +245,7 @@ export default {
   },
   viw_wtl_meta_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -255,7 +255,7 @@ export default {
   },
   viw_wtl_pipe_lm: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',
@@ -267,7 +267,7 @@ export default {
   },
   viw_wtl_pres_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',
@@ -278,7 +278,7 @@ export default {
   },
   viw_wtl_puri_as: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 7,
     propertyName: [
       'geom',
@@ -289,7 +289,7 @@ export default {
   },
   viw_wtl_rsrv_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 7,
     propertyName: [
       'geom',
@@ -299,7 +299,7 @@ export default {
   },
   viw_wtl_scvst_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 13,
     propertyName: [
       'geom',
@@ -309,7 +309,7 @@ export default {
   },
   viw_wtl_serv_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 7,
     propertyName: [
       'geom',
@@ -320,7 +320,7 @@ export default {
   },
   viw_wtl_sply_ls: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 14,
     propertyName: [
       'geom',
@@ -330,7 +330,7 @@ export default {
   },
   viw_wtl_valv_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 13,
     propertyName: [
       'geom',
@@ -363,7 +363,7 @@ export default {
     column: '급수블럭명',
     elementId: 'kt-notification-section-s',
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 6,
     propertyName: [
       'geom',
@@ -390,7 +390,7 @@ export default {
   },
   viw_wtt_wutl_ht_re: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 11,
     propertyName: [
       'geom',
@@ -401,7 +401,7 @@ export default {
   },
   wtl_cap_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 11,
     propertyName: [
       'geom',
@@ -410,7 +410,7 @@ export default {
   },
   wtl_taper_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 13,
     propertyName: [
       'geom',
@@ -419,7 +419,7 @@ export default {
   },
   wtl_userlabel_ps: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',
@@ -429,7 +429,7 @@ export default {
   },
   wtl_wspipe_ls: {
     isTile: false,
-    maxZ: 19,
+    maxZ: 21,
     minZ: 9,
     propertyName: [
       'geom',

@@ -21,8 +21,9 @@ function onClickQuickSearchInline(event) {
     if (targetEl.className.includes('quick-search-result-facility')) {
       const coordinate = targetEl.nextElementSibling.innerHTML;
       const feature = geoJson.readFeature(coordinate);
-      const extent = getCenter(feature.getGeometry().getExtent());
-      this.centerOn(extent, [100, 100], [centerX, centerY]);
+      const coords = getCenter(feature.getGeometry().getExtent());
+      // this.centerOn(extent, [1, 1], [centerX, centerY]);
+      this.setCenter(coords);
     } else if (targetEl.className.includes('quick-search-result-address')) {
       const lagLng = targetEl.nextElementSibling.innerHTML.split(',');
       const [lng, lat] = [lagLng[0], lagLng[1]];
