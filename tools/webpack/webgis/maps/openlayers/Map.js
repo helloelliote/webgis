@@ -1,5 +1,6 @@
 import Map from 'ol/Map';
 import Vector from './layer/Vector';
+import Tile from './layer/Tile';
 import { syncZoomLevel, view } from './view';
 import { default as addressOverlay } from './overlay/Address';
 import { default as defaultControls } from './control';
@@ -11,8 +12,8 @@ import {
   onClickTableCode,
   onWindowLoad,
 } from './event';
-// import { searchCoordinateToAddress } from '../kakao/geoCoder';
-import { searchCoordinateToAddress } from '../naver/geoCoder';
+import { searchCoordinateToAddress } from '../kakao/geoCoder';
+// import { searchCoordinateToAddress } from '../naver/geoCoder';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers([
@@ -32,10 +33,17 @@ vectorLayer.toggleLayers([
   'wtl_userlabel_ps',
 ]);
 
+const tileLayer = new Tile();
+tileLayer.toggleLayers([
+  'n3a_a0010000',
+  'n3a_b0010000',
+]);
+
 const map = new Map({
   target: 'map-openlayers',
   view: view,
   layers: [
+    tileLayer.layers,
     vectorLayer.layers,
   ],
   controls: defaultControls,
@@ -80,9 +88,9 @@ document.getElementById('topbar-logo')
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline.bind(view), false);
 
-[...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
-  element.addEventListener('click', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);
-});
+// [...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
+//   element.addEventListener('click', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);
+// });
 
 [...document.getElementsByClassName('ol-table-code-wtl')].forEach(element => {
   element.addEventListener('click', onClickTableCode.bind(vectorLayer), false);
