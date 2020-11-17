@@ -2,6 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
 
 const args = getParameters();
 
@@ -18,6 +19,14 @@ module.exports = {
   target: 'node',
   mode: args.indexOf('prod') === 0 ? 'production' : 'development',
   stats: 'errors-warnings',
+  entry: {
+    app: './bin/www.js',
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.join(__dirname, '.build'),
+    publicPath: './public',
+  },
   optimization: {
     minimize: true,
     minimizer: [
@@ -29,16 +38,18 @@ module.exports = {
       }),
     ],
   },
-  entry: {
-    app: './bin/www.js',
-  },
-  output: {
-    filename: '[name].bundle.js',
-    path: path.join(__dirname, '.build'),
-    publicPath: './public',
-  },
   devtool: 'source-map',
-  plugins: [],
+  plugins: [
+    new MergeJsonWebpackPlugin({
+      files: [
+        './package.json',
+        './tools/package.json',
+      ],
+      output: {
+        fileName: 'package.json',
+      },
+    }),
+  ],
   node: {
     // Need this when working with express, otherwise the build fails
     __dirname: false, // if you don't put this is, __dirname

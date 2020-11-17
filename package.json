@@ -1,6 +1,4 @@
 {
-  "name": "server",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node -r dotenv/config ./.build/app.bundle.js dotenv_config_path=./build/.env",
@@ -22,6 +20,7 @@
     "express-session": "^1.17.1",
     "helmet": "^3.23.3",
     "http-errors": "^1.8.0",
+    "merge-jsons-webpack-plugin": "^1.0.21",
     "moment": "^2.29.1",
     "morgan": "~1.9.1",
     "mysql2": "^2.1.0",
