@@ -1,7 +1,11 @@
 // address
 
-.popover-body {
-  min-width: 300px;
+.popover {
+  min-width: max-content;
+
+  .popover-body {
+    min-width: max-content;
+  }
 }
 
 // notification

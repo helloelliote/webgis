@@ -181,8 +181,8 @@ export default {
     'wtl_userlabel_ps': {
       image: {
         opacity: 1,
-        scale: 1.2,
-        src: 'EP001',
+        scale: 0.6,
+        src: 'EP002',
       },
       text: {
         color: '#ff0000',
