@@ -18,7 +18,7 @@ const mapOptions = {
   tileAnimation: false,
 };
 
-const mapContainer = document.getElementById('map');
+const mapContainer = document.getElementById('map_register');
 
 const map = new kakao.maps.Map(mapContainer, mapOptions);
 
@@ -101,5 +101,5 @@ function onWindowResize() {
 }
 
 new ResizeObserver(function () {
-  document.getElementById('map').style.height = card_register.offsetHeight;
+  document.getElementById('map_register').style.height = card_register.offsetHeight;
 }).observe(card_register);
