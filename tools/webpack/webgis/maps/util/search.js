@@ -212,6 +212,10 @@ const KTLayoutSearch = function () {
   };
 
   const _handleSearchToggle = function () {
+    if (document.getElementById('card_register')
+      || document.getElementById('card_search')) {
+      return;
+    }
     _input.value = null;
     _toggle.classList.replace(
       _toggleArray[_toggleIndex++ % _toggleArray.length].class,
@@ -237,7 +241,7 @@ const KTLayoutSearch = function () {
       _resultDropdownToggle = KTUtil.find(_target, '[data-toggle="dropdown"]');
       _inputGroup = KTUtil.find(_target, '.input-group');
       _closeIconContainer = KTUtil.find(_target, '.input-group .input-group-append');
-      _toggle = KTUtil.find(_target, '.input-group-prepend .input-group-text a');
+      _toggle = KTUtil.find(_target, '.input-group-prepend .input-group-text a[data-toggle="tooltip"]');
 
       // Attach input keyup handler
       KTUtil.addEvent(_input, 'keyup', _handleSearch);

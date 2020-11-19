@@ -175,7 +175,7 @@ function getEntryFiles() {
       'js/serv.register':
         [
           './webpack/webgis/service/index.js',
-          './webpack/webgis/service/register/Map.js',
+          './webpack/webgis/service/register/kakaoMap.js',
           './webpack/webgis/service/register/index.js',
         ],
     },

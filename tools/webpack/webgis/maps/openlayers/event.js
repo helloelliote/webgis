@@ -31,13 +31,6 @@ function onContextMenu(event) {
     });
 }
 
-function onClickTopbarLogo(event) {
-  event.preventDefault();
-  const [lng, lat] = [window.webgis.center.longitude, window.webgis.center.latitude];
-  const center = fromLonLat([lng, lat], projection);
-  this.setCenter(center);
-}
-
 function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
@@ -52,8 +45,8 @@ function onClickQuickSearchInline(event) {
         this.setZoom(viewSyncOptions.zoom.base + 1);
       }
     } else if (targetEl.className.includes('quick-search-result-address')) {
-      const lagLng = targetEl.nextElementSibling.innerHTML.split(',');
-      const [lng, lat] = [lagLng[0], lagLng[1]];
+      const latLng = targetEl.nextElementSibling.innerHTML.split(',');
+      const [lng, lat] = [latLng[0], latLng[1]];
       const coords = fromLonLat([lng, lat], projection);
       this.setCenter(coords);
       setTimeout(function () {
@@ -151,7 +144,6 @@ function onWindowLoad(event) {
 export {
   onSingleClick,
   onContextMenu,
-  onClickTopbarLogo,
   onClickQuickSearchInline,
   onClickSectionCode,
   onClickTableCode,

@@ -17,5 +17,5 @@ require('./openlayers/overlay/notification');
 require('./openlayers/Map');
 // require('./naver/roadview');
 require('./kakao/roadview');
-window.OLWaterSection = require('./util/section');
+// window.OLWaterSection = require('./util/section');
 window.KTLayoutSearch = window.KTLayoutSearchInline = require('./util/search');
