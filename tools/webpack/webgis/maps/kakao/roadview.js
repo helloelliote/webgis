@@ -2,7 +2,7 @@
 import { map as olMap, selectInteraction } from '../openlayers/Map';
 import { default as projection } from '../openlayers/projection/Projection';
 import { view as olView } from '../openlayers/view';
-import { map } from './Map';
+import { map, viewSyncOptions } from './Map';
 import { roadView, roadViewClient } from './roadview/Client';
 import { default as roadViewWalker } from './roadview/Walker';
 import { fromLonLat } from 'ol/proj';
@@ -37,6 +37,13 @@ rvButton.addEventListener('click', onClickRoadviewButton);
 function onClickRoadviewButton(event) {
   event.preventDefault();
 
+  if (olView.getZoom() > viewSyncOptions.zoom.max + viewSyncOptions.zoom.decimal) {
+    $.notify({
+      message: '현재 지도에서는 로드뷰를 표시할 수 없습니다',
+    }, { type: 'danger' });
+    return;
+  }
+
   isActive = !isActive;
   rvContainer.classList.toggle('grid-parent', isActive);
   rvButton.classList.toggle('active', isActive);
@@ -58,22 +65,13 @@ function onClickRoadviewButton(event) {
           roadView.setPanoId(panoId, map.getCenter());
         } else {
           $.notify({
-            message: '로드뷰 정보가 있는 도로 위를 클릭하세요',
-          }, { type: 'danger' });
-          // customOverlay.kakaoRoadView
-          //   .fire({
-          //     titleText: '로드뷰 정보가 있는 도로 위를 클릭하세요'
-          //   })
-          //   .then(function (result) {
-          //     if (result.value) {
-          //       // 확인 클릭
-          //     }
-          //   });
-          // customOverlay.kakaoRoadView.stopTimer();
+            message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
+          }, { type: 'primary' });
         }
       });
     });
   } else {
+
     olMap.getTargetElement().style.cursor = '';
     olMap.addInteraction(selectInteraction);
     olMap.un('singleclick', onSingleClick);
