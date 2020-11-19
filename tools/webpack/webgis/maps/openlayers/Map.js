@@ -1,19 +1,19 @@
 import Map from 'ol/Map';
 import Vector from './layer/Vector';
 import Tile from './layer/Tile';
-import { syncZoomLevel, view } from './view';
-import { default as addressOverlay } from './overlay/Address';
+import { view, onMoveEnd } from './view';
+import { default as addressOverlay } from './overlay/address';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
 import {
+  onSingleClick,
+  onContextMenu,
   onClickTopbarLogo,
   onClickQuickSearchInline,
   onClickSectionCode,
   onClickTableCode,
   onWindowLoad,
 } from './event';
-import { searchCoordinateToAddress } from '../kakao/geoCoder';
-// import { searchCoordinateToAddress } from '../naver/geoCoder';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers([
@@ -59,27 +59,9 @@ map.addInteraction(selectInteraction);
 
 map.on('contextmenu', onContextMenu);
 
-function onContextMenu(event) {
-  event.preventDefault();
-  searchCoordinateToAddress(event.coordinate)
-    .then(htmlContent => {
-      addressOverlay.popover('dispose');
-      addressOverlay.setPosition(event.coordinate);
-      addressOverlay.popover({
-        container: addressOverlay.getElement(),
-        html: true,
-        content: htmlContent,
-      });
-      addressOverlay.popover('show');
-    });
-}
-
 map.on('moveend', onMoveEnd);
 
-function onMoveEnd(event) {
-  event.preventDefault();
-  syncZoomLevel();
-}
+map.on('singleclick', onSingleClick);
 
 // Fired when the DOM is ready which can be prior to images and other external content is loaded.\
 document.getElementById('topbar-logo')

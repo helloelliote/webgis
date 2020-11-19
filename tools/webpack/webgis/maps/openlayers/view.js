@@ -38,7 +38,8 @@ function onChangeCenter() {
     });
 }
 
-function syncZoomLevel() {
+function onMoveEnd(event) {
+  event.preventDefault();
   let newZoom = Math.floor(view.getZoom());
   if (newZoom !== currentZoom) {
     if (newZoom <= max) {
@@ -85,6 +86,6 @@ function syncZoomLevel() {
 }
 
 export {
-  syncZoomLevel,
+  onMoveEnd,
   view,
 };

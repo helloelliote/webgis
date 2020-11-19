@@ -62,51 +62,95 @@ function formatFacilitySearch(response) {
   });
 }
 
-const DOCUMENTS = 'documents';
-const PLACE = 'place_name';
-const ADDR = 'address_name';
-const ROAD_ADDR = 'road_address_name';
-const COORDS_X = 'x';
-const COORDS_Y = 'y';
+const STATUS_OK = kakao.maps.services.Status.OK;
+const STATUS_ZERO_RESULT = kakao.maps.services.Status.ZERO_RESULT;
+const STATUS_ERROR = kakao.maps.services.Status.ERROR;
 
-function formatAddressSearch(response) {
-  return new Promise(resolve => {
-    const resultEl = _resultEl.cloneNode(true);
-    const results = response[DOCUMENTS];
+let resultEl;
+
+function formatAddressSearch(results, status) {
+  return new Promise((resolve, reject) => {
+    resultEl = _resultEl.cloneNode(true);
     const itemWrapperEl = _itemWrapperEl.cloneNode(true);
-    results.forEach(item => {
-      const itemEl = _itemEl.cloneNode(true);
-      let addr = item[ROAD_ADDR] !== '' ? item[ROAD_ADDR] : item[ADDR];
-      itemEl.querySelector('a').classList.add('quick-search-result-address');
-      itemEl.querySelector('a').innerHTML = item[PLACE];
-      itemEl.querySelector('p').innerHTML = item[COORDS_X] + ',' + item[COORDS_Y];
-      itemEl.querySelector('span').innerHTML = addr;
-      itemWrapperEl.appendChild(itemEl);
-    });
     const sectionEl = _sectionEl.cloneNode(true);
-    sectionEl.append('장소 및 주소');
-    sectionEl.appendChild(itemWrapperEl);
-    resultEl.appendChild(sectionEl);
-    resolve(resultEl.outerHTML);
+    sectionEl.append('주소');
+    if (status === STATUS_OK) {
+      for (const item of results) {
+        let address, address_alt, building;
+        if (item['address_type'].match('REGION')) {
+          address = item['address_name'];
+          address_alt = '';
+          building = '';
+        } else if (item['address_type'].match('ROAD')) {
+          address = item['address_name'];
+          address_alt = item['address'] == null
+            ? ''
+            : item['address']['address_name'];
+          building = item['road_address']['building_name'] == null
+            ? ''
+            : `${item['road_address']['building_name']}`;
+        } else {
+          continue;
+        }
+        const itemEl = _itemEl.cloneNode(true);
+        itemEl.querySelector('a').classList.add('quick-search-result-address');
+        itemEl.querySelector('a').innerHTML = address;
+        itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
+        itemEl.querySelector('span').innerHTML = `${address_alt} ${building}`;
+        itemWrapperEl.appendChild(itemEl);
+      }
+      sectionEl.appendChild(itemWrapperEl);
+      resultEl.appendChild(sectionEl);
+      resolve();
+    } else if (status === STATUS_ZERO_RESULT) {
+      const itemEl = _itemEl.cloneNode(true);
+      itemEl.querySelector('a').classList.add('text-muted');
+      itemEl.querySelector('a').innerHTML = '검색 결과가 없습니다';
+      itemWrapperEl.appendChild(itemEl);
+      sectionEl.appendChild(itemWrapperEl);
+      resultEl.appendChild(sectionEl);
+      resolve();
+    } else if (status === STATUS_ERROR) {
+      reject();
+    }
+  });
+}
+
+function formatKeywordSearch(results, status, pagination) {
+  return new Promise((resolve, reject) => {
+    const itemWrapperEl = _itemWrapperEl.cloneNode(true);
+    const sectionEl = _sectionEl.cloneNode(true);
+    sectionEl.append('장소');
+    if (status === STATUS_OK) {
+      for (const item of results) {
+        const itemEl = _itemEl.cloneNode(true);
+        itemEl.querySelector('a').classList.add('quick-search-result-address');
+        itemEl.querySelector('a').innerHTML = item['place_name'];
+        itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
+        itemEl.querySelector('span').innerHTML =
+          item['road_address_name'] === ''
+            ? item['address_name']
+            : item['road_address_name'];
+        itemWrapperEl.appendChild(itemEl);
+      }
+      sectionEl.appendChild(itemWrapperEl);
+      resultEl.appendChild(sectionEl);
+      resolve(resultEl.outerHTML);
+    } else if (status === STATUS_ZERO_RESULT) {
+      const itemEl = _itemEl.cloneNode(true);
+      itemEl.querySelector('a').classList.add('text-muted');
+      itemEl.querySelector('a').innerHTML = '검색 결과가 없습니다';
+      itemWrapperEl.appendChild(itemEl);
+      sectionEl.appendChild(itemWrapperEl);
+      resultEl.appendChild(sectionEl);
+      resolve(resultEl.outerHTML);
+    } else if (status === STATUS_ERROR) {
+      reject();
+    }
   });
 }
 
 // Webpack support
 if (typeof module !== 'undefined') {
-  module.exports = { formatFacilitySearch, formatAddressSearch };
+  module.exports = { formatFacilitySearch, formatAddressSearch, formatKeywordSearch };
 }
-
-// {
-// 			"address_name": "경북 경주시 동천동 800",
-// 			"category_group_code": "PK6",
-// 			"category_group_name": "주차장",
-// 			"category_name": "교통,수송 > 교통시설 > 주차장",
-// 			"distance": "",
-// 			"id": "10173817",
-// 			"phone": "",
-// 			"place_name": "경주시청 주차장",
-// 			"place_url": "http://place.map.kakao.com/10173817",
-// 			"road_address_name": "경북 경주시 양정로 260",
-// 			"x": "129.224777170613",
-// 			"y": "35.8557391911591"
-// 		},

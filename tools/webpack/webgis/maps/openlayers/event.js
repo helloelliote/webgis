@@ -2,10 +2,34 @@ import { getCenter } from 'ol/extent';
 import { fromLonLat } from 'ol/proj';
 import { default as geoJson } from './format';
 import { default as projection } from './projection/Projection';
+// import { searchCoordinateToAddress } from '../naver/geoCoder';
+import { searchCoordinateToAddress } from '../kakao/geoCoder';
+import { viewSyncOptions } from '../kakao/Map';
+import { default as addressOverlay } from './overlay/address';
 
 const mapContainer = document.getElementById('map-container');
 const centerX = Math.round(mapContainer.clientWidth / 2);
 const centerY = Math.round(mapContainer.clientHeight / 2);
+
+function onSingleClick() {
+  // Do NOT use #preventDefault(), it blocks select interaction
+  addressOverlay.popover('dispose');
+}
+
+function onContextMenu(event) {
+  event.preventDefault();
+  searchCoordinateToAddress(event.coordinate)
+    .then(htmlContent => {
+      addressOverlay.popover('dispose');
+      addressOverlay.setPosition(event.coordinate);
+      addressOverlay.popover({
+        container: addressOverlay.getElement(),
+        html: true,
+        content: htmlContent,
+      });
+      addressOverlay.popover('show');
+    });
+}
 
 function onClickTopbarLogo(event) {
   event.preventDefault();
@@ -24,11 +48,28 @@ function onClickQuickSearchInline(event) {
       const coords = getCenter(feature.getGeometry().getExtent());
       // this.centerOn(extent, [1, 1], [centerX, centerY]);
       this.setCenter(coords);
+      if (this.getZoom() < viewSyncOptions.zoom.base) {
+        this.setZoom(viewSyncOptions.zoom.base + 1);
+      }
     } else if (targetEl.className.includes('quick-search-result-address')) {
       const lagLng = targetEl.nextElementSibling.innerHTML.split(',');
       const [lng, lat] = [lagLng[0], lagLng[1]];
       const coords = fromLonLat([lng, lat], projection);
       this.setCenter(coords);
+      setTimeout(function () {
+        addressOverlay.popover('dispose');
+        addressOverlay.setPosition(coords);
+        addressOverlay.popover({
+          placement: 'top',
+          container: addressOverlay.getElement(),
+          html: true,
+          content: targetEl.innerHTML,
+        });
+        addressOverlay.popover('show');
+      }, 500);
+      if (this.getZoom() < viewSyncOptions.zoom.base) {
+        this.setZoom(viewSyncOptions.zoom.base + 1);
+      }
     }
   }
 }
@@ -108,6 +149,8 @@ function onWindowLoad(event) {
 }
 
 export {
+  onSingleClick,
+  onContextMenu,
   onClickTopbarLogo,
   onClickQuickSearchInline,
   onClickSectionCode,

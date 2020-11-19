@@ -1,6 +1,6 @@
 'use strict';
 
-const { formatFacilitySearch, formatAddressSearch } = require('./format/search');
+const { formatFacilitySearch, formatAddressSearch, formatKeywordSearch } = require('./format/search');
 
 const KTLayoutSearch = function () {
   // Private properties
@@ -28,11 +28,12 @@ const KTLayoutSearch = function () {
   let _toggleArray = [
     {
       class: 'label-info', // TODO: https://developers.kakao.com/docs/latest/ko/local/dev-guide
-      url: `https://dapi.kakao.com/v2/local/search/keyword.json?rect=${window.webgis.rect}`,
+      url: `https://dapi.kakao.com/v2/local/search/keyword.json?rect=${window.webgis.rect}`, // Not Used
       headers: {
-        'Authorization': 'KakaoAK 2b80b94ece8eb5cace6ef21359edac62',
+        'Authorization': 'KakaoAK 2b80b94ece8eb5cace6ef21359edac62', // Not Used
       },
       format: formatAddressSearch,
+      formatTwo: formatKeywordSearch,
     },
     {
       class: 'label-primary',
@@ -41,6 +42,7 @@ const KTLayoutSearch = function () {
         'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
       },
       format: formatFacilitySearch,
+      formatTwo: null,
     },
     // Reserved for SWL search
     // {
@@ -50,8 +52,11 @@ const KTLayoutSearch = function () {
     //     'CSRF-Token': $("meta[name='csrf-token']").attr('content'),
     //   },
     //   format: formatFacilitySearch,
+    //   formatTwo: null,
     // },
   ];
+  const placeSearch = new kakao.maps.services.Places();
+  const geoCoder = new kakao.maps.services.Geocoder();
 
   // Private functions
   const _showProgress = function () {
@@ -105,35 +110,66 @@ const KTLayoutSearch = function () {
     _showProgress();
     _hideDropdown();
 
-    setTimeout(function () {
-      $.ajax({
-        url: _toggleArray[_toggleIndex].url,
-        headers: _toggleArray[_toggleIndex].headers,
-        data: {
-          query: _query,
-        },
-        dataType: 'json',
-        success: function (res) {
-          _hasResult = true;
-          _hideProgress();
-          _toggleArray[_toggleIndex].format(res)
-            .then(function (result) {
-              KTUtil.addClass(_target, _resultClass);
-              KTUtil.setHTML(_resultWrapper, result);
-              _showDropdown();
-              KTUtil.scrollUpdate(_resultWrapper);
-            });
-        },
-        error: function (res) {
-          _hasResult = false;
-          _hideProgress();
-          KTUtil.addClass(_target, _resultClass);
-          KTUtil.setHTML(_resultWrapper, '<span class="font-weight-bold text-muted">Connection error. Please try again later..</div>');
-          _showDropdown();
-          KTUtil.scrollUpdate(_resultWrapper);
-        },
-      });
+    setTimeout(() => {
+      if (_toggleIndex > 0) { // Is either WTL or SWL search
+        $.ajax({
+          url: _toggleArray[_toggleIndex].url,
+          headers: _toggleArray[_toggleIndex].headers,
+          data: {
+            query: _query,
+          },
+          dataType: 'json',
+          success: function (res) {
+            _hasResult = true;
+            _hideProgress();
+            _toggleArray[_toggleIndex].format(res)
+              .then(result => {
+                KTUtil.addClass(_target, _resultClass);
+                KTUtil.setHTML(_resultWrapper, result);
+                _showDropdown();
+                KTUtil.scrollUpdate(_resultWrapper);
+              });
+          },
+          error: _handleError,
+        });
+      } else { // Is address & places search
+        _searchAddress().then(_searchPlaces)
+          .then(result => {
+            _hasResult = true;
+            _hideProgress();
+            KTUtil.addClass(_target, _resultClass);
+            KTUtil.setHTML(_resultWrapper, result);
+            _showDropdown();
+            KTUtil.scrollUpdate(_resultWrapper);
+          })
+          .catch(_handleError);
+      }
     }, 250);
+  };
+
+  const _searchAddress = function () {
+    return new Promise((resolve, reject) => {
+      _hideProgress();
+      geoCoder.addressSearch(_query, (results, status) => {
+        _toggleArray[_toggleIndex]
+          .format(results, status)
+          .then(() => resolve())
+          .catch(() => reject());
+      });
+    });
+  };
+
+  const _searchPlaces = function () {
+    return new Promise((resolve, reject) => {
+      placeSearch.keywordSearch(_query, (results, status, pagination) => {
+        _toggleArray[_toggleIndex]
+          .formatTwo(results, status, pagination)
+          .then(result => resolve(result))
+          .catch(() => reject());
+      }, {
+        rect: window.webgis.rect,
+      });
+    });
   };
 
   const _handleCancel = function (e) {
@@ -143,6 +179,15 @@ const KTLayoutSearch = function () {
     KTUtil.hide(_closeIcon);
     KTUtil.removeClass(_target, _resultClass);
     _hideDropdown();
+  };
+
+  const _handleError = function (e) {
+    _hasResult = false;
+    _hideProgress();
+    KTUtil.addClass(_target, _resultClass);
+    KTUtil.setHTML(_resultWrapper, '<span class="font-weight-bold text-muted">(Error) 검색할 수 없습니다.</div>');
+    _showDropdown();
+    KTUtil.scrollUpdate(_resultWrapper);
   };
 
   const _handleSearch = function () {
