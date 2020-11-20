@@ -14,15 +14,11 @@ const mapOptions = {
   maxZoom: 21,
   // Controls
   mapDataControl: false,
-  zoomControl: true,
-  zoomControlOptions: {
-    style: naver.maps.ZoomControlStyle.SMALL,
-    position: naver.maps.Position.TOP_LEFT,
-  },
+  zoomControl: false,
   mapTypeControl: true,
   mapTypeControlOptions: {
     style: naver.maps.MapTypeControlStyle.BUTTON,
-    position: naver.maps.Position.TOP_RIGHT,
+    position: naver.maps.Position.TOP_LEFT,
   },
   scaleControlOptions: {
     position: naver.maps.Position.BOTTOM_LEFT,
@@ -50,10 +46,6 @@ const mapOptions = {
 
 const map = new naver.maps.Map('map', mapOptions);
 
-new ResizeObserver(function () {
-  document.getElementById('map').style.height = card_register.offsetHeight;
-}).observe(card_register);
-
 const marker = new naver.maps.Marker({
   map: map,
   position: map.getCenter(),
@@ -63,9 +55,6 @@ const marker = new naver.maps.Marker({
 naver.maps.Event.addListener(map, 'tilesloaded', onNaverTilesLoaded);
 
 naver.maps.Event.addListener(map, 'click', onNaverMapClick);
-
-document.getElementById('topbar-logo')
-  .addEventListener('click', onClickTopbarLogo, false);
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
@@ -108,12 +97,6 @@ function onNaverMapClick(event) {
   });
 }
 
-function onClickTopbarLogo(event) {
-  event.preventDefault();
-  const [lng, lat] = [window.webgis.center.longitude, window.webgis.center.latitude];
-  map.setCenter({ lat: lat, lng: lng });
-}
-
 function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
@@ -123,8 +106,8 @@ function onClickQuickSearchInline(event) {
         message: '미지원',
       }, { type: 'warning' });
     } else if (targetEl.className.includes('quick-search-result-address')) {
-      const lagLng = targetEl.nextElementSibling.innerHTML.split(',');
-      map.setCenter({ lat: lagLng[1], lng: lagLng[0] });
+      const latLng = targetEl.nextElementSibling.innerHTML.split(',');
+      map.setCenter({ lat: latLng[1], lng: latLng[0] });
     }
   }
 }
@@ -132,3 +115,7 @@ function onClickQuickSearchInline(event) {
 function onWindowResize() {
   map.refresh();
 }
+
+new ResizeObserver(function () {
+  document.getElementById('map').style.height = card_register.offsetHeight;
+}).observe(card_register);

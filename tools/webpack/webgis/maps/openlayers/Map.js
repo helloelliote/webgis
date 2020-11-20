@@ -8,7 +8,6 @@ import { default as defaultInteractions, SelectInteraction } from './interaction
 import {
   onSingleClick,
   onContextMenu,
-  onClickTopbarLogo,
   onClickQuickSearchInline,
   onClickSectionCode,
   onClickTableCode,
@@ -64,9 +63,6 @@ map.on('moveend', onMoveEnd);
 map.on('singleclick', onSingleClick);
 
 // Fired when the DOM is ready which can be prior to images and other external content is loaded.\
-// document.getElementById('topbar-logo')
-//   .addEventListener('click', onClickTopbarLogo.bind(view), false);
-
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline.bind(view), false);
 

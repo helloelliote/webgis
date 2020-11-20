@@ -175,7 +175,7 @@ function getEntryFiles() {
       'js/serv.register':
         [
           './webpack/webgis/service/index.js',
-          './webpack/webgis/service/register/Map.js',
+          './webpack/webgis/service/register/kakaoMap.js',
           './webpack/webgis/service/register/index.js',
         ],
     },
@@ -183,7 +183,7 @@ function getEntryFiles() {
       'js/serv.search':
         [
           './webpack/webgis/service/index.js',
-          './webpack/webgis/service/search/Map.js',
+          './webpack/webgis/service/search/kakaoMap.js',
           './webpack/webgis/service/search/index.js',
         ],
     },

@@ -47,4 +47,5 @@ function getAddressHtmlElement(address) {
 
 export {
   searchCoordinateToAddress,
+  getAddressFromLatLng,
 };
