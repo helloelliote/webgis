@@ -63,6 +63,9 @@ const dotMap = new naver.maps.visualization.DotMap({
 
 naver.maps.Event.addListener(tab1Map, 'tilesloaded', onNaverTilesLoaded);
 
+document.getElementById('kt_quick_search_inline')
+  .addEventListener('click', onClickQuickSearchInline, false);
+
 window.addEventListener('resize', onWindowResize, { passive: true });
 
 function onNaverTilesLoaded() {
@@ -82,21 +85,13 @@ function setMapMarker(pointArray) {
 }
 
 function onClickSearch(coordinates) {
-  if (coordinates === null) {
-    marker.setMap(null);
-    dotMap.setMap(null);
-  } else {
-    dotMap.setData(Array.from(coordinates));
-    dotMap.setMap(tab1Map);
-  }
+  addMarkers(tab1Map, coordinates);
 }
 
 let tab2Map;
 
 function onTab1MapShown(coordinates) {
-  dotMap.setMap(null);
-  dotMap.setData(Array.from(coordinates));
-  dotMap.setMap(tab1Map);
+  addMarkers(tab1Map, coordinates);
 }
 
 function onTab2MapShown(coordinates) {
@@ -108,10 +103,26 @@ function onTab2MapShown(coordinates) {
       localStorage.longitude,
     ));
   }
+  addMarkers(tab2Map, coordinates);
+}
 
+function addMarkers(map, coordinates) {
   dotMap.setMap(null);
   dotMap.setData(Array.from(coordinates));
-  dotMap.setMap(tab2Map);
+  dotMap.setMap(map);
+}
+
+function onClickQuickSearchInline(event) {
+  event.preventDefault();
+  let targetEl = event.target;
+  if (targetEl) {
+    if (targetEl.className.includes('quick-search-result-address')) {
+      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+      const latLng = new naver.maps.LatLng(latLngArray[1], latLngArray[0]);
+      tab1Map.setCenter(latLng);
+      tab1Map.setZoom(19);
+    }
+  }
 }
 
 export {

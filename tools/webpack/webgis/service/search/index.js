@@ -2,7 +2,7 @@
 'use strict';
 
 import moment from 'moment';
-import { onClickSearch, onTab1MapShown, onTab2MapShown, setMapMarker } from './Map';
+import { onClickSearch, onTab1MapShown, onTab2MapShown, setMapMarker } from './kakaoMap';
 
 const ServiceSearch = function () {
 
