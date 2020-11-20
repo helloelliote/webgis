@@ -141,9 +141,16 @@ const ServiceRegister = function () {
             success: function (response, status, xhr, $form) {
               setTimeout(function () {
                 _toggleBlockOverlay(isPending = false);
-              }, 2500);
+                $.notify({
+                  message: '민원이 등록되었습니다',
+                }, { type: 'success' });
+              }, 2000);
+              _form.resetForm();
             },
             error: function (response, status, xhr, $form) {
+              $.notify({
+                message: '민원을 등록하지 못하였습니다',
+              }, { type: 'danger' });
             },
           },
           null,
@@ -185,6 +192,10 @@ const ServiceRegister = function () {
       _form_pip_dip = _form.find('select[name="pip_dip"]');
       _form_lep_cde = _form.find('select[name="lep_cde"]');
       _form_opr_nam = _form.find('select[name="opr_nam"]');
+
+      $('form input').on('keypress', function (e) {
+        return e.which !== 13;
+      });
 
       _initValidation();
       _initForm();
