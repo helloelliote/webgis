@@ -5,9 +5,9 @@ import moment from 'moment';
 const ServiceSchedule = function () {
 
   let _table;
+  let _tableMemo;
   let _time;
   let _modalTitle;
-  let _modalFooter;
   let _tableButtonOpts;
 
   const _init = function () {
@@ -96,7 +96,7 @@ const ServiceSchedule = function () {
     });
   };
 
-  const _initModalFooter = function () {
+  const _initTableMemo = function () {
     setTimeout(function () {
       $.ajax({
         url: `${window.location.origin}/service/schedule/memo`,
@@ -106,7 +106,7 @@ const ServiceSchedule = function () {
         dataType: 'json',
         success: function (res) {
           _modalTitle.html(`상수도 급수공사 대행업체 비상근무 편성 (${res[0]['SCH_MONT']})`);
-          _modalFooter.html(res[0]['SCH_MEMO']);
+          _tableMemo.html(res[0]['SCH_MEMO']);
         },
         error: function () {
         },
@@ -120,12 +120,12 @@ const ServiceSchedule = function () {
     init: function () {
       const _modal = $('#exampleModal');
       _modalTitle = _modal.find('.modal-title');
-      _modalFooter = _modal.find('.modal-footer');
+      _tableMemo = _modal.find('#kt_datatable_schedule_ext');
 
       _modal.on('shown.bs.modal', () => {
         _init();
         _initTable();
-        _initModalFooter();
+        _initTableMemo();
       });
     },
 
