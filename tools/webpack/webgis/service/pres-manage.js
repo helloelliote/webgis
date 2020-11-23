@@ -51,10 +51,7 @@ const PresManage = function () {
       processing: true,
       serverSide: false,
       autoWidth: true,
-      scrollY: '450px',
-      scroller: true,
-      scrollCollapse: true,
-      paging: true,
+      paging: false,
       info: false,
       order: [[0, 'asc']],
       buttons: [

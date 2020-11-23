@@ -8,11 +8,11 @@ export default {
   presManageGet(req, res, next) {
     mysql.executeQuery(
       `SELECT PRS_NAM AS "가압장명",
-       PRD_NAM AS "관리업체",
-       CEO_TEL AS "연락처(대표)",
-       PM_TEL  AS "연락처(현장소장)"
-       FROM wtl_pres_ps
-       WHERE PRD_NAM IS NOT NULL;`,
+                PRD_NAM AS "관리업체",
+                CEO_TEL AS "연락처(대표)",
+                PM_TEL  AS "연락처(현장소장)"
+         FROM wtl_pres_ps
+         WHERE PRD_NAM IS NOT NULL;`,
       [],
     )
       .then(formatPresManageSelect)
@@ -119,16 +119,23 @@ function formatPresManageSelect(response) {
 
 function formatScheduleSelect(response) {
   let records = {
-    iTotalRecords: response.length,
     iTotalDisplayRecords: 5,
     sEcho: 0,
-    aaData: response,
   };
-  (records.aaData).forEach(function (record) {
-    record['비상근무기간_시작'] = moment(record['비상근무기간_시작']).format('YYYY.MM.DD');
-    record['비상근무기간_종료'] = moment(record['비상근무기간_종료']).format('YYYY.MM.DD');
+  response = response.filter(record => record['CK'] === '1');
+  response.forEach(function (record) {
+    let startDate = moment(record['비상근무기간_시작']);
+    let endDate = moment(record['비상근무기간_종료']);
+    record['비상근무기간_시작'] = startDate.isValid()
+      ? startDate.format('YYYY.MM.DD')
+      : `<small class="text-muted">기간 없음</small>`;
+    record['비상근무기간_종료'] = endDate.isValid()
+      ? endDate.format('YYYY.MM.DD')
+      : `<small class="text-muted">기간 없음</small>`;
     record['비상근무기간'] = record['비상근무기간_시작'] + ' ~ ' + record['비상근무기간_종료'];
   });
+  records['aaData'] = response;
+  records['iTotalRecords'] = records.aaData.length;
   return records;
 }
 

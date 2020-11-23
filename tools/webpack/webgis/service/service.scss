@@ -20,21 +20,21 @@
   }
 
   .modal-body {
-    padding: 0 1rem;
+    padding: 0 1rem 1rem 1rem;
 
     .dataTables_filter {
       padding: 1rem 0 0 0;
     }
-  }
 
-  .table th,
-  .table td {
-    padding: 0.75rem 0.1rem;
-  }
+    .table th,
+    .table td {
+      padding: 0.5rem 0.1rem;
+    }
 
-  .modal-footer {
-    white-space: pre-wrap;
-    justify-content: flex-start;
+    #kt_datatable_schedule_ext {
+      white-space: pre-wrap;
+      justify-content: flex-start;
+    }
   }
 }
 
