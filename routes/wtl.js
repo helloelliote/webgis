@@ -33,4 +33,12 @@ export default {
       });
     }
   },
+  
+  info(req, res, next) {
+    postgresql.executeQuery(`SELECT * FROM ${req.query['table']} WHERE 관리번호=$1;`,
+      [req.query['id']],
+    ).then(result => {
+      res.status(200).json(result);
+    });
+  },
 };
