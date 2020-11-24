@@ -1,18 +1,11 @@
 import Map from 'ol/Map';
 import Vector from './layer/Vector';
 import Tile from './layer/Tile';
-import { view, onMoveEnd } from './view';
+import { onMoveEnd, view } from './view';
 import { default as addressOverlay } from './overlay/address';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
-import {
-  onSingleClick,
-  onContextMenu,
-  onClickQuickSearchInline,
-  onClickSectionCode,
-  onClickTableCode,
-  onWindowLoad,
-} from './event';
+import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClick, onWindowLoad } from './event';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers([
