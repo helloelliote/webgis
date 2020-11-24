@@ -1,8 +1,10 @@
 import { Fill, Stroke, Style, Text } from 'ol/style';
 import { default as StyleMap } from './Style';
 
-const selectPolygonFill = new Fill({
-  color: '#eeff4180',
+const selectPolygonStyle = new Style({
+  fill: new Fill({
+    color: '#eeff4180',
+  }),
 });
 
 const polygonStyleMap = new StyleMap({
@@ -32,4 +34,4 @@ const polygonStyleMap = new StyleMap({
   },
 });
 
-export { polygonStyleMap, selectPolygonFill };
+export { polygonStyleMap, selectPolygonStyle };

@@ -1,20 +1,38 @@
-<!-- Modal-->
-<div class="modal fade" id="kt_history_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!--begin::Chat Panel-->
+<div class="modal fade" id="kt_history_modal" role="dialog" data-backdrop="false">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i aria-hidden="true" class="ki ki-close"></i>
-        </button>
-      </div>
-      <div class="modal-body">
+      <!--begin::Card-->
+      <div class="card card-custom">
+        <!--begin::Header-->
+        <div class="card-header align-items-center">
+          <div class="text-left flex-grow-1">
+            <div class="text-dark font-weight-bold font-size-h6" id="card_header_title"></div>
+            <div>
+              <span class="label label-dot label-success" id="card_header_badge"></span>
+              <span class="font-weight-bolder font-size-sm" id="card_badge_text"></span>
+            </div>
+          </div>
+          <div class="text-center flex-grow-1">
+          </div>
+          <div class="text-right flex-grow-1">
+            <button type="button" class="btn btn-clean btn-md btn-icon btn-icon-md" data-dismiss="modal">
+              <i class="ki ki-close icon-1x"></i>
+            </button>
+          </div>
+        </div>
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body">
 
+        </div>
+        <!--end::Body-->
+        <div class="overlay-layer bg-gray-o-75" style="display: none;">
+          <div class="spinner spinner-danger spinner-lg spinner-lg"></div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
-      </div>
+      <!--end::Card-->
     </div>
   </div>
 </div>
+<!--end::Chat Panel-->

@@ -6,9 +6,10 @@ import { createDefaultStyle } from 'ol/style/Style';
 import { defaults as defaultInteractions, MouseWheelZoom } from 'ol/interaction';
 import MapError from '../Error';
 import { FeatureOverlay } from './overlay';
+import { InfoModal } from './modal';
 import { createVectorStyle } from './layer';
 import { layerNameFilter } from './filter';
-import { selectLineStyle, selectPointStyle, selectPolygonFill } from './style';
+import { selectLineStyle, selectPointStyle, selectPolygonStyle } from './style';
 
 export class SelectInteraction extends Select {
 
@@ -36,7 +37,7 @@ export class SelectInteraction extends Select {
           case GeometryType.POLYGON:
           case GeometryType.MULTI_POLYGON: {
             let selectStyle = createVectorStyle(feature).clone();
-            selectStyle.setFill(selectPolygonFill);
+            selectStyle.setFill(selectPolygonStyle.getFill());
             return selectStyle;
           }
           default:
@@ -45,31 +46,70 @@ export class SelectInteraction extends Select {
       },
     });
 
-    this._feature = new Feature();
-
-    this._overaly = new FeatureOverlay({
+    this._overlay = new FeatureOverlay({
       source: new VectorSource(),
       map: options['map'],
     });
+
+    this._overlayFeature = new Feature();
+
+    this._modal = new InfoModal('kt_chat_modal');
+    this._modal.addInteraction(this);
 
     this.on('select', this.onSelectEvent);
   }
 
   onSelectEvent(event) {
     event.preventDefault();
-    this._overaly.setOverlay(null);
-    const feature = event.selected[0];
+    this._overlay.setOverlay(null);
+    let feature = event.selected ? event.selected[0] : this.getFeatures().item(0);
     if (!feature) return;
     switch (feature.getGeometry().getType()) {
+      case GeometryType.LINE_STRING:
+      case GeometryType.MULTI_LINE_STRING:
+        this._modal.setFeature(feature).showModal();
+        break;
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
-        this._feature.setStyle(selectPointStyle);
-        this._feature.setGeometry(feature.getGeometry());
-        this._overaly.setOverlay(this._feature);
+        this._overlayFeature.setStyle(selectPointStyle);
+        this._overlayFeature.setGeometry(feature.getGeometry());
+        this._overlay.setOverlay(this._overlayFeature);
+        this._modal.setFeature(feature).showModal();
+        break;
+      }
+      case GeometryType.POLYGON:
+      case GeometryType.MULTI_POLYGON: {
+        this._overlayFeature.setStyle(selectPolygonStyle);
+        this._overlayFeature.setGeometry(feature.getGeometry());
+        this._overlay.setOverlay(this._overlayFeature);
         break;
       }
       default:
         break;
+    }
+  }
+
+  addFeature(feature) {
+    this._overlay.setOverlay(null);
+    this.getFeatures().setAt(0, feature);
+    switch (feature.getGeometry().getType()) {
+      case GeometryType.POINT:
+      case GeometryType.MULTI_POINT: {
+        this._overlayFeature.setStyle(selectPointStyle);
+        this._overlayFeature.setGeometry(feature.getGeometry());
+        this._overlay.setOverlay(this._overlayFeature);
+        break;
+      }
+      case GeometryType.POLYGON:
+      case GeometryType.MULTI_POLYGON: {
+        this._overlayFeature.setStyle(selectPolygonStyle);
+        this._overlayFeature.setGeometry(feature.getGeometry());
+        this._overlay.setOverlay(this._overlayFeature);
+        break;
+      }
+      default: {
+        break;
+      }
     }
   }
 }
