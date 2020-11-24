@@ -29,7 +29,7 @@ kakao.maps.event.addListener(map, 'tilesloaded', function () {
 });
 
 const mapTypeButton = document.getElementById('btn-map-hybrid');
-mapTypeButton.addEventListener('click', onClickHybridButton);
+mapTypeButton.addEventListener('mousedown', onClickHybridButton);
 
 function onClickHybridButton(event) {
   event.preventDefault();
