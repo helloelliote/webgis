@@ -1,5 +1,5 @@
-import { default as StyleMap } from './Style';
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { default as StyleMap } from './Style';
 
 const selectLineStyle = new Style({
   stroke: new Stroke({

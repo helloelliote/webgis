@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { map as olMap, selectInteraction } from '../openlayers/Map';
-import { default as projection } from '../openlayers/projection/Projection';
+import { default as projection } from '../openlayers/projection';
 import { view as olView } from '../openlayers/view';
 import { map, viewSyncOptions } from './Map';
 import { roadView, roadViewClient } from './roadview/Client';

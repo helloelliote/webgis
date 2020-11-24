@@ -1,7 +1,6 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import Layer from './Layer';
-import SourceLoader from '../worker/sourceLoader.worker';
 
 export default class WmsTile extends Layer {
 

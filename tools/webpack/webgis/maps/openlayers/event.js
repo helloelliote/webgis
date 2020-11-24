@@ -1,11 +1,11 @@
 import { getCenter } from 'ol/extent';
 import { fromLonLat } from 'ol/proj';
 import { default as geoJson } from './format';
-import { default as projection } from './projection/Projection';
+import { default as projection } from './projection';
 // import { searchCoordinateToAddress } from '../naver/geoCoder';
 import { searchCoordinateToAddress } from '../kakao/geoCoder';
 import { viewSyncOptions } from '../kakao/Map';
-import { default as addressOverlay } from './overlay/address';
+import { addressOverlay } from './overlay';
 
 const mapContainer = document.getElementById('map-container');
 const centerX = Math.round(mapContainer.clientWidth / 2);

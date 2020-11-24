@@ -7,9 +7,7 @@ import Layer from './Layer';
 import property from './Layer.property';
 import SourceLoader from '../worker/sourceLoader.worker';
 import { default as geoJson } from '../format';
-import { arrowheadStyle, closedPipeStyle, lineStyleMap } from '../style/Line';
-import { pointStyleMap } from '../style/Point';
-import { polygonStyleMap } from '../style/Polygon';
+import { arrowheadStyle, closedPipeStyle, lineStyleMap, pointStyleMap, polygonStyleMap } from '../style';
 import { styleDirectionFilter, styleRotationFilter } from '../filter';
 
 export default class Vector extends Layer {

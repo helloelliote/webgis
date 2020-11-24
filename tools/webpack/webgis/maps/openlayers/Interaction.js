@@ -5,12 +5,10 @@ import GeometryType from 'ol/geom/GeometryType';
 import { createDefaultStyle } from 'ol/style/Style';
 import { defaults as defaultInteractions, MouseWheelZoom } from 'ol/interaction';
 import MapError from '../Error';
-import FeatureOverlay from './overlay/Feature';
-import { createVectorStyle } from './layer/Vector';
+import { FeatureOverlay } from './overlay';
+import { createVectorStyle } from './layer';
 import { layerNameFilter } from './filter';
-import { selectLineStyle } from './style/Line';
-import { selectPointStyle } from './style/Point';
-import { selectPolygonFill } from './style/Polygon';
+import { selectLineStyle, selectPointStyle, selectPolygonFill } from './style';
 
 export class SelectInteraction extends Select {
 

@@ -1,5 +1,5 @@
-import { default as StyleMap } from './Style';
 import { Circle, Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { default as StyleMap } from './Style';
 
 const selectPointStyle = new Style({
   image: new Circle({

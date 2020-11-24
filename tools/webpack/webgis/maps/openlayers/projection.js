@@ -3,7 +3,7 @@ import Projection from 'ol/proj/Projection';
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
 import { fromLonLat } from 'ol/proj';
-import { roundCustom } from '../../math';
+import { roundCustom } from '../math';
 
 /**
  * @see https://epsg.io/{four_digit_code} for more EPSG projection definitions

@@ -1,8 +1,7 @@
 import Map from 'ol/Map';
-import Vector from './layer/Vector';
-import Tile from './layer/Tile';
+import { Tile, Vector } from './layer';
 import { onMoveEnd, view } from './view';
-import { default as addressOverlay } from './overlay/address';
+import { addressOverlay } from './overlay';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './interaction';
 import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClick, onWindowLoad } from './event';

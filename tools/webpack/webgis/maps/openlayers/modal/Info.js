@@ -1,4 +1,6 @@
-import { ModalOverlay, historyModal, photoModal } from './index';
+import { default as ModalOverlay } from './Modal';
+import { default as historyModal } from './History';
+import { default as photoModal } from './Photo';
 import { featureNameFilter } from '../filter';
 
 class InfoModal extends ModalOverlay {

@@ -1,7 +1,7 @@
+import { Style } from 'ol/style';
 import { default as MapObject } from '../../Object';
 import { default as MapError } from '../../Error';
 import { default as config } from './style.config';
-import { Style } from 'ol/style';
 
 Style.prototype.setLabel = function (value) {
   this.getText().setText(value);
