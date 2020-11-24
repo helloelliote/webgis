@@ -1,7 +1,5 @@
 'use strict';
 
-import moment from 'moment';
-
 const ServiceSchedule = function () {
 
   let _table;

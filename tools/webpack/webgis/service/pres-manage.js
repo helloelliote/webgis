@@ -1,7 +1,5 @@
 'use strict';
 
-import moment from 'moment';
-
 const PresManage = function () {
 
   let _table;

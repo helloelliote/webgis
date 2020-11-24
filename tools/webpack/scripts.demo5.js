@@ -11,9 +11,9 @@ window.KTOffcanvas = require('@/src/js/components/offcanvas.js');
 window.KTScrolltop = require('@/src/js/components/scrolltop.js');
 window.KTToggle = require('@/src/js/components/toggle.js');
 window.KTWizard = require('@/src/js/components/wizard.js');
-require('@/src/js/components/datatable/core.datatable.js');
-require('@/src/js/components/datatable/datatable.checkbox.js');
-require('@/src/js/components/datatable/datatable.rtl.js');
+// require('@/src/js/components/datatable/core.datatable.js');
+// require('@/src/js/components/datatable/datatable.checkbox.js');
+// require('@/src/js/components/datatable/datatable.rtl.js');
 
 // Metronic layout base js
 window.KTLayoutAside = require('@/src/js/layout/base/aside.js');
