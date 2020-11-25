@@ -1,25 +1,27 @@
 import { default as ModalOverlay } from './Modal';
-import { default as historyModal } from './History';
-import { default as photoModal } from './Photo';
+// import { default as historyModal } from './History';
+// import { default as photoModal } from './Photo';
 import { featureNameFilter } from '../filter';
+import { getCenter } from 'ol/extent';
+import { view } from '../view';
 
-class InfoModal extends ModalOverlay {
+export default class InfoModal extends ModalOverlay {
 
-  constructor(element) {
-    super(element);
+  constructor(options) {
+    super(options);
   }
 
-  setContent(feature) {
-    super.setContent(feature);
+  setFeature(feature) {
+    super.setFeature(feature);
 
     let that = this;
     that._ajaxWorker.fetch('wtl/info', {
-      table: that._featureMap.get('table'),
-      id: that._featureMap.get('id'),
+      table: that.getFeature('table'),
+      id: that.getFeature('id'),
     }).then(formatTableRows)
       .then(tableRows => {
-        that._cardTitle.html(`${that._featureMap.get('layer')} 정보`);
-        if (that._featureMap.get('isClosed')) {
+        that._cardTitle.html(`${that.getFeature('layer')} 정보`);
+        if (that.getFeature('isClosed')) {
           that._cardBadge.removeClass('label-success');
           that._cardBadge.addClass('label-danger');
           that._cardBadgeText.html(`&nbsp;폐관`);
@@ -41,14 +43,16 @@ class InfoModal extends ModalOverlay {
     super.onClickButton(event);
     switch (event.target.id) {
       case 'btn_location': {
+        this._interaction.selectFeature(this.getFeature('feature'));
+        view.setCenter(getCenter(this.getFeature('feature').getGeometry().getExtent()));
         break;
       }
       case 'btn_history_modal': {
-        historyModal.showModal();
+        // historyModal.showModal();
         break;
       }
       case 'btn_photo_modal': {
-        photoModal.showModal();
+        // photoModal.showModal();
         break;
       }
       default: {
@@ -73,7 +77,3 @@ function formatTableRows(response) {
   });
   return _tableRowEl;
 }
-
-const infoModal = new InfoModal('kt_chat_modal');
-
-export default infoModal;

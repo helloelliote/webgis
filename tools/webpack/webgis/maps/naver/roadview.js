@@ -27,7 +27,7 @@ let rvPanorama;
 
 const rvContainer = document.getElementById('map-container');
 const rvButton = document.getElementById('btn-map-roadview');
-rvButton.addEventListener('click', onClickRoadviewButton);
+rvButton.addEventListener('mousedown', onClickRoadviewButton);
 
 function onClickRoadviewButton(event) {
   event.preventDefault();

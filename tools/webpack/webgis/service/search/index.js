@@ -145,7 +145,7 @@ const ServiceSearch = function () {
 
               $('<th>').append(search).append(reset).appendTo(rowFilter);
 
-              $(search).on('click', function (e) {
+              $(search).on('mousedown', function (e) {
                 e.preventDefault();
                 var params = {};
                 $(rowFilter).find('.datatable-input').each(function () {
@@ -176,7 +176,7 @@ const ServiceSearch = function () {
                 onClickSearch(_tab2Coordinates);
               });
 
-              $(reset).on('click', function (e) {
+              $(reset).on('mousedown', function (e) {
                 e.preventDefault();
                 $(rowFilter).find('.datatable-input').each(function (i) {
                   $(this).val('');

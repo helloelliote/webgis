@@ -6,6 +6,7 @@ import { default as projection } from './projection';
 import { searchCoordinateToAddress } from '../kakao/geoCoder';
 import { viewSyncOptions } from '../kakao/Map';
 import { addressOverlay } from './overlay';
+import { selectInteraction } from './Map';
 
 const mapContainer = document.getElementById('map-container');
 const centerX = Math.round(mapContainer.clientWidth / 2);
@@ -44,6 +45,7 @@ function onClickQuickSearchInline(event) {
       if (this.getZoom() < viewSyncOptions.zoom.base) {
         this.setZoom(viewSyncOptions.zoom.base + 1);
       }
+      selectInteraction.addFeature(feature);
     } else if (targetEl.className.includes('quick-search-result-address')) {
       const latLng = targetEl.nextElementSibling.innerHTML.split(',');
       const [lng, lat] = [latLng[0], latLng[1]];
