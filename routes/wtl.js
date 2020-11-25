@@ -7,7 +7,7 @@ export default {
       [`%${req.query['query']}%`, '상수'], // TODO: '상수' Role 처리
     ).then(result => {
       res.status(200).json(result);
-    });
+    }).catch(next);
   },
 
   section(req, res, next) {
@@ -21,7 +21,7 @@ export default {
         [],
       ).then(result => {
         res.status(200).json(result);
-      });
+      }).catch(next);
     }
 
     if (table && section) {
@@ -30,15 +30,15 @@ export default {
         [],
       ).then(result => {
         res.status(200).json(result);
-      });
+      }).catch(next);
     }
   },
-  
+
   info(req, res, next) {
     postgresql.executeQuery(`SELECT * FROM ${req.query['table']} WHERE 관리번호=$1;`,
       [req.query['id']],
     ).then(result => {
       res.status(200).json(result);
-    });
+    }).catch(next);
   },
 };

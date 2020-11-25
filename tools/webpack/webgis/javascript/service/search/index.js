@@ -64,6 +64,7 @@ const ServiceSearch = function () {
           ],
         },
       },
+      deferRender: true,
       columns: [
         { data: '번호' },
         { data: '접수자' },

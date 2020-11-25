@@ -40,6 +40,14 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'server.json'),
+          to: path.resolve(__dirname, '.build', 'server.json'),
+        },
+      ],
+    }),
     new MergeJsonWebpackPlugin({
       files: [
         './package.json',
@@ -48,6 +56,7 @@ module.exports = {
       output: {
         fileName: 'package.json',
       },
+      space: 2,
     }),
   ],
   node: {

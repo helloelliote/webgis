@@ -185,7 +185,7 @@ const KTLayoutSearch = function () {
     _hasResult = false;
     _hideProgress();
     KTUtil.addClass(_target, _resultClass);
-    KTUtil.setHTML(_resultWrapper, '<span class="font-weight-bold text-muted">(Error) 검색할 수 없습니다.</div>');
+    KTUtil.setHTML(_resultWrapper, `<span class="font-weight-bold">(Error) ${e.statusText} ${e.responseJSON['code']}</span>`);
     _showDropdown();
     KTUtil.scrollUpdate(_resultWrapper);
   };

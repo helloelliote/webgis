@@ -39,6 +39,7 @@ const ServicePresManage = function () {
           ],
         },
       },
+      deferRender: true,
       columns: [
         { data: '가압장명' },
         { data: '관리업체' },

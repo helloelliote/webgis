@@ -45,6 +45,7 @@ const ServiceSchedule = function () {
           ],
         },
       },
+      deferRender: true,
       columns: [
         { data: '기간' },
         { data: '업체명' },

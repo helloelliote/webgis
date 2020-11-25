@@ -36,10 +36,10 @@ class Postgresql {
           .then(result => {
             return result;
           })
-          .catch(Postgresql.onError)
+          // .catch(Postgresql.onError)
           .finally(() => Postgresql.onFinally(client));
-      })
-      .catch(Postgresql.onError);
+      });
+    // .catch(Postgresql.onError);
   }
 
   static onError(err) {

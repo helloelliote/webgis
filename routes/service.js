@@ -14,32 +14,27 @@ export default {
          FROM wtl_pres_ps
          WHERE PRD_NAM IS NOT NULL;`,
       [],
-    )
-      .then(formatPresManageSelect)
-      .then(result => {
-        res.status(200).json(result);
-      });
+    ).then(formatPresManageSelect).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
   },
 
   scheduleGet(req, res, next) {
     mysql.executeQuery(
       `SELECT * FROM viw_wtt_sch_address;`,
       [],
-    )
-      .then(formatScheduleSelect)
-      .then(result => {
-        res.status(200).json(result);
-      });
+    ).then(formatScheduleSelect).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
   },
 
   scheduleMemoGet(req, res, next) {
     mysql.executeQuery(
       `SELECT * FROM wtt_sch_memo;`,
       [],
-    )
-      .then(result => {
-        res.status(200).json(result);
-      });
+    ).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
   },
 
   registerGet(req, res, next) {
@@ -55,7 +50,7 @@ export default {
       [],
     ).then(result => {
       res.status(200).json(result);
-    });
+    }).catch(next);
   },
 
   registerPost(req, res, next) {
@@ -86,7 +81,7 @@ export default {
       ], // TODO: '상수' Role 처리
     ).then(result => {
       res.status(200).json({ result: result });
-    });
+    }).catch(next);
   },
 
   searchGet(req, res, next) {
@@ -100,11 +95,9 @@ export default {
     postgresql.executeQuery(
       `SELECT * FROM viw_wtt_wser_ma ORDER BY id DESC;`,
       [], // TODO: '상수' Role 처리
-    )
-      .then(formatSearchSelect)
-      .then(result => {
-        res.status(200).json(result);
-      });
+    ).then(formatSearchSelect).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
   },
 };
 

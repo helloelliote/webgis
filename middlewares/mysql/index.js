@@ -33,8 +33,8 @@ class Mysql {
       .query(text, params)
       .then(([result]) => {
         return result;
-      })
-      .catch(Mysql.onError);
+      });
+    // .catch(Mysql.onError);
   }
 
   static onError(err) {

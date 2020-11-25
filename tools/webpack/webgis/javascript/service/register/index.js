@@ -149,8 +149,10 @@ const ServiceRegister = function () {
             },
             error: function (response, status, xhr, $form) {
               $.notify({
-                message: '민원을 등록하지 못하였습니다',
+                // message: '민원을 등록하지 못하였습니다',
+                message: xhr,
               }, { type: 'danger' });
+              _toggleBlockOverlay(isPending = false);
             },
           },
           null,
