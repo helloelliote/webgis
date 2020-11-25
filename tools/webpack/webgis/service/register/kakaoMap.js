@@ -7,8 +7,8 @@ const localStorage = new LocalStorage();
 
 const mapOptions = {
   center: new kakao.maps.LatLng(
-    localStorage.latitude,
-    localStorage.longitude,
+    localStorage.latitude || window.webgis.center.latitude,
+    localStorage.longitude || window.webgis.center.longitude,
   ),
   level: 3,
   draggable: true,

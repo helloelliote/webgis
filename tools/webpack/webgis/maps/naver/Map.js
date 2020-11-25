@@ -7,8 +7,8 @@ let isMapTypeHybrid = false;
 
 const mapOptions = {
   center: new naver.maps.LatLng(
-    localStorage.latitude,
-    localStorage.longitude,
+    localStorage.latitude || window.webgis.center.latitude,
+    localStorage.longitude || window.webgis.center.longitude,
   ),
   zoom: 17,
   minZoom: 11,

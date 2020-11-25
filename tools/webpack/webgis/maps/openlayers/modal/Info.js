@@ -43,7 +43,7 @@ export default class InfoModal extends ModalOverlay {
     super.onClickButton(event);
     switch (event.target.id) {
       case 'btn_location': {
-        this._interaction.selectFeature(this.getFeature('feature'));
+        this._interaction.addFeature(this.getFeature('feature'));
         view.setCenter(getCenter(this.getFeature('feature').getGeometry().getExtent()));
         break;
       }

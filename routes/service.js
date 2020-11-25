@@ -64,7 +64,7 @@ export default {
       `INSERT INTO wtt_wser_ma
          VALUES (DEFAULT, ST_SetSRID(ST_MakePoint($1, $2), 5187), $1, $2, dj_yearly_counter(), $3, $4, $5,
                  $6, $7, (SELECT codeno FROM private.cd_apy WHERE cname = $8), $9,
-                 (SELECT codeno FROM private.cd_lep WHERE cname = $10), $11, $12, $13,
+                 (SELECT codeno FROM private.cd_lpy WHERE cname = $10), $11, $12, $13,
                  (SELECT codeno FROM private.cd_pro WHERE cname = $14), NULL, NULL, $15, $16, DEFAULT);`,
       [
         _body['x'],

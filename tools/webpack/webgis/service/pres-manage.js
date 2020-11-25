@@ -1,6 +1,6 @@
 'use strict';
 
-const PresManage = function () {
+const ServicePresManage = function () {
 
   let _table;
   let _tableButtonOpts;
@@ -82,5 +82,5 @@ const PresManage = function () {
 }();
 
 jQuery(document).ready(function () {
-  PresManage.init();
+  ServicePresManage.init();
 });

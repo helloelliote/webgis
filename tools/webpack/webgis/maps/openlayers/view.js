@@ -20,8 +20,8 @@ let currentZoom;
 const view = new View({
   projection: projection,
   center: fromLonLat([
-    localStorage.longitude,
-    localStorage.latitude,
+    localStorage.longitude || window.webgis.center.longitude,
+    localStorage.latitude || window.webgis.center.latitude,
   ], projection),
   zoom: base,
   constrainResolution: false,
