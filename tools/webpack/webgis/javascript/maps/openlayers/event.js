@@ -24,11 +24,13 @@ function onContextMenu(event) {
       addressOverlay.popover('dispose');
       addressOverlay.setPosition(event.coordinate);
       addressOverlay.popover({
+        placement: 'top',
         container: addressOverlay.getElement(),
         html: true,
         content: htmlContent,
       });
       addressOverlay.popover('show');
+      $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
     });
 }
 
@@ -61,6 +63,7 @@ function onClickQuickSearchInline(event) {
           content: targetEl.innerHTML,
         });
         addressOverlay.popover('show');
+        $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
       }, 500);
       if (this.getZoom() < viewSyncOptions.zoom.base) {
         this.setZoom(viewSyncOptions.zoom.base + 1);

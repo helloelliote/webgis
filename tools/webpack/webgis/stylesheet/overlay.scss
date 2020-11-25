@@ -4,13 +4,26 @@
   min-width: max-content;
 
   .popover-body {
+    color: #7337EE;
+    font-size: 0.9rem !important;
+    font-weight: bolder;
+    padding: 0.5rem 1.5rem;
     min-width: max-content;
   }
+}
+
+.popover-info {
+  border-color: #7337EE;
+  color: white;
+}
+
+.popover-info .arrow:before {
+  border-top-color: #7337EE;
 }
 
 // notification
 
 :root {
-  --animate-duration: 250ms;
+  --animate-duration: 500ms;
   //--animate-delay: 1s;
 }

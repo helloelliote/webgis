@@ -25,19 +25,24 @@ const tab1Map = new kakao.maps.Map(mapContainer, mapOptions);
 const mapTypeControl = new kakao.maps.MapTypeControl();
 tab1Map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
 
-const marker = new kakao.maps.Marker({
-  map: tab1Map,
-  position: tab1Map.getCenter(),
-});
-marker.setVisible(false);
-
 const dotSet = new Set();
 const dotSrc = 'assets/media/symbols/EP002.png';
 const dotSize = new kakao.maps.Size(12, 12);
 const dotImage = new kakao.maps.MarkerImage(dotSrc, dotSize);
 
-const infoWindow = new kakao.maps.InfoWindow({
-  removable: true,
+const markerSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+const markerSize = new kakao.maps.Size(24, 35);
+const markerImage = new kakao.maps.MarkerImage(markerSrc, markerSize);
+
+const marker = new kakao.maps.Marker({
+  map: tab1Map,
+  position: tab1Map.getCenter(),
+  image: markerImage,
+});
+marker.setVisible(false);
+
+const addressMarker = new kakao.maps.Marker({
+  map: tab1Map,
 });
 
 kakao.maps.event.addListener(tab1Map, 'tilesloaded', onKakaoTilesLoaded);
@@ -45,7 +50,7 @@ kakao.maps.event.addListener(tab1Map, 'tilesloaded', onKakaoTilesLoaded);
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
 
-window.addEventListener('resize', onWindowResize, { passive: true });
+// window.addEventListener('resize', onWindowResize);
 
 function onKakaoTilesLoaded() {
   const center = tab1Map.getCenter();
@@ -54,7 +59,7 @@ function onKakaoTilesLoaded() {
 }
 
 function onWindowResize() {
-  tab1Map.relayout();
+  // tab1Map.relayout();
 }
 
 function setMapMarker(pointArray) {
@@ -69,9 +74,13 @@ function onClickSearch(coordinates) {
 }
 
 let tab2Map;
+let isTab2Map = false;
 
 function onTab1MapShown(coordinates) {
-  addMarkers(tab1Map, coordinates);
+  isTab2Map = false;
+  if (coordinates.size > 0) {
+    addMarkers(tab1Map, coordinates);
+  }
 }
 
 function onTab2MapShown(coordinates) {
@@ -83,6 +92,7 @@ function onTab2MapShown(coordinates) {
       localStorage.longitude,
     ));
   }
+  isTab2Map = true;
   addMarkers(tab2Map, coordinates);
 }
 
@@ -114,9 +124,9 @@ function onClickQuickSearchInline(event) {
       const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
       tab1Map.setCenter(latLng);
       tab1Map.setLevel(2, { animate: true });
-      infoWindow.setPosition(latLng);
-      infoWindow.setContent(targetEl.innerHTML);
-      infoWindow.open(tab1Map);
+      addressMarker.setPosition(latLng);
+      addressMarker.setTitle(targetEl.innerHTML);
+      addressMarker.setMap(isTab2Map ? tab2Map : tab1Map);
     }
   }
 }

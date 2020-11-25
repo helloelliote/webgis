@@ -140,12 +140,12 @@ const ServiceRegister = function () {
             },
             success: function (response, status, xhr, $form) {
               setTimeout(function () {
+                _form.resetForm();
                 _toggleBlockOverlay(isPending = false);
                 $.notify({
                   message: '민원이 등록되었습니다',
                 }, { type: 'success' });
               }, 2000);
-              _form.resetForm();
             },
             error: function (response, status, xhr, $form) {
               $.notify({
