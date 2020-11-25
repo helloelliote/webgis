@@ -1,12 +1,3 @@
-@import
-  "overlay/overlay",
-  "modal/modal"
-;
-
-body {
-  margin: 0;
-}
-
 .parent {
   background: #edede8;
 }
@@ -17,6 +8,7 @@ body {
       min-width: 2rem;
       text-align: center;
       display: block;
+
       img {
         max-height: 1.25rem;
         min-height: 1rem;

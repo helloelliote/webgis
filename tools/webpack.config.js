@@ -158,45 +158,51 @@ function getEntryFiles() {
 
   // webgis
   Object.assign(entries,
-    { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
     {
-      'js/serv.pres':
+      'js/maps.bundle':
         [
-          './webpack/webgis/service/pres-manage.js',
-        ],
-    },
-    {
-      'js/serv.schedule':
-        [
-          './webpack/webgis/service/schedule.js',
+          './webpack/webgis/javascript/index.js',
+          './webpack/webgis/javascript/maps/index.js',
         ],
     },
     {
       'js/serv.register':
         [
-          './webpack/webgis/service/index.js',
-          './webpack/webgis/service/register/kakaoMap.js',
-          './webpack/webgis/service/register/index.js',
+          './webpack/webgis/javascript/index.js',
+          './webpack/webgis/javascript/service/register/kakaoMap.js',
+          './webpack/webgis/javascript/service/register/index.js',
         ],
     },
     {
       'js/serv.search':
         [
-          './webpack/webgis/service/index.js',
-          './webpack/webgis/service/search/kakaoMap.js',
-          './webpack/webgis/service/search/index.js',
+          './webpack/webgis/javascript/index.js',
+          './webpack/webgis/javascript/service/search/kakaoMap.js',
+          './webpack/webgis/javascript/service/search/index.js',
+        ],
+    },
+    {
+      'js/serv.pres':
+        [
+          './webpack/webgis/javascript/service/pres-manage.js',
+        ],
+    },
+    {
+      'js/serv.schedule':
+        [
+          './webpack/webgis/javascript/service/schedule.js',
         ],
     },
   );
 
-  // webgis
+  // Webgis custom styles
   Object.assign(entries,
-    { 'css/maps.bundle': ['./webpack/webgis/maps/style.scss'] },
-  );
-
-  // Custom styles
-  Object.assign(entries,
-    { 'css/style.custom.bundle': ['./webpack/webgis/metronic/style.scss'] },
+    {
+      'css/custom.bundle':
+        [
+          './webpack/webgis/stylesheet/_init.scss',
+        ],
+    },
   );
 
   return entries;

@@ -84,6 +84,12 @@
 
 ////////////////////////////////////////////////////////////////
 
+body {
+  margin: 0;
+}
+
+////////////////////////////////////////////////////////////////
+
 // demo5/src/sass/layout/_content.scss:34
 
 // // Desktop Mode
@@ -124,10 +130,49 @@
 
 ////////////////////////////////////////////////////////////////
 
+.navi .navi-item .navi-link {
+  padding: .5rem 1.5rem;
+}
+
+////////////////////////////////////////////////////////////////
+
 // demo5/src/sass/components/_quick-search.scss:18
 
 .input-group-prepend > .input-group-text {
   padding: 0 0.65rem;
+}
+
+.quick-search-form {
+  .input-group-prepend {
+    .label-primary::before {
+      content: '상수도 시설물';
+    }
+
+    // Reserved for SWL search
+    //.label-danger::before {
+    //  content: '하수도 시설물';
+    //}
+
+    .label-info::before {
+      content: '주소 및 장소';
+    }
+  }
+}
+
+.topbar-item {
+  .nav {
+    .topbar-item {
+      .dropdown-menu {
+        max-height: calc(75vh);
+        overflow-y: auto;
+
+        .navi .navi-item .navi-link {
+          display: grid;
+          text-align: center;
+        }
+      }
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////
@@ -153,11 +198,3 @@
 }
 
 ////////////////////////////////////////////////////////////////
-
-.navi .navi-item .navi-link {
-  padding: .5rem 1.5rem;
-}
-
-@import
-  "../service/service"
-;
