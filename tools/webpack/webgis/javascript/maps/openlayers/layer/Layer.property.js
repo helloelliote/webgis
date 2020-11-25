@@ -28,7 +28,9 @@ export default {
     maxZ: 21,
     minZ: 11,
     propertyName: [
+      'layer',
       'geom',
+      'nume',
     ],
   },
   swl_hmpipe_ls: {
@@ -388,7 +390,7 @@ export default {
     ],
     selZ: 8.3,
   },
-  viw_wtt_wutl_ht_re: {
+  viw_wtt_wutl_ht: {
     isTile: false,
     maxZ: 21,
     minZ: 11,

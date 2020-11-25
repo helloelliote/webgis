@@ -13,7 +13,11 @@
     font-size: 13px !important;
     padding: 0;
 
-    .table th,
+    .table th {
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0.5rem 0.5rem;
+    }
     .table td {
       padding: 0.5rem 0.5rem;
     }

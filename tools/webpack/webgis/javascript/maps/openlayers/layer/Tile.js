@@ -25,7 +25,7 @@ function createTileLayer(key) {
 function createTileSource(key) {
   return new TileWMS({
     url: createTileSourceRequestUrl(),
-    hidpi: false,
+    hidpi: true,
     params: {
       FORMAT: 'image/png',
       LAYERS: `${window.webgis.workspace}:${key}`,

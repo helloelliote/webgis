@@ -9,18 +9,18 @@ import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClic
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers([
   'viw_wtl_puri_as',
-  'wtl_taper_ps',
+  // 'wtl_taper_ps',
   'wtl_cap_ps',
   'viw_wtl_pipe_lm',
   'viw_wtl_sply_ls',
-  'viw_wtl_scvst_ps',
+  // 'viw_wtl_scvst_ps',
   'viw_wtl_meta_ps',
   'viw_wtl_flow_ps',
   'viw_wtl_fire_ps',
   'viw_wtl_valv_ps',
   'viw_wtl_serv_ps',
   'viw_wtl_pres_ps',
-  'viw_wtt_wutl_ht_re',
+  'viw_wtt_wutl_ht',
   'wtl_userlabel_ps',
 ]);
 

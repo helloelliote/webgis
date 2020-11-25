@@ -186,7 +186,7 @@ export default {
       },
       text: {
         color: '#ff0000',
-        font: '1.1rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         offsetY: 20,
         stroke: '#ffffff',
         width: 3,
@@ -200,7 +200,7 @@ export default {
       },
       text: {
         color: '#fff',
-        font: '1.1rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         offsetY: 22.5,
         stroke: '#e65100',
         width: 3,
@@ -284,7 +284,7 @@ export default {
       },
       text: {
         color: '#fff',
-        font: '1.1rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         offsetY: 22.5,
         stroke: '#e65100',
         width: 3,
@@ -312,7 +312,7 @@ export default {
       },
       text: {
         color: '#fff',
-        font: '1.1rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         offsetY: 22.5,
         stroke: '#e65100',
         width: 3,
@@ -925,7 +925,7 @@ export default {
       },
       text: {
         color: '#ff0000',
-        font: '1.1rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 4,
       },

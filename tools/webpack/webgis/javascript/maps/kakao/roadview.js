@@ -39,7 +39,7 @@ function onClickRoadviewButton(event) {
 
   if (olView.getZoom() > viewSyncOptions.zoom.max + viewSyncOptions.zoom.decimal) {
     $.notify({
-      message: '현재 지도에서는 로드뷰를 표시할 수 없습니다',
+      message: '현재 지도에서는 로드뷰를 시작할 수 없습니다',
     }, { type: 'danger' });
     return;
   }
