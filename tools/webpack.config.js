@@ -11,6 +11,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
 const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
 const MergeIntoSingle = require('webpack-merge-and-include-globally');
+const { distPath, webpackEntries, webpackCopy, webpackRules } = require('./webpack/webgis/webgis.config');
 
 // paths
 const rootPath = path.resolve(__dirname, '..');
@@ -25,8 +26,7 @@ let demo = getDemos(rootPath)[0];
 // under demo paths
 const demoPath = rootPath + '/' + demo;
 // const distPath = demoPath + '/dist';
-const distPath = path.resolve(__dirname, '..', '.build', 'public');
-const assetDistPath = distPath + '/assets';
+const assetDistPath = path.resolve(distPath, 'public', 'assets');
 const srcPath = demoPath + '/src';
 
 const extraPlugins = [];
@@ -157,53 +157,7 @@ function getEntryFiles() {
   });
 
   // webgis
-  Object.assign(entries,
-    {
-      'js/maps.bundle':
-        [
-          './webpack/webgis/javascript/index.js',
-          './webpack/webgis/javascript/maps/index.js',
-        ],
-    },
-    {
-      'js/serv.register':
-        [
-          './webpack/webgis/javascript/index.js',
-          './webpack/webgis/javascript/service/register/kakaoMap.js',
-          './webpack/webgis/javascript/service/register/index.js',
-        ],
-    },
-    {
-      'js/serv.search':
-        [
-          './webpack/webgis/javascript/index.js',
-          './webpack/webgis/javascript/service/search/kakaoMap.js',
-          './webpack/webgis/javascript/service/search/index.js',
-        ],
-    },
-    {
-      'js/serv.pres':
-        [
-          './webpack/webgis/javascript/service/pres-manage.js',
-        ],
-    },
-    {
-      'js/serv.schedule':
-        [
-          './webpack/webgis/javascript/service/schedule.js',
-        ],
-    },
-  );
-
-  // Webgis custom styles
-  Object.assign(entries,
-    {
-      'css/custom.bundle':
-        [
-          './webpack/webgis/stylesheet/_init.scss',
-        ],
-    },
-  );
+  Object.assign(entries, webpackEntries);
 
   return entries;
 }
@@ -248,10 +202,6 @@ function mainConfig() {
       }),
       new CopyWebpackPlugin([
         {
-          from: path.resolve(__dirname, '..', 'views'),
-          to: path.resolve(__dirname, '..', '.build', 'views'),
-        },
-        {
           // copy media
           from: srcPath + '/media',
           to: assetDistPath + '/media',
@@ -266,47 +216,14 @@ function mainConfig() {
           from: path.resolve(__dirname, 'node_modules') + '/tinymce/plugins',
           to: assetDistPath + '/plugins/custom/tinymce/plugins',
         },
-        {
-          // copy media (custom)
-          from: './webpack/webgis/media',
-          to: assetDistPath + '/media',
-        },
+        webpackCopy.view,
+        webpackCopy.media,
       ]),
     ].concat(extraPlugins),
     module: {
       rules: [
-        {
-          test: /\.m?js$/,
-          exclude: [/(node_modules|bower_components)/, /__tests__/],
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    node: 'current', // !!!DO NOT REMOVE!!!
-                  },
-                },
-              ],
-            ],
-            plugins: [
-              '@babel/plugin-proposal-class-properties',
-              '@babel/plugin-transform-runtime',
-            ],
-            cacheDirectory: true,
-            rootMode: 'upward',
-          },
-        },
-        {
-          test: /.*\.worker\..*$/,
-          use: {
-            loader: 'worker-loader',
-            options: {
-              inline: 'no-fallback',
-            },
-          },
-        },
+        webpackRules.js,
+        webpackRules.worker,
         {
           test: /\.css$/,
           use: [

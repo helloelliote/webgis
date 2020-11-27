@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/__tests__" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.build" />
       <excludeFolder url="file://$MODULE_DIR$/.coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
       <excludeFolder url="file://$MODULE_DIR$/.resources" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
