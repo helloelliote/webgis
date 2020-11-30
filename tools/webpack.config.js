@@ -100,9 +100,9 @@ function importDatatables() {
 function addtionalSettings() {
   if (args.indexOf('rtl') !== -1) {
     // enable rtl for css
-    extraPlugins.push(new WebpackRTLPlugin({
-      filename: '[name].rtl.css',
-    }));
+    // extraPlugins.push(new WebpackRTLPlugin({
+    //   filename: '[name].rtl.css',
+    // }));
   }
 
   if (!js && css) {
@@ -128,7 +128,7 @@ function getEntryFiles() {
     // 3rd party plugins css/js
     'plugins/global/plugins.bundle': ['./webpack/plugins/plugins.js', './webpack/plugins/plugins.scss'],
     // Metronic css/js
-    'css/style.bundle': path.relative('./', srcPath) + '/sass/style.scss',
+    'css/style.bundle': './' + path.relative('./', srcPath) + '/sass/style.scss',
     'js/scripts.bundle': './webpack/scripts.' + demo + '.js',
   };
 
@@ -145,15 +145,15 @@ function getEntryFiles() {
 
   // Metronic css pages (single page use)
   (glob.sync(path.relative('./', srcPath) + '/sass/pages/**/!(_)*.scss') || []).forEach(file => {
-    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = file;
+    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = './' + file;
   });
   (glob.sync(path.relative('./', srcPath) + '/js/pages/**/!(_)*.js') || []).forEach(file => {
-    entries[file.replace(/.*js\/(.*?)\.js$/ig, 'js/$1')] = file;
+    entries[file.replace(/.*js\/(.*?)\.js$/ig, 'js/$1')] = './' + file;
   });
 
   // Metronic theme
   (glob.sync(path.relative('./', srcPath) + '/sass/themes/**/!(_)*.scss') || []).forEach(file => {
-    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = file;
+    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = './' + file;
   });
 
   // webgis
@@ -166,6 +166,7 @@ function mainConfig() {
   return {
     // enabled/disable optimizations
     mode: args.indexOf('prod') === 0 ? 'production' : 'development',
+    target: 'web',
     // console logs output, https://webpack.js.org/configuration/stats/
     stats: 'errors-warnings',
     performance: {
@@ -189,6 +190,9 @@ function mainConfig() {
         '@': demoPath,
       },
       extensions: ['.js', '.scss'],
+      fallback: {
+        util: false,
+      },
     },
     devtool: 'source-map',
     plugins: [
@@ -200,26 +204,37 @@ function mainConfig() {
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
-      new CopyWebpackPlugin([
-        {
-          // copy media
-          from: srcPath + '/media',
-          to: assetDistPath + '/media',
-        },
-        {
-          // copy tinymce skins
-          from: path.resolve(__dirname, 'node_modules') + '/tinymce/skins',
-          to: assetDistPath + '/plugins/custom/tinymce/skins',
-        },
-        {
-          // copy tinymce plugins
-          from: path.resolve(__dirname, 'node_modules') + '/tinymce/plugins',
-          to: assetDistPath + '/plugins/custom/tinymce/plugins',
-        },
-        webpackCopy.view,
-        webpackCopy.media,
-      ]),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            // copy media
+            from: srcPath + '/media',
+            to: assetDistPath + '/media',
+          },
+          {
+            // copy tinymce skins
+            from: path.resolve(__dirname, 'node_modules') + '/tinymce/skins',
+            to: assetDistPath + '/plugins/custom/tinymce/skins',
+          },
+          {
+            // copy tinymce plugins
+            from: path.resolve(__dirname, 'node_modules') + '/tinymce/plugins',
+            to: assetDistPath + '/plugins/custom/tinymce/plugins',
+          },
+          webpackCopy.view,
+          webpackCopy.media,
+        ],
+      }),
     ].concat(extraPlugins),
+    cache: {
+      type: 'filesystem',
+      buildDependencies: {
+        // 2. Add your config as buildDependency to get cache invalidation on config change
+        config: [__filename],
+        // 3. If you have other things the build depends on you can add them here
+        // Note that webpack, loaders and all modules referenced from your config are automatically added
+      },
+    },
     module: {
       rules: [
         webpackRules.js,
@@ -237,29 +252,36 @@ function mainConfig() {
             MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
-              options: {
-                url: (url, resourcePath) => {
-                  // Don't handle local urls
-                  return !!url.includes('media');
-                },
-              },
+              // options: {
+              //   url: (url, resourcePath) => {
+              //     // Don't handle local urls
+              //     return !!url.includes('media');
+              //   },
+              // },
             },
-            {
+            /*{
               loader: 'postcss-loader', // Run post css actions
               options: {
-                plugins: function () { // post css plugins, can be exported to postcss.config.js
-                  return [
+                postcssOptions: {
+                  plugins: function () { // post css plugins, can be exported to postcss.config.js
+                    return [
                     // require('precss'),
                     require('autoprefixer'),
-                  ];
+                    ];
                 },
+                }
               },
-            },
+            },*/
             {
               loader: 'sass-loader',
               options: {
                 sourceMap: false,
-                includePaths: [demoPath],
+                sassOptions: {
+                  includePaths: [
+                    demoPath,
+                    path.resolve(__dirname, 'node_modules'),
+                  ],
+                },
               },
             },
           ],
@@ -274,13 +296,13 @@ function mainConfig() {
             {
               loader: 'file-loader',
               options: {
-                // emitFile: false,
                 // prevent name become hash
                 name: '[name].[ext]',
                 // move files
                 outputPath: 'plugins/global/fonts',
                 // rewrite path in css
                 publicPath: 'fonts',
+                esModule: false,
               },
             },
           ],
