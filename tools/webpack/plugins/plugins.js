@@ -38,7 +38,7 @@ window.PerfectScrollbar = require('perfect-scrollbar/dist/perfect-scrollbar');
 //////////////////////////////////////////////////////////////////////
 
 // Sticky-js - A library for sticky elements written in vanilla javascript. Learn more: https://rgalus.github.io/sticky-js/
-window.Sticky = require('sticky-js');
+// window.Sticky = require('sticky-js');
 
 // Apexcharts - mBdern charting library that helps developers to create beautiful and interactive visualizations for web pages: https://apexcharts.com/
 // window.ApexCharts = require('apexcharts/dist/apexcharts.min.js');
@@ -95,7 +95,7 @@ require('ion-rangeslider/js/ion.rangeSlider.js');
 // window.Bloodhound = require('typeahead.js/dist/typeahead.bundle.js');
 
 // Handlebars - provides the power necessary to let you build semantic templates effectively with no frustration. Mustache-compatible: https://handlebarsjs.com/
-window.Handlebars = require('handlebars/dist/handlebars.js');
+// window.Handlebars = require('handlebars/dist/handlebars.js');
 
 // Inputmask - is a javascript library which creates an input mask: https://github.com/RobinHerbots/Inputmask
 require('inputmask/dist/jquery.inputmask.bundle.js');
@@ -106,7 +106,7 @@ require('inputmask/dist/inputmask/inputmask.numeric.extensions.js');
 // window.noUiSlider = require('nouislider/distribute/nouislider.js');
 
 // Owl Carousel - Touch enabled jQuery plugin that lets you create a beautiful responsive carousel slider: https://owlcarousel2.github.io/OwlCarousel2/
-// require('owl.carousel/dist/owl.carousel');
+require('owl.carousel/dist/owl.carousel');
 
 // The autosize - function accepts a single textarea element, or an array or array-like object (such as a NodeList or jQuery collection) of textarea elements: https://www.jacklmoore.com/autosize/
 window.autosize = require('autosize/dist/autosize.js');
@@ -140,16 +140,16 @@ require('bootstrap-notify/bootstrap-notify.min.js');
 require('@/src/js/vendors/plugins/bootstrap-notify.init.js');
 
 // Toastr - is a Javascript library for non-blocking notifications. jQuery is required. The goal is to create a simple core library that can be customized and extended: https://github.com/CodeSeven/toastr
-window.toastr = require('toastr/build/toastr.min.js');
+// window.toastr = require('toastr/build/toastr.min.js');
 
 // Dual Listbox - Make your multi select pretty and easy to use with only javascript: https://github.com/maykinmedia/dual-listbox
 // window.DualListbox = require('dual-listbox').default;
 
 // Bootstrap Session Timeout - Session timeout and keep-alive control with a nice Bootstrap warning dialog: https://github.com/orangehill/bootstrap-session-timeout
-window.sessionTimeout = require('@/src/plugins/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js');
+// window.sessionTimeout = require('@/src/plugins/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js');
 
 // JQuery Idletimer - provides you a way to monitor user activity with a page: https://github.com/thorst/jquery-idletimer
-require('@/src/plugins/jquery-idletimer/idle-timer.min.js');
+// require('@/src/plugins/jquery-idletimer/idle-timer.min.js');
 
 // Waypoints - is the easiest way to trigger a function when you scroll to an element: http://imakewebthings.com/waypoints/
 // require('waypoints/lib/jquery.waypoints.js');

@@ -11,7 +11,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
 const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
 const MergeIntoSingle = require('webpack-merge-and-include-globally');
-const { distPath, webpackEntries, webpackCopy, webpackRules } = require('./webpack/webgis/webgis.config');
+const { webpackEntries, webpackCopy, webpackRules } = require('./webpack/webgis/webgis.config');
 
 // paths
 const rootPath = path.resolve(__dirname, '..');
@@ -25,7 +25,7 @@ let demo = getDemos(rootPath)[0];
 
 // under demo paths
 const demoPath = rootPath + '/' + demo;
-// const distPath = demoPath + '/dist';
+const distPath = path.resolve(__dirname, '..', '.build');
 const assetDistPath = path.resolve(distPath, 'public', 'assets');
 const srcPath = demoPath + '/src';
 
@@ -52,8 +52,8 @@ function importDatatables() {
           'node_modules/datatables.net/js/jquery.dataTables.js',
           'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js',
           '@/src/js/vendors/plugins/datatables.init.js',
-          'node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js',
-          'node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
+          // 'node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js',
+          // 'node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
           'node_modules/jszip/dist/jszip.min.js',
           // 'node_modules/pdfmake/build/pdfmake.min.js',
           // 'node_modules/pdfmake/build/vfs_fonts.js',
@@ -63,14 +63,14 @@ function importDatatables() {
           // 'node_modules/datatables.net-buttons/js/buttons.flash.js',
           'node_modules/datatables.net-buttons/js/buttons.html5.js',
           'node_modules/datatables.net-buttons/js/buttons.print.js',
-          'node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js',
+          // 'node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js',
           'node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
-          'node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
+          // 'node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
           'node_modules/datatables.net-keytable/js/dataTables.keyTable.min.js',
           'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
           'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
-          'node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
-          'node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
+          // 'node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
+          // 'node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
           'node_modules/datatables.net-scroller/js/dataTables.scroller.min.js',
           'node_modules/datatables.net-select/js/dataTables.select.min.js',
         ],
@@ -80,14 +80,14 @@ function importDatatables() {
         src: [
           'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css',
           'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
-          'node_modules/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
-          'node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
+          // 'node_modules/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
+          // 'node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
           'node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
-          'node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
+          // 'node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
           'node_modules/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
           'node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
-          'node_modules/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
-          'node_modules/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
+          // 'node_modules/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
+          // 'node_modules/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
           'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
           'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css',
         ],
@@ -187,7 +187,9 @@ function mainConfig() {
     resolve: {
       alias: {
         jquery: path.join(__dirname, 'node_modules/jquery/src/jquery'),
+        $: path.join(__dirname, 'node_modules/jquery/src/jquery'),
         '@': demoPath,
+        '@webgis': path.join(__dirname, 'webpack', 'webgis'),
       },
       extensions: ['.js', '.scss'],
       fallback: {
@@ -210,16 +212,6 @@ function mainConfig() {
             // copy media
             from: srcPath + '/media',
             to: assetDistPath + '/media',
-          },
-          {
-            // copy tinymce skins
-            from: path.resolve(__dirname, 'node_modules') + '/tinymce/skins',
-            to: assetDistPath + '/plugins/custom/tinymce/skins',
-          },
-          {
-            // copy tinymce plugins
-            from: path.resolve(__dirname, 'node_modules') + '/tinymce/plugins',
-            to: assetDistPath + '/plugins/custom/tinymce/plugins',
           },
           webpackCopy.view,
           webpackCopy.media,
