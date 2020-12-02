@@ -1,6 +1,6 @@
 import { default as ModalOverlay } from './Modal';
 // import { default as historyModal } from './History';
-// import { default as photoModal } from './Photo';
+import { default as PhotoModal } from './Photo';
 import { featureNameFilter } from '../filter';
 import { getCenter } from 'ol/extent';
 import { view } from '../view';
@@ -9,34 +9,35 @@ export default class InfoModal extends ModalOverlay {
 
   constructor(options) {
     super(options);
+
+    this._photoModal = new PhotoModal('kt_photo_modal');
   }
 
-  setFeature(feature) {
+  setFeatureAsync(feature) {
     super.setFeature(feature);
 
     let that = this;
-    that._ajaxWorker.fetch('wtl/info', {
-      table: that.getFeature('table'),
-      id: that.getFeature('id'),
-    }).then(formatTableRows)
-      .then(tableRows => {
-        that._cardTitle.html(`${that.getFeature('layer')} 정보`);
-        if (that.getFeature('isClosed')) {
-          that._cardBadge.removeClass('label-success');
-          that._cardBadge.addClass('label-danger');
-          that._cardBadgeText.html(`&nbsp;폐관`);
-          that._cardBadgeText.css('color', 'red');
-        } else {
-          that._cardBadge.removeClass('label-danger');
-          that._cardBadge.addClass('label-success');
-          that._cardBadgeText.html(`&nbsp;사용 중`);
-          that._cardBadgeText.css('color', 'green');
-        }
-        that._tbody.html(tableRows);
-        that._tbody[0].scrollIntoView();
-      });
-
-    return that;
+    return new Promise((resolve) => {
+      that._ajaxWorker.fetch('wtl/info', {
+        table: that.getFeature('table'),
+        id: that.getFeature('id'),
+      }).then(formatTableRows)
+        .then(tableRows => {
+          that['.card-title h3'].html(`${that.getFeature('layer')} 정보`);
+          if (that.getFeature('isClosed')) {
+            that['.card-title span'].removeClass('label-success');
+            that['.card-title span'].addClass('label-danger');
+            that['.card-title span'].html(`&nbsp;폐관`);
+          } else {
+            that['.card-title span'].removeClass('label-danger');
+            that['.card-title span'].addClass('label-success');
+            that['.card-title span'].html(`사용 중`);
+          }
+          that['.card-body tbody'].html(tableRows);
+          that['.card-body tbody'][0].scrollIntoView();
+          resolve(that);
+        });
+    });
   }
 
   onClickButton(event) {
@@ -52,7 +53,10 @@ export default class InfoModal extends ModalOverlay {
         break;
       }
       case 'btn_photo_modal': {
-        // photoModal.showModal();
+        let that = this;
+        this._photoModal.setFeatureAsync(that.getFeature('feature')).then(modal => {
+          modal.showModal();
+        }, (reject) => $.notify({ message: reject }, { type: 'warning' }));
         break;
       }
       default: {

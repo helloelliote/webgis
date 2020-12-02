@@ -67,14 +67,18 @@ export class SelectInteraction extends Select {
     switch (feature.getGeometry().getType()) {
       case GeometryType.LINE_STRING:
       case GeometryType.MULTI_LINE_STRING:
-        this._modal.setFeature(feature).showModal();
+        this._modal.setFeatureAsync(feature).then(modal => {
+          modal.showModal();
+        });
         break;
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
         this._overlayFeature.setStyle(selectPointStyle);
         this._overlayFeature.setGeometry(feature.getGeometry());
         this._overlay.setOverlay(this._overlayFeature);
-        this._modal.setFeature(feature).showModal();
+        this._modal.setFeatureAsync(feature).then(modal => {
+          modal.showModal();
+        });
         break;
       }
       case GeometryType.POLYGON:

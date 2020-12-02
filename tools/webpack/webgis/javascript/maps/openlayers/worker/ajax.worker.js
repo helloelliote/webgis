@@ -15,7 +15,6 @@ function onFetch() {
       },
     })
     .then(resolveResponse)
-    .then(resolveBodyByType)
     .then(resolveContentByType)
     .then(result => self.postMessage(result))
     .catch(err => self.postMessage(err))
@@ -26,16 +25,7 @@ function onFetch() {
 
 function resolveResponse(response) {
   if (!response.ok) throw new Error(response.statusText);
-  return response;
-}
-
-function resolveBodyByType(response) {
-  switch (messageData['Mime-Type']) {
-    case 'image/jpg':
-      return response.blob();
-    default:
-      return response.json();
-  }
+  return response.json();
 }
 
 function resolveContentByType(response) {
@@ -48,13 +38,13 @@ function resolveContentByType(response) {
 
   function createImageBlobUrl(response) {
     for (let i = 0, len = response.length; i < len; i++) {
-      if (response[i][messageData['column']] === null) {
+      if (response[i]['사진'] === null) {
         continue;
       }
-      const buffer = response[i][messageData['column']].data;
+      const buffer = response[i]['사진'].data;
       const uint8Array = new Uint8Array(buffer);
       const blob = new Blob([uint8Array], { type: messageData['Mime-Type'] });
-      response[i][messageData['column']] = URL.createObjectURL(blob);
+      response[i]['사진'] = URL.createObjectURL(blob);
     }
     return response;
   }

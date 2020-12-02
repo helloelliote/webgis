@@ -2,8 +2,6 @@ export default class Ajax {
 
   constructor(module) {
     this._instance = module;
-    this._instance.onerror = function (err) {
-    };
     this._queryParameter = new URLSearchParams();
     this._mimeType = 'text/plain';
     this._requestUrl = '';
@@ -18,9 +16,7 @@ export default class Ajax {
       .setContentType(opt_type)
       .setRequestUrl(url)
       .sendQuery(this._instance)
-      .catch((err) => {
-        this._instance.terminate();
-      })
+      .catch(err => $.notify({ message: `정보를 불러오지 못하였습니다. (${err})` }, { type: 'danger' }))
       .finally(() => this.clear());
   }
 
@@ -33,12 +29,14 @@ export default class Ajax {
   }
 
   setContentType(type) {
+    if (!type) return this;
     this._mimeType = type;
     return this;
   }
 
   setRequestUrl(url) {
-    this._requestUrl = encodeURI(`${window.location.origin}/api/${url}?${this._queryParameter}`);
+    // this._requestUrl = encodeURI(`${window.location.origin}/api/${url}?${this._queryParameter}`);
+    this._requestUrl = `${window.location.origin}/api/${url}?${this._queryParameter}`;
     return this;
   }
 
@@ -59,6 +57,9 @@ export default class Ajax {
           return;
         }
         resolve(result.rowCount ? result.rows : result);
+      };
+      instance.onerror = function (error) {
+        reject(error);
       };
     });
   }

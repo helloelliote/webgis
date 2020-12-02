@@ -1,4 +1,5 @@
 import postgresql from '../middlewares/postgresql';
+import mysql from '../middlewares/mysql';
 
 export default {
   search(req, res, next) {
@@ -37,6 +38,14 @@ export default {
   info(req, res, next) {
     postgresql.executeQuery(`SELECT * FROM ${req.query['table']} WHERE 관리번호=$1;`,
       [req.query['id']],
+    ).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
+  },
+
+  infoPhoto(req, res, next) {
+    mysql.executeQuery(`SELECT * FROM ${req.query['table']} WHERE 시설물구분="${req.query['layer']}" AND 관리번호=${req.query['id']} ORDER BY 사진일련번호 ASC;`,
+      [],
     ).then(result => {
       res.status(200).json(result);
     }).catch(next);
