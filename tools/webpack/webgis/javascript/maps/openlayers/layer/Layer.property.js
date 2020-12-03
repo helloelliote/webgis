@@ -40,7 +40,6 @@ export default {
     propertyName: [
       'geom',
       'layer',
-      '관라벨',
     ],
   },
   swl_pipe_as: {
@@ -201,6 +200,15 @@ export default {
       'geom',
     ],
   },
+  viw_wtl_cap_ps: {
+    isTile: false,
+    maxZ: 21,
+    minZ: 11,
+    propertyName: [
+      'geom',
+      '방향각',
+    ],
+  },
   viw_wtl_fire_ps: {
     isTile: false,
     maxZ: 21,
@@ -265,6 +273,7 @@ export default {
       '관리번호',
       '관라벨',
       '폐관일자',
+      '시설물구분',
     ],
   },
   viw_wtl_pres_ps: {
@@ -328,6 +337,26 @@ export default {
       'geom',
       '레이어',
       '관리번호',
+      '시설물구분',
+    ],
+  },
+  viw_wtl_taper_ps: {
+    isTile: false,
+    maxZ: 21,
+    minZ: 13,
+    propertyName: [
+      'geom',
+      '방향각',
+    ],
+  },
+  viw_wtl_userlabel_ps: {
+    isTile: false,
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
+      '방향각',
+      '주기명',
     ],
   },
   viw_wtl_valv_ps: {
@@ -340,6 +369,14 @@ export default {
       '관리번호',
       '방향각',
       '개폐여부',
+    ],
+  },
+  viw_wtl_wspipe_ls: {
+    isTile: false,
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
     ],
   },
   viw_wtl_wtsa_as: {
@@ -399,42 +436,6 @@ export default {
       '레이어',
       '관리번호',
       '시설물구분',
-    ],
-  },
-  wtl_cap_ps: {
-    isTile: false,
-    maxZ: 21,
-    minZ: 11,
-    propertyName: [
-      'geom',
-      '방향각',
-    ],
-  },
-  wtl_taper_ps: {
-    isTile: false,
-    maxZ: 21,
-    minZ: 13,
-    propertyName: [
-      'geom',
-      '방향각',
-    ],
-  },
-  wtl_userlabel_ps: {
-    isTile: false,
-    maxZ: 21,
-    minZ: 9,
-    propertyName: [
-      'geom',
-      '방향각',
-      '주기명',
-    ],
-  },
-  wtl_wspipe_ls: {
-    isTile: false,
-    maxZ: 21,
-    minZ: 9,
-    propertyName: [
-      'geom',
     ],
   },
 };

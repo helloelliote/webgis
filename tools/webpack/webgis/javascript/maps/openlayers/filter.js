@@ -5,16 +5,17 @@ const layerNameFilter = new Set([
   'n3a_b0010000',
   'n3p_f0020000',
   'swl_hmpipe_ls',
-  'wtl_cap_ps',
-  'wtl_taper_ps',
-  'wtl_userlabel_ps',
-  'wtl_wspipe_ls',
+  'viw_wtl_cap_ps',
+  'viw_wtl_taper_ps',
+  'viw_wtl_userlabel_ps',
+  'viw_wtl_wspipe_ls',
 ]);
 
 const featureNameFilter = new Set([
   'id',
   'geom',
   'geometry',
+  '시설물구분',
   '레이어',
   'layer',
   '방향각',
@@ -22,8 +23,8 @@ const featureNameFilter = new Set([
 ]);
 
 const styleRotationFilter = new Set([
-  'wtl_cap_ps',
-  'wtl_taper_ps',
+  'viw_wtl_cap_ps',
+  'viw_wtl_taper_ps',
   '가정내오수관',
   '가정오수받이',
   '갑압변',

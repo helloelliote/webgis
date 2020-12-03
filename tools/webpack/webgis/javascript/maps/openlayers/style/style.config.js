@@ -8,7 +8,7 @@ export default {
         width: 0.5,
       },
     },
-    'wtl_wspipe_ls': {
+    'viw_wtl_wspipe_ls': {
       stroke: {
         color: '#ff79ff',
         dash: null,
@@ -136,6 +136,20 @@ export default {
         width: 3,
       },
     },
+    'viw_wtl_cap_ps': {
+      image: {
+        opacity: 1,
+        scale: 0.8,
+        src: 'SA004',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
     'viw_wtl_flow_ps': {
       image: {
         opacity: 1,
@@ -150,21 +164,7 @@ export default {
         width: null,
       },
     },
-    'wtl_cap_ps': {
-      image: {
-        opacity: 1,
-        scale: 0.8,
-        src: 'SA004',
-      },
-      text: {
-        color: null,
-        font: null,
-        offsetY: null,
-        stroke: null,
-        width: null,
-      },
-    },
-    'wtl_taper_ps': {
+    'viw_wtl_taper_ps': {
       image: {
         opacity: 1,
         scale: 1,
@@ -178,7 +178,7 @@ export default {
         width: null,
       },
     },
-    'wtl_userlabel_ps': {
+    'viw_wtl_userlabel_ps': {
       image: {
         opacity: 1,
         scale: 0.6,
