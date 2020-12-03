@@ -17,27 +17,45 @@ export default class InfoModal extends ModalOverlay {
     super.setFeature(feature);
 
     let that = this;
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       that._ajaxWorker.fetch('wtl/info', {
         table: that.getFeature('table'),
         id: that.getFeature('id'),
-      }).then(formatTableRows)
-        .then(tableRows => {
-          that['.card-title h3'].html(`${that.getFeature('layer')} 정보`);
-          if (that.getFeature('isClosed')) {
-            that['.card-title span'].removeClass('label-success');
-            that['.card-title span'].addClass('label-danger');
-            that['.card-title span'].html(`&nbsp;폐관`);
-          } else {
-            that['.card-title span'].removeClass('label-danger');
-            that['.card-title span'].addClass('label-success');
-            that['.card-title span'].html(`사용 중`);
-          }
-          that['.card-body tbody'].html(tableRows);
-          that['.card-body tbody'][0].scrollIntoView();
-          resolve(that);
-        });
+      }).then(updateTableRows)
+        .then(updateTableHeader)
+        .then(() => resolve(that))
+        .catch(() => reject('정보를 표시할 수 없습니다'));
     });
+
+    function updateTableRows(response) {
+      let tableRow = '';
+      JSON.stringify(response[0], function (key, value) {
+        if (featureNameFilter.has(key)) return undefined;
+        if (key === '') {
+          tableRow = '';
+        } else {
+          tableRow += `<tr class="tr-striped"><th scope="row">${key}</th><td>${value}</td></tr>`;
+        }
+        return value;
+      });
+      return tableRow;
+    }
+
+    function updateTableHeader(tableRows) {
+      that['.card-title h3'].html(`${that.getFeature('layer')} 정보`);
+      if (that.getFeature('isClosed')) {
+        that['.card-title span'].removeClass('label-success');
+        that['.card-title span'].addClass('label-danger');
+        that['.card-title span'].html(`&nbsp;폐관`);
+      } else {
+        that['.card-title span'].removeClass('label-danger');
+        that['.card-title span'].addClass('label-success');
+        that['.card-title span'].html(`사용 중`);
+      }
+      that['.card-body tbody'].html(tableRows);
+      that['.card-body tbody'][0].scrollIntoView();
+      return that;
+    }
   }
 
   onClickButton(event) {
@@ -56,7 +74,7 @@ export default class InfoModal extends ModalOverlay {
         let that = this;
         this._photoModal.setFeatureAsync(that.getFeature('feature')).then(modal => {
           modal.showModal();
-        }, (reject) => $.notify({ message: reject }, { type: 'warning' }));
+        }, reject => $.notify({ message: reject }, { type: 'warning' }));
         break;
       }
       default: {
@@ -64,20 +82,4 @@ export default class InfoModal extends ModalOverlay {
       }
     }
   }
-}
-
-function formatTableRows(response) {
-  let _tableRowEl = '';
-  JSON.stringify(response[0], function (key, value) {
-    if (featureNameFilter.has(key)) {
-      return undefined;
-    }
-    if (key === '') {
-      _tableRowEl = '';
-    } else {
-      _tableRowEl += `<tr class="tr-striped"><th scope="row">${key}</th><td>${value}</td></tr>`;
-    }
-    return value;
-  });
-  return _tableRowEl;
 }

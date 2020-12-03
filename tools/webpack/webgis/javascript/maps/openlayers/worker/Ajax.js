@@ -16,7 +16,7 @@ export default class Ajax {
       .setContentType(opt_type)
       .setRequestUrl(url)
       .sendQuery(this._instance)
-      .catch(err => $.notify({ message: `정보를 불러오지 못하였습니다. (${err})` }, { type: 'danger' }))
+      .catch(err => $.notify({ message: `정보를 불러오지 못하였습니다<br>(${err})` }, { type: 'danger' }))
       .finally(() => this.clear());
   }
 
