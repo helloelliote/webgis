@@ -93,7 +93,7 @@ export function createVectorStyle(feature) {
         } else {
           const lineStyle = lineStyleMap[layer];
           if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
-            return lineStyle;
+            lineStyle.setLabel(null);
           } else {
             lineStyle.setLabel(feature.get('관라벨'));
           }
@@ -117,7 +117,7 @@ export function createVectorStyle(feature) {
         } else {
           const lineStyle = lineStyleMap[layer];
           if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
-            return lineStyle;
+            lineStyle.setLabel(null);
           } else {
             lineStyle.setLabel(feature.get('관라벨'));
           }
@@ -156,7 +156,7 @@ export function createVectorStyle(feature) {
           case '하수펌프장':
             pointStyle.setLabel(feature.get('하수펌프장명'));
             break;
-          case 'wtl_userlabel_ps':
+          case 'viw_wtl_userlabel_ps':
             pointStyle.setLabel(feature.get('주기명'));
             break;
           default:
