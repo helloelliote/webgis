@@ -42,7 +42,7 @@ export default class ModalOverlay {
   setFeature(feature) {
     this._featureMap.set('feature', feature);
     this._featureMap.set('layer', this._getLayer(feature));
-    this._featureMap.set('layerSub', this._getLayer(feature) === '보수공사' ? feature.get('시설물구분') : this._getLayer(feature));
+    this._featureMap.set('layerSub', feature.get('시설물구분') ? feature.get('시설물구분') : this._getLayer(feature));
     this._featureMap.set('id', feature.get('관리번호') || feature.get('ftr_idn'));
     this._featureMap.set('table', feature.get('layer') || feature.getId().match(/[^.]+/)[0]);
     this._featureMap.set('isClosed', feature.get('폐관일자') !== null && feature.get('폐관일자') !== undefined);
@@ -70,5 +70,39 @@ export default class ModalOverlay {
 
   onClickButton(event) {
     event.preventDefault();
+  }
+
+  resetCarousel() {
+    if (this['.carousel-inner']) {
+      this['.carousel-inner'].children().slice(1).remove();
+      this['.carousel-item img'].attr('src', './assets/media/bg/bg-yeongju.png');
+      this['.carousel-item button'].html('등록된 사진이 없습니다');
+      this['.carousel-item button'].off('mousedown');
+      this['.carousel-item'].addClass('active');
+    }
+  }
+
+  updateCarousel(data) {
+    for (let i = 0, len = data.length; i < len; i++) {
+      const title = `사진${data[i]['사진일련번호']}:&nbsp;${data[i]['사진명칭']}`;
+      const image = data[i]['사진'];
+      if (i === 0) {
+        this['.carousel-item img'].attr('src', image);
+        this['.carousel-item button'].html(title);
+        this['.carousel-item button'].on('mousedown', () => {
+          window.open(image, 'Popup', 'location, resizable');
+        });
+        this['.carousel-item'].addClass('active');
+      } else {
+        const _node = this['.carousel-item'].clone();
+        _node.removeClass('active');
+        _node.find('img').attr('src', image);
+        _node.find('div > button').html(title);
+        _node.find('div > button').on('mousedown', () => {
+          window.open(image, 'Popup', 'location, resizable');
+        });
+        this['.carousel-inner'].append(_node);
+      }
+    }
   }
 }

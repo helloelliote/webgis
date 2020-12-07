@@ -70,11 +70,12 @@ CREATE INDEX wtl_pipe_lm_wsg_cde_idx
     ON wtl_pipe_lm (wsg_cde);
 
 CREATE VIEW viw_wtl_pipe_lm
-            (id, geom, 레이어, 관리번호, 급수구역, 구경, 연장, 관재질, 접합종류, 최저깊이, 최고깊이, 읍면동, 법정동, 급수분구, 급수블럭, 설치일자, 공사명, 관리기관, 도엽번호, 관라벨,
-             폐관일자, 사용여부)
+            (id, geom, 시설물구분, 레이어, 관리번호, 급수구역, 구경, 연장, 관재질, 접합종류, 최저깊이, 최고깊이, 읍면동, 법정동, 급수분구, 급수블럭, 설치일자, 공사명, 관리기관,
+             도엽번호, 관라벨, 폐관일자, 사용여부)
 AS
 SELECT pipe_tb.id,
        pipe_tb.geom,
+       ftr_tb.cname               AS 시설물구분,
        btrim(pipe_tb.layer::TEXT) AS 레이어,
        pipe_tb.ftr_idn            AS 관리번호,
        wsg_tb.wsg_nam             AS 급수구역,
@@ -102,7 +103,8 @@ FROM wtl_pipe_lm pipe_tb
          LEFT JOIN bml_badm_as bjd_tb ON pipe_tb.bjd_cde = bjd_tb.bjd_cde
          LEFT JOIN private.cd_mng mng_tb ON pipe_tb.mng_cde = mng_tb.codeno
          LEFT JOIN private.cd_mop mop_tb ON pipe_tb.mop_cde = mop_tb.codeno AND mop_tb.tbl_nam = '관재질'::BPCHAR
-         LEFT JOIN private.cd_jht jht_tb ON pipe_tb.jht_cde = jht_tb.codeno;
+         LEFT JOIN private.cd_jht jht_tb ON pipe_tb.jht_cde = jht_tb.codeno
+         LEFT JOIN private.cd_ftr ftr_tb ON pipe_tb.ftr_cde = ftr_tb.codeno;
 
 ALTER TABLE viw_wtl_pipe_lm
     OWNER TO postgres;

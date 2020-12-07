@@ -1,5 +1,5 @@
 import { default as ModalOverlay } from './Modal';
-// import { default as historyModal } from './History';
+import { default as HistoryModal } from './History';
 import { default as PhotoModal } from './Photo';
 import { featureNameFilter } from '../filter';
 import { getCenter } from 'ol/extent';
@@ -11,6 +11,7 @@ export default class InfoModal extends ModalOverlay {
     super(options);
 
     this._photoModal = new PhotoModal('kt_photo_modal');
+    this._historyModal = new HistoryModal('kt_history_modal');
   }
 
   setFeatureAsync(feature) {
@@ -67,7 +68,10 @@ export default class InfoModal extends ModalOverlay {
         break;
       }
       case 'btn_history_modal': {
-        // historyModal.showModal();
+        let that = this;
+        this._historyModal.setFeatureAsync(that.getFeature('feature')).then(modal => {
+          modal.showModal();
+        }, reject => $.notify({ message: reject }, { type: 'warning' }));
         break;
       }
       case 'btn_photo_modal': {

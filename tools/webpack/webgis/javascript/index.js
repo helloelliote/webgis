@@ -12,5 +12,6 @@ window.webgis = {
 };
 
 require('./plugins/bootstrap-notify');
+require('./plugins/datatables-net');
 
 window.KTLayoutSearch = window.KTLayoutSearchInline = require('./maps/components/search');

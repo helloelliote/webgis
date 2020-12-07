@@ -16,6 +16,7 @@ export default function (router, passport) {
   router.get('/api/wtl/section', wtl.section, onError);
   router.get('/api/wtl/info', wtl.info, onError);
   router.get('/api/wtl/info/photo', wtl.infoPhoto, onError);
+  router.get('/api/wtl/info/history', wtl.infoHistory, onError);
 
   router.get('/service/presmanage', service.presManageGet, onError);
   router.get('/service/schedule', service.scheduleGet, onError);

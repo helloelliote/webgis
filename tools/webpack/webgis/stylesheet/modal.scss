@@ -64,3 +64,57 @@
     }
   }
 }
+
+#kt_history_modal {
+
+  .card-body {
+    .col-xl-6 {
+      display: flex;
+      flex-flow: column;
+    }
+
+    .col-sm-12 {
+      display: flex;
+      flex-flow: column;
+    }
+
+    //padding: 0 1rem;
+
+    .dataTables_wrapper .dataTable {
+      margin: 0 0 0.5rem 0 !important;
+    }
+
+    .dataTables_length {
+      display: none;
+    }
+
+    .table {
+
+      th {
+        //white-space: nowrap;
+        font-weight: bolder;
+        padding: 0.5rem 0.5rem;
+      }
+
+      td {
+        //white-space: nowrap;
+        font-size: small;
+        padding: 0.5rem 0.25rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+      }
+    }
+
+    #kt_history_modal_details {
+      flex: auto;
+      white-space: pre-wrap;
+      justify-content: flex-start;
+
+    }
+
+    .text-muted {
+      text-align: center;
+    }
+  }
+}
