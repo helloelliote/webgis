@@ -86,6 +86,7 @@
     "postcss-loader": "^4.0.4",
     "pretty": "^2.0.0",
     "replace-in-file-webpack-plugin": "^1.0.6",
+    "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "script-loader": "^0.7.2",
     "terser-webpack-plugin": "^5.0.3",

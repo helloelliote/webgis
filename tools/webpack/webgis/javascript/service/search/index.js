@@ -1,16 +1,26 @@
 /* eslint-disable no-undef */
 'use strict';
 
-import { onClickSearch, onTab1MapShown, onTab2MapShown, setMapMarker } from './kakaoMap';
+import { setMapMarker, setMapMarkerSet } from './kakaoMap';
 
 const ServiceSearch = function () {
 
-  let _tab1Card;
-  let _tab1Ribbon;
-  let _tab1Table;
-  let _tab1TableButtonOpts;
-  let _tab1, _tab2;
-  let _tab2Coordinates;
+  let _tableEl;
+  let _table;
+  let _tableButtonOptions;
+  let _tableControl;
+  let _tableSearchButton;
+  let _tableSearchButtonLabel;
+  let _tableSearchResetButton;
+  let _searchResultSet;
+
+  let _map;
+  let _mapToggle;
+  let _isMapExpand = false;
+
+  let _containerHeight;
+  let _mapHeight;
+  let _theadHeight;
 
   $.fn.dataTable.Api.register('column().title()', function () {
     return $(this.header()).text().trim();
@@ -19,37 +29,23 @@ const ServiceSearch = function () {
   const _init = function () {
     moment.locale('ko');
 
-    _tab1TableButtonOpts = {
+    _tableButtonOptions = {
       pageSize: 'A4',
       orientation: 'landscape',
       filename: moment().format('YYYYMMDD') + '_민원',
       messageTop: moment().format('llll'),
       title: '',
     };
+
+    _containerHeight = document.querySelector('#container-search').offsetHeight;
+    _mapHeight = document.querySelector('#search_map').offsetHeight;
+    _theadHeight = document.querySelector('#kt_datatable thead').offsetHeight + 55;
   };
 
-  const _initTab1 = function () {
+  const _initTable = function () {
 
     // begin first tab
-    _tab1Table = $('#kt_datatable').DataTable({
-      responsive: true,
-
-      // Pagination settings
-      dom: `<'row'<'col-sm-12'tr>>
-			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
-      // read more: https://datatables.net/examples/basic_init/dom.html
-
-      lengthMenu: [5, 10, 25, 50],
-
-      pageLength: 10,
-
-      language: {
-        'url': '//cdn.datatables.net/plug-ins/1.10.21/i18n/Korean.json',
-      },
-
-      searchDelay: 150,
-      processing: true,
-      serverSide: false,
+    _table = _tableEl.DataTable({
       ajax: {
         url: `${window.location.origin}/service/search`,
         type: 'POST',
@@ -57,14 +53,50 @@ const ServiceSearch = function () {
           'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
         },
         data: {
-          // parameters for custom backend script demo
           columnsDef: [
             '번호', '접수자', '일자', '민원인', '연락처',
-            '지번 주소', '도로명 주소', '접수내용', '진행상태', '민원상세', '대행업체', '기능', 'x', 'y',
+            '지번 주소', '도로명 주소', '접수내용', '진행상태', '대행업체', '민원상세', 'x', 'y',
           ],
         },
       },
-      deferRender: true,
+      autoWidth: true,
+      buttons: [
+        $.extend(true, {}, _tableButtonOptions, {
+          extend: 'print',
+          exportOptions: {
+            columns: [
+              function (idx, data, node) {
+                return idx > 0 && idx < 9;
+              },
+            ],
+          },
+        }),
+        $.extend(true, {}, _tableButtonOptions, {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: [
+              function (idx, data, node) {
+                return idx > 0 && idx < 10;
+              },
+            ],
+          },
+        }),
+      ],
+      columnDefs: [
+        {
+          targets: 0,
+          render: function (data, type, full, meta) {
+            let dataString = data.toString();
+            return `${dataString.substring(0, 4)}–${dataString.substring(4)}`;
+          },
+        },
+        {
+          targets: [10, 11, 12],
+          orderable: false,
+          visible: false,
+          searchable: false,
+        },
+      ],
       columns: [
         { data: '번호' },
         { data: '접수자' },
@@ -75,34 +107,44 @@ const ServiceSearch = function () {
         { data: '도로명 주소' },
         { data: '접수' },
         { data: '진행' },
-        { data: '상세' },
         { data: '대행' },
-        { data: '기능' },
+        { data: '상세' },
         { data: 'x' },
         { data: 'y' },
       ],
+      deferRender: true,
+      // read more: https://datatables.net/examples/basic_init/dom.html
+      dom: `<'row'<tr>><'row'<'col-sm-12 col-md-3'i><'col-sm-12 col-md-9 dataTables_pager'lp>>`,
+      // <'col-sm-12 col-md-3 dataTables_pager'lp>
       initComplete: function () {
-        var thisTable = this;
-        var rowFilter = $('<tr class="filter"></tr>').appendTo($(_tab1Table.table().header()));
+        let thisTable = this;
+        let rowFilter = $('<tr class="filter"></tr>').appendTo($(_table.table().header()));
 
         this.api().columns().every(function () {
-          var column = this;
-          var input;
+          let column = this;
+          let input;
 
           switch (column.title()) {
             case '번호':
             case '접수자':
-            case '일자':
             case '민원인':
             case '연락처':
             case '지번 주소':
-            case '도로명 주소':
-              input = $(`<input type="text" class="form-control form-control-sm form-filter datatable-input" data-col-index="` + column.index() + `"/>`);
+            case '도로명 주소': {
+              input = $(`<input type="text" class="form-control form-control-sm form-filter datatable-input" data-col-index="${column.index()}"/>`);
               break;
+            }
 
-            case '접수내용':
+            case '일자': {
+              input = $(`<div class='input-group' id='kt_datatable_daterange'>
+  <input type='text' class="form-control form-control-sm form-filter datatable-input" readonly="readonly"
+         data-col-index="${column.index()}"/></div>`);
+              break;
+            }
+
+            case '접수내용': {
               // noinspection NonAsciiCharacters
-              var status = {
+              let type = {
                 '미분류': { title: '미분류', state: 'success' },
                 '계량기 동파': { title: '계량기 동파', state: 'success' },
                 '단수': { title: '단수', state: 'success' },
@@ -114,16 +156,16 @@ const ServiceSearch = function () {
                 '저수압': { title: '저수압', state: 'success' },
                 '기타': { title: '기타', state: 'success' },
               };
-              input = $(`<select class="form-control form-control-sm form-filter datatable-input" title="선택" data-col-index="` + column.index() + `">
-										<option value="">선택</option></select>`);
+              input = $(`<select class="form-control form-filter datatable-input selectpicker" title="선택" data-col-index="${column.index()}" multiple data-selected-text-format="count > 1" data-width="fit"></select>`);
               column.data().unique().sort().each(function (d, j) {
-                $(input).append('<option value="' + d + '">' + status[d].title + '</option>');
+                $(input).append('<option value="' + d + '">' + type[d].title + '</option>');
               });
               break;
+            }
 
-            case '진행상태':
+            case '진행상태': {
               // noinspection NonAsciiCharacters
-              status = {
+              let status = {
                 '미분류': { title: '미분류', state: 'label-light-primary' },
                 '신청접수': { title: '신청접수', state: ' label-light-success' },
                 '진행중': { title: '진행중', state: ' label-light-warning' },
@@ -132,77 +174,63 @@ const ServiceSearch = function () {
                 '처리완료': { title: '처리완료', state: ' label-light-danger' },
                 '처리중단': { title: '처리중단', state: ' label-light-danger' },
               };
-              input = $(`<select class="form-control form-control-sm form-filter datatable-input" title="선택" data-col-index="` + column.index() + `">
-										<option value="">선택</option></select>`);
+              input = $(`<select class="form-control form-filter datatable-input selectpicker" title="선택" data-col-index="${column.index()}" multiple data-max-options="1" data-width="fit"></select>`);
               column.data().unique().sort().each(function (d, j) {
                 $(input).append('<option value="' + d + '">' + status[d].title + '</option>');
               });
               break;
+            }
 
-            case '기능':
-              var search = $(`<button class="btn btn-danger kt-btn btn-sm">검색</button>`);
-
-              var reset = $(`<button class="btn btn-outline-secondary kt-btn btn-sm ml-1">삭제</button>`);
-
-              $('<th>').append(search).append(reset).appendTo(rowFilter);
-
-              $(search).on('mousedown', function (e) {
-                e.preventDefault();
-                var params = {};
-                $(rowFilter).find('.datatable-input').each(function () {
-                  var i = $(this).data('col-index');
-                  if (params[i]) {
-                    params[i] += '|' + $(this).val();
-                  } else {
-                    params[i] = $(this).val();
-                  }
-                });
-                $.each(params, function (i, val) {
-                  // apply search params to datatable
-                  _tab1Table.column(i).search(val ? val : '', false, false);
-                });
-                _tab1Table.table().draw();
-
-                let rows = _tab1Table.rows({ search: 'applied' }).data();
-
-                _tab1Ribbon.find('strong').html(rows.length);
-                _tab1Ribbon.removeClass('bg-light');
-                _tab1Ribbon.addClass('bg-danger');
-
-                _tab2Coordinates.clear();
-                rows.each(function (d, j) {
-                  _tab2Coordinates.add([d['x'], d['y']]);
-                });
-
-                onClickSearch(_tab2Coordinates);
-              });
-
-              $(reset).on('mousedown', function (e) {
-                e.preventDefault();
-                $(rowFilter).find('.datatable-input').each(function (i) {
-                  $(this).val('');
-                  _tab1Table.column($(this).data('col-index')).search('', false, false);
-                });
-                _tab1Table.table().draw();
-
-                _tab1Ribbon.find('strong').html('0');
-                _tab1Ribbon.removeClass('bg-danger');
-                _tab1Ribbon.addClass('bg-light');
-
-                _tab2Coordinates.clear();
-
-                onClickSearch(null);
-              });
+            default: {
               break;
+            }
           }
 
-          if (column.title() !== '기능' && column.title() !== 'x' && column.title() !== 'y') {
+          if (column.title() !== 'x' && column.title() !== 'y' && column.title() !== '민원상세') {
             $(input).appendTo($('<th>').appendTo(rowFilter));
           }
         });
 
+        const setSearchColumnDateRangePicker = function () {
+          // predefined ranges
+          let start = moment().subtract(29, 'days');
+          let end = moment();
+
+          // noinspection NonAsciiCharacters
+          const options = {
+            // autoApply: true,
+            autoUpdateInput: true,
+            drops: 'up',
+            buttonClasses: ' btn',
+            applyClass: 'btn-success',
+            cancelClass: 'btn-secondary',
+            startDate: start,
+            endDate: end,
+            ranges: {
+              '오늘': [moment(), moment()],
+              '어제': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+              '지난 7 일': [moment().subtract(6, 'days'), moment()],
+              '지난 30 일': [moment().subtract(29, 'days'), moment()],
+              '이전 달': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+              '이번 달': [moment().startOf('month'), moment().endOf('month')],
+            },
+            locale: {
+              applyLabel: '적용',
+              cancelLabel: '취소',
+              customRangeLabel: '직접 선택...',
+            },
+          };
+
+          $('#kt_datatable_daterange').daterangepicker(options, function (start, end, label) {
+            $('#kt_datatable_daterange .datatable-input').val(start.format('YY.MM.DD') + ' ~ ' + end.format('YY.MM.DD'));
+          });
+        };
+
+        // init on datatable load
+        setSearchColumnDateRangePicker();
+
         // hide search column for responsive table
-        var hideSearchColumnResponsive = function () {
+        const hideSearchColumnResponsive = function () {
           thisTable.api().columns().every(function () {
             var column = this;
             if (column.responsiveHidden()) {
@@ -211,6 +239,7 @@ const ServiceSearch = function () {
               $(rowFilter).find('th').eq(column.index()).hide();
             }
           });
+          thisTable.api().table().draw();
         };
 
         // init on datatable load
@@ -218,122 +247,153 @@ const ServiceSearch = function () {
         // recheck on window resize
         window.onresize = hideSearchColumnResponsive;
       },
-      columnDefs: [
-        {
-          targets: [12, 13],
-          orderable: false,
-          visible: false,
-          searchable: false,
-        },
-        //         {
-        //           targets: 13,
-        //           orderable: false,
-        //           render: function (data, type, full, meta) {
-        //             return `<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-hover-light-success">
-        //   <i class="la la-check"></i></a>
-        // <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-hover-light-danger ml-1">
-        //   <i class="la la-remove"></i></a><script>
-        // </script>`;
-        //           },
-        //         },
-      ],
-
-      autoWidth: true,
-      select: 'single',
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Korean.json',
+      },
+      lengthMenu: [5, 10, 25, 50],
       order: [[0, 'desc']],
-      buttons: [
-        $.extend(true, {}, _tab1TableButtonOpts, {
-          extend: 'print',
-          exportOptions: {
-            columns: [
-              function (idx, data, node) {
-                return idx > 0 && idx < 9;
-              },
-            ],
-          },
-        }),
-        $.extend(true, {}, _tab1TableButtonOpts, {
-          extend: 'excelHtml5',
-          exportOptions: {
-            columns: [
-              function (idx, data, node) {
-                return idx > 0 && idx < 10;
-              },
-            ],
-          },
-        }),
-      ],
+      pageLength: 10,
+      processing: true,
+      responsive: true,
+      // responsive: {
+      //   details: {
+      //     display: $.fn.dataTable.Responsive.display.modal(),
+      //   },
+      // },
+      searchDelay: 250,
+      select: {
+        style: 'os',
+      },
+      serverSide: false,
     });
   };
 
-  const _initTab1Button = function () {
+  const _initTableButton = function () {
     $('#export_print').on('click', function (e) {
       e.preventDefault();
-      _tab1Table.button(0).trigger();
+      _table.button(0).trigger();
     });
 
     $('#export_excel').on('click', function (e) {
       e.preventDefault();
-      _tab1Table.button(1).trigger();
+      _table.button(1).trigger();
     });
   };
 
   function _onSelectTable(e, dt, type, indexes) {
     if (type === 'row') {
-      _tab1Card.expand();
-      let data = _tab1Table.rows(indexes).data();
+      let data = _table.rows(indexes).data();
       let pointArray = [data.pluck('x')[0], data.pluck('y')[0]];
       setMapMarker(pointArray);
     }
   }
 
-  const _onTab1Shown = function () {
-    setTimeout(function () {
-      onTab1MapShown(_tab2Coordinates);
-    }, 100);
-  };
+  function _onContextMenuTable(event) {
+    event.preventDefault();
+    // TODO: Create modal
+  }
 
-  const _onTab2Show = function () {
-    if (_tab2Coordinates.size < 1) {
+  function _onClickMapToggle(event) {
+    event.preventDefault();
+    _isMapExpand = !_isMapExpand;
+    if (_isMapExpand) {
+      _tableEl.find('.datatable-input').removeAttr('readonly').prop('disabled', true);
+      _map.height(_containerHeight - _theadHeight);
+    } else {
+      _tableEl.find('.datatable-input').prop('disabled', false);
+      _map.height(_mapHeight);
+    }
+  }
+
+  function _onTransitionEndMap(event) {
+    event.preventDefault();
+    if (_searchResultSet.size > 0) {
+      setTimeout(() => setMapMarkerSet(_searchResultSet), 100);
+    }
+  }
+
+  function _onClickTableSearch(event) {
+    event.preventDefault();
+    let params = {};
+    _tableEl.find('.datatable-input').each(function () {
+      let i = $(this).data('col-index');
+      if (params[i]) {
+        params[i] += '|' + $(this).val();
+      } else {
+        params[i] = $(this).val();
+      }
+    });
+    $.each(params, (i, val) => {
+      _table.column(i).search(val ? val : '', false, false);
+    });
+    _table.table().draw();
+
+    let filterRows = _table.rows({ search: 'applied' }).data();
+
+    _updateSearchLabel(filterRows.length);
+    if (filterRows.length < 1) {
       $.notify({
         message: '지도에 표시할 검색결과가 없습니다',
-      }, {
-        type: 'danger',
-        onClose: function () {
-          $(_tab1).tab('show');
-        },
-      });
+      }, { type: 'danger' });
+      _searchResultSet.clear();
+      setMapMarkerSet(null);
+    } else {
+      _searchResultSet.clear();
+      filterRows.each((d, j) => _searchResultSet.add([d['x'], d['y']]));
+      setTimeout(() => setMapMarkerSet(_searchResultSet), 250);
     }
-  };
+  }
 
-  const _onTab2Shown = function () {
-    setTimeout(function () {
-      onTab2MapShown(_tab2Coordinates);
-    }, 100);
-  };
+  function _onClickTableSearchReset(event) {
+    event.preventDefault();
+    let input = _tableEl.find('.datatable-input');
+    input.each(function () {
+      $(this).val('');
+      _table.column($(this).data('col-index')).search('', false, false);
+    });
+    _table.table().draw();
+
+    input.prop('disabled', false);
+    _map.height(_mapHeight);
+
+    _updateSearchLabel(0);
+    _searchResultSet.clear();
+    setMapMarkerSet(null);
+  }
+
+  function _updateSearchLabel(count) {
+    if (count > 0) {
+      _tableSearchButtonLabel.removeAttr('hidden').html(`${count} 건`);
+    } else {
+      _tableSearchButtonLabel.attr('hidden', true).html('');
+    }
+  }
 
   return {
 
     //main function to initiate the module
     init: function () {
-      _tab1Card = new KTCard('kt_card_1');
-      _tab1Ribbon = $('.ribbon-target');
-      _tab1 = $('a[href="#kt_tab_pane_4_1"]');
-      _tab2 = $('a[href="#kt_tab_pane_4_2"]');
-      _tab2Coordinates = new Set();
+      _searchResultSet = new Set();
+
+      _tableEl = $('#kt_datatable');
+      _tableControl = $('.ribbon-target');
+      _tableSearchButton = _tableControl.find('#kt_datatable_search');
+      _tableSearchButtonLabel = _tableSearchButton.find('.label');
+      _tableSearchResetButton = _tableControl.find('#kt_datatable_clear');
+      _mapToggle = _tableControl.find('#kt_datatable_map');
+      _map = $('#search_map');
 
       _init();
+      _initTable();
+      _initTableButton();
 
-      _initTab1();
-      _initTab1Button();
-
-      _tab1Table.on('select', _onSelectTable);
-      _tab1.on('shown.bs.tab', _onTab1Shown);
-      _tab2.on('show.bs.tab', _onTab2Show);
-      _tab2.on('shown.bs.tab', _onTab2Shown);
-      _tab1Card.collapse();
+      _table.on('select', _onSelectTable);
+      _table.on('contextmenu', _onContextMenuTable);
+      _tableSearchButton.on('mousedown', _onClickTableSearch);
+      _tableSearchResetButton.on('mousedown', _onClickTableSearchReset);
+      _mapToggle.on('mousedown', _onClickMapToggle);
+      _map.on('transitionend', _onTransitionEndMap);
     },
-
   };
 
 }();

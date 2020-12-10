@@ -3,6 +3,8 @@ import { roundCustom } from '../../maps/math';
 
 const localStorage = new LocalStorage();
 
+let isMapTypeHybrid = false;
+
 const mapOptions = {
   center: new naver.maps.LatLng(
     localStorage.latitude || window.webgis.center.latitude,
@@ -40,11 +42,11 @@ const mapOptions = {
   }),
 };
 
-const tab1Map = new naver.maps.Map('card_search_map', mapOptions);
+const map = new naver.maps.Map('search_map', mapOptions);
 
 const marker = new naver.maps.Marker({
-  map: tab1Map,
-  position: tab1Map.getCenter(),
+  map: map,
+  position: map.getCenter(),
   clickable: false,
   visible: false,
 });
@@ -55,13 +57,16 @@ const marker = new naver.maps.Marker({
  * @link https://navermaps.github.io/maps.js.ncp/docs/naver.maps.visualization.DotMap.html
  */
 const dotMap = new naver.maps.visualization.DotMap({
-  map: tab1Map,
+  map: map,
   data: [],
   opacity: 1,
   radius: 6,
 });
 
-naver.maps.Event.addListener(tab1Map, 'tilesloaded', onNaverTilesLoaded);
+naver.maps.Event.addListener(map, 'tilesloaded', onNaverTilesLoaded);
+
+const mapTypeButton = document.getElementById('btn-map-hybrid');
+mapTypeButton.addEventListener('mousedown', onClickHybridButton);
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
@@ -69,41 +74,38 @@ document.getElementById('kt_quick_search_inline')
 window.addEventListener('resize', onWindowResize, { passive: true });
 
 function onNaverTilesLoaded() {
-  const center = tab1Map.getCenter();
+  const center = map.getCenter();
   localStorage.latitude = roundCustom(center.lat());
   localStorage.longitude = roundCustom(center.lng());
 }
 
+function onClickHybridButton(event) {
+  event.preventDefault();
+
+  isMapTypeHybrid = !isMapTypeHybrid;
+  mapTypeButton.classList.toggle('active', isMapTypeHybrid);
+
+  if (isMapTypeHybrid) {
+    mapTypeButton.innerHTML = '위성 지도';
+    map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
+  } else {
+    mapTypeButton.innerHTML = '일반 지도';
+    map.setMapTypeId(naver.maps.MapTypeId.NORMAL);
+  }
+}
+
 function onWindowResize() {
-  tab1Map.refresh();
+  map.refresh();
 }
 
 function setMapMarker(pointArray) {
-  tab1Map.setCenter(pointArray);
+  map.setCenter(pointArray);
   marker.setPosition(pointArray);
   marker.setVisible(true);
 }
 
 function onClickSearch(coordinates) {
-  addMarkers(tab1Map, coordinates);
-}
-
-let tab2Map;
-
-function onTab1MapShown(coordinates) {
-  addMarkers(tab1Map, coordinates);
-}
-
-function onTab2MapShown(coordinates) {
-  if (!tab2Map) {
-    tab2Map = new naver.maps.Map('card_dist_map', mapOptions);
-  } else {
-    tab2Map.setCenter(new naver.maps.LatLng(
-      localStorage.latitude,
-      localStorage.longitude,
-    ));
-  }
-  addMarkers(tab2Map, coordinates);
+  addMarkers(map, coordinates);
 }
 
 function addMarkers(map, coordinates) {
@@ -119,8 +121,8 @@ function onClickQuickSearchInline(event) {
     if (targetEl.className.includes('quick-search-result-address')) {
       const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
       const latLng = new naver.maps.LatLng(latLngArray[1], latLngArray[0]);
-      tab1Map.setCenter(latLng);
-      tab1Map.setZoom(19);
+      map.setCenter(latLng);
+      map.setZoom(19);
     }
   }
 }
@@ -128,6 +130,4 @@ function onClickQuickSearchInline(event) {
 export {
   onClickSearch,
   setMapMarker,
-  onTab1MapShown,
-  onTab2MapShown,
 };

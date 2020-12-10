@@ -17,13 +17,14 @@ const mapOptions = {
   tileAnimation: false,
 };
 
-const mapContainer = document.getElementById('card_search_map');
-const distContainer = document.getElementById('card_dist_map');
+const mapContainer = document.getElementById('search_map');
 
-const tab1Map = new kakao.maps.Map(mapContainer, mapOptions);
+const map = new kakao.maps.Map(mapContainer, mapOptions);
 
 const mapTypeControl = new kakao.maps.MapTypeControl();
-tab1Map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+const zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.TOPRIGHT);
 
 const dotSet = new Set();
 const dotSrc = 'assets/media/symbols/EP002.png';
@@ -35,68 +36,85 @@ const markerSize = new kakao.maps.Size(24, 35);
 const markerImage = new kakao.maps.MarkerImage(markerSrc, markerSize);
 
 const marker = new kakao.maps.Marker({
-  map: tab1Map,
-  position: tab1Map.getCenter(),
+  map: map,
+  position: map.getCenter(),
   image: markerImage,
 });
 marker.setVisible(false);
 
 const addressMarker = new kakao.maps.Marker({
-  map: tab1Map,
+  map: map,
 });
 
-kakao.maps.event.addListener(tab1Map, 'tilesloaded', onKakaoTilesLoaded);
+kakao.maps.event.addListener(map, 'tilesloaded', onKakaoTilesLoaded);
+
+const mapTypeButton = document.getElementById('btn-map-hybrid');
+mapTypeButton.addEventListener('mousedown', onClickHybridButton);
+
+window.addEventListener('resize', onWindowResize);
+
+mapContainer.addEventListener('transitionend', onWindowResize);
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
 
-// window.addEventListener('resize', onWindowResize);
-
 function onKakaoTilesLoaded() {
-  const center = tab1Map.getCenter();
+  const center = map.getCenter();
   localStorage.latitude = roundCustom(center.getLat());
   localStorage.longitude = roundCustom(center.getLng());
 }
 
+function onClickHybridButton(event) {
+  event.preventDefault();
+
+  switch (map.getMapTypeId()) {
+    case kakao.maps.MapTypeId.ROADMAP: {
+      if (mapContainer.style.display === 'none') {
+        $.notify({
+          message: '항공 지도를 보시려면 지도를 축소해주세요',
+        }, { type: 'danger' });
+      }
+      mapTypeButton.innerHTML = '위성 지도';
+      mapTypeButton.classList.add('active');
+      map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+      break;
+    }
+    case kakao.maps.MapTypeId.HYBRID: {
+      mapTypeButton.innerHTML = '일반 지도';
+      mapTypeButton.classList.remove('active');
+      map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+      break;
+    }
+  }
+}
+
 function onWindowResize() {
-  // tab1Map.relayout();
+  map.relayout();
+}
+
+function onClickQuickSearchInline(event) {
+  event.preventDefault();
+  let targetEl = event.target;
+  if (targetEl) {
+    if (targetEl.className.includes('quick-search-result-address')) {
+      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+      const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
+      map.setCenter(latLng);
+      addressMarker.setPosition(latLng);
+      addressMarker.setTitle(targetEl.innerHTML);
+      addressMarker.setMap(map);
+    }
+  }
 }
 
 function setMapMarker(pointArray) {
   const latLng = new kakao.maps.LatLng(pointArray[1], pointArray[0]);
-  tab1Map.setCenter(latLng);
+  map.setCenter(latLng);
   marker.setPosition(latLng);
   marker.setVisible(true);
 }
 
-function onClickSearch(coordinates) {
-  addMarkers(tab1Map, coordinates);
-}
-
-let tab2Map;
-let isTab2Map = false;
-
-function onTab1MapShown(coordinates) {
-  isTab2Map = false;
-  if (coordinates.size > 0) {
-    addMarkers(tab1Map, coordinates);
-  }
-}
-
-function onTab2MapShown(coordinates) {
-  if (!tab2Map) {
-    tab2Map = new kakao.maps.Map(distContainer, mapOptions);
-  } else {
-    tab2Map.setCenter(new kakao.maps.LatLng(
-      localStorage.latitude,
-      localStorage.longitude,
-    ));
-  }
-  isTab2Map = true;
-  addMarkers(tab2Map, coordinates);
-}
-
-function addMarkers(map, coordinates) {
+function setMapMarkerSet(coordinates) {
   dotSet.forEach(dot => dot.setMap(null));
   dotSet.clear();
   if (coordinates !== null) {
@@ -115,25 +133,7 @@ function addMarkers(map, coordinates) {
   }
 }
 
-function onClickQuickSearchInline(event) {
-  event.preventDefault();
-  let targetEl = event.target;
-  if (targetEl) {
-    if (targetEl.className.includes('quick-search-result-address')) {
-      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
-      const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
-      tab1Map.setCenter(latLng);
-      tab1Map.setLevel(2, { animate: true });
-      addressMarker.setPosition(latLng);
-      addressMarker.setTitle(targetEl.innerHTML);
-      addressMarker.setMap(isTab2Map ? tab2Map : tab1Map);
-    }
-  }
-}
-
 export {
-  onClickSearch,
   setMapMarker,
-  onTab1MapShown,
-  onTab2MapShown,
+  setMapMarkerSet,
 };
