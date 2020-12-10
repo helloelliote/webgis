@@ -9,7 +9,7 @@
 
 <!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->{{> _header-mobile}}
 
-<div class="d-flex flex-column flex-root">
+<div class="d-flex flex-column flex-root" data-scroll="true">
 
   <!--begin::Page-->
   <div class="d-flex flex-row flex-column-fluid page">
@@ -60,6 +60,8 @@
 <!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
 
 {{> _modal/_sch-address}}
+
+{{> _modal/_pres-manage}}
 <script>
   var HOST_URL = 'https://preview.keenthemes.com/metronic/theme/html/tools/preview';
 </script>
@@ -122,7 +124,7 @@
         'gray-900': '#212121',
       },
     },
-    'font-family': 'Spoqa Han Sans',
+    'font-family': 'Noto Sans KR',
   };
 </script>
 
@@ -144,6 +146,7 @@
 <script src="assets/js/pages/widgets.js"></script>
 <script src="assets/js/serv.register.js"></script>
 <script src="assets/js/serv.schedule.js"></script>
+<script src="assets/js/serv.pres.js"></script>
 <script>
   $('.navi-link').removeClass('active');
   $('#navi-search-link-0').addClass('active');
