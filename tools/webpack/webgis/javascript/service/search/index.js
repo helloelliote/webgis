@@ -13,8 +13,10 @@ const ServiceSearch = function () {
   let _tableSearchButtonLabel;
   let _tableSearchResetButton;
   let _searchResultSet;
+  let _hasSearch = false;
 
   let _map;
+  let _mapWrapper;
   let _mapToggle;
   let _isMapExpand = false;
 
@@ -52,12 +54,6 @@ const ServiceSearch = function () {
         headers: {
           'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
         },
-        data: {
-          columnsDef: [
-            '번호', '접수자', '일자', '민원인', '연락처',
-            '지번 주소', '도로명 주소', '접수내용', '진행상태', '대행업체', '민원상세', 'x', 'y',
-          ],
-        },
       },
       autoWidth: true,
       buttons: [
@@ -84,20 +80,27 @@ const ServiceSearch = function () {
       ],
       columnDefs: [
         {
-          targets: 0,
+          targets:   -1,
+          orderable: false,
+          className: 'dtr-control',
+        },
+        {
+          targets: [0, 1],
+          orderable: false,
+          visible: false,
+          searchable: false,
+        },
+        {
+          targets: 2,
           render: function (data, type, full, meta) {
             let dataString = data.toString();
             return `${dataString.substring(0, 4)}–${dataString.substring(4)}`;
           },
         },
-        {
-          targets: [10, 11, 12],
-          orderable: false,
-          visible: false,
-          searchable: false,
-        },
       ],
       columns: [
+        { data: 'x' },
+        { data: 'y' },
         { data: '번호' },
         { data: '접수자' },
         { data: '일자' },
@@ -109,13 +112,11 @@ const ServiceSearch = function () {
         { data: '진행' },
         { data: '대행' },
         { data: '상세' },
-        { data: 'x' },
-        { data: 'y' },
+        { data: 'Button1' },
       ],
       deferRender: true,
       // read more: https://datatables.net/examples/basic_init/dom.html
       dom: `<'row'<tr>><'row'<'col-sm-12 col-md-3'i><'col-sm-12 col-md-9 dataTables_pager'lp>>`,
-      // <'col-sm-12 col-md-3 dataTables_pager'lp>
       initComplete: function () {
         let thisTable = this;
         let rowFilter = $('<tr class="filter"></tr>').appendTo($(_table.table().header()));
@@ -246,23 +247,25 @@ const ServiceSearch = function () {
         hideSearchColumnResponsive();
         // recheck on window resize
         window.onresize = hideSearchColumnResponsive;
+
       },
       language: {
         url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Korean.json',
       },
       lengthMenu: [5, 10, 25, 50],
-      order: [[0, 'desc']],
+      order: [[2, 'desc']],
       pageLength: 10,
       processing: true,
-      responsive: true,
-      // responsive: {
-      //   details: {
-      //     display: $.fn.dataTable.Responsive.display.modal(),
-      //   },
-      // },
+      responsive: {
+        details: {
+          target: -1,
+          type: 'column',
+        },
+      },
       searchDelay: 250,
       select: {
         style: 'os',
+        items: 'row',
       },
       serverSide: false,
     });
@@ -280,6 +283,97 @@ const ServiceSearch = function () {
     });
   };
 
+  function _initTableContextMenu() {
+    _tableEl.contextMenu({
+      selector: 'tbody > tr[role="row"]',
+      build: function ($trigger, e) {
+        // this callback is executed every time the menu is to be shown
+        // its results are destroyed every time the menu is hidden
+        // e is the original contextmenu event, containing e.pageX and e.pageY (amongst other data)
+        let selected = _table.rows({ selected: true });
+        let isSelected = selected.count() > 0;
+        return {
+          callback: function (key, options) {
+          },
+          items: {
+            'title': {
+              name: function () {
+                switch (selected.count()) {
+                  case 0:
+                    return '선택: <strong>없음</strong>';
+                  case 1: {
+                    const dataString = selected.data().pluck('번호')[0].toString();
+                    return `선택: <strong>${dataString.substring(0, 4)}–${dataString.substring(4)}</strong>`;
+                  }
+                  // ${dataString.substring(0, 4)}–${dataString.substring(4)}
+                  default:
+                    return '선택: <strong>1 건 이상</strong>';
+                }
+              },
+              isHtmlName: true,
+              icon: 'fas fa-info text-info',
+              callback: () => false,
+            },
+            'sep1': '',
+            'status': {
+              name: '처리완료',
+              icon: 'fas fa-check text-success',
+              disabled: !isSelected,
+              callback: function (itemKey, opt, e) {
+
+              },
+            },
+            'edit': {
+              name: '편집',
+              isHtmlName: true,
+              icon: 'fas fa-edit text-warning',
+              disabled: selected.count() !== 1,
+              callback: function (itemKey, opt, e) {
+
+              },
+            },
+            'delete': {
+              name: `<span style="color: red">삭제</span>`,
+              icon: 'fas fa-trash-alt text-danger',
+              isHtmlName: true,
+              disabled: !isSelected,
+              callback: function (itemKey, opt, e) {
+
+              },
+            },
+            'sep2': '---------',
+            'export': {
+              name: function () {
+                if (isSelected) {
+                  return '내보내기 (선택)';
+                } else {
+                  return _hasSearch ? '내보내기 (검색)' : '내보내기 (전체)';
+                }
+              },
+              icon: 'fas fa-sign-out-alt',
+              items: {
+                'print': {
+                  name: '인쇄',
+                  icon: 'fas fa-print',
+                  callback: function () {
+                    _table.button(0).trigger();
+                  },
+                },
+                'excelHtml5': {
+                  name: 'Excel',
+                  icon: 'fas fa-file-excel text-success',
+                  callback: function () {
+                    _table.button(1).trigger();
+                  },
+                },
+              },
+            },
+          },
+        };
+      },
+    });
+  }
+
   function _onSelectTable(e, dt, type, indexes) {
     if (type === 'row') {
       let data = _table.rows(indexes).data();
@@ -288,32 +382,40 @@ const ServiceSearch = function () {
     }
   }
 
-  function _onContextMenuTable(event) {
-    event.preventDefault();
-    // TODO: Create modal
-  }
-
   function _onClickMapToggle(event) {
     event.preventDefault();
     _isMapExpand = !_isMapExpand;
     if (_isMapExpand) {
       _tableEl.find('.datatable-input').removeAttr('readonly').prop('disabled', true);
       _map.height(_containerHeight - _theadHeight);
+      _mapWrapper.height(_containerHeight - _theadHeight);
     } else {
       _tableEl.find('.datatable-input').prop('disabled', false);
+      _mapWrapper.height(_mapHeight);
       _map.height(_mapHeight);
     }
   }
 
-  function _onTransitionEndMap(event) {
+  function _onTransitionStart(event) {
     event.preventDefault();
-    if (_searchResultSet.size > 0) {
-      setTimeout(() => setMapMarkerSet(_searchResultSet), 100);
-    }
+    _tableSearchResetButton.addClass('disabled');
+  }
+
+  function _onTransitionEnd(event) {
+    event.preventDefault();
+    setTimeout(() => {
+      if (_searchResultSet.size > 0) {
+        setMapMarkerSet(_searchResultSet);
+      }
+      _tableSearchResetButton.removeClass('disabled');
+    }, 250);
   }
 
   function _onClickTableSearch(event) {
     event.preventDefault();
+
+    _table.rows().deselect();
+
     let params = {};
     _tableEl.find('.datatable-input').each(function () {
       let i = $(this).data('col-index');
@@ -332,12 +434,14 @@ const ServiceSearch = function () {
 
     _updateSearchLabel(filterRows.length);
     if (filterRows.length < 1) {
+      _hasSearch = false;
       $.notify({
         message: '지도에 표시할 검색결과가 없습니다',
       }, { type: 'danger' });
       _searchResultSet.clear();
       setMapMarkerSet(null);
     } else {
+      _hasSearch = true;
       _searchResultSet.clear();
       filterRows.each((d, j) => _searchResultSet.add([d['x'], d['y']]));
       setTimeout(() => setMapMarkerSet(_searchResultSet), 250);
@@ -346,6 +450,9 @@ const ServiceSearch = function () {
 
   function _onClickTableSearchReset(event) {
     event.preventDefault();
+
+    _table.rows().deselect();
+
     let input = _tableEl.find('.datatable-input');
     input.each(function () {
       $(this).val('');
@@ -355,8 +462,10 @@ const ServiceSearch = function () {
 
     input.prop('disabled', false);
     _map.height(_mapHeight);
+    _mapWrapper.height(_mapHeight);
 
     _updateSearchLabel(0);
+    _hasSearch = false;
     _searchResultSet.clear();
     setMapMarkerSet(null);
   }
@@ -381,18 +490,22 @@ const ServiceSearch = function () {
       _tableSearchButtonLabel = _tableSearchButton.find('.label');
       _tableSearchResetButton = _tableControl.find('#kt_datatable_clear');
       _mapToggle = _tableControl.find('#kt_datatable_map');
-      _map = $('#search_map');
+      _mapWrapper = $('#search_map_wrapper');
+      _map = _mapWrapper.find('#search_map');
 
       _init();
       _initTable();
       _initTableButton();
+      _initTableContextMenu();
 
       _table.on('select', _onSelectTable);
-      _table.on('contextmenu', _onContextMenuTable);
       _tableSearchButton.on('mousedown', _onClickTableSearch);
       _tableSearchResetButton.on('mousedown', _onClickTableSearchReset);
       _mapToggle.on('mousedown', _onClickMapToggle);
-      _map.on('transitionend', _onTransitionEndMap);
+      _map.on('transitionstart', _onTransitionStart);
+      _map.on('transitionend', _onTransitionEnd);
+      _map.bind('mousewheel', () => false);
+
     },
   };
 

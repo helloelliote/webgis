@@ -149,6 +149,7 @@ function formatSearchSelect(response) {
     let dip = record['관경'] ? record['관경'] + ' ' + 'mm' + ' ' : '';
     record['상세'] = pos + dip + record['상세'];
     record['관경'] = record['관경'] ? record['관경'] + ' ' + 'mm' : '';
+    record['Button1'] = null;
   });
   return records;
 }

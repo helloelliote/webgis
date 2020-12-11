@@ -166,3 +166,7 @@ require('es6-promise-polyfill/promise.min.js');
 
 // JQuery Repeater - Create a repeatable group of input elements: https://github.com/DubFriend/jquery.repeater
 // require('jquery.repeater');
+
+// jQuery contextMenu plugin: https://github.com/swisnl/jQuery-contextMenu
+require('jquery-contextmenu/dist/jquery.contextMenu.min.js');
+require('jquery-contextmenu/dist/jquery.ui.position.min.js');
