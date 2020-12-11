@@ -66,7 +66,7 @@ const dotMap = new naver.maps.visualization.DotMap({
 naver.maps.Event.addListener(map, 'tilesloaded', onNaverTilesLoaded);
 
 const mapTypeButton = document.getElementById('btn-map-hybrid');
-mapTypeButton.addEventListener('mousedown', onClickHybridButton);
+mapTypeButton.addEventListener('mousedown', onClickMapTypeButton);
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
@@ -79,7 +79,7 @@ function onNaverTilesLoaded() {
   localStorage.longitude = roundCustom(center.lng());
 }
 
-function onClickHybridButton(event) {
+function onClickMapTypeButton(event) {
   event.preventDefault();
 
   isMapTypeHybrid = !isMapTypeHybrid;

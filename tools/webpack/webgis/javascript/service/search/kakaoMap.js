@@ -1,14 +1,10 @@
 /* eslint-disable no-undef */
-import { LocalStorage } from '../../maps/Storage';
-import { roundCustom } from '../../maps/math';
-
-const localStorage = new LocalStorage();
+import { getDefaultCenter, onClickMapTypeButton, onTilesLoaded, onWindowResize } from '../../maps/kakao/util';
+import { roadView, roadViewClient } from '../../maps/kakao/roadview/Client';
+import { default as roadViewWalker } from '../../maps/kakao/roadview/Walker';
 
 const mapOptions = {
-  center: new kakao.maps.LatLng(
-    localStorage.latitude || window.webgis.center.latitude,
-    localStorage.longitude || window.webgis.center.longitude,
-  ),
+  center: getDefaultCenter(),
   level: 3,
   draggable: true,
   disableDoubleClick: true,
@@ -17,6 +13,7 @@ const mapOptions = {
   tileAnimation: false,
 };
 
+const mapWrapper = document.getElementById('search_map_wrapper');
 const mapContainer = document.getElementById('search_map');
 
 const map = new kakao.maps.Map(mapContainer, mapOptions);
@@ -46,51 +43,17 @@ const addressMarker = new kakao.maps.Marker({
   map: map,
 });
 
-kakao.maps.event.addListener(map, 'tilesloaded', onKakaoTilesLoaded);
+kakao.maps.event.addListener(map, 'tilesloaded', onTilesLoaded.bind(map));
 
 const mapTypeButton = document.getElementById('btn-map-hybrid');
-mapTypeButton.addEventListener('mousedown', onClickHybridButton);
+mapTypeButton.addEventListener('mousedown', onClickMapTypeButton.bind({ map, mapContainer }));
 
-window.addEventListener('resize', onWindowResize);
+window.addEventListener('resize', onWindowResize.bind(map), { passive: true });
 
-mapContainer.addEventListener('transitionend', onWindowResize);
+mapWrapper.addEventListener('transitionend', onWindowResize.bind(map));
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
-
-function onKakaoTilesLoaded() {
-  const center = map.getCenter();
-  localStorage.latitude = roundCustom(center.getLat());
-  localStorage.longitude = roundCustom(center.getLng());
-}
-
-function onClickHybridButton(event) {
-  event.preventDefault();
-
-  switch (map.getMapTypeId()) {
-    case kakao.maps.MapTypeId.ROADMAP: {
-      if (mapContainer.style.display === 'none') {
-        $.notify({
-          message: '항공 지도를 보시려면 지도를 축소해주세요',
-        }, { type: 'danger' });
-      }
-      mapTypeButton.innerHTML = '위성 지도';
-      mapTypeButton.classList.add('active');
-      map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
-      break;
-    }
-    case kakao.maps.MapTypeId.HYBRID: {
-      mapTypeButton.innerHTML = '일반 지도';
-      mapTypeButton.classList.remove('active');
-      map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
-      break;
-    }
-  }
-}
-
-function onWindowResize() {
-  map.relayout();
-}
 
 function onClickQuickSearchInline(event) {
   event.preventDefault();
@@ -100,6 +63,7 @@ function onClickQuickSearchInline(event) {
       const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
       const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
       map.setCenter(latLng);
+      map.setLevel(2, { animate: true });
       addressMarker.setPosition(latLng);
       addressMarker.setTitle(targetEl.innerHTML);
       addressMarker.setMap(map);
@@ -131,6 +95,72 @@ function setMapMarkerSet(coordinates) {
     });
     map.setBounds(dotBounds);
   }
+}
+
+/**
+ * kakao Road View
+ */
+let isActive = false;
+const rvButton = document.getElementById('btn-map-roadview');
+const rvContainer = document.getElementById('card_body_search_map');
+
+kakao.maps.event.addListener(roadView, 'init', onRoadviewInit);
+
+rvButton.addEventListener('mousedown', onClickRoadviewButton);
+
+function onRoadviewInit() {
+  roadViewWalker.setMap(map);
+
+  kakao.maps.event.addListener(roadView, 'viewpoint_changed', function () {
+    const viewpoint = roadView.getViewpoint();
+    roadViewWalker.setAngle(viewpoint.pan);
+  });
+
+  kakao.maps.event.addListener(roadView, 'position_changed', function () {
+    const rvPosition = roadView.getPosition();
+    roadViewWalker.setPosition(rvPosition);
+    map.setCenter(rvPosition);
+  });
+}
+
+function onClickRoadviewButton(event) {
+  event.preventDefault();
+
+  isActive = !isActive;
+  rvContainer.classList.toggle('grid-parent', isActive);
+  rvButton.classList.toggle('active', isActive);
+  window.dispatchEvent(new Event('resize'));
+
+  if (isActive) {
+    kakao.maps.event.addListener(map, 'click', onSingleClick);
+    if (roadViewWalker.getMap() === null) {
+      roadViewWalker.setMap(map);
+    }
+    map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+    roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
+      if (panoId !== null) {
+        roadViewWalker.setPosition(map.getCenter());
+        roadView.setPanoId(panoId, map.getCenter());
+      } else {
+        $.notify({
+          message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
+        }, { type: 'primary' });
+      }
+    });
+  } else {
+    kakao.maps.event.removeListener(map, 'click', onSingleClick);
+    roadViewWalker.setMap(null);
+    map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+  }
+}
+
+function onSingleClick(event) {
+  let latLng = event.latLng;
+  roadViewClient.getNearestPanoId(latLng, 10, function (panoId) {
+    if (panoId !== null) {
+      roadView.setPanoId(panoId, latLng);
+    }
+  });
 }
 
 export {

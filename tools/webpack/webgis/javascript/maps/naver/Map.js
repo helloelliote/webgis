@@ -47,9 +47,9 @@ naver.maps.Event.addListener(map, 'tilesloaded', function () {
 });
 
 const mapTypeButton = document.getElementById('btn-map-hybrid');
-mapTypeButton.addEventListener('mousedown', onClickHybridButton);
+mapTypeButton.addEventListener('mousedown', onClickMapTypeButton);
 
-function onClickHybridButton(event) {
+function onClickMapTypeButton(event) {
   event.preventDefault();
 
   isMapTypeHybrid = !isMapTypeHybrid;

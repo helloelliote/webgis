@@ -71,7 +71,6 @@ function onClickRoadviewButton(event) {
       });
     });
   } else {
-
     olMap.getTargetElement().style.cursor = '';
     olMap.addInteraction(selectInteraction);
     olMap.un('singleclick', onSingleClick);
