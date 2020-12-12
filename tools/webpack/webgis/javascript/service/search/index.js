@@ -2,6 +2,7 @@
 'use strict';
 
 import { setMapMarker, setMapMarkerSet } from './kakaoMap';
+import { default as sweetalert } from '../../plugins/sweetalert-mixin';
 
 const ServiceSearch = function () {
 
@@ -12,10 +13,11 @@ const ServiceSearch = function () {
   let _tableSearchButton;
   let _tableSearchButtonLabel;
   let _tableSearchResetButton;
-  let _searchResultSet;
   let _tableRefreshButton;
+  let _searchResultSet;
   let _hasSearch = false;
   let _dateRangeFilter = yadcf;
+  let _contextmenuAjaxDefault;
 
   let _map;
   let _mapWrapper;
@@ -39,6 +41,19 @@ const ServiceSearch = function () {
       filename: moment().format('YYYYMMDD') + '_민원',
       messageTop: moment().format('llll'),
       title: '',
+    };
+
+    _contextmenuAjaxDefault = {
+      url: null,
+      headers: { 'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content') },
+      type: 'POST',
+      data: null,
+      success: null,
+      error: err => {
+        $.notify({
+          message: `[오류] ${err.responseText}`, 
+        }, { type: 'danger' });
+      },
     };
 
     _containerHeight = document.querySelector('#container-search').offsetHeight;
@@ -117,6 +132,11 @@ const ServiceSearch = function () {
         { data: '상세' },
         { data: 'Button1' },
       ],
+      createdRow: function (row, data, dataIndex) {
+        if (data['진행'] === '처리완료') {
+          $(row).addClass('tr-color');
+        }
+      },
       deferRender: true,
       // read more: https://datatables.net/examples/basic_init/dom.html
       dom: `<'row'<tr>><'row'<'col-sm-12 col-md-3'ri><'col-sm-12 col-md-9 dataTables_pager'lp>>`,
@@ -222,7 +242,7 @@ const ServiceSearch = function () {
         },
       },
       lengthMenu: [5, 10, 25, 50],
-      order: [[2, 'desc']],
+      order: [[10, 'asc'], [2, 'desc']],
       pageLength: 10,
       pagingType: 'full_numbers',
       processing: true,
@@ -261,6 +281,7 @@ const ServiceSearch = function () {
       build: ($trigger, e) => {
         let selected = _table.rows({ selected: true });
         let isSelected = selected.count() > 0;
+        let ids = selected.data().pluck('번호').toArray();
         return {
           callback: (key, options) => {
           },
@@ -290,7 +311,19 @@ const ServiceSearch = function () {
               icon: 'fas fa-check text-success',
               disabled: !isSelected,
               callback: (itemKey, opt, e) => {
-
+                $.ajax({
+                  ..._contextmenuAjaxDefault,
+                  url: `${window.location.origin}/service/search?api=prof`,
+                  data: { id: ids },
+                  success: () => {
+                    $.notify({
+                      message: '선택한 민원이 처리완료되었습니다',
+                    }, { type: 'success' });
+                    // _onClickTableRefresh();
+                  },
+                });
+                _onClickTableRefresh();
+                return false;
               },
             },
             'edit': {
@@ -308,7 +341,23 @@ const ServiceSearch = function () {
               isHtmlName: true,
               disabled: !isSelected,
               callback: (itemKey, opt, e) => {
-
+                return sweetalert.confirmServiceDelete
+                  .fire()
+                  .then(result => {
+                    if (result.value) {
+                      $.ajax({
+                        ..._contextmenuAjaxDefault,
+                        url: `${window.location.origin}/service/search?api=prod`,
+                        data: { id: ids },
+                        success: () => {
+                          $.notify({
+                            message: '선택한 민원이 삭제되었습니다',
+                          }, { type: 'success' });
+                          _onClickTableRefresh();
+                        },
+                      });
+                    }
+                  });
               },
             },
             'sep2': '---------',
@@ -448,7 +497,7 @@ const ServiceSearch = function () {
   }
 
   function _onClickTableRefresh(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     _table.ajax.reload();
   }
 

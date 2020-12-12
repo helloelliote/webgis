@@ -181,23 +181,31 @@
         }
       }
 
-      td {
-        white-space: nowrap;
-        padding: 0.4rem;
+      tr {
+        td {
+          white-space: nowrap;
+          padding: 0.4rem;
 
-        .dtr-data {
-          white-space: pre-wrap;
-          justify-content: flex-start;
+          .dtr-data {
+            white-space: pre-wrap;
+            justify-content: flex-start;
+          }
+        }
+
+        td:first-child {
+          padding-left: 0.5rem !important;
+        }
+
+        td.dtr-control:before {
+          font-size: larger;
+          font-weight: bolder;
         }
       }
 
-      td:first-child {
-        padding-left: 0.5rem !important;
-      }
-
-      td.dtr-control:before {
-        font-size: larger;
-        font-weight: bolder;
+      tr.tr-color {
+        td {
+          color: green;
+        }
       }
 
       .row-selected {

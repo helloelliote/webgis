@@ -92,12 +92,34 @@ export default {
   },
 
   searchPost(req, res, next) {
-    postgresql.executeQuery(
-      `SELECT * FROM viw_wtt_wser_ma ORDER BY id DESC;`,
-      [], // TODO: '상수' Role 처리
-    ).then(formatSearchSelect).then(result => {
-      res.status(200).json(result);
-    }).catch(next);
+    let sqlStatement;
+    let formatter = response => response;
+    switch (req.query['api']) {
+      case undefined: {
+        sqlStatement = `SELECT * FROM viw_wtt_wser_ma WHERE 삭제 IS NULL;`;
+        formatter = formatSearchSelect;
+        break;
+      }
+      case 'prof': {
+        const ids = req.body['id[]'].toString();
+        sqlStatement = `UPDATE wtt_wser_ma SET pro_cde = 'PRO900' WHERE rcv_num IN ( ${ids} );`;
+        break;
+      }
+      case 'prod': {
+        const ids = req.body['id[]'].toString();
+        sqlStatement = `UPDATE wtt_wser_ma SET del_ymd = CURRENT_TIMESTAMP WHERE rcv_num IN ( ${ids} );`;
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    // TODO: '상수' Role 처리
+    postgresql.executeQuery(sqlStatement, [])
+      .then(formatter)
+      .then(result => {
+        res.status(200).json(result);
+      }).catch(next);
   },
 };
 
