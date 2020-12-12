@@ -60,11 +60,6 @@ const ServiceRegister = function () {
   const _initForm = function () {
     // Automatically adjust textarea height
     autosize(_form.find('textarea[name="apl_exp"]'));
-    _form.find('textarea[name="apl_exp"]').maxlength({
-      warningClass: 'label label-primary label-rounded label-inline',
-      limitReachedClass: 'label label-danger label-rounded label-inline',
-      placement: 'top',
-    });
 
     _form_rcv_ymd.datetimepicker({
       /**
