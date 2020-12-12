@@ -170,3 +170,10 @@ require('es6-promise-polyfill/promise.min.js');
 // jQuery contextMenu plugin: https://github.com/swisnl/jQuery-contextMenu
 require('jquery-contextmenu/dist/jquery.contextMenu.min.js');
 require('jquery-contextmenu/dist/jquery.ui.position.min.js');
+
+// jQuery-UI datepicker plugin: https://jqueryui.com/datepicker/
+require('jquery-ui/ui/widgets/datepicker.js');
+require('jquery-ui/ui/i18n/datepicker-ko.js');
+
+// Yet Another DataTables Column Filter - Combined with Datatables.net & jQuery-UI datepicker, provides date range filter: https://github.com/vedmack/yadcf/
+require('yadcf/jquery.dataTables.yadcf.js');

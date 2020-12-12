@@ -15,6 +15,7 @@ const ServiceSearch = function () {
   let _searchResultSet;
   let _tableRefreshButton;
   let _hasSearch = false;
+  let _dateRangeFilter = yadcf;
 
   let _map;
   let _mapWrapper;
@@ -139,9 +140,7 @@ const ServiceSearch = function () {
             }
 
             case '일자': {
-              input = $(`<div class='input-group' id='kt_datatable_daterange'>
-  <input type='text' class="form-control form-control-sm form-filter datatable-input" readonly="readonly"
-         data-col-index="${column.index()}"/></div>`);
+              input = $(`<div id="kt_datatable_daterange" class="m-0 p-0"></div>`);
               break;
             }
 
@@ -194,44 +193,6 @@ const ServiceSearch = function () {
           }
         });
 
-        const setSearchColumnDateRangePicker = function () {
-          // predefined ranges
-          let start = moment().subtract(29, 'days');
-          let end = moment();
-
-          // noinspection NonAsciiCharacters
-          const options = {
-            // autoApply: true,
-            autoUpdateInput: true,
-            drops: 'up',
-            buttonClasses: ' btn',
-            applyClass: 'btn-success',
-            cancelClass: 'btn-secondary',
-            startDate: start,
-            endDate: end,
-            ranges: {
-              '오늘': [moment(), moment()],
-              '어제': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-              '지난 7 일': [moment().subtract(6, 'days'), moment()],
-              '지난 30 일': [moment().subtract(29, 'days'), moment()],
-              '이전 달': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-              '이번 달': [moment().startOf('month'), moment().endOf('month')],
-            },
-            locale: {
-              applyLabel: '적용',
-              cancelLabel: '취소',
-              customRangeLabel: '직접 선택...',
-            },
-          };
-
-          $('#kt_datatable_daterange').daterangepicker(options, function (start, end, label) {
-            $('#kt_datatable_daterange .datatable-input').val(start.format('YY.MM.DD') + ' ~ ' + end.format('YY.MM.DD'));
-          });
-        };
-
-        // init on datatable load
-        setSearchColumnDateRangePicker();
-
         // hide search column for responsive table
         const hideSearchColumnResponsive = function () {
           thisTable.api().columns().every(function () {
@@ -279,6 +240,20 @@ const ServiceSearch = function () {
       serverSide: false,
     });
   };
+
+  function _initDateRangeFilter() {
+    _dateRangeFilter.init(_table, [
+      {
+        column_number: 4,
+        filter_container_id: 'kt_datatable_daterange',
+        filter_type: 'range_date',
+        date_format: 'mm/dd/yyyy',
+        filter_delay: 250,
+        style_class: 'form-control form-control-sm',
+        filter_reset_button_text: false,
+      },
+    ]);
+  }
 
   function _initTableContextMenu() {
     _tableEl.contextMenu({
@@ -445,6 +420,7 @@ const ServiceSearch = function () {
 
     _table.rows().deselect();
 
+    _dateRangeFilter.exResetAllFilters(_table, true);
     let input = _tableEl.find('.datatable-input');
     input.each(function () {
       $(this).val('');
@@ -498,6 +474,7 @@ const ServiceSearch = function () {
 
       _init();
       _initTable();
+      _initDateRangeFilter();
       _initTableContextMenu();
 
       _table.on('select', _onSelectTable);

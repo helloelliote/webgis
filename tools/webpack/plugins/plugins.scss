@@ -100,5 +100,12 @@
 // Fort Awesome. Build and manage icons and typefaces in a single place, then serve them with a single line of code: https://fortawesome.com/
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-// // jQuery contextMenu plugin: https://github.com/swisnl/jQuery-contextMenu
+// jQuery contextMenu plugin: https://github.com/swisnl/jQuery-contextMenu
 @import "~jquery-contextmenu/dist/jquery.contextMenu.min.css";
+
+// jQuery-UI datepicker plugin: https://jqueryui.com/datepicker/
+@import "~jquery-ui/themes/base/theme.css";
+@import "~jquery-ui/themes/base/datepicker.css";
+
+// Yet Another DataTables Column Filter: https://github.com/vedmack/yadcf/
+@import "~yadcf/jquery.dataTables.yadcf.css";

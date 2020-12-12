@@ -155,6 +155,30 @@
           padding: 0.45rem 1rem;
           border-radius: 0.28rem;
         }
+
+        #yadcf-filter-wrapper--kt_datatable_daterange {
+          width: 10.5rem;
+
+          .yadcf-filter-wrapper {
+            width: fit-content;
+
+            .yadcf-filter-wrapper-inner {
+              border: none;
+            }
+
+            .yadcf-filter-range-date {
+              border: none;
+            }
+
+            .yadcf-filter-range-date-seperator {
+              margin: 0;
+            }
+
+            input {
+              text-align: center;
+            }
+          }
+        }
       }
 
       td {
