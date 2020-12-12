@@ -13,6 +13,7 @@ const ServiceSearch = function () {
   let _tableSearchButtonLabel;
   let _tableSearchResetButton;
   let _searchResultSet;
+  let _tableRefreshButton;
   let _hasSearch = false;
 
   let _map;
@@ -62,7 +63,7 @@ const ServiceSearch = function () {
           exportOptions: {
             columns: [
               function (idx, data, node) {
-                return idx > 0 && idx < 9;
+                return idx > 1 && idx < 11;
               },
             ],
           },
@@ -72,7 +73,7 @@ const ServiceSearch = function () {
           exportOptions: {
             columns: [
               function (idx, data, node) {
-                return idx > 0 && idx < 10;
+                return idx > 1 && idx < 13;
               },
             ],
           },
@@ -80,9 +81,10 @@ const ServiceSearch = function () {
       ],
       columnDefs: [
         {
-          targets:   -1,
+          targets: -1,
           orderable: false,
           className: 'dtr-control',
+          width: 1,
         },
         {
           targets: [0, 1],
@@ -116,7 +118,7 @@ const ServiceSearch = function () {
       ],
       deferRender: true,
       // read more: https://datatables.net/examples/basic_init/dom.html
-      dom: `<'row'<tr>><'row'<'col-sm-12 col-md-3'i><'col-sm-12 col-md-9 dataTables_pager'lp>>`,
+      dom: `<'row'<tr>><'row'<'col-sm-12 col-md-3'ri><'col-sm-12 col-md-9 dataTables_pager'lp>>`,
       initComplete: function () {
         let thisTable = this;
         let rowFilter = $('<tr class="filter"></tr>').appendTo($(_table.table().header()));
@@ -247,14 +249,21 @@ const ServiceSearch = function () {
         hideSearchColumnResponsive();
         // recheck on window resize
         window.onresize = hideSearchColumnResponsive;
-
       },
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Korean.json',
+        url: '/assets/media/json/datatables-net-i18n.json',
+        select: {
+          processing: '불러오는 중...',
+          rows: {
+            0: '표를 클릭하여 선택하세요',
+            _: '%d 건의 민원이 선택되었습니다',
+          },
+        },
       },
       lengthMenu: [5, 10, 25, 50],
       order: [[2, 'desc']],
       pageLength: 10,
+      pagingType: 'full_numbers',
       processing: true,
       responsive: {
         details: {
@@ -262,8 +271,8 @@ const ServiceSearch = function () {
           type: 'column',
         },
       },
-      searchDelay: 250,
       select: {
+        className: 'row-selected',
         style: 'os',
         items: 'row',
       },
@@ -271,100 +280,82 @@ const ServiceSearch = function () {
     });
   };
 
-  const _initTableButton = function () {
-    $('#export_print').on('click', function (e) {
-      e.preventDefault();
-      _table.button(0).trigger();
-    });
-
-    $('#export_excel').on('click', function (e) {
-      e.preventDefault();
-      _table.button(1).trigger();
-    });
-  };
-
   function _initTableContextMenu() {
     _tableEl.contextMenu({
       selector: 'tbody > tr[role="row"]',
-      build: function ($trigger, e) {
-        // this callback is executed every time the menu is to be shown
-        // its results are destroyed every time the menu is hidden
-        // e is the original contextmenu event, containing e.pageX and e.pageY (amongst other data)
+      build: ($trigger, e) => {
         let selected = _table.rows({ selected: true });
         let isSelected = selected.count() > 0;
         return {
-          callback: function (key, options) {
+          callback: (key, options) => {
           },
           items: {
             'title': {
-              name: function () {
+              name: () => {
                 switch (selected.count()) {
-                  case 0:
+                  case 0: {
                     return '선택: <strong>없음</strong>';
+                  }
                   case 1: {
                     const dataString = selected.data().pluck('번호')[0].toString();
                     return `선택: <strong>${dataString.substring(0, 4)}–${dataString.substring(4)}</strong>`;
                   }
-                  // ${dataString.substring(0, 4)}–${dataString.substring(4)}
-                  default:
+                  default: {
                     return '선택: <strong>1 건 이상</strong>';
+                  }
                 }
               },
               isHtmlName: true,
-              icon: 'fas fa-info text-info',
+              icon: 'fas fa-mouse-pointer text-primary',
               callback: () => false,
             },
-            'sep1': '',
+            'sep1': '---------',
             'status': {
               name: '처리완료',
               icon: 'fas fa-check text-success',
               disabled: !isSelected,
-              callback: function (itemKey, opt, e) {
+              callback: (itemKey, opt, e) => {
 
               },
             },
             'edit': {
               name: '편집',
               isHtmlName: true,
-              icon: 'fas fa-edit text-warning',
+              icon: 'fas fa-pen-alt text-warning',
               disabled: selected.count() !== 1,
-              callback: function (itemKey, opt, e) {
-
+              callback: (itemKey, opt, e) => {
+                // return _table.ajax.reload();
               },
             },
             'delete': {
               name: `<span style="color: red">삭제</span>`,
-              icon: 'fas fa-trash-alt text-danger',
+              icon: 'fas fa-trash text-danger',
               isHtmlName: true,
               disabled: !isSelected,
-              callback: function (itemKey, opt, e) {
+              callback: (itemKey, opt, e) => {
 
               },
             },
             'sep2': '---------',
             'export': {
-              name: function () {
+              name: () => {
                 if (isSelected) {
                   return '내보내기 (선택)';
                 } else {
                   return _hasSearch ? '내보내기 (검색)' : '내보내기 (전체)';
                 }
               },
-              icon: 'fas fa-sign-out-alt',
+              icon: 'fas fa-share text-info',
               items: {
                 'print': {
                   name: '인쇄',
                   icon: 'fas fa-print',
-                  callback: function () {
-                    _table.button(0).trigger();
-                  },
+                  callback: () => _table.button(0).trigger(),
                 },
                 'excelHtml5': {
                   name: 'Excel',
-                  icon: 'fas fa-file-excel text-success',
-                  callback: function () {
-                    _table.button(1).trigger();
-                  },
+                  icon: 'far fa-file-excel text-success',
+                  callback: () => _table.button(1).trigger(),
                 },
               },
             },
@@ -433,6 +424,7 @@ const ServiceSearch = function () {
     let filterRows = _table.rows({ search: 'applied' }).data();
 
     _updateSearchLabel(filterRows.length);
+
     if (filterRows.length < 1) {
       _hasSearch = false;
       $.notify({
@@ -465,6 +457,7 @@ const ServiceSearch = function () {
     _mapWrapper.height(_mapHeight);
 
     _updateSearchLabel(0);
+
     _hasSearch = false;
     _searchResultSet.clear();
     setMapMarkerSet(null);
@@ -478,6 +471,15 @@ const ServiceSearch = function () {
     }
   }
 
+  function _onClickTableRefresh(event) {
+    event.preventDefault();
+    _table.ajax.reload();
+  }
+
+  function _onErrorDt(e, settings, techNote, message) {
+    console.warn(`[오류] ${message}`);
+  }
+
   return {
 
     //main function to initiate the module
@@ -489,23 +491,25 @@ const ServiceSearch = function () {
       _tableSearchButton = _tableControl.find('#kt_datatable_search');
       _tableSearchButtonLabel = _tableSearchButton.find('.label');
       _tableSearchResetButton = _tableControl.find('#kt_datatable_clear');
+      _tableRefreshButton = _tableControl.find('#kt_datatable_refresh');
       _mapToggle = _tableControl.find('#kt_datatable_map');
       _mapWrapper = $('#search_map_wrapper');
       _map = _mapWrapper.find('#search_map');
 
       _init();
       _initTable();
-      _initTableButton();
       _initTableContextMenu();
 
       _table.on('select', _onSelectTable);
       _tableSearchButton.on('mousedown', _onClickTableSearch);
       _tableSearchResetButton.on('mousedown', _onClickTableSearchReset);
+      _tableRefreshButton.on('mousedown', _onClickTableRefresh);
       _mapToggle.on('mousedown', _onClickMapToggle);
       _map.on('transitionstart', _onTransitionStart);
       _map.on('transitionend', _onTransitionEnd);
       _map.bind('mousewheel', () => false);
 
+      _table.on('error.dt', _onErrorDt);
     },
   };
 

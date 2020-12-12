@@ -1,6 +1,5 @@
-CREATE VIEW viw_wtt_wser_ma (id, geom, x, y, 번호, 일자, 접수자, 읍면동, 법정동, 접수, 누수, 관경, 상세, 민원인, 주소, 연락처, 진행, 대행) AS
+CREATE VIEW viw_wtt_wser_ma (id, x, y, 번호, 일자, 접수자, 읍면동, 법정동, 접수, 누수, 관경, 상세, 민원인, 주소, 연락처, 진행, 대행) AS
 SELECT wser_tb.id,
-       wser_tb.geom,
        wser_tb.x,
        wser_tb.y,
        wser_tb.rcv_num AS "번호",

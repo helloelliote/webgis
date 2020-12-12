@@ -1,3 +1,9 @@
+/**
+ * Handle datatables.net table errors by listening to 'error.dt' event, suppressing alert window from popping up
+ * @link https://datatables.net/reference/event/error
+ */
+jQuery.fn.dataTable.ext.errMode = 'none';
+
 jQuery.fn.dataTable.render.ellipsis = function (cutoff, wordbreak, escapeHtml) {
   let esc = function (t) {
     return t
