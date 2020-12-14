@@ -2,6 +2,7 @@
 'use strict';
 
 import { setMapMarker, setMapMarkerSet } from './kakaoMap';
+import { default as EditModal } from './EditModal';
 import { default as sweetalert } from '../../plugins/sweetalert-mixin';
 
 const ServiceSearch = function () {
@@ -15,7 +16,7 @@ const ServiceSearch = function () {
   let _tableSearchResetButton;
   let _tableRefreshButton;
   let _searchResultSet;
-  let _hasSearch = false;
+  let _isFilter = false;
   let _dateRangeFilter = yadcf;
   let _contextmenuAjaxDefault;
 
@@ -51,7 +52,7 @@ const ServiceSearch = function () {
       success: null,
       error: err => {
         $.notify({
-          message: `[오류] ${err.responseText}`, 
+          message: `[오류] ${err.responseText}`,
         }, { type: 'danger' });
       },
     };
@@ -279,21 +280,22 @@ const ServiceSearch = function () {
     _tableEl.contextMenu({
       selector: 'tbody > tr[role="row"]',
       build: ($trigger, e) => {
-        let selected = _table.rows({ selected: true });
-        let isSelected = selected.count() > 0;
-        let ids = selected.data().pluck('번호').toArray();
+        const sData = _table.rows({ selected: true }).data();
+        const isSelected = sData.length > 0;
+        const isFinished = sData.pluck('진행').toArray().includes('처리완료');
+        const ids = sData.pluck('번호').toArray();
         return {
           callback: (key, options) => {
           },
           items: {
             'title': {
               name: () => {
-                switch (selected.count()) {
+                switch (sData.length) {
                   case 0: {
                     return '선택: <strong>없음</strong>';
                   }
                   case 1: {
-                    const dataString = selected.data().pluck('번호')[0].toString();
+                    const dataString = sData.pluck('번호')[0].toString();
                     return `선택: <strong>${dataString.substring(0, 4)}–${dataString.substring(4)}</strong>`;
                   }
                   default: {
@@ -311,37 +313,45 @@ const ServiceSearch = function () {
               icon: 'fas fa-check text-success',
               disabled: !isSelected,
               callback: (itemKey, opt, e) => {
-                $.ajax({
-                  ..._contextmenuAjaxDefault,
-                  url: `${window.location.origin}/service/search?api=prof`,
-                  data: { id: ids },
-                  success: () => {
-                    $.notify({
-                      message: '선택한 민원이 처리완료되었습니다',
-                    }, { type: 'success' });
-                    // _onClickTableRefresh();
-                  },
-                });
-                _onClickTableRefresh();
-                return false;
+                sweetalert.confirmServiceStatusDone
+                  .fire()
+                  .then(result => {
+                    if (result.value) {
+                      $.ajax({
+                        ..._contextmenuAjaxDefault,
+                        url: `${window.location.origin}/service/search?api=prof`,
+                        data: { id: ids },
+                        success: () => {
+                          $.notify({
+                            message: '선택한 민원이 처리완료되었습니다',
+                          }, { type: 'success' });
+                          _onClickTableRefresh();
+                        },
+                      });
+                    }
+                  });
               },
             },
             'edit': {
               name: '편집',
-              isHtmlName: true,
               icon: 'fas fa-pen-alt text-warning',
-              disabled: selected.count() !== 1,
+              disabled: sData.length !== 1 || isFinished,
               callback: (itemKey, opt, e) => {
-                // return _table.ajax.reload();
+                // TODO: ~~view.getZoom();
+                new EditModal(
+                  ids,
+                  sData.pluck('x')[0],
+                  sData.pluck('y')[0],
+                  _onClickTableRefresh,
+                ).showModal();
               },
             },
             'delete': {
-              name: `<span style="color: red">삭제</span>`,
+              name: '삭제',
               icon: 'fas fa-trash text-danger',
-              isHtmlName: true,
-              disabled: !isSelected,
+              disabled: !isSelected || isFinished,
               callback: (itemKey, opt, e) => {
-                return sweetalert.confirmServiceDelete
+                sweetalert.confirmServiceDelete
                   .fire()
                   .then(result => {
                     if (result.value) {
@@ -366,7 +376,7 @@ const ServiceSearch = function () {
                 if (isSelected) {
                   return '내보내기 (선택)';
                 } else {
-                  return _hasSearch ? '내보내기 (검색)' : '내보내기 (전체)';
+                  return _isFilter ? '내보내기 (검색)' : '내보내기 (전체)';
                 }
               },
               icon: 'fas fa-share text-info',
@@ -450,14 +460,14 @@ const ServiceSearch = function () {
     _updateSearchLabel(filterRows.length);
 
     if (filterRows.length < 1) {
-      _hasSearch = false;
+      _isFilter = false;
       $.notify({
         message: '지도에 표시할 검색결과가 없습니다',
       }, { type: 'danger' });
       _searchResultSet.clear();
       setMapMarkerSet(null);
     } else {
-      _hasSearch = true;
+      _isFilter = true;
       _searchResultSet.clear();
       filterRows.each((d, j) => _searchResultSet.add([d['x'], d['y']]));
       setTimeout(() => setMapMarkerSet(_searchResultSet), 250);
@@ -483,7 +493,7 @@ const ServiceSearch = function () {
 
     _updateSearchLabel(0);
 
-    _hasSearch = false;
+    _isFilter = false;
     _searchResultSet.clear();
     setMapMarkerSet(null);
   }

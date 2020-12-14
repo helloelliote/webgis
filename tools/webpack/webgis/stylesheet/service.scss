@@ -157,7 +157,7 @@
         }
 
         #yadcf-filter-wrapper--kt_datatable_daterange {
-          width: 10.5rem;
+          width: 11rem;
 
           .yadcf-filter-wrapper {
             width: fit-content;
@@ -209,7 +209,7 @@
       }
 
       .row-selected {
-        background-color: #0078D71A;
+        background-color: #0078D740;
       }
     }
   }
@@ -223,6 +223,20 @@
 .context-menu-item {
   padding: 0.2em 2.5em !important;
   margin: 0.3rem 0;
+}
+
+#kt_service_edit_modal {
+  .input-icon .form-control {
+    padding-left: calc(1.5em + 0.75rem);
+  }
+
+  #service_edit_form {
+    textarea {
+      resize: vertical;
+      max-height: 35vh;
+      min-height: 10vh;
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////

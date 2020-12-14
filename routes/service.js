@@ -70,10 +70,10 @@ export default {
         _body['apl_adr'],
         _body['apl_exp'],
         _body['apy_cde'],
-        _body['pip_dip'],
-        _body['lep_cde'],
+        _body['pip_dip'] === '' ? null : _body['pip_dip'],
+        _body['lep_cde'] === '' ? null : _body['lep_cde'],
         _body['apm_nam'],
-        _body['apm_adr_jibun'] + '/' + _body['apm_adr_road'] + ' ' + _body['apm_adr_desc'],
+        _body['apm_adr_jibun'] + '/' + _body['apm_adr_road'] + '/' + _body['apm_adr_desc'],
         _body['apm_tel'],
         _body['pro_cde'],
         _body['pro_nam'],
@@ -92,7 +92,7 @@ export default {
   },
 
   searchPost(req, res, next) {
-    let sqlStatement;
+    let sqlStatement, sqlParams = [];
     let formatter = response => response;
     switch (req.query['api']) {
       case undefined: {
@@ -110,12 +110,59 @@ export default {
         sqlStatement = `UPDATE wtt_wser_ma SET del_ymd = CURRENT_TIMESTAMP WHERE rcv_num IN ( ${ids} );`;
         break;
       }
+      case 'editfor': {
+        const ids = req.query['id'].toString();
+        sqlStatement = `SELECT *,
+       (SELECT cname AS "pro_cde" FROM private.cd_pro WHERE codeno = wtt_wser_ma.pro_cde),
+       (SELECT cname AS "lep_cde" FROM private.cd_lpy WHERE codeno = wtt_wser_ma.lep_cde),
+       (SELECT cname AS "apy_cde" FROM private.cd_apy WHERE codeno = wtt_wser_ma.apl_cde)
+FROM wtt_wser_ma
+WHERE rcv_num IN ( ${ids} )
+LIMIT 1;`;
+        formatter = formatSearchEditSelect;
+        break;
+      }
+      case 'editto': {
+        const _body = req.body;
+        sqlStatement = `UPDATE wtt_wser_ma
+SET geom    = ST_SetSRID(ST_MakePoint($1, $2), 5187),
+    x       = $1,
+    y       = $2,
+    apl_hjd = $3,
+    apl_adr = $4,
+    apl_exp = $5,
+    pip_dip = $6,
+    lep_cde = (SELECT codeno FROM private.cd_lpy WHERE cname = $7),
+    apm_adr = $8,
+    apm_tel = $9,
+    pro_cde = (SELECT codeno FROM private.cd_pro WHERE cname = $10),
+    pro_nam = $11,
+    opr_nam = $12,
+    eddate  = CURRENT_TIMESTAMP
+WHERE rcv_num = $13;`;
+        sqlParams = [
+          _body['x'],
+          _body['y'],
+          _body['apl_hjd'],
+          _body['apl_adr'],
+          _body['apl_exp'],
+          _body['pip_dip'] === '' ? null : _body['pip_dip'],
+          _body['lep_cde'] === '' ? null : _body['lep_cde'],
+          _body['apm_adr_jibun'] + '/' + _body['apm_adr_road'] + '/' + _body['apm_adr_desc'],
+          _body['apm_tel'],
+          _body['pro_cde'],
+          _body['pro_nam'],
+          _body['opr_nam'],
+          _body['rcv_num'],
+        ];
+        break;
+      }
       default: {
         break;
       }
     }
     // TODO: '상수' Role 처리
-    postgresql.executeQuery(sqlStatement, [])
+    postgresql.executeQuery(sqlStatement, sqlParams)
       .then(formatter)
       .then(result => {
         res.status(200).json(result);
@@ -142,10 +189,10 @@ function formatScheduleSelect(response) {
     let startDate = moment(record['비상근무기간_시작']);
     let endDate = moment(record['비상근무기간_종료']);
     record['비상근무기간_시작'] = startDate.isValid()
-      ? startDate.format('YYYY.MM.DD')
+      ? startDate.format('YYYY/MM/DD')
       : `<small class="text-muted">기간 없음</small>`;
     record['비상근무기간_종료'] = endDate.isValid()
-      ? endDate.format('YYYY.MM.DD')
+      ? endDate.format('YYYY/MM/DD')
       : `<small class="text-muted">기간 없음</small>`;
     record['비상근무기간'] = record['비상근무기간_시작'] + ' ~ ' + record['비상근무기간_종료'];
   });
@@ -162,16 +209,26 @@ function formatSearchSelect(response) {
     aaData: response.rows,
   };
   (records.aaData).forEach(function (record) {
-    record['일자'] = moment(record['일자']).format('MM/DD/YYYY');
-    record['기한'] = moment(record['기한']).format('MM/DD/YYYY');
+    record['일자'] = moment(record['일자']).format('MM/DD/YYYY a h:mm');
+    record['기한'] = moment(record['기한']).format('MM/DD/YYYY a h:mm');
     let address = record['주소'].split('/');
     record['지번 주소'] = address[0] ? address[0].trim() : '';
-    record['도로명 주소'] = address[1] ? address[1].trim() : '';
+    let addr_desc = address[2] ? address[2].trim() : '';
+    record['도로명 주소'] = address[1] ? address[1].trim() + ' ' + addr_desc : addr_desc;
     let pos = record['누수'] ? record['누수'] + ' ' : '';
     let dip = record['관경'] ? record['관경'] + ' ' + 'mm' + ' ' : '';
-    record['상세'] = pos + dip + record['상세'];
-    record['관경'] = record['관경'] ? record['관경'] + ' ' + 'mm' : '';
+    record['상세'] = dip + pos + record['상세'];
     record['Button1'] = null;
   });
   return records;
+}
+
+function formatSearchEditSelect(response) {
+  let record = response.rows[0];
+  let addr = record['apm_adr'].split('/');
+  record['apm_adr_jibun'] = addr[0];
+  record['apm_adr_road'] = addr[1];
+  record['apm_adr_desc'] = addr[2];
+  record['rcv_ymd'] = moment(record['rcv_ymd']).format('YYYY/MM/DD HH:mm');
+  return response;
 }

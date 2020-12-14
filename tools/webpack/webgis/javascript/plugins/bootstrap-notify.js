@@ -13,6 +13,10 @@
  * url: 'http://bootstrap-notify.remabledesigns.com',
  * target: '_blank'
  *
+ * settings:
+ * element: Default is 'body', use jQuery selectors
+ * (ex. "#someElementId") to append to any specific element.
+ *
  * @link http://bootstrap-notify.remabledesigns.com
  */
 
