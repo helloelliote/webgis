@@ -9,7 +9,7 @@
 
 <!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->{{> _header-mobile}}
 
-<div class="d-flex flex-column flex-root">
+<div class="d-flex flex-column flex-root" data-scroll="true">
 
   <!--begin::Page-->
   <div class="d-flex flex-row flex-column-fluid page">
@@ -24,15 +24,14 @@
       <!--begin::Content-->
       <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
-        <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->{{>
-      _subheader/_subheader-service-search}}
+        <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->
 
         <!--[html-partial:include:{"file":"partials/_content.html"}]/-->{{> _content-service-search}}
       </div>
 
       <!--end::Content-->
 
-      <!--[html-partial:include:{"file":"partials/_footer.html"}]/-->{{> _footer}}
+      <!--[html-partial:include:{"file":"partials/_footer.html"}]/-->
     </div>
 
     <!--end::Wrapper-->
@@ -53,13 +52,17 @@
 
 <!--[html-partial:include:{"file":"partials/_extras/chat.html"}]/-->
 
-<!--[html-partial:include:{"file":"partials/_extras/scrolltop.html"}]/-->{{> _extras/scrolltop}}
+<!--[html-partial:include:{"file":"partials/_extras/scrolltop.html"}]/-->
 
 <!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->
 
 <!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
 
 {{> _modal/_sch-address}}
+
+{{> _modal/_pres-manage}}
+
+{{> _modal/_service-edit}}
 <script>
   var HOST_URL = 'https://preview.keenthemes.com/metronic/theme/html/tools/preview';
 </script>
@@ -122,7 +125,7 @@
         'gray-900': '#212121',
       },
     },
-    'font-family': 'Spoqa Han Sans',
+    'font-family': 'Noto Sans KR',
   };
 </script>
 
@@ -144,6 +147,7 @@
 <script src="assets/js/pages/widgets.js"></script>
 <script src="assets/js/serv.search.js"></script>
 <script src="assets/js/serv.schedule.js"></script>
+<script src="assets/js/serv.pres.js"></script>
 <script>
   $('.navi-link').removeClass('active');
   $('#navi-search-link-2').addClass('active');

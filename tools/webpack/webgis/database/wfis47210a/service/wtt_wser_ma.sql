@@ -23,6 +23,7 @@ CREATE TABLE wtt_wser_ma
     pro_ymd TIMESTAMP,
     pro_nam VARCHAR               NOT NULL,
     opr_nam VARCHAR,
+    del_ymd TIMESTAMP,
     eddate  TIMESTAMP
 );
 

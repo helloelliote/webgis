@@ -30,6 +30,8 @@ export default function (router, passport) {
   
   function onError(err, req, res, next) {
     console.error(err.stack);
-    res.status(400).json(err);
+    console.error(`[REQUEST QUERY]: ${JSON.stringify(req.query, null, 2)}`);
+    console.error(`[REQUEST BODY]: ${JSON.stringify(req.body, null, 2)}`);
+    res.status(400).json(err.stack.match('[\n]*.*'));
   }
 }

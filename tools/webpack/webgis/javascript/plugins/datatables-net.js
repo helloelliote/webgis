@@ -1,4 +1,10 @@
-jQuery.fn.dataTable.render.ellipsis = function (cutoff, wordbreak, escapeHtml) {
+/**
+ * Handle datatables.net table errors by listening to 'error.dt' event, suppressing alert window from popping up
+ * @link https://datatables.net/reference/event/error
+ */
+$.fn.dataTable.ext.errMode = 'none';
+
+$.fn.dataTable.render.ellipsis = function (cutoff, wordbreak, escapeHtml) {
   let esc = function (t) {
     return t
       .replace(/&/g, '&amp;')
@@ -38,3 +44,9 @@ jQuery.fn.dataTable.render.ellipsis = function (cutoff, wordbreak, escapeHtml) {
     return '<span class="ellipsis" title="' + esc(d) + '">' + shortened + '&#8230;</span>';
   };
 };
+
+$.datepicker.setDefaults({
+  autoSize: true,
+  changeMonth: true,
+  changeYear: true,
+});

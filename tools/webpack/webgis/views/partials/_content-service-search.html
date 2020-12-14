@@ -1,97 +1,61 @@
 <!--begin::Entry-->
-<div class="d-flex flex-column-fluid mb-5">
+<div class="d-flex flex-column-fluid">
   <!--begin::Container-->
-  <div class="container-fluid">
-    <!--begin::Notice-->
-
-    <!--end::Notice-->
-    <!--begin::Card-->
-    <div class="card card-custom card-fit card-border border-transparent" id="card_search">
-      <div class="card-body">
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="kt_tab_pane_4_1" role="tabpanel">
-            <div class="card card-custom card-border border-transparent mb-2" data-card="true" id="kt_card_1">
-              <div class="card-header border-transparent">
-                <div class="card-title">
-                <span class="card-icon">
-															<i class="flaticon2-pin text-primary"></i>
-														</span>
-                  <h3 class="card-label">민원 상세 검색
-                    <small></small></h3>
-                </div>
-                <div class="card-toolbar border-transparent">
-                  <a href="#" class="btn btn-icon btn-light-primary btn-sm px-2 px-lg-5 mr-2" data-card-tool="toggle">
-                    <i class="ki ki-arrow-down icon-nm"></i>
-                  </a>
-                  <!--begin::Dropdown-->
-                  <div class="dropdown dropdown-inline mr-2">
-                    <button type="button" class="btn btn-light-primary btn-sm font-weight-bolder dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="la la-download"></i>내보내기
-                    </button>
-                    <!--begin::Dropdown Menu-->
-                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                      <ul class="nav flex-column nav-hover">
-                        <li class="nav-item">
-                          <a href="#" class="nav-link" id="export_print">
-                            <i class="nav-icon la la-print"></i>
-                            <span class="nav-text">인쇄</span>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="#" class="nav-link" id="export_excel">
-                            <i class="nav-icon la la-file-excel-o"></i>
-                            <span class="nav-text">Excel</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <!--end::Dropdown Menu-->
-                  </div>
-                  <!--end::Dropdown-->
-                </div>
-              </div>
-              <div class="card-body border-transparent ribbon ribbon-right">
-                <div id="card_search_map"></div>
-                <div class="ribbon-target bg-light">
-                  <strong>0</strong>&nbsp;검색
-                </div>
-              </div>
-            </div>
-            <!--begin: Datatable-->
-            <table class="table table-separate table-head-custom table-checkable collapsed" id="kt_datatable">
-              <thead>
-              <tr>
-                <th>번호</th>
-                <th>접수자</th>
-                <th>일자</th>
-                <th>민원인</th>
-                <th>연락처</th>
-                <th>지번 주소</th>
-                <th>도로명 주소</th>
-                <th>접수내용</th>
-                <th>진행상태</th>
-                <th>민원상세</th>
-                <th>대행업체</th>
-                <th>기능</th>
-                <th>x</th>
-                <th>y</th>
-              </tr>
-              </thead>
-            </table>
-            <!--end: Datatable-->
-          </div>
-          <div class="tab-pane fade" id="kt_tab_pane_4_2" role="tabpanel">
-            <div class="card card-custom card-border border-transparent" data-card="true" id="kt_card_2">
-              <div class="card-body border-transparent ribbon ribbon-right">
-                <div id="card_dist_map"></div>
-                <div class="ribbon-target bg-light">
-                  <strong>0</strong>&nbsp;검색
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="container-fluid p-0" id="container-search">
+    <div class="card card-custom" id="card_search_map">
+      <div class="card-body ribbon ribbon-bottom p-0 parent" id="card_body_search_map">
+        <div id="search_map_wrapper">
+          <div id="search_map" class="child"></div>
         </div>
+        <div id="rvWrapper" class="child">
+          <div id="map-roadview" style="height: 100%;"></div>
+        </div>
+        <div class="ribbon-target bg-white">
+          <a href="javascript:;" class="btn btn-outline-info border-0 font-weight-bolder"
+             id="kt_datatable_search">
+            <span class="label label-inline label-danger font-weight-bolder mr-1" hidden></span>
+            <i class="fas fa-search"></i> 검색
+          </a>
+          <a href="javascript:;" class="btn btn-outline-danger border-0 font-weight-bolder ml-1"
+             id="kt_datatable_clear">
+            <i class="fas fa-times"></i> 초기화
+          </a>
+          <a href="javascript:;" class="btn btn-outline-primary border-0 font-weight-bolder ml-1"
+             id="kt_datatable_map">
+            <i class="fas fa-sort"></i> 지도
+          </a>
+          <a href="javascript:;" class="btn btn-outline-success border-0 font-weight-bolder ml-1"
+             id="kt_datatable_refresh">
+            <i class="fas fa-sync-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!--begin::Card-->
+    <div class="card card-custom card-fit" id="card_search">
+      <div class="card-body p-0">
+        <!--begin: Datatable-->
+        <table class="table" id="kt_datatable">
+          <thead class="thead-color">
+          <tr>
+            <th>x</th>
+            <th>y</th>
+            <th>번호</th>
+            <th>접수자</th>
+            <th>일자</th>
+            <th>민원인</th>
+            <th>연락처</th>
+            <th>지번 주소</th>
+            <th>도로명 주소</th>
+            <th>접수내용</th>
+            <th>진행상태</th>
+            <th>대행업체</th>
+            <th>민원상세</th>
+            <th><!-- Button1 --></th>
+          </tr>
+          </thead>
+        </table>
+        <!--end: Datatable-->
       </div>
       <!--end::Card-->
     </div>

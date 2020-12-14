@@ -1,15 +1,9 @@
 /* eslint-disable no-undef */
-import { LocalStorage } from '../../maps/Storage';
-import { roundCustom } from '../../maps/math';
+import { getDefaultCenter, onClickMapTypeButton, onTilesLoaded, onWindowResize } from '../../maps/kakao/util';
 import { getAddressFromLatLng } from '../../maps/kakao/geoCoder';
 
-const localStorage = new LocalStorage();
-
 const mapOptions = {
-  center: new kakao.maps.LatLng(
-    localStorage.latitude || window.webgis.center.latitude,
-    localStorage.longitude || window.webgis.center.longitude,
-  ),
+  center: getDefaultCenter(),
   level: 3,
   draggable: true,
   disableDoubleClick: true,
@@ -35,20 +29,17 @@ const marker = new kakao.maps.Marker({
 });
 marker.setVisible(false);
 
-kakao.maps.event.addListener(map, 'tilesloaded', onKakaoTileLoaded);
+kakao.maps.event.addListener(map, 'tilesloaded', onTilesLoaded.bind(map));
+
+const mapTypeButton = document.getElementById('btn-map-hybrid');
+mapTypeButton.addEventListener('mousedown', onClickMapTypeButton.bind({ map, mapContainer }));
 
 kakao.maps.event.addListener(map, 'click', onKakaoMapClick);
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
 
-window.addEventListener('resize', onWindowResize, { passive: true });
-
-function onKakaoTileLoaded() {
-  const center = map.getCenter();
-  localStorage.latitude = roundCustom(center.getLat());
-  localStorage.longitude = roundCustom(center.getLng());
-}
+window.addEventListener('resize', onWindowResize.bind(map), { passive: true });
 
 function onKakaoMapClick(event) {
   onChangeLocation(event.latLng);
@@ -62,7 +53,7 @@ function onClickQuickSearchInline(event) {
       const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
       const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
       map.setCenter(latLng);
-      map.setLevel(1, { animate: true });
+      map.setLevel(2, { animate: true });
       onChangeLocation(latLng);
     }
   }
@@ -94,10 +85,6 @@ function onChangeLocation(latLng) {
     $('#service_register_form input[name="y"]')
       .val(latLng.getLat());
   });
-}
-
-function onWindowResize() {
-  map.relayout();
 }
 
 new ResizeObserver(function () {

@@ -13,5 +13,6 @@ window.webgis = {
 
 require('./plugins/bootstrap-notify');
 require('./plugins/datatables-net');
+require('./plugins/bootstrap-select');
 
 window.KTLayoutSearch = window.KTLayoutSearchInline = require('./maps/components/search');

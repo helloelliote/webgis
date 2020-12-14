@@ -65,70 +65,177 @@
 
 ////////////////////////////////////////////////////////////////
 
+#card_search_map {
+  border-style: solid;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-color: #0078D7;
+  border-width: 0.2rem;
+
+  #search_map_wrapper {
+    width: 100%;
+    height: 42.5vh;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    transition: all 0.5s ease;
+
+    #search_map {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      transition: all 0.5s ease;
+    }
+  }
+
+  .ribbon-target {
+    bottom: -0.2rem;
+    right: -0.3rem;
+    box-shadow: none;
+    border-style: solid;
+    border-bottom-style: none;
+    border-color: #0078D7;
+    border-width: 0.2rem;
+    padding: 0.5rem;
+
+    .btn {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+}
+
 #card_search {
+  box-shadow: none;
+
   .card-body {
-    padding: 0;
-
-    .ribbon-target {
-      right: -2px;
-      top: 10px;
-    }
-
-    #kt_card_1 {
-      .card-header {
-        min-height: 0;
+    .dataTables_wrapper {
+      .row {
+        width: auto;
+        margin: 0 10px;
       }
 
-      .card-body {
-        padding: 0;
-
-        #card_search_map {
-          width: 100%;
-          height: 45vh;
-          border-radius: 5px;
-        }
+      #kt_datatable_btn_group {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
       }
-    }
 
-    #kt_card_2 {
-      .card-body {
-        padding: 0;
-
-        #card_dist_map {
-          width: 100%;
-          height: 80vh;
-          border-radius: 5px;
-        }
+      .dataTables_pager {
+        justify-content: flex-end;
+        align-items: flex-end;
       }
     }
 
     #kt_datatable {
-      margin: 0 0 1rem 0 !important;
+      margin: 0 !important;
 
-      td {
-        white-space: nowrap;
-        padding: 0.25rem 0.5rem;
+      thead {
+        th {
+          color: #0078D7;
+          font-weight: bolder;
+          white-space: nowrap;
+          padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+          border-bottom-color: transparent;
+        }
+
+        .filter {
+          th {
+            padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+          }
+
+          .datatable-input {
+            font-weight: bolder;
+          }
+        }
+
+        .bootstrap-select > .dropdown-toggle {
+          padding: 0.45rem 1rem;
+          border-radius: 0.28rem;
+        }
+
+        #yadcf-filter-wrapper--kt_datatable_daterange {
+          width: 11rem;
+
+          .yadcf-filter-wrapper {
+            width: fit-content;
+
+            .yadcf-filter-wrapper-inner {
+              border: none;
+            }
+
+            .yadcf-filter-range-date {
+              border: none;
+            }
+
+            .yadcf-filter-range-date-seperator {
+              margin: 0;
+            }
+
+            input {
+              text-align: center;
+            }
+          }
+        }
       }
 
-      th {
-        white-space: nowrap;
-        padding: 0.5rem 0.5rem;
+      tr {
+        td {
+          white-space: nowrap;
+          padding: 0.4rem;
+
+          .dtr-data {
+            white-space: pre-wrap;
+            justify-content: flex-start;
+          }
+        }
+
+        td:first-child {
+          padding-left: 0.5rem !important;
+        }
+
+        td.dtr-control:before {
+          font-size: larger;
+          font-weight: bolder;
+        }
+      }
+
+      tr.tr-color {
+        td {
+          color: green;
+        }
+      }
+
+      .row-selected {
+        background-color: #0078D740;
       }
     }
-  }
-
-  .button {
-    position: absolute;
-    left: 50%;
-    bottom: 5px;
-    margin: 0 auto;
-    z-index: 1000;
-    padding: 5px;
   }
 
   .overlay-layer {
     border-radius: 0.5rem;
     display: none;
+  }
+}
+
+.context-menu-item {
+  padding: 0.2em 2.5em !important;
+  margin: 0.3rem 0;
+}
+
+#kt_service_edit_modal {
+  .input-icon .form-control {
+    padding-left: calc(1.5em + 0.75rem);
+  }
+
+  #service_edit_form {
+    textarea {
+      resize: vertical;
+      max-height: 35vh;
+      min-height: 10vh;
+    }
   }
 }
 

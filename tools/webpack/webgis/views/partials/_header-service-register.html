@@ -78,45 +78,79 @@
     <!--begin::Topbar-->
     <div class="topbar">
 
-      <!--begin::Tablet & Mobile Search-->
-      <div class="dropdown d-flex d-lg-none">
+      <!--begin::Create-->
+      <div class="topbar-item">
 
         <!--begin::Toggle-->
-        <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-          <div class="btn btn-icon btn-clean btn-lg btn-dropdown mr-1">
-											<span class="svg-icon">
-												<!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
-												<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
-                             version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24"/>
-														<path
-                                d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
-                                fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-														<path
-                                d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
-                                fill="#000000" fill-rule="nonzero"/>
-													</g>
-												</svg>
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                id="btn-map-hybrid">
+          일반 지도
+        </button>
 
-                        <!--end::Svg Icon-->
-											</span>
-          </div>
-        </div>
+        <!--end::Toggle-->
+      </div>
+
+      <!--end::Create-->
+
+      <!--begin::Create-->
+      <div class="topbar-item">
+
+        <!--begin::Toggle-->
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                id="btn-map-roadview"
+                disabled>
+          로드뷰
+        </button>
+
+        <!--end::Toggle-->
+      </div>
+
+      <!--end::Create-->
+
+      <div class="outer ml-4 mr-2">
+        <div class="inner"></div>
+      </div>
+
+      <div class="topbar-item">
+
+        <!--begin::Toggle-->
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                data-offset="0,10">
+          시설 관리
+        </button>
 
         <!--end::Toggle-->
 
         <!--begin::Dropdown-->
-        <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
+        <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-md">
 
-          <!--[html-partial:include:{"file":"partials/_extras/dropdown/search-dropdown.html"}]/-->{{>
-        _extras/dropdown/search-dropdown}}
+          <!-- TODO: 구별이 쉽게 선택한 메뉴에 primary color 배경을 적용 -->
+          <!--begin::Navigation-->
+          <ul class="navi navi-hover navi-active navi-accent py-3">
+            <li class="navi-item" data-toggle="modal" data-target="#exampleModal2">
+              <a href="javascript:;" class="navi-link">
+													<span class="navi-icon">
+														<i class="la la-file-text icon-xl"></i>
+													</span>
+                <span class="navi-text">&nbsp;가압장 관리업체 현황</span>
+              </a>
+            </li>
+          </ul>
+
+          <!--end::Navigation-->
+
         </div>
 
         <!--end::Dropdown-->
       </div>
 
-      <!--end::Tablet & Mobile Search-->
+      <div class="outer ml-4 mr-2">
+        <div class="inner"></div>
+      </div>
 
       <!--begin::Create-->
       <div class="topbar-item">
@@ -159,15 +193,15 @@
                 <span class="navi-text">&nbsp;민원 등록</span>
               </a>
             </li>
-<!--            <li class="navi-item">-->
-<!--              <a href="#" class="navi-link" id="navi-search-link-1">-->
-<!--													<span class="navi-icon">-->
-<!--														<i class="la la-map-marked-alt icon-xl"></i>-->
-<!--													</span>-->
-<!--                <span class="navi-text">&nbsp;민원 현황 보기</span>-->
-<!--                <span class="label label-light-danger font-weight-bold label-inline">5</span>-->
-<!--              </a>-->
-<!--            </li>-->
+            <!--            <li class="navi-item">-->
+            <!--              <a href="#" class="navi-link" id="navi-search-link-1">-->
+            <!--													<span class="navi-icon">-->
+            <!--														<i class="la la-map-marked-alt icon-xl"></i>-->
+            <!--													</span>-->
+            <!--                <span class="navi-text">&nbsp;민원 현황 보기</span>-->
+            <!--                <span class="label label-light-danger font-weight-bold label-inline">5</span>-->
+            <!--              </a>-->
+            <!--            </li>-->
             <li class="navi-item">
               <a href="service/search" class="navi-link" id="navi-search-link-2">
 													<span class="navi-icon">
@@ -186,15 +220,15 @@
                 <span class="navi-text">&nbsp;비상근무 편성</span>
               </a>
             </li>
-<!--            <li class="navi-item">-->
-<!--              <form class="px-4 py-3">-->
-<!--                <div class="input-icon">-->
-<!--                  <input type="text" class="form-control" placeholder=""/>-->
-<!--                  <span><i class="la la-flash icon-lg"></i></span>-->
-<!--                </div>-->
-<!--                <span class="form-text text-muted">민원인, 연락처 등으로 검색합니다</span>-->
-<!--              </form>-->
-<!--            </li>-->
+            <!--            <li class="navi-item">-->
+            <!--              <form class="px-4 py-3">-->
+            <!--                <div class="input-icon">-->
+            <!--                  <input type="text" class="form-control" placeholder=""/>-->
+            <!--                  <span><i class="la la-flash icon-lg"></i></span>-->
+            <!--                </div>-->
+            <!--                <span class="form-text text-muted">민원인, 연락처 등으로 검색합니다</span>-->
+            <!--              </form>-->
+            <!--            </li>-->
           </ul>
 
           <!--end::Navigation-->
@@ -218,14 +252,14 @@
       <!--end::Quick panel-->
 
       <!--begin::User-->
-<!--      <div class="topbar-item">-->
-<!--        <button type="button"-->
-<!--                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"-->
-<!--                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"-->
-<!--                data-offset="0,10">-->
-<!--          사용자-->
-<!--        </button>-->
-<!--      </div>-->
+      <!--      <div class="topbar-item">-->
+      <!--        <button type="button"-->
+      <!--                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"-->
+      <!--                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"-->
+      <!--                data-offset="0,10">-->
+      <!--          사용자-->
+      <!--        </button>-->
+      <!--      </div>-->
 
       <!--end::User-->
 

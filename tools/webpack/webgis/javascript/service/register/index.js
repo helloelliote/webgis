@@ -60,24 +60,19 @@ const ServiceRegister = function () {
   const _initForm = function () {
     // Automatically adjust textarea height
     autosize(_form.find('textarea[name="apl_exp"]'));
-    _form.find('textarea[name="apl_exp"]').maxlength({
-      warningClass: 'label label-primary label-rounded label-inline',
-      limitReachedClass: 'label label-danger label-rounded label-inline',
-      placement: 'top',
-    });
 
     _form_rcv_ymd.datetimepicker({
       /**
        * @link https://tempusdominus.github.io/bootstrap-4/Options/#locale
        * */
       locale: window.moment.locale('ko'),
-      format: 'YYYY-MM-DD HH:mm',
+      format: 'YYYY/MM/DD HH:mm',
       buttons: {
         showToday: true,
       },
     });
 
-    _form_apm_tel.inputmask('999-9999-9999', {
+    _form_apm_tel.inputmask('99[9]-999[9]-9999', {
       oncomplete: function (event) {
         $(event.target).change();
       },
@@ -104,14 +99,10 @@ const ServiceRegister = function () {
       dataType: 'json',
       success: function (res) {
         formatSchedule(res).then(function (result) {
-          _form_opr_nam.append(result);
+          _form_opr_nam.append(result).selectpicker('refresh');
         });
       },
-      error: function (res) {
-      },
     });
-
-    // _form_reg_idn.val('초기값');
 
     $(_form).on('reset', function () {
       // On form reset, remove all validation status as well

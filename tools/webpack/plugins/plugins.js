@@ -161,8 +161,19 @@ require('@/src/js/vendors/plugins/bootstrap-notify.init.js');
 require('es6-promise-polyfill/promise.min.js');
 
 // Sweetalert2 - a beautiful, responsive, customizable and accessible (WAI-ARIA) replacement for JavaScript's popup boxes: https://sweetalert2.github.io/
-// window.Swal = window.swal = require('sweetalert2/dist/sweetalert2.min.js');
-// require('@/src/js/vendors/plugins/sweetalert2.init.js');
+window.Swal = window.swal = require('sweetalert2/dist/sweetalert2.min.js');
+require('@/src/js/vendors/plugins/sweetalert2.init.js');
 
 // JQuery Repeater - Create a repeatable group of input elements: https://github.com/DubFriend/jquery.repeater
 // require('jquery.repeater');
+
+// jQuery contextMenu plugin: https://github.com/swisnl/jQuery-contextMenu
+require('jquery-contextmenu/dist/jquery.contextMenu.min.js');
+require('jquery-contextmenu/dist/jquery.ui.position.min.js');
+
+// jQuery-UI datepicker plugin: https://jqueryui.com/datepicker/
+require('jquery-ui/ui/widgets/datepicker.js');
+require('jquery-ui/ui/i18n/datepicker-ko.js');
+
+// Yet Another DataTables Column Filter - Combined with Datatables.net & jQuery-UI datepicker, provides date range filter: https://github.com/vedmack/yadcf/
+require('yadcf/jquery.dataTables.yadcf.js');

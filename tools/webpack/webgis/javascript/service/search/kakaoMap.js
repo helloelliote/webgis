@@ -1,14 +1,10 @@
 /* eslint-disable no-undef */
-import { LocalStorage } from '../../maps/Storage';
-import { roundCustom } from '../../maps/math';
-
-const localStorage = new LocalStorage();
+import { getDefaultCenter, onClickMapTypeButton, onTilesLoaded, onWindowResize } from '../../maps/kakao/util';
+import { roadView, roadViewClient } from '../../maps/kakao/roadview/Client';
+import { default as roadViewWalker } from '../../maps/kakao/roadview/Walker';
 
 const mapOptions = {
-  center: new kakao.maps.LatLng(
-    localStorage.latitude || window.webgis.center.latitude,
-    localStorage.longitude || window.webgis.center.longitude,
-  ),
+  center: getDefaultCenter(),
   level: 3,
   draggable: true,
   disableDoubleClick: true,
@@ -17,13 +13,15 @@ const mapOptions = {
   tileAnimation: false,
 };
 
-const mapContainer = document.getElementById('card_search_map');
-const distContainer = document.getElementById('card_dist_map');
+const mapWrapper = document.getElementById('search_map_wrapper');
+const mapContainer = document.getElementById('search_map');
 
-const tab1Map = new kakao.maps.Map(mapContainer, mapOptions);
+const map = new kakao.maps.Map(mapContainer, mapOptions);
 
 const mapTypeControl = new kakao.maps.MapTypeControl();
-tab1Map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+const zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.TOPRIGHT);
 
 const dotSet = new Set();
 const dotSrc = 'assets/media/symbols/EP002.png';
@@ -35,68 +33,52 @@ const markerSize = new kakao.maps.Size(24, 35);
 const markerImage = new kakao.maps.MarkerImage(markerSrc, markerSize);
 
 const marker = new kakao.maps.Marker({
-  map: tab1Map,
-  position: tab1Map.getCenter(),
+  map: map,
+  position: map.getCenter(),
   image: markerImage,
 });
 marker.setVisible(false);
 
 const addressMarker = new kakao.maps.Marker({
-  map: tab1Map,
+  map: map,
 });
 
-kakao.maps.event.addListener(tab1Map, 'tilesloaded', onKakaoTilesLoaded);
+kakao.maps.event.addListener(map, 'tilesloaded', onTilesLoaded.bind(map));
+
+const mapTypeButton = document.getElementById('btn-map-hybrid');
+mapTypeButton.addEventListener('mousedown', onClickMapTypeButton.bind({ map, mapContainer }));
+
+window.addEventListener('resize', onWindowResize.bind(map), { passive: true });
+
+mapWrapper.addEventListener('transitionend', onWindowResize.bind(map));
 
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline, false);
 
-// window.addEventListener('resize', onWindowResize);
-
-function onKakaoTilesLoaded() {
-  const center = tab1Map.getCenter();
-  localStorage.latitude = roundCustom(center.getLat());
-  localStorage.longitude = roundCustom(center.getLng());
-}
-
-function onWindowResize() {
-  // tab1Map.relayout();
+function onClickQuickSearchInline(event) {
+  event.preventDefault();
+  let targetEl = event.target;
+  if (targetEl) {
+    if (targetEl.className.includes('quick-search-result-address')) {
+      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+      const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
+      map.setCenter(latLng);
+      map.setLevel(2, { animate: true });
+      addressMarker.setPosition(latLng);
+      addressMarker.setTitle(targetEl.innerHTML);
+      addressMarker.setMap(map);
+    }
+  }
 }
 
 function setMapMarker(pointArray) {
   const latLng = new kakao.maps.LatLng(pointArray[1], pointArray[0]);
-  tab1Map.setCenter(latLng);
+  map.setCenter(latLng);
   marker.setPosition(latLng);
   marker.setVisible(true);
 }
 
-function onClickSearch(coordinates) {
-  addMarkers(tab1Map, coordinates);
-}
-
-let tab2Map;
-let isTab2Map = false;
-
-function onTab1MapShown(coordinates) {
-  isTab2Map = false;
-  if (coordinates.size > 0) {
-    addMarkers(tab1Map, coordinates);
-  }
-}
-
-function onTab2MapShown(coordinates) {
-  if (!tab2Map) {
-    tab2Map = new kakao.maps.Map(distContainer, mapOptions);
-  } else {
-    tab2Map.setCenter(new kakao.maps.LatLng(
-      localStorage.latitude,
-      localStorage.longitude,
-    ));
-  }
-  isTab2Map = true;
-  addMarkers(tab2Map, coordinates);
-}
-
-function addMarkers(map, coordinates) {
+function setMapMarkerSet(coordinates) {
   dotSet.forEach(dot => dot.setMap(null));
   dotSet.clear();
   if (coordinates !== null) {
@@ -115,25 +97,73 @@ function addMarkers(map, coordinates) {
   }
 }
 
-function onClickQuickSearchInline(event) {
+/**
+ * kakao Road View
+ */
+let isActive = false;
+const rvButton = document.getElementById('btn-map-roadview');
+const rvContainer = document.getElementById('card_body_search_map');
+
+kakao.maps.event.addListener(roadView, 'init', onRoadviewInit);
+
+rvButton.addEventListener('mousedown', onClickRoadviewButton);
+
+function onRoadviewInit() {
+  roadViewWalker.setMap(map);
+
+  kakao.maps.event.addListener(roadView, 'viewpoint_changed', function () {
+    const viewpoint = roadView.getViewpoint();
+    roadViewWalker.setAngle(viewpoint.pan);
+  });
+
+  kakao.maps.event.addListener(roadView, 'position_changed', function () {
+    const rvPosition = roadView.getPosition();
+    roadViewWalker.setPosition(rvPosition);
+    map.setCenter(rvPosition);
+  });
+}
+
+function onClickRoadviewButton(event) {
   event.preventDefault();
-  let targetEl = event.target;
-  if (targetEl) {
-    if (targetEl.className.includes('quick-search-result-address')) {
-      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
-      const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
-      tab1Map.setCenter(latLng);
-      tab1Map.setLevel(2, { animate: true });
-      addressMarker.setPosition(latLng);
-      addressMarker.setTitle(targetEl.innerHTML);
-      addressMarker.setMap(isTab2Map ? tab2Map : tab1Map);
+
+  isActive = !isActive;
+  rvContainer.classList.toggle('grid-parent', isActive);
+  rvButton.classList.toggle('active', isActive);
+  window.dispatchEvent(new Event('resize'));
+
+  if (isActive) {
+    kakao.maps.event.addListener(map, 'click', onSingleClick);
+    if (roadViewWalker.getMap() === null) {
+      roadViewWalker.setMap(map);
     }
+    map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+    roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
+      if (panoId !== null) {
+        roadViewWalker.setPosition(map.getCenter());
+        roadView.setPanoId(panoId, map.getCenter());
+      } else {
+        $.notify({
+          message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
+        }, { type: 'primary' });
+      }
+    });
+  } else {
+    kakao.maps.event.removeListener(map, 'click', onSingleClick);
+    roadViewWalker.setMap(null);
+    map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
   }
 }
 
+function onSingleClick(event) {
+  let latLng = event.latLng;
+  roadViewClient.getNearestPanoId(latLng, 10, function (panoId) {
+    if (panoId !== null) {
+      roadView.setPanoId(panoId, latLng);
+    }
+  });
+}
+
 export {
-  onClickSearch,
   setMapMarker,
-  onTab1MapShown,
-  onTab2MapShown,
+  setMapMarkerSet,
 };
