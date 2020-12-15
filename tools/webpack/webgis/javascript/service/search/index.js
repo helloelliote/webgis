@@ -23,11 +23,10 @@ const ServiceSearch = function () {
   let _map;
   let _mapWrapper;
   let _mapToggle;
-  let _isMapExpand = false;
+  let _isExpandMap = false;
 
-  let _containerHeight;
-  let _mapHeight;
-  let _theadHeight;
+  let _defaultMapHeight;
+  let _expandMapHeight;
 
   let _tableEditModal;
 
@@ -59,9 +58,9 @@ const ServiceSearch = function () {
       },
     };
 
-    _containerHeight = document.querySelector('#container-search').offsetHeight;
-    _mapHeight = document.querySelector('#search_map').offsetHeight;
-    _theadHeight = document.querySelector('#kt_datatable thead').offsetHeight + 55;
+    _defaultMapHeight = document.querySelector('#search_map').offsetHeight;
+    _expandMapHeight = document.querySelector('#container-search').offsetHeight -
+      (document.querySelector('#kt_datatable thead').offsetHeight + 55);
   };
 
   const _initTable = function () {
@@ -411,16 +410,9 @@ const ServiceSearch = function () {
 
   function _onClickMapToggle(event) {
     event.preventDefault();
-    _isMapExpand = !_isMapExpand;
-    if (_isMapExpand) {
-      _tableEl.find('.datatable-input').removeAttr('readonly').prop('disabled', true);
-      _map.height(_containerHeight - _theadHeight);
-      _mapWrapper.height(_containerHeight - _theadHeight);
-    } else {
-      _tableEl.find('.datatable-input').prop('disabled', false);
-      _mapWrapper.height(_mapHeight);
-      _map.height(_mapHeight);
-    }
+    _isExpandMap = !_isExpandMap;
+    _mapWrapper.height(_isExpandMap ? _expandMapHeight : _defaultMapHeight);
+    _map.height(_isExpandMap ? _expandMapHeight : _defaultMapHeight);
   }
 
   function _onTransitionStart(event) {
@@ -481,15 +473,14 @@ const ServiceSearch = function () {
 
     _dateRangeFilter.exResetAllFilters(_table, true);
     let input = _tableEl.find('.datatable-input');
+    input.val('').selectpicker('refresh');
     input.each(function () {
-      $(this).val('').selectpicker('refresh');
       _table.column($(this).data('col-index')).search('', false, false);
     });
     _table.table().draw();
 
-    input.prop('disabled', false);
-    _map.height(_mapHeight);
-    _mapWrapper.height(_mapHeight);
+    _mapWrapper.height(_defaultMapHeight);
+    _map.height(_defaultMapHeight);
 
     _updateSearchLabel(0);
 
