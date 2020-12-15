@@ -38,9 +38,7 @@ function resolveContentByType(response) {
 
   function createImageBlobUrl(response) {
     for (let i = 0, len = response.length; i < len; i++) {
-      if (response[i]['사진'] === null) {
-        continue;
-      }
+      if (!response[i]['사진']) continue;
       const buffer = response[i]['사진'].data;
       const uint8Array = new Uint8Array(buffer);
       const blob = new Blob([uint8Array], { type: messageData['Mime-Type'] });

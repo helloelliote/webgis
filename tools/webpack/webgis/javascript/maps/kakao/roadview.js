@@ -53,14 +53,14 @@ function onClickRoadviewButton(event) {
     olMap.getTargetElement().style.cursor = 'pointer';
     olMap.removeInteraction(selectInteraction);
     olMap.on('singleclick', onSingleClick);
-    if (roadViewWalker.getMap() === null) {
+    if (roadViewWalker.getMap() == null) {
       roadViewWalker.setMap(map);
     }
     coordinateToLatLng(olView.getCenter()).then(function (latLng) {
       map.setCenter(latLng);
       map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
       roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
-        if (panoId !== null) {
+        if (panoId) {
           roadViewWalker.setPosition(map.getCenter());
           roadView.setPanoId(panoId, map.getCenter());
         } else {
@@ -86,8 +86,7 @@ function onSingleClick(event) {
   event.preventDefault();
   coordinateToLatLng(event.coordinate, projection.code).then(function (rvPosition) {
     roadViewClient.getNearestPanoId(rvPosition, 10, function (panoId) {
-      if (panoId !== null) {
-        // customOverlay.kakaoRoadView.resumeTimer();
+      if (panoId) {
         roadView.setPanoId(panoId, rvPosition);
       }
     });

@@ -117,13 +117,11 @@ function addMarkers(map, coordinates) {
 function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
-  if (targetEl) {
-    if (targetEl.className.includes('quick-search-result-address')) {
-      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
-      const latLng = new naver.maps.LatLng(latLngArray[1], latLngArray[0]);
-      map.setCenter(latLng);
-      map.setZoom(19);
-    }
+  if (targetEl?.className.includes('quick-search-result-address')) {
+    const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+    const latLng = new naver.maps.LatLng(latLngArray[1], latLngArray[0]);
+    map.setCenter(latLng);
+    map.setZoom(19);
   }
 }
 

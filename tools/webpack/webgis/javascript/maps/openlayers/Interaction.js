@@ -21,8 +21,7 @@ export class SelectInteraction extends Select {
     super({
       hitTolerance: 10,
       filter: function (feature, layer) {
-        if (layer === null) return false;
-        return !layerNameFilter.has(layer.getClassName());
+        return layer ? !layerNameFilter.has(layer.getClassName()) : false;
       },
       style: function (feature) {
         switch (feature.getGeometry().getType()) {

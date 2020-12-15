@@ -33,10 +33,9 @@ export default class ModalOverlay {
   }
 
   addElements(elements) {
-    let that = this;
     elements.forEach(element => {
-      that[element] = that._modalEl.find(element);
-    });
+      this[element] = this._modalEl.find(element);
+    }, this);
   }
 
   setFeature(feature) {

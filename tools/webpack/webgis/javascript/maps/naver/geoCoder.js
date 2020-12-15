@@ -31,12 +31,12 @@ function getAddressFromLatLng(latLng) {
 function getAddressHtmlElement(address) {
   return new Promise(resolve => {
     const htmlContent = [];
-    if (address['roadAddress'] !== '') {
+    if (address['roadAddress'] != null) {
       htmlContent.push(
         `도로명 주소: <a href="javascript:;" class="addr-clipboard">${address['roadAddress']}</a>`,
       );
     }
-    if (address['jibunAddress'] !== '') {
+    if (address['jibunAddress'] != null) {
       htmlContent.push(
         `지&nbsp;&nbsp;&nbsp;번 주소: <a href="javascript:;" class="addr-clipboard">${address['jibunAddress']}</a>`,
       );
