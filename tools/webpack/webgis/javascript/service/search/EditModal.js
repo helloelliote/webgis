@@ -5,24 +5,63 @@ import { getAddressFromLatLng } from '../../maps/kakao/geoCoder';
 
 export default class EditModal {
 
-  constructor(id, x, y, callback) {
+  constructor(table) {
     let that = this;
 
-    that._modalEl = $('#kt_service_edit_modal');
-    that._card = that._modalEl.find('.card');
-    that._cardOverlay = that._card.find('.overlay-layer');
-    that._modalForm = that._modalEl.find('#service_edit_form');
-    that._disabledForm = that._modalForm.find('.form-control[disabled]');
-    that._csrfToken = $('meta[name=\'csrf-token\']').attr('content');
+    this._modalEl = $('#kt_service_edit_modal');
+    this._card = this._modalEl.find('.card');
+    this._cardOverlay = this._card.find('.overlay-layer');
+    this._modalForm = this._modalEl.find('#service_edit_form');
+    this._disabledForm = this._modalForm.find('.form-control[disabled]');
+    this._csrfToken = $('meta[name=\'csrf-token\']').attr('content');
+
+    this._id = null;
+    this._x = null;
+    this._y = null;
 
     ['apm_tel', 'apy_cde', 'lep_cde', 'opr_nam', 'pip_dip', 'pro_cde'].forEach(code => {
       that[code] = that._modalForm.find(`.form-control[name="${code}"]`);
     });
 
-    function onSelectSuccess(res) {
-      that['apm_tel'].inputmask('99[9]-999[9]-9999');
+    this['apm_tel'].inputmask('99[9]-999[9]-9999');
 
+    this._modalEl.find('#kt_service_edit_submit').on('click', function () {
+      that.onFormSubmit(table.ajax);
+    });
+
+    this._modalEl.find('#kt_service_edit_cancel').on('click', function () {
+      that._modalEl.modal('hide');
+    });
+
+    this._modalEl.on('shown.bs.modal', function () {
+      new EditModalMap().start(that._x, that._y);
+    });
+
+    this._modalEl.on('hidden.bs.modal', function () {
+      that.showBlockOverlay(false);
+      that._disabledForm.attr('disabled', true);
+      ['lep_cde', 'pip_dip'].forEach(code => that[code].parent().removeAttr('hidden'));
+    });
+  }
+
+  showModal(data) {
+    let that = this;
+
+    that._id = data.pluck('번호')[0];
+    that._x = data.pluck('x')[0];
+    that._y = data.pluck('y')[0];
+
+    $.ajax({
+      url: `${window.location.origin}/service/search?api=editfor&id=${that._id}`,
+      headers: { 'CSRF-Token': that._csrfToken },
+      type: 'POST',
+      success: onSelectSuccess,
+      error: onError,
+    });
+
+    function onSelectSuccess(res) {
       const resultObj = res['rows'][0];
+
       for (const [key, value] of Object.entries(resultObj)) {
         that._modalForm.find(`.form-control[name="${key}"]`).val(value);
       }
@@ -31,75 +70,57 @@ export default class EditModal {
         that['opr_nam'].html(select).val(resultObj['opr_nam']).selectpicker('refresh');
       });
 
-      ['apy_cde', 'lep_cde', 'pip_dip', 'pro_cde'].forEach(code => {
+      ['apy_cde', 'lep_cde', 'pip_dip'].forEach(code => {
         if (resultObj[code] !== null) {
           that[code].selectpicker('val', resultObj[code]);
         } else {
           that[code].parent().attr('hidden', true);
         }
       });
+
+      that._modalEl.modal('show');
     }
 
     function onError(err) {
-      that.toggleBlockOverlay(false);
       $.notify({
         message: `[오류] ${err.responseText}`,
-      }, { type: 'danger', element: '#kt_service_edit_modal' });
+      }, { type: 'danger' });
     }
+  }
 
-    $.ajax({
-      url: `${window.location.origin}/service/search?api=editfor&id=${id}`,
+  onFormSubmit(tableAjax) {
+    let that = this;
+
+    that.showBlockOverlay(true);
+    that._disabledForm.removeAttr('disabled');
+
+    that._modalForm.ajaxSubmit({
+      url: `${window.location.origin}/service/search?api=editto`,
+      method: 'POST',
       headers: { 'CSRF-Token': that._csrfToken },
-      type: 'POST',
-      success: onSelectSuccess,
+      success: onUpdateSuccess,
       error: onError,
-    });
+    }, null, 'json', null);
 
-    function onUpdateSuccess(res) {
+    function onUpdateSuccess() {
       setTimeout(() => {
         that._modalEl.modal('hide');
         $.notify({
           message: '선택한 민원이 수정되었습니다',
         }, { type: 'success' });
-        callback();
+        tableAjax.reload();
       }, 2000);
     }
 
-    function onFormSubmit(event) {
-      event.preventDefault();
-      that.toggleBlockOverlay(true);
-      that._disabledForm.removeAttr('disabled');
-      that._modalForm.ajaxSubmit({
-        url: `${window.location.origin}/service/search?api=editto&id=${id}`,
-        method: 'POST',
-        headers: { 'CSRF-Token': that._csrfToken },
-        success: onUpdateSuccess,
-        error: onError,
-      },
-      null,
-      'json',
-      null,
-      );
+    function onError(err) {
+      that.showBlockOverlay(false);
+      $.notify({
+        message: `[오류] ${err.responseText}`,
+      }, { type: 'danger', element: '#service_edit_form' });
     }
-
-    that._modalEl.find('#kt_service_edit_submit').on('click', onFormSubmit);
-
-    that._modalEl.find('#kt_service_edit_cancel').on('click', () => that._modalEl.modal('hide'));
-
-    that._modalEl.on('shown.bs.modal', () => new EditModalMap().start(x, y));
-
-    that._modalEl.on('hidden.bs.modal', () => {
-      that.toggleBlockOverlay(false);
-      that._disabledForm.attr('disabled', true);
-      that._modalEl.modal('dispose');
-    });
   }
 
-  showModal() {
-    this._modalEl.modal('show');
-  }
-
-  toggleBlockOverlay(boolean) {
+  showBlockOverlay(boolean) {
     if (boolean) {
       this._card.addClass('overlay overlay-block');
       this._cardOverlay.css('display', 'flex');
@@ -133,14 +154,14 @@ class EditModalMap {
 
     const mapContainer = document.getElementById('search_map_modal');
 
-    that.map = new kakao.maps.Map(mapContainer, mapOptions);
+    this.map = new kakao.maps.Map(mapContainer, mapOptions);
 
     const mapTypeControl = new kakao.maps.MapTypeControl();
-    that.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
-    that.map.setMinLevel(1);
-    that.map.setMaxLevel(7);
+    this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+    this.map.setMinLevel(1);
+    this.map.setMaxLevel(7);
 
-    that.marker = new kakao.maps.Marker({
+    this.marker = new kakao.maps.Marker({
       map: that.map,
       position: that.map.getCenter(),
     });
@@ -154,6 +175,7 @@ class EditModalMap {
 
   start(x, y) {
     const defaultLatLng = new kakao.maps.LatLng(y, x);
+    this.map.setLevel(3);
     this.map.setCenter(defaultLatLng);
     this.marker.setPosition(defaultLatLng);
   }

@@ -29,6 +29,8 @@ const ServiceSearch = function () {
   let _mapHeight;
   let _theadHeight;
 
+  let _tableEditModal;
+
   $.fn.dataTable.Api.register('column().title()', function () {
     return $(this.header()).text().trim();
   });
@@ -209,7 +211,7 @@ const ServiceSearch = function () {
             }
           }
 
-          if (column.title() !== 'x' && column.title() !== 'y' && column.title() !== '민원상세') {
+          if (input) {
             $(input).appendTo($('<th>').appendTo(rowFilter));
           }
         });
@@ -257,6 +259,8 @@ const ServiceSearch = function () {
         className: 'row-selected',
         style: 'os',
         items: 'row',
+        toggleable: true,
+        regex: true,
       },
       serverSide: false,
     });
@@ -276,14 +280,18 @@ const ServiceSearch = function () {
     ]);
   }
 
+  function _initTableContextMenuModal() {
+    _tableEditModal = new EditModal(_table);
+  }
+
   function _initTableContextMenu() {
     _tableEl.contextMenu({
       selector: 'tbody > tr[role="row"]',
       build: ($trigger, e) => {
-        const sData = _table.rows({ selected: true }).data();
-        const isSelected = sData.length > 0;
-        const isFinished = sData.pluck('진행').toArray().includes('처리완료');
-        const ids = sData.pluck('번호').toArray();
+        let sData = _table.rows({ selected: true }).data();
+        let isSelected = sData.length > 0;
+        let isFinished = sData.pluck('진행').toArray().includes('처리완료');
+        let ids = sData.pluck('번호').toArray();
         return {
           callback: (key, options) => {
           },
@@ -337,13 +345,7 @@ const ServiceSearch = function () {
               icon: 'fas fa-pen-alt text-warning',
               disabled: sData.length !== 1 || isFinished,
               callback: (itemKey, opt, e) => {
-                // TODO: ~~view.getZoom();
-                new EditModal(
-                  ids,
-                  sData.pluck('x')[0],
-                  sData.pluck('y')[0],
-                  _onClickTableRefresh,
-                ).showModal();
+                _tableEditModal.showModal(sData);
               },
             },
             'delete': {
@@ -428,12 +430,9 @@ const ServiceSearch = function () {
 
   function _onTransitionEnd(event) {
     event.preventDefault();
-    setTimeout(() => {
-      if (_searchResultSet.size > 0) {
-        setMapMarkerSet(_searchResultSet);
-      }
-      _tableSearchResetButton.removeClass('disabled');
-    }, 250);
+    // Since kakao map zoom level change invokes transition events,
+    // calling #setMapMarkerSet() here would prevent user from making further zoom level changes
+    _tableSearchResetButton.removeClass('disabled');
   }
 
   function _onClickTableSearch(event) {
@@ -447,11 +446,12 @@ const ServiceSearch = function () {
       if (params[i]) {
         params[i] += '|' + $(this).val();
       } else {
-        params[i] = $(this).val();
+        let pattern = ($(this).val() + '').split(/\s|,/g).join('|');
+        params[i] = `(${pattern})`;
       }
     });
     $.each(params, (i, val) => {
-      _table.column(i).search(val ? val : '', false, false);
+      _table.column(i).search(val ? val : '', true, true, true);
     });
     _table.table().draw();
 
@@ -482,7 +482,7 @@ const ServiceSearch = function () {
     _dateRangeFilter.exResetAllFilters(_table, true);
     let input = _tableEl.find('.datatable-input');
     input.each(function () {
-      $(this).val('');
+      $(this).val('').selectpicker('refresh');
       _table.column($(this).data('col-index')).search('', false, false);
     });
     _table.table().draw();
@@ -534,6 +534,7 @@ const ServiceSearch = function () {
       _init();
       _initTable();
       _initDateRangeFilter();
+      _initTableContextMenuModal();
       _initTableContextMenu();
 
       _table.on('select', _onSelectTable);

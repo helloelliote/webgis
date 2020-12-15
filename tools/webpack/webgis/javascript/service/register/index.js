@@ -42,6 +42,14 @@ const ServiceRegister = function () {
       },
     ).on('plugins.message.displayed', function (event) {
       event.messageElement.style.display = 'none';
+    }).on('core.field.valid', function (field) {
+      if (field === 'apy_cde') {
+        _form_apl_cde.parent().removeClass('is-invalid').addClass('is-valid');
+      }
+    }).on('core.field.invalid', function (field) {
+      if (field === 'apy_cde') {
+        _form_apl_cde.parent().removeClass('is-valid').addClass('is-invalid');
+      }
     });
 
     _form_rcv_ymd.on('change.datetimepicker', function () {
@@ -107,6 +115,8 @@ const ServiceRegister = function () {
     $(_form).on('reset', function () {
       // On form reset, remove all validation status as well
       validation.resetForm();
+      // Remove all validation status on boostrap-select dropdown
+      _resetSelectpicker();
       // Save the id and re-fill it after the form resets
       let _id = _form_rcv_num.val();
       setTimeout(() => {
@@ -132,6 +142,7 @@ const ServiceRegister = function () {
             success: function (response, status, xhr, $form) {
               setTimeout(function () {
                 _form.resetForm();
+                _resetSelectpicker();
                 _toggleBlockOverlay(isPending = false);
                 $.notify({
                   message: '민원이 등록되었습니다',
@@ -168,6 +179,14 @@ const ServiceRegister = function () {
       _card.removeClass('overlay overlay-block');
       _overlay.css('display', 'none');
     }
+  };
+
+  const _resetSelectpicker = function () {
+    [_form_apl_cde, _form_lep_cde, _form_pip_dip, _form_opr_nam].forEach(element => {
+      element.val('default').selectpicker('refresh');
+    });
+    // For bootstrap-select, "is-(in)valid" class must be added/removed manually to update validation status
+    _form_apl_cde.parent().removeClass('is-valid is-invalid');
   };
 
   // Public functions

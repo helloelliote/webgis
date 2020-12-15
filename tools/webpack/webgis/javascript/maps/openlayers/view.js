@@ -40,7 +40,7 @@ function onChangeCenter() {
 
 function onMoveEnd(event) {
   event.preventDefault();
-  let newZoom = Math.floor(view.getZoom());
+  let newZoom = ~~view.getZoom();
   if (newZoom !== currentZoom) {
     if (newZoom <= max) {
       // noinspection FallThroughInSwitchStatementJS
