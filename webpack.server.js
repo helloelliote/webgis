@@ -29,7 +29,6 @@ module.exports = {
     publicPath: './public',
   },
   optimization: {
-    minimize: true,
     minimizer: [
       new TerserJSPlugin({
         terserOptions: {
