@@ -14,7 +14,6 @@ const ServiceSearch = function () {
   let _tableSearchButton;
   let _tableSearchButtonLabel;
   let _tableSearchResetButton;
-  let _tableRefreshButton;
   let _searchResultSet;
   let _isFilter = false;
   let _dateRangeFilter = yadcf;
@@ -60,7 +59,7 @@ const ServiceSearch = function () {
 
     _defaultMapHeight = document.querySelector('#search_map').offsetHeight;
     _expandMapHeight = document.querySelector('#container-search').offsetHeight -
-      (document.querySelector('#kt_datatable thead').offsetHeight + 55);
+      (document.querySelector('#kt_datatable thead').offsetHeight + 50);
   };
 
   const _initTable = function () {
@@ -81,7 +80,7 @@ const ServiceSearch = function () {
           exportOptions: {
             columns: [
               function (idx, data, node) {
-                return idx > 1 && idx < 11;
+                return idx > 0 && idx < 11;
               },
             ],
           },
@@ -91,7 +90,7 @@ const ServiceSearch = function () {
           exportOptions: {
             columns: [
               function (idx, data, node) {
-                return idx > 1 && idx < 13;
+                return idx > 0 && idx < 12;
               },
             ],
           },
@@ -99,28 +98,43 @@ const ServiceSearch = function () {
       ],
       columnDefs: [
         {
-          targets: -1,
+          targets: 0,
+          className: 'select-checkbox',
+          data: null,
+          defaultContent: '',
           orderable: false,
-          className: 'dtr-control',
-          width: 1,
+          width: '10px',
         },
         {
-          targets: [0, 1],
-          orderable: false,
-          visible: false,
-          searchable: false,
-        },
-        {
-          targets: 2,
+          targets: 1,
           render: function (data, type, full, meta) {
             let dataString = data.toString();
             return `${dataString.substring(0, 4)}–${dataString.substring(4)}`;
           },
         },
+        {
+          targets: 9,
+          render: function (data, type, full, meta) {
+            // noinspection NonAsciiCharacters
+            const status = {
+              '신청접수': { text: 'text-dark' },
+              '처리완료': { text: 'text-blue' },
+            };
+            if (typeof status[data] === 'undefined') {
+              return data;
+            }
+            return `<span class="${status[data].text}">${data}</span>`;
+          },
+        },
+        {
+          targets: -1,
+          orderable: false,
+          className: 'dtr-control',
+          width: 1,
+        },
       ],
       columns: [
-        { data: 'x' },
-        { data: 'y' },
+        { data: 'chk' },
         { data: '번호' },
         { data: '접수자' },
         { data: '일자' },
@@ -132,17 +146,17 @@ const ServiceSearch = function () {
         { data: '진행' },
         { data: '대행' },
         { data: '상세' },
-        { data: 'Button1' },
+        { data: 'btn' },
       ],
-      createdRow: function (row, data, dataIndex) {
-        if (data['진행'] === '처리완료') {
-          $(row).addClass('tr-color');
-        }
-      },
+      // createdRow: function (row, data, dataIndex) {
+      //   if (data['진행'] === '처리완료') {
+      //     $(row).addClass('tr-color');
+      //   }
+      // },
       deferRender: true,
       // read more: https://datatables.net/examples/basic_init/dom.html
       dom: `<'row'<tr>><'row'<'col-sm-12 col-md-3'ri><'col-sm-12 col-md-9 dataTables_pager'lp>>`,
-      initComplete: function () {
+      initComplete: function (settings, json) {
         let thisTable = this;
         let rowFilter = $('<tr class="filter"></tr>').appendTo($(_table.table().header()));
 
@@ -162,7 +176,7 @@ const ServiceSearch = function () {
             }
 
             case '일자': {
-              input = $(`<div id="kt_datatable_daterange" class="m-0 p-0"></div>`);
+              input = $(`<div id="kt_datatable_daterange"></div>`);
               break;
             }
 
@@ -210,7 +224,7 @@ const ServiceSearch = function () {
             }
           }
 
-          if (input) {
+          if (column.title() !== '' || column.title() !== '대행업체' || column.title() !== '민원상세') {
             $(input).appendTo($('<th>').appendTo(rowFilter));
           }
         });
@@ -233,6 +247,17 @@ const ServiceSearch = function () {
         // recheck on window resize
         window.onresize = hideSearchColumnResponsive;
       },
+      headerCallback: function (thead, data, start, end, display) {
+        const theadSelect = $(thead.getElementsByTagName('th')[0]).html('<input type="checkbox">');
+        theadSelect.children().on('click', function () {
+          if ($(this).is(':checked')) {
+            _table.rows({ search: 'applied' }).select();
+          } else {
+            _table.rows({ search: 'applied' }).deselect();
+          }
+        });
+        thead.getElementsByTagName('th')[3].id = 'daterange';
+      },
       language: {
         url: '/assets/media/json/datatables-net-i18n.json',
         select: {
@@ -244,7 +269,7 @@ const ServiceSearch = function () {
         },
       },
       lengthMenu: [5, 10, 25, 50],
-      order: [[10, 'asc'], [2, 'desc']],
+      order: [[9, 'asc'], [1, 'desc']],
       pageLength: 10,
       pagingType: 'full_numbers',
       processing: true,
@@ -255,20 +280,22 @@ const ServiceSearch = function () {
         },
       },
       select: {
-        className: 'row-selected',
-        style: 'os',
-        items: 'row',
-        toggleable: true,
-        regex: true,
+        style: 'multi',
+        selector: 'td:first-child',
       },
       serverSide: false,
     });
   };
 
-  function _initDateRangeFilter() {
+  /**
+   * Lazy initialize yadcf date range filter, finding filter_container_id properly
+   * @private
+   */
+  function _onTableInitComplete() {
     _dateRangeFilter.init(_table, [
       {
-        column_number: 4,
+        column_number: 3,
+        datepicker_type: 'jquery-ui',
         filter_container_id: 'kt_datatable_daterange',
         filter_type: 'range_date',
         date_format: 'mm/dd/yyyy',
@@ -332,7 +359,7 @@ const ServiceSearch = function () {
                           $.notify({
                             message: '선택한 민원이 처리완료되었습니다',
                           }, { type: 'success' });
-                          _onClickTableRefresh();
+                          _table.ajax.reload();
                         },
                       });
                     }
@@ -364,34 +391,11 @@ const ServiceSearch = function () {
                           $.notify({
                             message: '선택한 민원이 삭제되었습니다',
                           }, { type: 'success' });
-                          _onClickTableRefresh();
+                          _table.ajax.reload();
                         },
                       });
                     }
                   });
-              },
-            },
-            'sep2': '---------',
-            'export': {
-              name: () => {
-                if (isSelected) {
-                  return '내보내기 (선택)';
-                } else {
-                  return _isFilter ? '내보내기 (검색)' : '내보내기 (전체)';
-                }
-              },
-              icon: 'fas fa-share text-info',
-              items: {
-                'print': {
-                  name: '인쇄',
-                  icon: 'fas fa-print',
-                  callback: () => _table.button(0).trigger(),
-                },
-                'excelHtml5': {
-                  name: 'Excel',
-                  icon: 'far fa-file-excel text-success',
-                  callback: () => _table.button(1).trigger(),
-                },
               },
             },
           },
@@ -497,10 +501,17 @@ const ServiceSearch = function () {
     }
   }
 
-  function _onClickTableRefresh(event) {
-    if (event) event.preventDefault();
-    _table.ajax.reload();
-  }
+  const _initTableExportButton = function () {
+    $('#kt_datatable_print').on('mousedown', function (e) {
+      e.preventDefault();
+      _table.button(0).trigger();
+    });
+
+    $('#kt_datatable_excel').on('mousedown', function (e) {
+      e.preventDefault();
+      _table.button(1).trigger();
+    });
+  };
 
   function _onErrorDt(e, settings, techNote, message) {
     console.warn(`[오류] ${message}`);
@@ -517,21 +528,20 @@ const ServiceSearch = function () {
       _tableSearchButton = _tableControl.find('#kt_datatable_search');
       _tableSearchButtonLabel = _tableSearchButton.find('.label');
       _tableSearchResetButton = _tableControl.find('#kt_datatable_clear');
-      _tableRefreshButton = _tableControl.find('#kt_datatable_refresh');
       _mapToggle = _tableControl.find('#kt_datatable_map');
       _mapWrapper = $('#search_map_wrapper');
       _map = _mapWrapper.find('#search_map');
 
       _init();
       _initTable();
-      _initDateRangeFilter();
       _initTableContextMenuModal();
       _initTableContextMenu();
+      _initTableExportButton();
 
+      _table.on('init.dt', _onTableInitComplete);
       _table.on('select', _onSelectTable);
       _tableSearchButton.on('mousedown', _onClickTableSearch);
       _tableSearchResetButton.on('mousedown', _onClickTableSearchReset);
-      _tableRefreshButton.on('mousedown', _onClickTableRefresh);
       _mapToggle.on('mousedown', _onClickMapToggle);
       _map.on('transitionstart', _onTransitionStart);
       _map.on('transitionend', _onTransitionEnd);

@@ -218,7 +218,8 @@ function formatSearchSelect(response) {
     let pos = record['누수'] ? record['누수'] + ' ' : '';
     let dip = record['관경'] ? record['관경'] + ' ' + 'mm' + ' ' : '';
     record['상세'] = dip + pos + record['상세'];
-    record['Button1'] = null;
+    record['chk'] = null;
+    record['btn'] = null;
   });
   return records;
 }
