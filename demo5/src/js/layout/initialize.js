@@ -36,10 +36,10 @@ KTUtil.ready(function() {
     KTLayoutScrolltop.init('kt_scrolltop');
 
     // Init Sticky Card
-    KTLayoutStickyCard.init('kt_page_sticky_card');
+    // KTLayoutStickyCard.init('kt_page_sticky_card');
 
     // Init Stretched Card
-    KTLayoutStretchedCard.init('kt_page_stretched_card');
+    // KTLayoutStretchedCard.init('kt_page_stretched_card');
 
     // Init Code Highlighter & Preview Blocks(used to demonstrate the theme features)
 	// KTLayoutExamples.init();
@@ -48,19 +48,19 @@ KTUtil.ready(function() {
 	// KTLayoutDemoPanel.init('kt_demo_panel');
 
     // Init Chat App(quick modal chat)
-    KTLayoutChat.init();
+    // KTLayoutChat.init();
 
     // Init Quick Actions Offcanvas Panel
-    KTLayoutQuickActions.init('kt_quick_actions');
+    // KTLayoutQuickActions.init('kt_quick_actions');
 
     // Init Quick Notifications Offcanvas Panel
-    KTLayoutQuickNotifications.init('kt_quick_notifications');
+    // KTLayoutQuickNotifications.init('kt_quick_notifications');
 
     // Init Quick Offcanvas Panel
-    KTLayoutQuickPanel.init('kt_quick_panel');
+    // KTLayoutQuickPanel.init('kt_quick_panel');
 
     // Init Quick User Panel
-    KTLayoutQuickUser.init('kt_quick_user');
+    // KTLayoutQuickUser.init('kt_quick_user');
 
     // Init Search Inline Dropdown For Desktop Mode
     KTLayoutSearchInline().init('kt_quick_search_inline');

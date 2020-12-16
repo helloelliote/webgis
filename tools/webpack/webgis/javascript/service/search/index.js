@@ -34,8 +34,6 @@ const ServiceSearch = function () {
   });
 
   const _init = function () {
-    moment.locale('ko');
-
     _tableButtonOptions = {
       pageSize: 'A4',
       orientation: 'landscape',

@@ -9,8 +9,6 @@ const ServiceSchedule = function () {
   let _tableButtonOpts;
 
   const _init = function () {
-    moment.locale('ko');
-
     _tableButtonOpts = {
       pageSize: 'A4',
       orientation: 'landscape',
@@ -117,7 +115,7 @@ const ServiceSchedule = function () {
 
     //main function to initiate the module
     init: function () {
-      const _modal = $('#exampleModal');
+      const _modal = $('#serv_sche_modal');
       _modalTitle = _modal.find('.modal-title');
       _tableMemo = _modal.find('#kt_datatable_schedule_ext');
 

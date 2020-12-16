@@ -6,8 +6,6 @@ const ServicePresManage = function () {
   let _tableButtonOpts;
 
   const _init = function () {
-    moment.locale('ko');
-
     _tableButtonOpts = {
       pageSize: 'A4',
       orientation: 'landscape',
@@ -70,7 +68,7 @@ const ServicePresManage = function () {
 
     //main function to initiate the module
     init: function () {
-      const _modal = $('#exampleModal2');
+      const _modal = $('#serv_pres_modal');
 
       _modal.on('shown.bs.modal', () => {
         _init();

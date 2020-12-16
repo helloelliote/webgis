@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////
 
 // Jquery - jQuery is a popular and feature-rich JavaScript library. Learn more: https://jquery.com/
-window.jQuery = window.$ = require('jquery');
+// window.jQuery = window.$ = require('jquery');
 
 // Bootstrap - The most popular framework that Metronic uses as the foundation. Learn more: http://getbootstrap.com
 require('bootstrap');
@@ -65,31 +65,31 @@ require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.ko.min.js');
 require('@/src/js/vendors/plugins/bootstrap-datepicker.init.js');
 
 // Bootstrap Timepicker - Easily select a time for a text input using your mouse or keyboards arrow keys: https://jdewit.github.io/bootstrap-timepicker/
-require('bootstrap-timepicker/js/bootstrap-timepicker.js');
-require('@/src/js/vendors/plugins/bootstrap-timepicker.init.js');
+// require('bootstrap-timepicker/js/bootstrap-timepicker.js');
+// require('@/src/js/vendors/plugins/bootstrap-timepicker.init.js');
 
 // Date Range Picker - A JavaScript component for choosing date ranges, dates and times: https://www.daterangepicker.com/
-require('bootstrap-daterangepicker/daterangepicker.js');
+// require('bootstrap-daterangepicker/daterangepicker.js');
 
 // Bootstrap Touchspin - A mobile and touch friendly input spinner component for Bootstrap 3: https://www.virtuosoft.eu/code/bootstrap-touchspin/
 // require('bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js');
 
 // Bootstrap Maxlength - This plugin integrates by default with Twitter bootstrap using badges to display the maximum length of the field where the user is inserting text: https://github.com/mimo84/bootstrap-maxlength
 require('bootstrap-maxlength/src/bootstrap-maxlength.js');
-require('@/src/plugins/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js');
+// require('@/src/plugins/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js');
 
 // Bootstrap Select - The jQuery plugin that brings select elements into the 21st century with intuitive multiselection, searching, and much more: https://developer.snapappointments.com/bootstrap-select/
 require('bootstrap-select/dist/js/bootstrap-select.js');
 
 // Bootstrap Switch - Bootstrap switch/toggle is a simple component used for activating one of two predefined options: https://mdbootstrap.com/docs/jquery/forms/switch/
-require('bootstrap-switch/dist/js/bootstrap-switch.js');
-require('@/src/js/vendors/plugins/bootstrap-switch.init.js');
+// require('bootstrap-switch/dist/js/bootstrap-switch.js');
+// require('@/src/js/vendors/plugins/bootstrap-switch.init.js');
 
 // Select2 - Select2 is a jQuery based replacement for select boxes: https://select2.org/
-require('select2/dist/js/select2.full.js');
+// require('select2/dist/js/select2.full.js');
 
 // Ion Rangeslider - Is an easy, flexible and responsive range slider with tons of options: http://ionden.com/a/plugins/ion.rangeSlider/
-require('ion-rangeslider/js/ion.rangeSlider.js');
+// require('ion-rangeslider/js/ion.rangeSlider.js');
 
 // Typeahead.js - a flexible JavaScript library that provides a strong foundation for building robust typeaheads: https://twitter.github.io/typeahead.js/
 // window.Bloodhound = require('typeahead.js/dist/typeahead.bundle.js');
