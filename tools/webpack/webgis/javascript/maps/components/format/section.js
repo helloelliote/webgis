@@ -28,8 +28,6 @@ function formatSectionSelect(response) {
       itemEl.querySelector('a').id = item[TABLE] + ':' + item[COLUMN] + ':' + item[SECTION];
       itemEl.querySelector('a').innerHTML = item[SECTION];
       resultEl.appendChild(itemEl);
-      // const separatorEl = _separatorEl.cloneNode(true);
-      // resultEl.appendChild(separatorEl);
     });
     resolve(resultEl.outerHTML);
   });

@@ -20,8 +20,8 @@ export default class EditModal {
     this._y = null;
 
     ['apm_tel', 'apy_cde', 'lep_cde', 'opr_nam', 'pip_dip', 'pro_cde'].forEach(code => {
-      that[code] = that._modalForm.find(`.form-control[name="${code}"]`);
-    });
+      this[code] = this._modalForm.find(`.form-control[name="${code}"]`);
+    }, this);
 
     this['apm_tel'].inputmask('99[9]-999[9]-9999');
 
@@ -40,7 +40,9 @@ export default class EditModal {
     this._modalEl.on('hidden.bs.modal', function () {
       that.showBlockOverlay(false);
       that._disabledForm.attr('disabled', true);
-      ['lep_cde', 'pip_dip'].forEach(code => that[code].parent().removeAttr('hidden'));
+      ['lep_cde', 'pip_dip'].forEach(code => {
+        that[code].parent().removeAttr('hidden');
+      });
     });
   }
 
@@ -71,7 +73,7 @@ export default class EditModal {
       });
 
       ['apy_cde', 'lep_cde', 'pip_dip'].forEach(code => {
-        if (resultObj[code] !== null) {
+        if (resultObj[code] != null) {
           that[code].selectpicker('val', resultObj[code]);
         } else {
           that[code].parent().attr('hidden', true);

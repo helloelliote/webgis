@@ -58,16 +58,14 @@ document.getElementById('kt_quick_search_inline')
 function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
-  if (targetEl) {
-    if (targetEl.className.includes('quick-search-result-address')) {
-      const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
-      const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
-      map.setCenter(latLng);
-      map.setLevel(2, { animate: true });
-      addressMarker.setPosition(latLng);
-      addressMarker.setTitle(targetEl.innerHTML);
-      addressMarker.setMap(map);
-    }
+  if (targetEl?.className.includes('quick-search-result-address')) {
+    const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+    const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
+    map.setCenter(latLng);
+    map.setLevel(2, { animate: true });
+    addressMarker.setPosition(latLng);
+    addressMarker.setTitle(targetEl.innerHTML);
+    addressMarker.setMap(map);
   }
 }
 
@@ -81,7 +79,7 @@ function setMapMarker(pointArray) {
 function setMapMarkerSet(coordinates) {
   dotSet.forEach(dot => dot.setMap(null));
   dotSet.clear();
-  if (coordinates !== null) {
+  if (coordinates != null) {
     let dotBounds = new kakao.maps.LatLngBounds();
     coordinates.forEach(coordinate => {
       let latLng = new kakao.maps.LatLng(coordinate[1], coordinate[0]);
@@ -133,12 +131,12 @@ function onClickRoadviewButton(event) {
 
   if (isActive) {
     kakao.maps.event.addListener(map, 'click', onSingleClick);
-    if (roadViewWalker.getMap() === null) {
+    if (!roadViewWalker.getMap()) {
       roadViewWalker.setMap(map);
     }
     map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
     roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
-      if (panoId !== null) {
+      if (panoId) {
         roadViewWalker.setPosition(map.getCenter());
         roadView.setPanoId(panoId, map.getCenter());
       } else {
@@ -157,7 +155,7 @@ function onClickRoadviewButton(event) {
 function onSingleClick(event) {
   let latLng = event.latLng;
   roadViewClient.getNearestPanoId(latLng, 10, function (panoId) {
-    if (panoId !== null) {
+    if (panoId) {
       roadView.setPanoId(panoId, latLng);
     }
   });

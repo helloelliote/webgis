@@ -77,11 +77,11 @@ function formatAddressSearch(results, status) {
     if (status === STATUS_OK) {
       for (const item of results) {
         let address, address_alt, building;
-        if (item['address_type'].match('REGION')) {
+        if (item['address_type'].match(/(REGION)/)) {
           address = item['address_name'];
           address_alt = '';
           building = '';
-        } else if (item['address_type'].match('ROAD')) {
+        } else if (item['address_type'].match(/(ROAD)/)) {
           address = item['address_name'];
           address_alt = item['address'] == null
             ? ''

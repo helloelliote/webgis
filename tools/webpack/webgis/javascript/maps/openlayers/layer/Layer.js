@@ -34,9 +34,8 @@ export default class Layer extends MapObject {
   getLayer(key) {
     if (this._layerMap.has(key)) {
       return this._layerMap.get(key);
-    } else {
-      throw new MapError();
     }
+    throw new MapError();
   }
 
   clearLayers() {
@@ -51,11 +50,9 @@ export default class Layer extends MapObject {
     keyArray.forEach(function (key) {
       if (this._layerMap.has(key)) {
         this._layerMap.delete(key);
-        // TODO: #removeClass from aside menu
       } else {
         let newLayer = layerCreatorFunction(key);
         this._layerMap.set(key, newLayer);
-        // TODO: #addClass from aside menu
       }
     }, this);
     this._updateLayerGroup();

@@ -250,7 +250,7 @@ const KTLayoutSearch = function () {
       // Prevent enter click
       _form.onkeypress = function (e) {
         let key = e.charCode || e.keyCode || 0;
-        if (key == 13) {
+        if (key === 13) {
           e.preventDefault();
         }
       };

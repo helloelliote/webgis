@@ -41,10 +41,10 @@ function onClickRoadviewButton(event) {
     rvLayer.setMap(map);
     olMap.removeInteraction(selectInteraction);
     olMap.on('singleclick', onSingleClick);
-    if (!rvPanorama) rvPanorama = new naver.maps.Panorama('map-roadview', {
-      position: map.getCenter(),
-    });
-    naver.maps.Event.addListener(rvPanorama, 'pano_changed', onPanoramaChanged);
+    if (!rvPanorama) {
+      rvPanorama = new naver.maps.Panorama('map-roadview', { position: map.getCenter() });
+      naver.maps.Event.addListener(rvPanorama, 'pano_changed', onPanoramaChanged);
+    }
     rvPanorama.setVisible(true);
   } else {
     rvLayer.setMap(null);

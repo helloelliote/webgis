@@ -41,7 +41,7 @@ export default class PhotoModal extends ModalOverlay {
     });
 
     function updateModal(result) {
-      if (result && result.length > 0) {
+      if (result?.length > 0) {
         that['.card-title h3'].html(feature.get(`${_layer}명`) ? feature.get(`${_layer}명`) : _layer);
         that.updateCarousel(result);
         return true;

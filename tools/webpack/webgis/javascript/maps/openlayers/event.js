@@ -42,7 +42,6 @@ function onClickQuickSearchInline(event) {
       const coordinate = targetEl.nextElementSibling.innerHTML;
       const feature = geoJson.readFeature(coordinate);
       const coords = getCenter(feature.getGeometry().getExtent());
-      // this.centerOn(extent, [1, 1], [centerX, centerY]);
       this.setCenter(coords);
       if (this.getZoom() < viewSyncOptions.zoom.base) {
         this.setZoom(viewSyncOptions.zoom.base + 1);

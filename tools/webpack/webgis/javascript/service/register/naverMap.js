@@ -100,15 +100,13 @@ function onNaverMapClick(event) {
 function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
-  if (targetEl) {
-    if (targetEl.className.includes('quick-search-result-facility')) {
-      $.notify({
-        message: '미지원',
-      }, { type: 'warning' });
-    } else if (targetEl.className.includes('quick-search-result-address')) {
-      const latLng = targetEl.nextElementSibling.innerHTML.split(',');
-      map.setCenter({ lat: latLng[1], lng: latLng[0] });
-    }
+  if (targetEl?.className.includes('quick-search-result-facility')) {
+    $.notify({
+      message: '미지원',
+    }, { type: 'warning' });
+  } else if (targetEl?.className.includes('quick-search-result-address')) {
+    const latLng = targetEl.nextElementSibling.innerHTML.split(',');
+    map.setCenter({ lat: latLng[1], lng: latLng[0] });
   }
 }
 

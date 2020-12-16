@@ -43,7 +43,7 @@ export default class HistoryModal extends ModalOverlay {
             {
               targets: 5,
               render: function (data, type, full, meta) {
-                return data === null ? `` : `<a href="javascript:;" class="label label-inline label-info">${data.length} 장</a>`;
+                return data == null ? `` : `<a href="javascript:;" class="label label-inline label-info">${data.length} 장</a>`;
               },
             },
           ],
@@ -69,11 +69,11 @@ export default class HistoryModal extends ModalOverlay {
           that.resetCarousel();
           let rowData = _tableEl.rows(indexes).data();
           let rowDataPhoto = rowData.pluck('_PHOTOS')[0];
-          if (rowDataPhoto !== null) {
+          if (rowDataPhoto != null) {
             that.updateCarousel(rowDataPhoto);
           }
           let rowDataDetails = rowData.pluck('유지보수내용')[0];
-          if (rowDataDetails !== null) {
+          if (rowDataDetails != null) {
             that['#kt_history_modal_details'].html(rowDataDetails);
             that['#kt_history_modal_details'].removeClass('text-muted');
           } else {
@@ -120,13 +120,13 @@ export default class HistoryModal extends ModalOverlay {
     });
 
     function formatResult(result) {
-      if (result && result.length > 0) {
+      if (result?.length > 0) {
         let photoMap = new Map();
         result.forEach(function (item) {
           let key = item['유지보수일련번호'];
           // Format photo records
           let photoKey = item['사진일련번호'];
-          if (photoKey !== null) {
+          if (photoKey != null) {
             let photoUrl = item['사진'];
             let photoName = item['사진명칭'];
             if (!photoMap.has(key)) {
@@ -162,12 +162,13 @@ export default class HistoryModal extends ModalOverlay {
     }
 
     function updateModal(result) {
-      if (result !== null) {
+      if (result != null) {
         that['.card-title h3'].html(`${_layer} (관리번호: ${_id}) 유지・보수 내역`);
         that['.carousel-item button'].html('유지보수내역을 선택하세요');
         that._table.init(result);
         return true;
-      } else return false;
+      }
+      return false;
     }
   }
 }

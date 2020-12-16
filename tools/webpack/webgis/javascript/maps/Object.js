@@ -8,7 +8,7 @@ export default class BaseObject {
 
     this._values = {};
 
-    if (options !== undefined) {
+    if (options != null) {
       for (const key in options) {
         this._values[key] = options[key];
       }

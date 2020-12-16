@@ -63,8 +63,8 @@ document.getElementById('kt_quick_search_inline')
 // });
 
 [...document.getElementsByClassName('ol-table-code-wtl')].forEach(element => {
-  element.addEventListener('click', onClickTableCode.bind(vectorLayer), false);
-});
+  element.addEventListener('click', onClickTableCode, false);
+}, vectorLayer);
 
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)
 window.addEventListener('load', onWindowLoad.bind(vectorLayer), false);
