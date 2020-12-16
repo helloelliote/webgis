@@ -107,7 +107,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "buildProduction": "webpack --mode=production",
+    "prod": "webpack --mode=production",
     "watch": "webpack --watch",
     "sync": "webpack --config ./webpack.sync.config.js",
     "localhost": "node --max-old-space-size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js --open",

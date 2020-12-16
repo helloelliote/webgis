@@ -64,9 +64,9 @@ function importDatatables() {
           'node_modules/datatables.net-buttons/js/buttons.html5.js',
           'node_modules/datatables.net-buttons/js/buttons.print.js',
           // 'node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js',
-          'node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
+          // 'node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
           // 'node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
-          'node_modules/datatables.net-keytable/js/dataTables.keyTable.min.js',
+          // 'node_modules/datatables.net-keytable/js/dataTables.keyTable.min.js',
           'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
           'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
           // 'node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
@@ -82,9 +82,9 @@ function importDatatables() {
           'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
           // 'node_modules/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
           // 'node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
-          'node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
+          // 'node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
           // 'node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
-          'node_modules/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
+          // 'node_modules/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
           'node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
           // 'node_modules/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
           // 'node_modules/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
@@ -174,8 +174,9 @@ function mainConfig() {
       hints: false,
     },
     optimization: {
+      minimize: true,
       // js and css minimizer
-      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin({})],
     },
     entry: getEntryFiles(),
     output: {
@@ -196,7 +197,7 @@ function mainConfig() {
         util: false,
       },
     },
-    devtool: 'source-map',
+    devtool: args.indexOf('prod') === 0 ? false : 'source-map',
     plugins: [
       new WebpackMessages({
         name: theme,
@@ -217,6 +218,8 @@ function mainConfig() {
           webpackCopy.media,
         ],
       }),
+      // load only 'moment/locale/ko.js'
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
     ].concat(extraPlugins),
     cache: {
       type: 'filesystem',
@@ -337,7 +340,8 @@ function mainConfig() {
 
 function getParameters() {
   // remove first 2 unused elements from array
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(2);
+  // NOTE (helloelliote) It's actually '4' if run with IntelliJ IDEA
+  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(4);
   argv = argv.map((arg) => {
     return arg.replace(/--/i, '');
   });

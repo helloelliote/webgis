@@ -8,7 +8,8 @@ const args = getParameters();
 
 function getParameters() {
   // remove first 2 unused elements from array
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(2);
+  // NOTE (helloelliote) It's actually '4' if run with IntelliJ IDEA
+  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(4);
   argv = argv.map((arg) => {
     return arg.replace(/--/i, '');
   });
@@ -38,7 +39,7 @@ module.exports = {
       }),
     ],
   },
-  devtool: 'source-map',
+  devtool: args.indexOf('prod') === 0 ? false : 'source-map',
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
