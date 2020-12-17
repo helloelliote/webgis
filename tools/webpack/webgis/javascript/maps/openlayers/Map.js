@@ -66,6 +66,10 @@ document.getElementById('kt_quick_search_inline')
   element.addEventListener('click', onClickTableCode.bind(vectorLayer), false);
 });
 
+[...document.getElementsByClassName('ol-table-code-geo')].forEach(element => {
+  element.addEventListener('click', onClickTableCode.bind(tileLayer), false);
+});
+
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)
 window.addEventListener('load', onWindowLoad.bind(vectorLayer), false);
 

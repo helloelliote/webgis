@@ -51,6 +51,25 @@ export default {
       'layer',
     ],
   },
+  viw_bml_badm_as: {
+    isTile: false,
+    maxZ: 15,
+    minZ: 6,
+    propertyName: [
+      'geom',
+      '행정동',
+      '법정동',
+    ],
+  },
+  viw_bml_hadm_as: {
+    isTile: false,
+    maxZ: 15,
+    minZ: 6,
+    propertyName: [
+      'geom',
+      '행정동',
+    ],
+  },
   viw_swl_aodp_as: {
     childColumn: '처리분구명',
     childElementId: 'kt-notification-section-m',

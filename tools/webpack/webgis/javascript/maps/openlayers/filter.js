@@ -5,6 +5,8 @@ const layerNameFilter = new Set([
   'n3a_b0010000',
   'n3p_f0020000',
   'swl_hmpipe_ls',
+  'viw_bml_badm_as',
+  'viw_bml_hadm_as',
   'viw_wtl_cap_ps',
   'viw_wtl_taper_ps',
   'viw_wtl_userlabel_ps',
