@@ -100,6 +100,8 @@ function onClickTableCode(event) {
   event.preventDefault();
   const targetEl = event.target;
   const elementId = targetEl.id;
+  // Do not allow toggle of ol-table-code-geo road/building tile layer & always show it
+  if (elementId === 'n3a_a0010000') return;
 
   if (this.hasLayer(elementId)) {
     targetEl.classList.add('fa-times-circle', 'text-danger');
@@ -119,9 +121,9 @@ function onWindowLoad(event) {
   let menuLabelEl = menuNavEl.querySelectorAll('span.menu-label > i.ol-table-code-wtl');
   menuLabelEl.forEach(element => {
     if (this.hasLayer(element.id)) {
-      element.classList.add('far', 'fa-check-circle', 'text-primary', 'icon-lg');
+      element.classList.add('fas', 'fa-check-circle', 'text-primary', 'icon-lg');
     } else {
-      element.classList.add('far', 'fa-times-circle', 'text-danger', 'icon-lg');
+      element.classList.add('fas', 'fa-times-circle', 'text-danger', 'icon-lg');
     }
   });
   let role = '상수'; // TODO: Add Role

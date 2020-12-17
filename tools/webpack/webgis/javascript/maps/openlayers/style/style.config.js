@@ -706,6 +706,38 @@ export default {
         width: 0,
       },
     },
+    'viw_bml_badm_as': {
+      fill: {
+        color: '#ffffff00',
+      },
+      stroke: {
+        color: '#ff5252',
+        dash: null,
+        width: 2,
+      },
+      text: {
+        color: '#ff5252',
+        font: '1.2rem 맑은 고딕',
+        stroke: '#fff',
+        width: 6,
+      },
+    },
+    'viw_bml_hadm_as': {
+      fill: {
+        color: '#ffffff00',
+      },
+      stroke: {
+        color: '#aa00ff',
+        dash: null,
+        width: 2,
+      },
+      text: {
+        color: '#aa00ff',
+        font: '1.4rem 맑은 고딕',
+        stroke: '#fff',
+        width: 6,
+      },
+    },
     'viw_swl_aodp_as': {
       fill: {
         color: '#ffffff00',
@@ -825,7 +857,7 @@ export default {
       stroke: {
         color: '#ff1744',
         dash: null,
-        width: 3,
+        width: 2,
       },
       text: {
         color: '#ff0000',
@@ -841,7 +873,7 @@ export default {
       stroke: {
         color: '#ff1744',
         dash: null,
-        width: 3,
+        width: 2,
       },
       text: {
         color: '#ff0000',
@@ -857,7 +889,7 @@ export default {
       stroke: {
         color: '#ff1744',
         dash: null,
-        width: 3,
+        width: 2,
       },
       text: {
         color: '#ff0000',
