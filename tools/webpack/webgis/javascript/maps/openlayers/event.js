@@ -39,7 +39,7 @@ function onClickQuickSearchInline(event) {
   let targetEl = event.target;
   if (targetEl) {
     if (targetEl.className.includes('quick-search-result-facility')) {
-      const coordinate = targetEl.nextElementSibling.innerHTML;
+      const coordinate = targetEl.nextElementSibling.textContent;
       const feature = geoJson.readFeature(coordinate);
       const coords = getCenter(feature.getGeometry().getExtent());
       this.setCenter(coords);
@@ -48,7 +48,7 @@ function onClickQuickSearchInline(event) {
       }
       selectInteraction.addFeature(feature);
     } else if (targetEl.className.includes('quick-search-result-address')) {
-      const latLng = targetEl.nextElementSibling.innerHTML.split(',');
+      const latLng = targetEl.nextElementSibling.textContent.split(',');
       const [lng, lat] = [latLng[0], latLng[1]];
       const coords = fromLonLat([lng, lat], projection);
       this.setCenter(coords);
@@ -59,7 +59,7 @@ function onClickQuickSearchInline(event) {
           placement: 'top',
           container: addressOverlay.getElement(),
           html: true,
-          content: targetEl.innerHTML,
+          content: targetEl.textContent,
         });
         addressOverlay.popover('show');
         $(addressOverlay.getElement()).find('.popover').addClass('popover-info');

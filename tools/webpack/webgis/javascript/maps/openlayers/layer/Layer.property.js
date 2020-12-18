@@ -2,7 +2,7 @@ export default {
   geo_line_as: {
     isTile: false,
     maxZ: 21,
-    minZ: 15,
+    minZ: 13,
     propertyName: [
       'geom',
     ],
@@ -371,7 +371,7 @@ export default {
   viw_wtl_userlabel_ps: {
     isTile: false,
     maxZ: 21,
-    minZ: 9,
+    minZ: 12,
     propertyName: [
       'geom',
       '방향각',

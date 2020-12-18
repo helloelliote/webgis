@@ -86,10 +86,10 @@ function onClickMapTypeButton(event) {
   mapTypeButton.classList.toggle('active', isMapTypeHybrid);
 
   if (isMapTypeHybrid) {
-    mapTypeButton.innerHTML = '위성 지도';
+    mapTypeButton.textContent = '위성 지도';
     map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
   } else {
-    mapTypeButton.innerHTML = '일반 지도';
+    mapTypeButton.textContent = '일반 지도';
     map.setMapTypeId(naver.maps.MapTypeId.NORMAL);
   }
 }
@@ -118,7 +118,7 @@ function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
   if (targetEl?.className.includes('quick-search-result-address')) {
-    const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+    const latLngArray = targetEl.nextElementSibling.textContent.split(',');
     const latLng = new naver.maps.LatLng(latLngArray[1], latLngArray[0]);
     map.setCenter(latLng);
     map.setZoom(19);

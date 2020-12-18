@@ -105,7 +105,7 @@ function onClickQuickSearchInline(event) {
       message: '미지원',
     }, { type: 'warning' });
   } else if (targetEl?.className.includes('quick-search-result-address')) {
-    const latLng = targetEl.nextElementSibling.innerHTML.split(',');
+    const latLng = targetEl.nextElementSibling.textContent.split(',');
     map.setCenter({ lat: latLng[1], lng: latLng[0] });
   }
 }

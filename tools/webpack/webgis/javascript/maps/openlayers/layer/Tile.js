@@ -1,6 +1,7 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 import Layer from './Layer';
+import property from './Layer.property';
 
 export default class WmsTile extends Layer {
 
@@ -16,8 +17,8 @@ export default class WmsTile extends Layer {
 function createTileLayer(key) {
   return new TileLayer({
     className: key,
-    maxZoom: 21,
-    minZoom: 15,
+    maxZoom: property[key].maxZ,
+    minZoom: property[key].minZ,
     source: createTileSource(key),
   });
 }

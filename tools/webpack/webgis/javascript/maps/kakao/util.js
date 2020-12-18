@@ -37,13 +37,13 @@ function onClickMapTypeButton(event) {
           message: '항공 지도를 보시려면 지도를 축소해주세요',
         }, { type: 'danger' });
       }
-      event.target.innerHTML = '위성 지도';
+      event.target.textContent = '위성 지도';
       event.target.classList.add('active');
       map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
       break;
     }
     case kakao.maps.MapTypeId.HYBRID: {
-      event.target.innerHTML = '일반 지도';
+      event.target.textContent = '일반 지도';
       event.target.classList.remove('active');
       map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
       break;

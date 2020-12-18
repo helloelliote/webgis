@@ -59,12 +59,12 @@ function onClickQuickSearchInline(event) {
   event.preventDefault();
   let targetEl = event.target;
   if (targetEl?.className.includes('quick-search-result-address')) {
-    const latLngArray = targetEl.nextElementSibling.innerHTML.split(',');
+    const latLngArray = targetEl.nextElementSibling.textContent.split(',');
     const latLng = new kakao.maps.LatLng(latLngArray[1], latLngArray[0]);
     map.setCenter(latLng);
     map.setLevel(2, { animate: true });
     addressMarker.setPosition(latLng);
-    addressMarker.setTitle(targetEl.innerHTML);
+    addressMarker.setTitle(targetEl.textContent);
     addressMarker.setMap(map);
   }
 }
