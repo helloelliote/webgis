@@ -20,7 +20,7 @@ const _itemEl = htmlToElement(`<div class="d-flex align-items-center flex-grow-1
 </div>`);
 
 const ROWS = 'rows';
-const CNAME = 'cname'; // TODO: Do not use original column names, use alias instead
+const CNAME = 'cname';
 const COORDINATE = 'coordinate';
 const FAC_NAM = 'fac_nam';
 const HJD_NAM = 'hjd_nam';

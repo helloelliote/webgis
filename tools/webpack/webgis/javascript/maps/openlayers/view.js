@@ -9,12 +9,7 @@ import { coordinateToLatLng } from '../kakao/util';
 
 const localStorage = new LocalStorage();
 
-const zoomOpt = viewSyncOptions.zoom;
-const base = zoomOpt.base;
-const max = zoomOpt.max;
-const coefficient = zoomOpt.coefficient;
-const delta = zoomOpt.delta;
-const decimal = zoomOpt.decimal;
+const { base, max, coefficient, decimal, delta } = viewSyncOptions.zoom;
 let currentZoom;
 
 const view = new View({
@@ -40,8 +35,8 @@ function onChangeCenter() {
 
 function onMoveEnd(event) {
   event.preventDefault();
-  let newZoom = ~~view.getZoom();
-  if (newZoom !== currentZoom) {
+  if (~~view.getZoom() !== currentZoom) {
+    let newZoom = ~~view.getZoom();
     if (newZoom <= max) {
       // noinspection FallThroughInSwitchStatementJS
       switch (newZoom) {
