@@ -27,7 +27,7 @@ const KTLayoutSearch = function () {
   let _toggleIndex = 0;
   let _toggleArray = [
     {
-      class: 'label-info', // TODO: https://developers.kakao.com/docs/latest/ko/local/dev-guide
+      class: 'label-info',
       url: `https://dapi.kakao.com/v2/local/search/keyword.json?rect=${window.webgis.rect}`, // Not Used
       headers: {
         'Authorization': 'KakaoAK 2b80b94ece8eb5cace6ef21359edac62', // Not Used
