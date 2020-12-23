@@ -21,11 +21,14 @@ export default class ModalOverlay {
     this._ajaxWorker = new Ajax(new AjaxWorker());
 
     this._featureMap = new Map();
+    this._imageBlobSet = new Set();
     this._interaction = null;
 
     let that = this;
     this._modalEl.on('hidden.bs.modal', function () {
+      that.resetCarousel();
       that._featureMap.clear();
+      that._imageBlobSet.forEach(blob => URL.revokeObjectURL(blob));
       if (that._interaction) that._interaction.getFeatures().clear();
     });
 
@@ -84,21 +87,22 @@ export default class ModalOverlay {
   updateCarousel(data) {
     for (let i = 0, len = data.length; i < len; i++) {
       const title = `사진${data[i]['사진일련번호']}:&nbsp;${data[i]['사진명칭']}`;
-      const image = data[i]['사진'];
+      const imageBlob = data[i]['사진'];
+      this._imageBlobSet.add(imageBlob);
       if (i === 0) {
-        this['.carousel-item img'].attr('src', image);
+        this['.carousel-item img'].attr('src', imageBlob);
         this['.carousel-item button'].html(title);
         this['.carousel-item button'].on('mousedown', () => {
-          window.open(image, 'Popup', 'location, resizable');
+          window.open(imageBlob, 'Popup', 'location, resizable');
         });
         this['.carousel-item'].addClass('active');
       } else {
         const _node = this['.carousel-item'].clone();
         _node.removeClass('active');
-        _node.find('img').attr('src', image);
+        _node.find('img').attr('src', imageBlob);
         _node.find('div > button').html(title);
         _node.find('div > button').on('mousedown', () => {
-          window.open(image, 'Popup', 'location, resizable');
+          window.open(imageBlob, 'Popup', 'location, resizable');
         });
         this['.carousel-inner'].append(_node);
       }
