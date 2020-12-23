@@ -8,6 +8,13 @@
     "test": "jest --coverage",
     "ncu(devDependencies)": "ncu --dep dev"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/helloelliote/webgis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/helloelliote/webgis/issues"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

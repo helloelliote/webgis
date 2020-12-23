@@ -1,5 +1,4 @@
 const layerNameFilter = new Set([
-  'ol-layer',
   'geo_line_as',
   'n3a_a0010000',
   'n3a_b0010000',

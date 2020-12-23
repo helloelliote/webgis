@@ -65,14 +65,14 @@ main() {
     echo
     echo "## List of all changes"
     echo
-    echo -e "$main_output"
+    echo "$main_output"
 
     if [ -n "$dependabot_output" ]; then
       echo
       echo "<details>"
       echo "  <summary>Dependency Updates</summary>"
       echo
-      echo -e "$dependabot_output"
+      echo "$dependabot_output"
       echo
       echo "</details>"
     fi

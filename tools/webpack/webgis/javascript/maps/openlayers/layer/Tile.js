@@ -16,7 +16,6 @@ export default class WmsTile extends Layer {
 
 function createTileLayer(key) {
   return new TileLayer({
-    className: key,
     maxZoom: property[key].maxZ,
     minZoom: property[key].minZ,
     source: createTileSource(key),

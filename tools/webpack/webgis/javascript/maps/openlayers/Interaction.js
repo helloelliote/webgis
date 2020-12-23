@@ -2,13 +2,13 @@ import Select from 'ol/interaction/Select';
 import Feature from 'ol/Feature';
 import VectorSource from 'ol/source/Vector';
 import GeometryType from 'ol/geom/GeometryType';
+import { singleClick } from 'ol/events/condition';
 import { createDefaultStyle } from 'ol/style/Style';
 import { defaults as defaultInteractions, MouseWheelZoom } from 'ol/interaction';
 import MapError from '../Error';
 import { FeatureOverlay } from './overlay';
 import { InfoModal } from './modal';
 import { createVectorStyle } from './layer';
-import { layerNameFilter } from './filter';
 import { selectLineStyle, selectPointStyle, selectPolygonStyle } from './style';
 
 export class SelectInteraction extends Select {
@@ -19,9 +19,10 @@ export class SelectInteraction extends Select {
     }
 
     super({
+      condition: singleClick,
       hitTolerance: 10,
       filter: function (feature, layer) {
-        return layer ? !layerNameFilter.has(layer.getClassName()) : false;
+        return layer ? layer.get('selectable') : false;
       },
       style: function (feature) {
         switch (feature.getGeometry().getType()) {
