@@ -8,7 +8,7 @@ import property from './Layer.property';
 import SourceLoader from '../worker/sourceLoader.worker';
 import { default as geoJson } from '../format';
 import { arrowheadStyle, closedPipeStyle, lineStyleMap, pointStyleMap, polygonStyleMap } from '../style';
-import { styleDirectionFilter, styleRotationFilter } from '../filter';
+import { layerNameFilter, styleDirectionFilter, styleRotationFilter } from '../filter';
 
 export default class Vector extends Layer {
 
@@ -22,13 +22,16 @@ export default class Vector extends Layer {
 }
 
 function createVectorLayer(key) {
-  return new VectorLayer({
-    className: key,
+  const vectorLayer = new VectorLayer({
     maxZoom: property[key].maxZ,
     minZoom: property[key].minZ,
     source: createVectorSource(key),
     style: createVectorStyle,
   });
+  if (!layerNameFilter.has(key)) {
+    vectorLayer.set('selectable', true, true);
+  }
+  return vectorLayer;
 }
 
 function createVectorSource(key) {
