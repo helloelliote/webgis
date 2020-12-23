@@ -91,8 +91,6 @@ export default class HistoryModal extends ModalOverlay {
         },
       };
     }();
-
-    this._modalEl.on('hidden.bs.modal', that.resetCarousel());
   }
 
   setFeatureAsync(feature) {

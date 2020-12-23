@@ -5,16 +5,12 @@ export default class PhotoModal extends ModalOverlay {
   constructor(element) {
     super(element);
 
-    let that = this;
-
     this.addElements([
       '.carousel-inner',
       '.carousel-item',
       '.carousel-item img',
       '.carousel-item button',
     ]);
-
-    this._modalEl.on('hidden.bs.modal', that.resetCarousel());
   }
 
   setFeatureAsync(feature) {
