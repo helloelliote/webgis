@@ -111,7 +111,7 @@ export default class HistoryModal extends ModalOverlay {
     return new Promise((resolve, reject) => {
       that._ajaxWorker.fetch('wtl/info/history', {
         table: 'viw_web_wutl_ht_img',
-        layer: that.getFeature('layerSub').replace('블럭', ''),
+        layer: that.getFeature('layerSub'),
         id: _id,
       }, 'image/jpg')
         .then(formatResult)

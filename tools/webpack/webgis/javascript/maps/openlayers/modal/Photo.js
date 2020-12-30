@@ -22,7 +22,7 @@ export default class PhotoModal extends ModalOverlay {
     return new Promise((resolve, reject) => {
       that._ajaxWorker.fetch('wtl/info/photo', {
         table: _layer === '보수공사' ? 'viw_swt_subimge_et' : 'viw_wtt_st_image',
-        layer: that.getFeature('layerSub').replace('블럭', ''),
+        layer: that.getFeature('layerSub'),
         id: _id,
       }, 'image/jpg')
         .then(updateModal)
