@@ -49,15 +49,23 @@ export default class HistoryModal extends ModalOverlay {
           ],
           data: result,
           deferRender: true,
+          dom: `<'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>`,
           language: {
-            url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Korean.json',
+            url: '/assets/media/json/datatables-net-i18n.json',
+            select: {
+              processing: '불러오는 중...',
+              rows: {
+                0: '내역을 선택하세요',
+                _: '',
+              },
+            },
           },
           lengthMenu: [5],
           ordering: false,
           pageLength: 5,
           processing: true,
           responsive: true,
-          retrieve: true,
+          destroy: true,
           searching: false,
           select: 'single',
           serverSide: false,
@@ -97,6 +105,7 @@ export default class HistoryModal extends ModalOverlay {
     super.setFeature(feature);
 
     let that = this;
+    that.resetCarousel();
     let _layer = that.getFeature('layer');
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {

@@ -29,6 +29,7 @@ export default class ModalOverlay {
       that.resetCarousel();
       that._featureMap.clear();
       that._imageBlobSet.forEach(blob => URL.revokeObjectURL(blob));
+      that._imageBlobSet.clear();
       if (that._interaction) that._interaction.getFeatures().clear();
     });
 
