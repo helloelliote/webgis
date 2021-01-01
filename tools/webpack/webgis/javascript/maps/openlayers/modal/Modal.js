@@ -18,6 +18,13 @@ export default class ModalOverlay {
       return (feature.get('레이어') || feature.get('layer') || feature.get('시설물구분') || '').trim();
     };
 
+    this._getLayerSub = function (feature) {
+      return (feature.get('시설물구분') || this._getLayer(feature))
+        .replace(/역지변|이토변|배기변|감압변|안전변/g, '제수변')
+        .replace('블럭', '')
+        .trim();
+    };
+
     this._ajaxWorker = new Ajax(new AjaxWorker());
 
     this._featureMap = new Map();
@@ -29,6 +36,7 @@ export default class ModalOverlay {
       that.resetCarousel();
       that._featureMap.clear();
       that._imageBlobSet.forEach(blob => URL.revokeObjectURL(blob));
+      that._imageBlobSet.clear();
       if (that._interaction) that._interaction.getFeatures().clear();
     });
 
@@ -44,7 +52,7 @@ export default class ModalOverlay {
   setFeature(feature) {
     this._featureMap.set('feature', feature);
     this._featureMap.set('layer', this._getLayer(feature));
-    this._featureMap.set('layerSub', feature.get('시설물구분') ? feature.get('시설물구분') : this._getLayer(feature));
+    this._featureMap.set('layerSub', this._getLayerSub(feature));
     this._featureMap.set('id', feature.get('관리번호') || feature.get('ftr_idn'));
     this._featureMap.set('table', feature.get('layer') || feature.getId().match(/[^.]+/)[0]);
     this._featureMap.set('isClosed', feature.get('폐관일자') !== null && feature.get('폐관일자') !== undefined);

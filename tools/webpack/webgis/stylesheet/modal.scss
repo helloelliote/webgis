@@ -48,17 +48,24 @@
 
 #kt_photo_modal {
 
-  .card-body {
-    padding: 1rem;
+  .modal-dialog {
+    max-width: 37.5vw;
+    max-height: 85vh;
 
-    .carousel-inner {
-      border-radius: 4px;
+    .card-body {
+      padding: 0.5rem;
 
-      .carousel-item {
-        max-height: 65vh;
+      .carousel-inner {
+        border-radius: 4px;
 
-        img {
-          width: 100%;
+        .carousel-item {
+          min-height: 35vh;
+
+          img {
+            display: flex;
+            margin-inline: auto;
+            max-height: 70vh;
+          }
         }
       }
     }
@@ -67,54 +74,65 @@
 
 #kt_history_modal {
 
-  .card-body {
-    .col-xl-6 {
-      display: flex;
-      flex-flow: column;
-    }
+  .modal-dialog {
+    max-height: 85vh;
 
-    .col-sm-12 {
-      display: flex;
-      flex-flow: column;
-    }
-
-    //padding: 0 1rem;
-
-    .dataTables_wrapper .dataTable {
-      margin: 0 0 0.5rem 0 !important;
-    }
-
-    .dataTables_length {
-      display: none;
-    }
-
-    .table {
-
-      th {
-        //white-space: nowrap;
-        font-weight: bolder;
-        padding: 0.5rem 0.5rem;
+    .card-body {
+      .col-xl-6 {
+        display: flex;
+        flex-flow: column;
       }
 
-      td {
-        //white-space: nowrap;
-        font-size: small;
-        padding: 0.5rem 0.25rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-wrap: break-word;
+      .col-sm-12 {
+        display: flex;
+        flex-flow: column;
       }
-    }
 
-    #kt_history_modal_details {
-      flex: auto;
-      white-space: pre-wrap;
-      justify-content: flex-start;
+      .dataTables_wrapper .dataTable {
+        margin: 0 0 0.5rem 0 !important;
+      }
 
-    }
+      .dataTables_length {
+        display: none;
+      }
 
-    .text-muted {
-      text-align: center;
+      .table {
+
+        th {
+          //white-space: nowrap;
+          font-weight: bolder;
+          padding: 0.5rem 0.5rem;
+        }
+
+        td {
+          //white-space: nowrap;
+          font-size: small;
+          padding: 0.5rem 0.25rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          word-wrap: break-word;
+        }
+      }
+
+      #kt_history_modal_details {
+        flex: auto;
+        white-space: pre-wrap;
+        justify-content: flex-start;
+      }
+
+      .text-muted {
+        text-align: center;
+      }
+
+      .carousel-item {
+        min-height: 50vh;
+
+        img {
+          display: flex;
+          margin-inline: auto;
+          max-height: 70vh;
+        }
+      }
     }
   }
 }
