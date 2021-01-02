@@ -1,29 +1,31 @@
-export default class Ajax {
+import FetchWorker from './fetch.worker';
 
-  constructor(module) {
-    this._instance = module;
-    this._queryParameter = new URLSearchParams();
+class FetchWorkerWrapper {
+
+  constructor() {
+    this._worker = new FetchWorker();
+    this._fetchUrl = '';
+    this._urlSearchParams = new URLSearchParams();
     this._mimeType = 'text/plain';
-    this._requestUrl = '';
     this._csrfToken = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute('content');
   }
 
-  fetch(url, query, opt_type) {
+  fetch(url, params, opt_type) {
     return this
-      .setQuery(query)
+      .setUrlSearchParams(params)
+      .setFetchUrl(url)
       .setContentType(opt_type)
-      .setRequestUrl(url)
-      .sendQuery(this._instance)
+      .setWorker(this._worker)
       .catch(err => $.notify({ message: `정보를 불러오지 못하였습니다<br>(${err})` }, { type: 'danger' }))
       .finally(() => this.clear());
   }
 
-  setQuery(object) {
+  setUrlSearchParams(object) {
     if (!object) return this;
     for (const [key, value] of Object.entries(object)) {
-      this._queryParameter.set(key, value);
+      this._urlSearchParams.set(key, value);
     }
     return this;
   }
@@ -34,23 +36,22 @@ export default class Ajax {
     return this;
   }
 
-  setRequestUrl(url) {
-    // this._requestUrl = encodeURI(`${window.location.origin}/api/${url}?${this._queryParameter}`);
-    this._requestUrl = `${window.location.origin}/api/${url}?${this._queryParameter}`;
+  setFetchUrl(url) {
+    this._fetchUrl = `${window.location.origin}/api/${url}?${this._urlSearchParams}`;
     return this;
   }
 
-  sendQuery(instance) {
-    const requestUrl = this._requestUrl;
+  setWorker(worker) {
+    const fetchUrl = this._fetchUrl;
     const csrfToken = this._csrfToken;
     const mimeType = this._mimeType;
     return new Promise(function (resolve, reject) {
-      instance.postMessage({
-        'URL': requestUrl,
+      worker.postMessage({
+        'URL': fetchUrl,
         'CSRF-Token': csrfToken,
         'Mime-Type': mimeType,
       });
-      instance.onmessage = function (message) {
+      worker.onmessage = function (message) {
         const result = message.data;
         if (!result || result instanceof Error) {
           reject(result);
@@ -58,15 +59,17 @@ export default class Ajax {
         }
         resolve(result.rowCount ? result.rows : result);
       };
-      instance.onerror = function (error) {
+      worker.onerror = function (error) {
         reject(error);
       };
     });
   }
 
   clear() {
-    for (let [key] of this._queryParameter.entries()) {
-      this._queryParameter.delete(key);
+    for (let [key] of this._urlSearchParams.entries()) {
+      this._urlSearchParams.delete(key);
     }
   }
 }
+
+export default new FetchWorkerWrapper();

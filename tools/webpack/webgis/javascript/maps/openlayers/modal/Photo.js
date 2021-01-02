@@ -1,4 +1,5 @@
 import { default as ModalOverlay } from './Modal';
+import { default as fetchWorker } from '../worker/fetch.wrapper';
 
 export default class PhotoModal extends ModalOverlay {
 
@@ -6,21 +7,38 @@ export default class PhotoModal extends ModalOverlay {
     super(element);
 
     this.addElements([
+      '.card-title h3',
       '.carousel-inner',
       '.carousel-item',
       '.carousel-item img',
       '.carousel-item button',
     ]);
+
+    this._imageBlobSet = new Set();
+
+    let that = this;
+
+    this._modalEl.on('hidden.bs.modal', function () {
+      that._featureMap.clear();
+      that._imageBlobSet.forEach(blob => URL.revokeObjectURL(blob));
+      that._imageBlobSet.clear();
+      that.resetCarousel();
+    });
+  }
+
+  setFeature(feature) {
+    super.setFeature(feature);
+    this._featureMap.set('layerSub', this._getLayerSub(feature));
   }
 
   setFeatureAsync(feature) {
-    super.setFeature(feature);
+    this.setFeature(feature);
 
     let that = this;
     let _layer = that.getFeature('layer');
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {
-      that._ajaxWorker.fetch('wtl/info/photo', {
+      fetchWorker.fetch('wtl/info/photo', {
         table: _layer === '보수공사' ? 'viw_swt_subimge_et' : 'viw_wtt_st_image',
         layer: that.getFeature('layerSub'),
         id: _id,

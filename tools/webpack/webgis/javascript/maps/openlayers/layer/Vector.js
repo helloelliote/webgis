@@ -1,12 +1,12 @@
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
 import GeometryType from 'ol/geom/GeometryType';
 import { Point } from 'ol/geom';
 import { createDefaultStyle } from 'ol/style/Style';
 import Layer from './Layer';
 import property from './Layer.property';
 import SourceLoader from '../worker/sourceLoader.worker';
-import { default as geoJson } from '../format';
+import { geoJson } from '../format';
 import { arrowheadStyle, closedPipeStyle, lineStyleMap, pointStyleMap, polygonStyleMap } from '../style';
 import { layerNameFilter, styleDirectionFilter, styleRotationFilter } from '../filter';
 

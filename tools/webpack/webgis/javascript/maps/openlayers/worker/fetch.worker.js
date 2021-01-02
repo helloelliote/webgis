@@ -1,12 +1,8 @@
 let messageData;
 
-self.onmessage = event => {
-  messageData = event.data;
-  onFetch();
-};
-
-function onFetch() {
-  return fetch(messageData['URL'],
+self.onmessage = message => {
+  messageData = message.data;
+  fetch(messageData['URL'],
     {
       mode: 'same-origin',
       headers: {
@@ -21,7 +17,7 @@ function onFetch() {
     .finally(() => {
       messageData = null;
     });
-}
+};
 
 function resolveResponse(response) {
   if (!response.ok) throw new Error(response.statusText);

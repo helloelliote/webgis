@@ -1,12 +1,12 @@
 import { getCenter } from 'ol/extent';
 import { fromLonLat } from 'ol/proj';
-import { default as geoJson } from './format';
+import { geoJson } from './format';
 import { default as projection } from './projection';
 // import { searchCoordinateToAddress } from '../naver/geoCoder';
 import { searchCoordinateToAddress } from '../kakao/geoCoder';
-import { viewSyncOptions } from '../kakao/Map';
+import { viewSyncOptions } from '../kakao/map';
 import { addressOverlay } from './overlay';
-import { selectInteraction } from './Map';
+import { selectInteraction } from './map';
 
 const mapContainer = document.getElementById('map-container');
 const centerX = Math.round(mapContainer.clientWidth / 2);

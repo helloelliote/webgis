@@ -1,14 +1,12 @@
 /* eslint-disable no-undef */
-import Projection from 'ol/proj/Projection';
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
-import { fromLonLat } from 'ol/proj';
-import { roundCustom } from '../math';
+import { Projection } from 'ol/proj';
 
 /**
  * @see https://epsg.io/{four_digit_code} for more EPSG projection definitions
  */
-class ProjectionFactory extends Projection {
+class CustomProjection extends Projection {
 
   constructor(opt_code) {
     const _defaultProjectionCode = opt_code ? opt_code : 'EPSG:5187';
@@ -26,18 +24,6 @@ class ProjectionFactory extends Projection {
       extent: _projectionExtent,
     });
   }
-
-  get code() {
-    return super.getCode();
-  }
 }
 
-const projection = new ProjectionFactory();
-
-function latLngToCoords(lat, lng) {
-  return fromLonLat([roundCustom(lng), roundCustom(lat)], projection.code);
-}
-
-export { latLngToCoords };
-
-export default projection;
+export default new CustomProjection();

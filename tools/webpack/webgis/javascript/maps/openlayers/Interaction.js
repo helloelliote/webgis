@@ -53,8 +53,8 @@ export class SelectInteraction extends Select {
 
     this._overlayFeature = new Feature();
 
-    this._modal = new InfoModal('kt_chat_modal');
-    this._modal.addInteraction(this);
+    this._infoModal = new InfoModal('#kt_chat_modal');
+    this._infoModal.addInteraction(this);
 
     this.on('select', this.onSelectEvent);
   }
@@ -67,7 +67,7 @@ export class SelectInteraction extends Select {
     switch (feature.getGeometry().getType()) {
       case GeometryType.LINE_STRING:
       case GeometryType.MULTI_LINE_STRING:
-        this._modal.setFeatureAsync(feature).then(modal => {
+        this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
         });
         break;
@@ -76,7 +76,7 @@ export class SelectInteraction extends Select {
         this._overlayFeature.setStyle(selectPointStyle);
         this._overlayFeature.setGeometry(feature.getGeometry());
         this._overlay.setOverlay(this._overlayFeature);
-        this._modal.setFeatureAsync(feature).then(modal => {
+        this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
         });
         break;

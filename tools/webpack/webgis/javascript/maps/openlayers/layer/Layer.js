@@ -1,11 +1,11 @@
 import { default as MapObject } from '../../Object';
 import MapError from '../../Error';
-import LayerGroup from 'ol/layer/Group';
+import { Group as LayerGroup } from 'ol/layer';
 import Collection from 'ol/Collection';
 
 export default class Layer extends MapObject {
 
-  constructor(options) {
+  constructor(options = {}) {
     super(options);
 
     this._layerMap = new Map();

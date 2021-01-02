@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-import { map as olMap, selectInteraction } from '../openlayers/Map';
+import { map as olMap, selectInteraction } from '../openlayers/map';
 import { default as projection } from '../openlayers/projection';
 import { view as olView } from '../openlayers/view';
-import { map, viewSyncOptions } from './Map';
-import { roadView, roadViewClient } from './roadview/Client';
-import { default as roadViewWalker } from './roadview/Walker';
+import { map, viewSyncOptions } from './map';
+import { roadView, roadViewClient } from './roadview/client';
+import { default as roadViewWalker } from './roadview/walker';
 import { fromLonLat } from 'ol/proj';
 import { coordinateToLatLng } from './util';
 import { roundCustom } from '../math';
@@ -84,7 +84,7 @@ function onClickRoadviewButton(event) {
 
 function onSingleClick(event) {
   event.preventDefault();
-  coordinateToLatLng(event.coordinate, projection.code).then(function (rvPosition) {
+  coordinateToLatLng(event.coordinate, projection.getCode()).then(function (rvPosition) {
     roadViewClient.getNearestPanoId(rvPosition, 10, function (panoId) {
       if (panoId) {
         roadView.setPanoId(panoId, rvPosition);
