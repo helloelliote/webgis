@@ -1,14 +1,13 @@
 import { default as ModalOverlay } from './Modal';
-import moment from 'moment';
+import { default as fetchWorker } from '../worker/fetch.wrapper';
 
 export default class HistoryModal extends ModalOverlay {
 
   constructor(element) {
     super(element);
 
-    let that = this;
-
     this.addElements([
+      '.card-title h3',
       '.carousel-inner',
       '.carousel-item',
       '.carousel-item img',
@@ -16,6 +15,10 @@ export default class HistoryModal extends ModalOverlay {
       '.card-body table',
       '#kt_history_modal_details',
     ]);
+
+    this._imageBlobSet = new Set();
+
+    let that = this;
 
     this._table = function () {
 
@@ -99,17 +102,29 @@ export default class HistoryModal extends ModalOverlay {
         },
       };
     }();
+
+    this._modalEl.on('hidden.bs.modal', function () {
+      that._featureMap.clear();
+      that._imageBlobSet.forEach(blob => URL.revokeObjectURL(blob));
+      that._imageBlobSet.clear();
+      that.resetCarousel();
+    });
+  }
+
+  setFeature(feature) {
+    super.setFeature(feature);
+    this._featureMap.set('layerSub', this._getLayerSub(feature));
   }
 
   setFeatureAsync(feature) {
-    super.setFeature(feature);
+    this.setFeature(feature);
 
     let that = this;
     that.resetCarousel();
     let _layer = that.getFeature('layer');
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {
-      that._ajaxWorker.fetch('wtl/info/history', {
+      fetchWorker.fetch('wtl/info/history', {
         table: 'viw_web_wutl_ht_img',
         layer: that.getFeature('layerSub'),
         id: _id,

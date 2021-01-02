@@ -1,5 +1,5 @@
-import TileLayer from 'ol/layer/Tile';
-import TileWMS from 'ol/source/TileWMS';
+import { Tile as TileLayer } from 'ol/layer';
+import { TileWMS } from 'ol/source';
 import Layer from './Layer';
 import property from './Layer.property';
 

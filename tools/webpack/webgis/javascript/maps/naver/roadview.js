@@ -3,11 +3,11 @@ import Feature from 'ol/Feature';
 import { Icon, Style } from 'ol/style';
 import { Point } from 'ol/geom';
 import { FeatureOverlay } from '../openlayers/overlay';
-import { map as olMap, selectInteraction } from '../openlayers/Map';
-import { default as projection, latLngToCoords } from '../openlayers/projection';
+import { map as olMap, selectInteraction } from '../openlayers/map';
+import { default as projection } from '../openlayers/projection';
 import { view as olView } from '../openlayers/view';
-import { map } from './Map';
-import { coordinateToLatLng } from './util';
+import { map } from './map';
+import { coordinateToLatLng, latLngToCoordinate } from './util';
 
 let isActive = false;
 
@@ -57,7 +57,7 @@ function onClickRoadviewButton(event) {
 
 function onSingleClick(event) {
   event.preventDefault();
-  coordinateToLatLng(event.coordinate, projection.code)
+  coordinateToLatLng(event.coordinate, projection.getCode())
     .then(function (latLng) {
       rvPanorama.setPosition(latLng);
     });
@@ -65,7 +65,7 @@ function onSingleClick(event) {
 
 function onPanoramaChanged() {
   const latLng = rvPanorama.getPosition();
-  const coords = latLngToCoords(latLng.lat(), latLng.lng());
+  const coords = latLngToCoordinate(latLng.lat(), latLng.lng());
   olView.setCenter(coords);
   rvIcon.clear();
   rvIcon.addFeature(new Feature(new Point(coords)));

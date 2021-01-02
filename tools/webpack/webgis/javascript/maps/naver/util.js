@@ -1,4 +1,6 @@
-import { toLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
+import { roundCustom } from '../math';
+import projection from '../openlayers/projection';
 
 function coordinateToLatLng(coordinate, projection = 'EPSG:5187') {
   return new Promise(resolve => {
@@ -8,6 +10,11 @@ function coordinateToLatLng(coordinate, projection = 'EPSG:5187') {
   });
 }
 
+function latLngToCoordinate(lat, lng) {
+  return fromLonLat([roundCustom(lng), roundCustom(lat)], projection.getCode());
+}
+
 export {
   coordinateToLatLng,
+  latLngToCoordinate,
 };

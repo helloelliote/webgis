@@ -1,4 +1,4 @@
-import VectorLayer from 'ol/layer/Vector';
+import { Vector as VectorLayer } from 'ol/layer';
 
 export default class FeatureOverlay extends VectorLayer {
 

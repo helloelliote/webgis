@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { getDefaultCenter, onClickMapTypeButton, onTilesLoaded, onWindowResize } from '../../maps/kakao/util';
-import { roadView, roadViewClient } from '../../maps/kakao/roadview/Client';
-import { default as roadViewWalker } from '../../maps/kakao/roadview/Walker';
+import { roadView, roadViewClient } from '../../maps/kakao/roadview/client';
+import { default as roadViewWalker } from '../../maps/kakao/roadview/walker';
 
 const mapOptions = {
   center: getDefaultCenter(),

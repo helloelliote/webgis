@@ -2,9 +2,9 @@ import View from 'ol/View';
 import { fromLonLat } from 'ol/proj';
 import { LocalStorage } from '../Storage';
 import { default as projection } from './projection';
-// import { map, viewSyncOptions } from '../naver/Map';
+// import { map, viewSyncOptions } from '../naver/map';
 // import { coordinateToLatLng } from '../naver/util';
-import { map, mapContainer, viewSyncOptions } from '../kakao/Map';
+import { map, mapContainer, viewSyncOptions } from '../kakao/map';
 import { coordinateToLatLng } from '../kakao/util';
 
 const localStorage = new LocalStorage();
@@ -27,7 +27,7 @@ const view = new View({
 view.on('change:center', onChangeCenter);
 
 function onChangeCenter() {
-  coordinateToLatLng(view.getCenter(), projection.code)
+  coordinateToLatLng(view.getCenter(), projection.getCode())
     .then(function (latLng) {
       map.setCenter(latLng);
     });
@@ -38,7 +38,6 @@ function onMoveEnd(event) {
   if (~~view.getZoom() !== currentZoom) {
     let newZoom = ~~view.getZoom();
     if (newZoom <= max) {
-      // noinspection FallThroughInSwitchStatementJS
       switch (newZoom) {
         // case 5:
         //   _toggleOverlay(null);
@@ -46,6 +45,7 @@ function onMoveEnd(event) {
           if (mapContainer.style.display !== 'block') {
             mapContainer.style.display = 'block';
           }
+        // eslint-disable-next-line no-fallthrough
         case 13:
         case 12:
         case 11:

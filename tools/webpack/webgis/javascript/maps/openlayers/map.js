@@ -3,7 +3,7 @@ import { Tile, Vector } from './layer';
 import { onMoveEnd, view } from './view';
 import { addressOverlay } from './overlay';
 import { default as defaultControls } from './control';
-import { default as defaultInteractions, SelectInteraction } from './interaction';
+import { default as defaultInteractions, SelectInteraction } from './Interaction';
 import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClick, onWindowLoad } from './event';
 
 const vectorLayer = new Vector();
@@ -54,20 +54,20 @@ map.on('moveend', onMoveEnd);
 
 map.on('singleclick', onSingleClick);
 
-// Fired when the DOM is ready which can be prior to images and other external content is loaded.\
+// Fired when the DOM is ready which can be prior to images and other external content is loaded.
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline.bind(view), false);
 
 // [...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
-//   element.addEventListener('click', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);
+//   element.addEventListener('mousedown', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);
 // });
 
-[...document.getElementsByClassName('ol-table-code-wtl')].forEach(element => {
-  element.addEventListener('click', onClickTableCode.bind(vectorLayer), false);
+document.querySelectorAll('.ol-table-code-wtl').forEach(element => {
+  element.addEventListener('mousedown', onClickTableCode.bind(vectorLayer), false);
 });
 
-[...document.getElementsByClassName('ol-table-code-geo')].forEach(element => {
-  element.addEventListener('click', onClickTableCode.bind(tileLayer), false);
+document.querySelectorAll('.ol-table-code-geo').forEach(element => {
+  element.addEventListener('mousedown', onClickTableCode.bind(tileLayer), false);
 });
 
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)
