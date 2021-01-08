@@ -7,6 +7,7 @@ const layerNameFilter = new Set([
   'viw_bml_badm_as',
   'viw_bml_hadm_as',
   'viw_wtl_cap_ps',
+  'viw_wtl_pipe_dir_ps',
   'viw_wtl_taper_ps',
   'viw_wtl_userlabel_ps',
   'viw_wtl_wspipe_ls',
@@ -26,6 +27,7 @@ const featureNameFilter = new Set([
 const styleRotationFilter = new Set([
   'viw_wtl_cap_ps',
   'viw_wtl_taper_ps',
+  'viw_wtl_pipe_dir_ps',
   '가정내오수관',
   '가정오수받이',
   '갑압변',

@@ -12,6 +12,7 @@ vectorLayer.toggleLayers([
   // 'viw_wtl_taper_ps',
   'viw_wtl_cap_ps',
   'viw_wtl_pipe_lm',
+  'viw_wtl_pipe_dir_ps',
   'viw_wtl_sply_ls',
   // 'viw_wtl_scvst_ps',
   'viw_wtl_manh_ps',

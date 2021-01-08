@@ -150,11 +150,11 @@ export default {
         width: null,
       },
     },
-    'viw_wtl_flow_ps': {
+    'viw_wtl_pipe_dir_ps': {
       image: {
         opacity: 1,
-        scale: 1,
-        src: 'SA117_2',
+        scale: 0.8,
+        src: 'SA006',
       },
       text: {
         color: null,
