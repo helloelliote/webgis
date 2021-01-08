@@ -129,6 +129,16 @@ export function createVectorStyle(feature) {
       let pointStyle = pointStyleMap[layer];
       // noinspection JSNonASCIINames,FallThroughInSwitchStatementJS
       switch (layer) {
+        case '경계변':
+        case '제수변':
+        case '지수전': {
+          const valveState = feature.get('개폐여부');
+          if (valveState === '개' || valveState === '미분류') {
+            break;
+          }
+          pointStyle = pointStyleMap[`${layer}_${valveState}`];
+          break;
+        }
         case '가압장':
         case '배수지': {
           pointStyle.setLabel(feature.get(`${layer}명`));
@@ -137,22 +147,6 @@ export function createVectorStyle(feature) {
         case '블럭유량계':
           pointStyle.setLabel(feature.get('유량계명칭'));
           break;
-        case '제수변': {
-          const valve1State = feature.get('개폐여부');
-          if (valve1State === '개' || valve1State === '미분류') {
-            break;
-          }
-          pointStyle = pointStyleMap[`제수변_${valve1State}`];
-          break;
-        }
-        case '지수전': {
-          const valve2State = feature.get('개폐여부');
-          if (valve2State === '개' || valve2State === '미분류') {
-            break;
-          }
-          pointStyle = pointStyleMap[`지수전_${valve2State}`];
-          break;
-        }
         case '펌프시설':
         case '하수펌프장': {
           pointStyle.setLabel(feature.get('하수펌프장명'));

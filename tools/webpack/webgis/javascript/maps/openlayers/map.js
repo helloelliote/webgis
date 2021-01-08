@@ -1,5 +1,5 @@
 import Map from 'ol/Map';
-import { Tile, Vector } from './layer';
+import { Image, Vector } from './layer';
 import { onMoveEnd, view } from './view';
 import { addressOverlay } from './overlay';
 import { default as defaultControls } from './control';
@@ -14,18 +14,21 @@ vectorLayer.toggleLayers([
   'viw_wtl_pipe_lm',
   'viw_wtl_sply_ls',
   // 'viw_wtl_scvst_ps',
+  'viw_wtl_manh_ps',
   'viw_wtl_meta_ps',
   'viw_wtl_flow_ps',
   'viw_wtl_fire_ps',
   'viw_wtl_valv_ps',
+  'viw_wtl_valv_pres_ps',
+  'viw_wtl_valv_block_ps',
   'viw_wtl_serv_ps',
   'viw_wtl_pres_ps',
   'viw_wtt_wutl_ht',
   'viw_wtl_userlabel_ps',
 ]);
 
-const tileLayer = new Tile();
-tileLayer.toggleLayers([
+const imageLayer = new Image();
+imageLayer.toggleLayers([
   'n3a_a0010000',
   'n3a_b0010000',
 ]);
@@ -34,7 +37,7 @@ const map = new Map({
   target: 'map-openlayers',
   view: view,
   layers: [
-    tileLayer.layers,
+    imageLayer.layers,
     vectorLayer.layers,
   ],
   controls: defaultControls,
@@ -67,7 +70,7 @@ document.querySelectorAll('.ol-table-code-wtl').forEach(element => {
 });
 
 document.querySelectorAll('.ol-table-code-geo').forEach(element => {
-  element.addEventListener('mousedown', onClickTableCode.bind(tileLayer), false);
+  element.addEventListener('mousedown', onClickTableCode.bind(imageLayer), false);
 });
 
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)

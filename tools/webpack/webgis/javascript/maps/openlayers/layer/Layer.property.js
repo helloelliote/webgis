@@ -1,6 +1,5 @@
 export default {
   geo_line_as: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -8,7 +7,6 @@ export default {
     ],
   },
   n3a_a0010000: {
-    isTile: false,
     maxZ: 21,
     minZ: 15,
     propertyName: [
@@ -16,7 +14,6 @@ export default {
     ],
   },
   n3a_b0010000: {
-    isTile: false,
     maxZ: 21,
     minZ: 15,
     propertyName: [
@@ -24,17 +21,14 @@ export default {
     ],
   },
   n3p_f0020000: {
-    isTile: false,
     maxZ: 21,
     minZ: 11,
     propertyName: [
-      'layer',
       'geom',
       'nume',
     ],
   },
   swl_hmpipe_ls: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -43,7 +37,6 @@ export default {
     ],
   },
   swl_pipe_as: {
-    isTile: false,
     maxZ: 21,
     minZ: 10,
     propertyName: [
@@ -52,7 +45,6 @@ export default {
     ],
   },
   viw_bml_badm_as: {
-    isTile: false,
     maxZ: 15,
     minZ: 6,
     propertyName: [
@@ -62,7 +54,6 @@ export default {
     ],
   },
   viw_bml_hadm_as: {
-    isTile: false,
     maxZ: 15,
     minZ: 6,
     propertyName: [
@@ -76,7 +67,6 @@ export default {
     childTable: 'viw_swl_dodp_as',
     column: '처리구역명',
     elementId: 'kt-notification-section-l',
-    isTile: false,
     maxZ: 10,
     minZ: 6,
     propertyName: [
@@ -92,7 +82,6 @@ export default {
     childTable: 'viw_swl_dodr_as',
     column: '배수구역명',
     elementId: 'kt-notification-section-l',
-    isTile: false,
     maxZ: 10,
     minZ: 6,
     propertyName: [
@@ -103,7 +92,6 @@ export default {
     ],
   },
   viw_swl_conn_ls: {
-    isTile: false,
     maxZ: 21,
     minZ: 10,
     propertyName: [
@@ -118,7 +106,6 @@ export default {
     childTable: null,
     column: '처리분구명',
     elementId: 'kt-notification-section-m',
-    isTile: false,
     maxZ: 10,
     minZ: 6,
     propertyName: [
@@ -134,7 +121,6 @@ export default {
     childTable: null,
     column: '배수분구명',
     elementId: 'kt-notification-section-m',
-    isTile: false,
     maxZ: 10,
     minZ: 6,
     propertyName: [
@@ -145,7 +131,6 @@ export default {
     ],
   },
   viw_swl_dran_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 7,
     propertyName: [
@@ -155,7 +140,6 @@ export default {
     ],
   },
   viw_swl_hmconn_ls: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -163,7 +147,6 @@ export default {
     ],
   },
   viw_swl_hmspot_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -171,7 +154,6 @@ export default {
     ],
   },
   viw_swl_manh_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -179,7 +161,6 @@ export default {
     ],
   },
   viw_swl_pipe_lm: {
-    isTile: false,
     maxZ: 21,
     minZ: 10,
     propertyName: [
@@ -187,7 +168,6 @@ export default {
     ],
   },
   viw_swl_pump_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 9,
     propertyName: [
@@ -196,7 +176,6 @@ export default {
     ],
   },
   viw_swl_spew_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 10,
     propertyName: [
@@ -204,7 +183,6 @@ export default {
     ],
   },
   viw_swl_spot_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -212,7 +190,6 @@ export default {
     ],
   },
   viw_swl_vent_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -220,16 +197,14 @@ export default {
     ],
   },
   viw_wtl_cap_ps: {
-    isTile: false,
     maxZ: 21,
-    minZ: 11,
+    minZ: 12,
     propertyName: [
       'geom',
       '방향각',
     ],
   },
   viw_wtl_fire_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -240,7 +215,6 @@ export default {
     ],
   },
   viw_wtl_flow_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 9,
     propertyName: [
@@ -252,7 +226,6 @@ export default {
     ],
   },
   viw_wtl_gain_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 9,
     propertyName: [
@@ -262,7 +235,6 @@ export default {
     ],
   },
   viw_wtl_manh_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -273,7 +245,6 @@ export default {
     ],
   },
   viw_wtl_meta_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -283,7 +254,6 @@ export default {
     ],
   },
   viw_wtl_pipe_lm: {
-    isTile: false,
     maxZ: 21,
     minZ: 9,
     propertyName: [
@@ -295,8 +265,15 @@ export default {
       '시설물구분',
     ],
   },
+  viw_wtl_pipe_dir_ps: {
+    maxZ: 21,
+    minZ: 12,
+    propertyName: [
+      'geom',
+      '방향각',
+    ],
+  },
   viw_wtl_pres_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 9,
     propertyName: [
@@ -307,7 +284,6 @@ export default {
     ],
   },
   viw_wtl_puri_as: {
-    isTile: false,
     maxZ: 21,
     minZ: 7,
     propertyName: [
@@ -318,7 +294,6 @@ export default {
     ],
   },
   viw_wtl_rsrv_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 7,
     propertyName: [
@@ -328,7 +303,6 @@ export default {
     ],
   },
   viw_wtl_scvst_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -338,7 +312,6 @@ export default {
     ],
   },
   viw_wtl_serv_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 7,
     propertyName: [
@@ -349,7 +322,6 @@ export default {
     ],
   },
   viw_wtl_sply_ls: {
-    isTile: false,
     maxZ: 21,
     minZ: 14,
     propertyName: [
@@ -360,7 +332,6 @@ export default {
     ],
   },
   viw_wtl_taper_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -369,7 +340,6 @@ export default {
     ],
   },
   viw_wtl_userlabel_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 12,
     propertyName: [
@@ -379,7 +349,6 @@ export default {
     ],
   },
   viw_wtl_valv_ps: {
-    isTile: false,
     maxZ: 21,
     minZ: 13,
     propertyName: [
@@ -390,8 +359,29 @@ export default {
       '개폐여부',
     ],
   },
+  viw_wtl_valv_block_ps: {
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '방향각',
+      '개폐여부',
+    ],
+  },
+  viw_wtl_valv_pres_ps: {
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '방향각',
+      '개폐여부',
+    ],
+  },
   viw_wtl_wspipe_ls: {
-    isTile: false,
     maxZ: 21,
     minZ: 9,
     propertyName: [
@@ -404,7 +394,6 @@ export default {
     childTable: 'viw_wtl_wtssa_as',
     column: '급수구역명',
     elementId: 'kt-notification-section-l',
-    isTile: false,
     maxZ: 13,
     minZ: 6,
     propertyName: [
@@ -420,7 +409,6 @@ export default {
     childTable: null,
     column: '급수블럭명',
     elementId: 'kt-notification-section-s',
-    isTile: false,
     maxZ: 21,
     minZ: 6,
     propertyName: [
@@ -436,7 +424,6 @@ export default {
     childTable: 'viw_wtl_wtsba_as',
     column: '급수분구명',
     elementId: 'kt-notification-section-m',
-    isTile: false,
     maxZ: 15,
     minZ: 6,
     propertyName: [
@@ -447,7 +434,6 @@ export default {
     selZ: 8.3,
   },
   viw_wtt_wutl_ht: {
-    isTile: false,
     maxZ: 21,
     minZ: 11,
     propertyName: [
