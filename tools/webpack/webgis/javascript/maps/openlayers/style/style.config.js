@@ -150,11 +150,11 @@ export default {
         width: null,
       },
     },
-    'viw_wtl_flow_ps': {
+    'viw_wtl_pipe_dir_ps': {
       image: {
         opacity: 1,
-        scale: 1,
-        src: 'SA117_2',
+        scale: 0.8,
+        src: 'SA006',
       },
       text: {
         color: null,
@@ -223,8 +223,50 @@ export default {
     '감압변': {
       image: {
         opacity: 1,
-        scale: 1,
+        scale: 0.9,
         src: 'SA204',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
+    '경계변': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SA199_B',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
+    '경계변_반개': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SA199_B_HALF',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
+    '경계변_폐': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SA199_B_CLOSED',
       },
       text: {
         color: null,
@@ -781,7 +823,7 @@ export default {
       },
       text: {
         color: '#ff0000',
-        font: '1.0rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 6,
       },
@@ -909,7 +951,7 @@ export default {
       },
       text: {
         color: '#ff0000',
-        font: '1.0rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 3,
       },
@@ -925,7 +967,7 @@ export default {
       },
       text: {
         color: '#ff0000',
-        font: '1.0rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 3,
       },
@@ -941,7 +983,7 @@ export default {
       },
       text: {
         color: '#ff0000',
-        font: '1.0rem 맑은 고딕',
+        font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 3,
       },

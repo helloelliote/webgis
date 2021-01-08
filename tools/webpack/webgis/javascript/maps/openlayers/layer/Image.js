@@ -1,5 +1,5 @@
-import { Tile as TileLayer } from 'ol/layer';
-import { TileWMS } from 'ol/source';
+import { Image as ImageLayer } from 'ol/layer';
+import { ImageWMS } from 'ol/source';
 import Layer from './Layer';
 import property from './Layer.property';
 
@@ -10,12 +10,12 @@ export default class WmsTile extends Layer {
   }
 
   toggleLayers(keyArray) {
-    super.toggleLayers(keyArray, createTileLayer);
+    super.toggleLayers(keyArray, createImageLayer);
   }
 }
 
-function createTileLayer(key) {
-  return new TileLayer({
+function createImageLayer(key) {
+  return new ImageLayer({
     maxZoom: property[key].maxZ,
     minZoom: property[key].minZ,
     source: createTileSource(key),
@@ -23,22 +23,21 @@ function createTileLayer(key) {
 }
 
 function createTileSource(key) {
-  return new TileWMS({
-    url: createTileSourceRequestUrl(),
-    hidpi: true,
+  return new ImageWMS({
+    url: createImageSourceRequestUrl(),
+    hidpi: false,
+    imageSmoothing: false,
     params: {
-      FORMAT: 'image/png',
+      FORMAT: 'image/svg',
       LAYERS: `${window.webgis.workspace}:${key}`,
       STYLES: null,
       TILED: false,
       VERSION: '1.1.1',
     },
-    reprojectionErrorThreshold: 50.0,
-    transition: 0,
-    wrapX: false,
+    ratio: 1,
   });
 }
 
-function createTileSourceRequestUrl() {
+function createImageSourceRequestUrl() {
   return `${window.webgis.geoserverHost}/geoserver/${window.webgis.workspace}/wms`;
 }
