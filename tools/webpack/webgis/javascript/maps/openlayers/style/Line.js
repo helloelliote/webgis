@@ -1,4 +1,4 @@
-import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { Circle, Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import { default as StyleMap } from './Style';
 
 const selectLineStyle = new Style({
@@ -31,6 +31,42 @@ const arrowheadStyle = new StyleMap({
   },
 });
 
+const measureStyle = new Style({
+  fill: new Fill({
+    color: '#FFFFFF33',
+  }),
+  stroke: new Stroke({
+    color: '#00000080',
+    lineDash: [10, 10],
+    width: 2,
+  }),
+  image: new Circle({
+    radius: 5,
+    stroke: new Stroke({
+      color: '#000000B3',
+    }),
+    fill: new Fill({
+      color: '#FFFFFF33',
+    }),
+  }),
+});
+
+const measureResultStyle = new Style({
+  fill: new Fill({
+    color: '#FFFFFF33',
+  }),
+  stroke: new Stroke({
+    color: '#FFCC33',
+    width: 2,
+  }),
+  image: new Circle({
+    radius: 7,
+    fill: new Fill({
+      color: '#FFCC33',
+    }),
+  }),
+});
+
 const labelStyle = new Text({
   // overflow: true,
   font: 'bold 0.95rem 맑은 고딕',
@@ -58,4 +94,4 @@ const lineStyleMap = new StyleMap({
   },
 });
 
-export { lineStyleMap, selectLineStyle, closedPipeStyle, arrowheadStyle };
+export { lineStyleMap, selectLineStyle, closedPipeStyle, arrowheadStyle, measureStyle, measureResultStyle };
