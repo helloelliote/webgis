@@ -42,17 +42,17 @@
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
-    "eslint": "^7.15.0",
+    "eslint": "^7.17.0",
     "jest": "^26.6.3",
     "jest-config": "^26.6.3",
     "merge-jsons-webpack-plugin": "^1.0.21",
     "regenerator-runtime": "^0.13.7",
-    "webpack": "^5.10.2",
-    "webpack-cli": "^4.2.0",
+    "webpack": "^5.12.2",
+    "webpack-cli": "^4.3.1",
     "webpack-node-externals": "^2.5.2"
   }
 }
