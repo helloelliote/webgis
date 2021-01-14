@@ -6,12 +6,13 @@ import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './Interaction';
 import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClick, onWindowLoad } from './event';
 
-const vectorLayer = new Vector();
+const vectorLayer = new Vector({ search: true });
 vectorLayer.toggleLayers([
   'viw_wtl_puri_as',
   // 'viw_wtl_taper_ps',
   'viw_wtl_cap_ps',
   'viw_wtl_pipe_lm',
+  'viw_wtl_pipe_lm_filter',
   'viw_wtl_pipe_dir_ps',
   'viw_wtl_sply_ls',
   // 'viw_wtl_scvst_ps',

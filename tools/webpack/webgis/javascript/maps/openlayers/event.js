@@ -3,7 +3,7 @@ import { fromLonLat } from 'ol/proj';
 import { geoJson } from './format';
 import { default as projection } from './projection';
 // import { searchCoordinateToAddress } from '../naver/geoCoder';
-import { searchCoordinateToAddress } from '../kakao/geoCoder';
+import { coordinateToAddress } from '../kakao/geoCoder';
 import { viewSyncOptions } from '../kakao/map';
 import { addressOverlay } from './overlay';
 import { selectInteraction } from './map';
@@ -19,7 +19,7 @@ function onSingleClick() {
 
 function onContextMenu(event) {
   event.preventDefault();
-  searchCoordinateToAddress(event.coordinate)
+  coordinateToAddress(event.coordinate)
     .then(htmlContent => {
       addressOverlay.popover('dispose');
       addressOverlay.setPosition(event.coordinate);
@@ -99,18 +99,17 @@ function onClickSectionCode(event) {
 function onClickTableCode(event) {
   event.preventDefault();
   const targetEl = event.target;
-  const elementId = targetEl.id;
   // Do not allow toggle of ol-table-code-geo road/building tile layer & always show it
-  if (elementId === 'n3a_a0010000') return;
+  if (targetEl.id === 'n3a_a0010000') return;
 
-  if (this.hasLayer(elementId)) {
+  if (this.hasLayer(targetEl.id)) {
     targetEl.classList.add('fa-times-circle', 'text-danger');
     targetEl.classList.remove('fa-check-circle', 'text-primary');
   } else {
     targetEl.classList.add('fa-check-circle', 'text-primary');
     targetEl.classList.remove('fa-times-circle', 'text-danger');
   }
-  this.toggleLayers([elementId]);
+  this.toggleLayers([targetEl.id]);
 }
 
 function onWindowLoad(event) {

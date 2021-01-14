@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { getDefaultCenter, onClickMapTypeButton, onTilesLoaded, onWindowResize } from '../../maps/kakao/util';
-import { getAddressFromLatLng } from '../../maps/kakao/geoCoder';
+import { latLngToAddress } from '../../maps/kakao/geoCoder';
 
 const mapOptions = {
   center: getDefaultCenter(),
@@ -60,7 +60,7 @@ function onClickQuickSearchInline(event) {
 function onChangeLocation(latLng) {
   marker.setPosition(latLng);
   marker.setVisible(true);
-  getAddressFromLatLng(latLng).then(function (response) {
+  latLngToAddress(latLng).then(function (response) {
     let address = response['address'];
     let road = response['road_address'];
     let jibun = address['address_name'];

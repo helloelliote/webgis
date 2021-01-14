@@ -273,6 +273,19 @@ export default {
       '방향각',
     ],
   },
+  viw_wtl_pipe_lm_filter: {
+    isTile: false,
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '관라벨',
+      '폐관일자',
+      '시설물구분',
+    ],
+  },
   viw_wtl_pres_ps: {
     maxZ: 21,
     minZ: 9,
