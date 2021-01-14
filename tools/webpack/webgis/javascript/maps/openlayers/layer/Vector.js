@@ -25,7 +25,7 @@ function createVectorLayer(key) {
   const vectorLayer = new VectorLayer({
     maxZoom: property[key].maxZ,
     minZoom: property[key].minZ,
-    source: createVectorSource(key),
+    source: key.includes('filter') ? new VectorSource() : createVectorSource(key),
     style: createVectorStyle,
   });
   if (!layerNameFilter.has(key)) {

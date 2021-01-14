@@ -4,11 +4,11 @@ import { coordinateToLatLng } from './util';
 
 const geoCoder = new kakao.maps.services.Geocoder();
 
-function searchCoordinateToAddress(coordinate) {
+function coordinateToAddress(coordinate) {
   return new Promise((resolve, reject) => {
     coordinateToLatLng(coordinate)
-      .then(getAddressFromLatLng)
-      .then(getAddressHtmlElement)
+      .then(latLngToAddress)
+      .then(addressToHtml)
       .then(content => {
         resolve(content);
       })
@@ -18,7 +18,7 @@ function searchCoordinateToAddress(coordinate) {
   });
 }
 
-function getAddressFromLatLng(latLng) {
+function latLngToAddress(latLng) {
   return new Promise((resolve) => {
     geoCoder.coord2Address(latLng.getLng(), latLng.getLat(), (res, status) => {
       if (status === kakao.maps.services.Status.OK) {
@@ -28,7 +28,7 @@ function getAddressFromLatLng(latLng) {
   });
 }
 
-function getAddressHtmlElement(address) {
+function addressToHtml(address) {
   return new Promise((resolve) => {
     const htmlContent = [];
     if (address['road_address'] != null) {
@@ -46,6 +46,6 @@ function getAddressHtmlElement(address) {
 }
 
 export {
-  searchCoordinateToAddress,
-  getAddressFromLatLng,
+  coordinateToAddress,
+  latLngToAddress,
 };

@@ -139,7 +139,7 @@ export default {
     'viw_wtl_cap_ps': {
       image: {
         opacity: 1,
-        scale: 0.8,
+        scale: 0.65,
         src: 'SA004',
       },
       text: {
@@ -335,7 +335,7 @@ export default {
     '보수공사': {
       image: {
         opacity: 1,
-        scale: 1,
+        scale: 0.9,
         src: 'RE003',
       },
       text: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { formatSchedule } from '../format/register';
 import { getDefaultCenter, onWindowResize } from '../../maps/kakao/util';
-import { getAddressFromLatLng } from '../../maps/kakao/geoCoder';
+import { latLngToAddress } from '../../maps/kakao/geoCoder';
 
 export default class EditModal {
 
@@ -185,7 +185,7 @@ class EditModalMap {
   onKakaoMapClick(event) {
     let latLng = event.latLng;
     this.marker.setPosition(latLng);
-    getAddressFromLatLng(latLng).then(function (response) {
+    latLngToAddress(latLng).then(function (response) {
       let address = response['address'];
       let road = response['road_address'];
       let jibun = address['address_name'];
