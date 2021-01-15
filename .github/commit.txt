@@ -1,0 +1,24 @@
+# ----------------------------------------------------------
+# Header(type): Brief description
+# ----------------------------------------------------------
+#   * feat         A new feature
+#   * fix          A bug fix
+#   * refactor     Changes not related to a bug or feature
+#   * chore        Changes to build system (configs, etc.)
+#   * style        Style/format changes (whitespace, etc.)
+#   * docs         Changes to documentation only
+#   * test         Changes that add/modify/correct tests
+# ----------------------------------------------------------
+
+# ----------------------------------------------------------
+# Body: More detailed description, if necessary
+# ----------------------------------------------------------
+#   * Motivation behind changes, more detail into how
+#     functionality might be affected, etc.
+# ----------------------------------------------------------
+
+# ----------------------------------------------------------
+# Footer: Associated issues, PRs, etc.
+# ----------------------------------------------------------
+#   * Ex: Resolves: #207, See: #15, etc.
+# ----------------------------------------------------------
