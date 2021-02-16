@@ -7,13 +7,18 @@ const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
 const args = getParameters();
 
 function getParameters() {
-  // remove first 2 unused elements from array
-  // NOTE (helloelliote) It's actually '4' if run with IntelliJ IDEA
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(4);
-  argv = argv.map((arg) => {
-    return arg.replace(/--/i, '');
+  const possibleArgs = [
+    'js', 'prod',
+  ];
+
+  const args = [];
+  possibleArgs.forEach(function (key) {
+    if (process.env['npm_config_' + key]) {
+      args.push(key);
+    }
   });
-  return argv;
+
+  return args;
 }
 
 module.exports = {

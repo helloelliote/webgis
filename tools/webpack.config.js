@@ -10,7 +10,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
 const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
-const MergeIntoSingle = require('webpack-merge-and-include-globally');
+const MergeIntoSingle = require('webpack-merge-and-include-globally/index');
 const { webpackEntries, webpackCopy, webpackRules } = require('./webpack/webgis/webgis.config');
 
 // paths
@@ -31,7 +31,6 @@ const srcPath = demoPath + '/src';
 
 const extraPlugins = [];
 const exclude = [];
-const extraConfig = [];
 
 const js = args.indexOf('js') !== -1;
 const css = args.indexOf('css') !== -1 || args.indexOf('scss') !== -1;
@@ -40,11 +39,7 @@ addtionalSettings();
 importDatatables();
 
 function importDatatables() {
-  var rtlExt = '';
-  if (args.indexOf('rtl') !== -1) {
-    rtlExt = 'rtl.';
-  }
-  // Optional: bundle datatables.net
+  // Optional: Import datatables.net
   extraPlugins.push(new MergeIntoSingle({
     files: [
       {
@@ -91,7 +86,7 @@ function importDatatables() {
           'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
           'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css',
         ],
-        dest: 'plugins/custom/datatables/datatables.bundle.' + rtlExt + 'css',
+        dest: 'plugins/custom/datatables/datatables.bundle.css',
       },
     ],
   }));
@@ -99,6 +94,7 @@ function importDatatables() {
 
 function addtionalSettings() {
   if (args.indexOf('rtl') !== -1) {
+    // NOTE: at the moment, this plugin does not yet support for webpack 5
     // enable rtl for css
     // extraPlugins.push(new WebpackRTLPlugin({
     //   filename: '[name].rtl.css',
@@ -175,7 +171,7 @@ function mainConfig() {
     },
     optimization: {
       // js and css minimizer
-      minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },
     entry: getEntryFiles(),
     output: {
@@ -269,6 +265,8 @@ function mainConfig() {
             {
               loader: 'sass-loader',
               options: {
+                // Prefer `dart-sass`
+                implementation: require('sass'),
                 sourceMap: false,
                 sassOptions: {
                   includePaths: [
@@ -338,13 +336,18 @@ function mainConfig() {
 }
 
 function getParameters() {
-  // remove first 2 unused elements from array
-  // NOTE (helloelliote) It's actually '4' if run with IntelliJ IDEA
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(4);
-  argv = argv.map((arg) => {
-    return arg.replace(/--/i, '');
+  const possibleArgs = [
+    'js', 'css', 'scss', 'prod',
+  ];
+
+  const args = [];
+  possibleArgs.forEach(function (key) {
+    if (process.env['npm_config_' + key]) {
+      args.push(key);
+    }
   });
-  return argv;
+
+  return args;
 }
 
 function getDemos(pathDemos) {
