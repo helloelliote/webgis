@@ -456,4 +456,14 @@ export default {
       '시설물구분',
     ],
   },
+  viw_wtt_wutl_ht_re: {
+    maxZ: 21,
+    minZ: 11,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '시설물구분',
+    ],
+  },
 };

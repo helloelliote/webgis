@@ -125,7 +125,7 @@ export default class HistoryModal extends ModalOverlay {
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {
       fetchWorker.fetch('wtl/info/history', {
-        table: 'viw_web_wutl_ht_img',
+        table: window.webgis.table.maintenance,
         layer: that.getFeature('layerSub'),
         id: _id,
       }, 'image/jpg')

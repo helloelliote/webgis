@@ -52,7 +52,7 @@ export default {
     },
     '도수관': {
       stroke: {
-        color: '#ff9100',
+        color: '#aa00ff',
         dash: null,
         width: 2,
       },
@@ -73,7 +73,7 @@ export default {
     },
     '송수관': {
       stroke: {
-        color: '#aa00ff',
+        color: '#ff9100',
         dash: null,
         width: 2,
       },
@@ -349,7 +349,7 @@ export default {
     '블럭유량계': {
       image: {
         opacity: 1,
-        scale: 1,
+        scale: 0.85,
         src: 'SA117_BLOCK',
       },
       text: {
@@ -517,7 +517,7 @@ export default {
     '제수변': {
       image: {
         opacity: 1,
-        scale: 1,
+        scale: 0.9,
         src: 'SA199',
       },
       text: {
@@ -559,7 +559,7 @@ export default {
     '지수전': {
       image: {
         opacity: 1,
-        scale: 1,
+        scale: 0.9,
         src: 'SA209',
       },
       text: {
@@ -771,7 +771,7 @@ export default {
       stroke: {
         color: '#aa00ff',
         dash: null,
-        width: 2,
+        width: 3,
       },
       text: {
         color: '#aa00ff',

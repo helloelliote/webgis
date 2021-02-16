@@ -3,7 +3,7 @@ import { ImageWMS } from 'ol/source';
 import Layer from './Layer';
 import property from './Layer.property';
 
-export default class WmsTile extends Layer {
+export default class Image extends Layer {
 
   constructor(options) {
     super(options);
@@ -18,11 +18,11 @@ function createImageLayer(key) {
   return new ImageLayer({
     maxZoom: property[key].maxZ,
     minZoom: property[key].minZ,
-    source: createTileSource(key),
+    source: createImageSource(key),
   });
 }
 
-function createTileSource(key) {
+function createImageSource(key) {
   return new ImageWMS({
     url: createImageSourceRequestUrl(),
     hidpi: false,

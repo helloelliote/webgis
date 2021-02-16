@@ -3,7 +3,7 @@ import { default as ModalOverlay } from './Modal';
 import { default as HistoryModal } from './History';
 import { default as PhotoModal } from './Photo';
 import { default as fetchWorker } from '../worker/fetch.wrapper';
-import { featureNameFilter } from '../filter';
+import { featureDateFilter, featureNameFilter } from '../filter';
 import { view } from '../view';
 
 export default class InfoModal extends ModalOverlay {
@@ -59,10 +59,13 @@ export default class InfoModal extends ModalOverlay {
       let tableRow = '';
       JSON.stringify(response[0], function (key, value) {
         if (featureNameFilter.has(key)) return undefined;
+        if (featureDateFilter.has(key)) {
+          value = moment(value).isValid() ? moment(value).format('YYYY년 M월 D일') : value;
+        }
         if (key === '') {
           tableRow = '';
         } else {
-          tableRow += `<tr class="tr-striped"><th scope="row">${key}</th><td>${value}</td></tr>`;
+          tableRow += `<tr class="tr-striped"><th scope="row">${key}</th><td>${value || '<span class="text-muted">없음<small>&nbsp;null</small></span>'}</td></tr>`;
         }
         return value;
       });

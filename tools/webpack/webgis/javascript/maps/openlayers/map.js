@@ -7,33 +7,10 @@ import { default as defaultInteractions, SelectInteraction } from './Interaction
 import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClick, onWindowLoad } from './event';
 
 const vectorLayer = new Vector({ search: true });
-vectorLayer.toggleLayers([
-  'viw_wtl_puri_as',
-  // 'viw_wtl_taper_ps',
-  'viw_wtl_cap_ps',
-  'viw_wtl_pipe_lm',
-  'viw_wtl_pipe_lm_filter',
-  'viw_wtl_pipe_dir_ps',
-  'viw_wtl_sply_ls',
-  // 'viw_wtl_scvst_ps',
-  'viw_wtl_manh_ps',
-  'viw_wtl_meta_ps',
-  'viw_wtl_flow_ps',
-  'viw_wtl_fire_ps',
-  'viw_wtl_valv_ps',
-  'viw_wtl_valv_pres_ps',
-  'viw_wtl_valv_block_ps',
-  'viw_wtl_serv_ps',
-  'viw_wtl_pres_ps',
-  'viw_wtt_wutl_ht',
-  'viw_wtl_userlabel_ps',
-]);
+vectorLayer.toggleLayers(window.webgis.table.vector);
 
 const imageLayer = new Image();
-imageLayer.toggleLayers([
-  'n3a_a0010000',
-  'n3a_b0010000',
-]);
+imageLayer.toggleLayers(window.webgis.table.image);
 
 const map = new Map({
   target: 'map-openlayers',

@@ -24,6 +24,14 @@ const featureNameFilter = new Set([
   '회전방향',
 ]);
 
+const featureDateFilter = new Set([
+  '설치일자',
+  '유지보수일자',
+  '준공일자',
+  '폐관일자',
+  '허가일자',
+]);
+
 const styleRotationFilter = new Set([
   'viw_wtl_cap_ps',
   'viw_wtl_taper_ps',
@@ -60,6 +68,7 @@ const styleDirectionFilter = new Set([
 export {
   layerNameFilter,
   featureNameFilter,
+  featureDateFilter,
   styleRotationFilter,
   styleDirectionFilter,
 };

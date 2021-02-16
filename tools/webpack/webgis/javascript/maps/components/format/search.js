@@ -40,7 +40,12 @@ function formatFacilitySearch(response) {
       const items = results.filter(result => result[CNAME] === category);
       items.forEach(item => {
         const itemEl = _itemEl.cloneNode(true);
-        let fac_nam = item[FAC_NAM] == null || item[FAC_NAM] === '' ? '이름 없음' : item[FAC_NAM];
+        let fac_nam;
+        if (item[FAC_NAM] === '' || item[FAC_NAM] == null || item[FAC_NAM] === 'NULL' || item[FAC_NAM] === 'null') {
+          fac_nam = '이름 없음';
+        } else {
+          fac_nam = item[FAC_NAM];
+        }
         let hjd_nam = item[HJD_NAM] == null ? '' : item[HJD_NAM];
         let bjd_nam = item[BJD_NAM] == null ? '' : item[BJD_NAM];
         if (hjd_nam === bjd_nam) bjd_nam = '';
@@ -128,9 +133,9 @@ function formatKeywordSearch(results, status, pagination) {
         itemEl.querySelector('a').innerHTML = item['place_name'];
         itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
         itemEl.querySelector('span').innerHTML =
-          item['road_address_name'] === ''
-            ? item['address_name']
-            : item['road_address_name'];
+                    item['road_address_name'] === ''
+                      ? item['address_name']
+                      : item['road_address_name'];
         itemWrapperEl.appendChild(itemEl);
       }
       sectionEl.appendChild(itemWrapperEl);

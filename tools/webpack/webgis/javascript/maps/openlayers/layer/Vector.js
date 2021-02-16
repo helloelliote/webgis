@@ -64,11 +64,11 @@ function createVectorSource(key) {
 
 function createVectorSourceRequestUrl(key) {
   const requestParams = {
+    typename: `${window.webgis.workspace}:${key}`,
     service: 'WFS',
     version: '2.0.0',
     request: 'GetFeature',
     outputFormat: 'application/json',
-    typename: `${window.webgis.workspace}:${key}`,
     propertyName: `${property[key].propertyName}`,
   };
   const requestUrl = Object
