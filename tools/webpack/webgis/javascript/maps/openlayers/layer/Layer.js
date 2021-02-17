@@ -2,7 +2,6 @@ import { default as MapObject } from '../../Object';
 import MapError from '../../Error';
 import { Group as LayerGroup } from 'ol/layer';
 import Collection from 'ol/Collection';
-import { default as FeatureFilter } from '../feature/filter';
 
 export default class Layer extends MapObject {
 
@@ -18,10 +17,6 @@ export default class Layer extends MapObject {
         new Collection([...this._layerMap.values()]),
       );
     };
-
-    if (options['search']) {
-      FeatureFilter.init(this);
-    }
   }
 
   get keys() {

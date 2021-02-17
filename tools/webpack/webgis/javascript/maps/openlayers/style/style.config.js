@@ -335,7 +335,7 @@ export default {
     '보수공사': {
       image: {
         opacity: 1,
-        scale: 0.9,
+        scale: 0.8,
         src: 'RE003',
       },
       text: {

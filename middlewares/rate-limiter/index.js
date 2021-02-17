@@ -3,7 +3,7 @@ import postgresql from '../postgresql/index';
 
 /**
  * @link https://github.com/animir/node-rate-limiter-flexible/wiki/Overall-example#login-endpoint-protection
- * @type {{duration: number, storeType: *, inmemoryBlockOnConsumed: number, blockDuration: number, inmemoryBlockDuration: number, keyPrefix: string, storeClient: BoundPool, points: number, tableName: string}}
+ * @type {{duration: number, storeType: string, inmemoryBlockOnConsumed: number, blockDuration: number, inmemoryBlockDuration: number, keyPrefix: string, storeClient: Pool, points: number, tableName: string}}
  */
 const rateLimiterOptions = {
   // Basic options

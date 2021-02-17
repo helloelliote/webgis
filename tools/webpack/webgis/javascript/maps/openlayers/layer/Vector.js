@@ -6,6 +6,7 @@ import { createDefaultStyle } from 'ol/style/Style';
 import Layer from './Layer';
 import property from './Layer.property';
 import SourceLoader from '../worker/sourceLoader.worker';
+import { default as FeatureFilter } from '../feature/filter';
 import { geoJson } from '../format';
 import { arrowheadStyle, closedPipeStyle, lineStyleMap, pointStyleMap, polygonStyleMap } from '../style';
 import { layerNameFilter, styleDirectionFilter, styleRotationFilter } from '../filter';
@@ -14,6 +15,10 @@ export default class Vector extends Layer {
 
   constructor(options) {
     super(options);
+
+    if (window.webgis.table.filter) {
+      FeatureFilter.init(this);
+    }
   }
 
   toggleLayers(keyArray) {

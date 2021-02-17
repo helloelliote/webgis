@@ -65,8 +65,8 @@ app.use(cors({
   origin: true,
   credentials: true,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize({}));
+app.use(passport.session(false));
 app.use(express.static(path.join(__dirname, 'public')));
 
 passportSetup(passport);

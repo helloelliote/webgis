@@ -6,7 +6,7 @@ import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './Interaction';
 import { onClickQuickSearchInline, onClickTableCode, onContextMenu, onSingleClick, onWindowLoad } from './event';
 
-const vectorLayer = new Vector({ search: true });
+const vectorLayer = new Vector();
 vectorLayer.toggleLayers(window.webgis.table.vector);
 
 const imageLayer = new Image();

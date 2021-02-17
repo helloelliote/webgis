@@ -4,16 +4,16 @@ const distPath = path.resolve(__dirname, '../../..', '.build');
 
 const webpackEntries = {
   'js/maps.bundle': [
-    '@webgis/javascript/index.js',
+    '@webgis/config/yeongju_a.js',
     '@webgis/javascript/maps/index.js',
   ],
   'js/serv.register': [
-    '@webgis/javascript/index.js',
+    '@webgis/config/yeongju_a.js',
     '@webgis/javascript/service/register/kakaoMap.js',
     '@webgis/javascript/service/register/index.js',
   ],
   'js/serv.search': [
-    '@webgis/javascript/index.js',
+    '@webgis/config/yeongju_a.js',
     '@webgis/javascript/service/search/kakaoMap.js',
     '@webgis/javascript/service/search/index.js',
   ],
