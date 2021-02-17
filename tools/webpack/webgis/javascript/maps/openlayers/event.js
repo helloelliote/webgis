@@ -117,6 +117,8 @@ function onWindowLoad(event) {
 
   const menuNavEl = document.querySelector('.menu-nav');
 
+  menuNavEl.querySelector('#viw_wtt_wutl_ht').id = window.webgis.table.repair;
+
   let menuLabelEl = menuNavEl.querySelectorAll('span.menu-label > i.ol-table-code-wtl');
   menuLabelEl.forEach(element => {
     if (this.hasLayer(element.id)) {

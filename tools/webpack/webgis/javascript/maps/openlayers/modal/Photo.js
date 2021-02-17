@@ -39,7 +39,7 @@ export default class PhotoModal extends ModalOverlay {
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {
       fetchWorker.fetch('wtl/info/photo', {
-        table: _layer === '보수공사' ? window.webgis.table.repair : window.webgis.table.photo,
+        table: _layer === '보수공사' ? window.webgis.table.repairPhoto : window.webgis.table.photo,
         layer: that.getFeature('layerSub'),
         id: _id,
       }, 'image/jpg')

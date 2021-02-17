@@ -40,7 +40,11 @@ export default {
   registerGet(req, res, next) {
     res.render('service-register', {
       _csrfToken: req.csrfToken(),
-      title: '민원등록 |', // TODO: Fill in user organisation name
+      title: '민원등록 | 상수도 조회시스템',
+      company_ko: process.env.COMPANY_KO,
+      company_en: process.env.COMPANY_EN,
+      role_ko: process.env.ROLE_KO,
+      role_en: process.env.ROLE_EN,
       KAKAO_API_KEY: process.env.KAKAO_API_KEY,
     });
   },
@@ -88,7 +92,11 @@ export default {
   searchGet(req, res, next) {
     res.render('service-search', {
       _csrfToken: req.csrfToken(),
-      title: '민원검색 |', // TODO: Fill in user organisation name
+      title: '민원검색 | 상수도 조회시스템',
+      company_ko: process.env.COMPANY_KO,
+      company_en: process.env.COMPANY_EN,
+      role_ko: process.env.ROLE_KO,
+      role_en: process.env.ROLE_EN,
       KAKAO_API_KEY: process.env.KAKAO_API_KEY,
     });
   },
