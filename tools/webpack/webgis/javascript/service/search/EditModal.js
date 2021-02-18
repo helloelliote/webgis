@@ -76,7 +76,8 @@ export default class EditModal {
         if (resultObj[code] != null) {
           that[code].selectpicker('val', resultObj[code]);
         } else {
-          that[code].parent().attr('hidden', true);
+          // that[code].parent().attr('hidden', true);
+          that[code].val('').selectpicker('refresh');
         }
       });
 
@@ -111,7 +112,7 @@ export default class EditModal {
           message: '선택한 민원이 수정되었습니다',
         }, { type: 'success' });
         tableAjax.reload();
-      }, 2000);
+      }, 1500);
     }
 
     function onError(err) {

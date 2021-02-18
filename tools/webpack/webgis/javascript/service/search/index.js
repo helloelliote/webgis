@@ -34,6 +34,8 @@ const ServiceSearch = function () {
   });
 
   const _init = function () {
+    moment.locale('ko');
+
     _tableButtonOptions = {
       pageSize: 'A4',
       orientation: 'landscape',
@@ -108,6 +110,12 @@ const ServiceSearch = function () {
           render: function (data, type, full, meta) {
             let dataString = data.toString();
             return `${dataString.substring(0, 4)}–${dataString.substring(4)}`;
+          },
+        },
+        {
+          targets: 3,
+          render: function (data, type, full, meta) {
+            return moment(data).format('YYYY/MM/DD a h:mm');
           },
         },
         {
@@ -230,7 +238,7 @@ const ServiceSearch = function () {
         // hide search column for responsive table
         const hideSearchColumnResponsive = function () {
           thisTable.api().columns().every(function () {
-            var column = this;
+            const column = this;
             if (column.responsiveHidden()) {
               $(rowFilter).find('th').eq(column.index()).show();
             } else {
@@ -296,12 +304,14 @@ const ServiceSearch = function () {
         datepicker_type: 'jquery-ui',
         filter_container_id: 'kt_datatable_daterange',
         filter_type: 'range_date',
-        date_format: 'mm/dd/yyyy',
+        date_format: 'yyyy/mm/dd',
         filter_delay: 250,
         style_class: 'form-control form-control-sm',
         filter_reset_button_text: false,
       },
     ]);
+    let selectpickers = _tableEl.find('.datatable-input.selectpicker');
+    selectpickers.selectpicker('refresh');
   }
 
   function _initTableContextMenuModal() {
@@ -440,7 +450,24 @@ const ServiceSearch = function () {
       if (params[i]) {
         params[i] += '|' + $(this).val();
       } else {
-        let pattern = ($(this).val() + '').split(/\s|,/g).join('|');
+        // i === 8: 접수내용(apl_cde) search filters are set from dropdown(selectpicker)
+        // and requires different formatting for smart search of datatables.net library to work properly
+        // @link: https://datatables.net/reference/api/search()
+        let pattern;
+        if (i === 8) {
+          pattern = ($(this).val() + '')
+            // When using multiple select option in selectpicker, selected values are separated by commas,
+            // and this should be replaced by | for datatables.net library to work.
+            .replace(/,/g, '|')
+            // Because of whitespace within some of the selected values such as "도로 누수", the search results include
+            // invalid results such as "보호통 누수 및 교체". To ignore whitespaces within these values,
+            // whitespaces should be replaced by . for datatables.net library to work.
+            .replace(/\s/g, '.');
+        } else {
+          pattern = ($(this).val() + '')
+            // Other search keywords are separated by whitespace, it should be replaced by | for search to work.
+            .split(/\s/g).join('|');
+        }
         params[i] = `(${pattern})`;
       }
     });
@@ -475,7 +502,7 @@ const ServiceSearch = function () {
 
     _dateRangeFilter.exResetAllFilters(_table, true);
     let input = _tableEl.find('.datatable-input');
-    input.val('').selectpicker('refresh');
+    input.val('').find('.selectpicker').selectpicker('refresh');
     input.each(function () {
       _table.column($(this).data('col-index')).search('', false, false);
     });

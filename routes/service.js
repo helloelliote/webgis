@@ -219,8 +219,6 @@ function formatSearchSelect(response) {
     aaData: response.rows,
   };
   (records.aaData).forEach(function (record) {
-    record['일자'] = moment(record['일자']).format('MM/DD/YYYY a h:mm');
-    record['기한'] = moment(record['기한']).format('MM/DD/YYYY a h:mm');
     let address = record['주소'].split('/');
     record['지번 주소'] = address[0] ? address[0].trim() : '';
     let addr_desc = address[2] ? address[2].trim() : '';
