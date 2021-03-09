@@ -520,7 +520,7 @@ const ServiceSearch = function () {
 
   function _updateSearchLabel(count) {
     if (count > 0) {
-      _tableSearchButtonLabel.removeAttr('hidden').html(`${count} 건`);
+      _tableSearchButtonLabel.attr('hidden', false).html(`${count} 건`);
     } else {
       _tableSearchButtonLabel.attr('hidden', true).html('');
     }
