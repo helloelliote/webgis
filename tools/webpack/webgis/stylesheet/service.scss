@@ -205,7 +205,12 @@
           padding-left: 0.5rem !important;
         }
 
+        // row expand & collapse button
         td.dtr-control:before {
+          border: none;
+          box-shadow: none;
+          color: #0078D7;
+          background-color: transparent;
           font-size: larger;
           font-weight: bolder;
         }

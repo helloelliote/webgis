@@ -2,7 +2,7 @@ require('../javascript/plugins/bootstrap-notify');
 require('../javascript/plugins/datatables-net');
 require('../javascript/plugins/bootstrap-select');
 
-window.KTLayoutSearch = window.KTLayoutSearchInline = require('../javascript/maps/components/search');
+window.KTLayoutSearch = window.KTLayoutSearchInline = function () {};
 
 export default {
   host: ((window.location.origin).toString()),

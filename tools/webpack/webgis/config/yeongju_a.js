@@ -1,5 +1,7 @@
 const defaultOptions = require('./index').default;
 
+window.KTLayoutSearch = window.KTLayoutSearchInline = require('../javascript/maps/components/search');
+
 const globalOptions = Object.assign(defaultOptions, {
   workspace: 'yeongju_a',
   role: '상수',
