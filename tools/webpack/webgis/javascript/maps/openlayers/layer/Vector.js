@@ -157,9 +157,11 @@ export function createVectorStyle(feature) {
           pointStyle.setLabel(feature.get('하수펌프장명'));
           break;
         }
-        case 'viw_wtl_userlabel_ps':
+        case 'viw_wtl_prme_ps':
+        case 'viw_wtl_userlabel_ps': {
           pointStyle.setLabel(feature.get('주기명'));
           break;
+        }
         default:
           break;
       }

@@ -19,7 +19,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_wtl_pipe_dir_ps',
       'viw_wtl_sply_ls',
       // 'viw_wtl_scvst_ps',
-      'viw_wtl_manh_ps',
+      // 'viw_wtl_manh_ps',
       'viw_wtl_meta_ps',
       'viw_wtl_flow_ps',
       'viw_wtl_fire_ps',
@@ -30,6 +30,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_wtl_pres_ps',
       'viw_wtt_wutl_ht',
       'viw_wtl_userlabel_ps',
+      'viw_wtl_prme_ps',
     ],
     image: [
       'n3a_a0010000',

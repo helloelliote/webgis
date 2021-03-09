@@ -8,6 +8,7 @@ const layerNameFilter = new Set([
   'viw_bml_hadm_as',
   'viw_wtl_cap_ps',
   'viw_wtl_pipe_dir_ps',
+  'viw_wtl_prme_ps',
   'viw_wtl_taper_ps',
   'viw_wtl_userlabel_ps',
   'viw_wtl_wspipe_ls',
@@ -34,6 +35,7 @@ const featureDateFilter = new Set([
 
 const styleRotationFilter = new Set([
   'viw_wtl_cap_ps',
+  'viw_wtl_prme_ps',
   'viw_wtl_taper_ps',
   'viw_wtl_pipe_dir_ps',
   '가정내오수관',
