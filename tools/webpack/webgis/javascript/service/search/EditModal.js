@@ -25,23 +25,23 @@ export default class EditModal {
 
     this['apm_tel'].inputmask('99[9]-999[9]-9999');
 
-    this._modalEl.find('#kt_service_edit_submit').on('click', function () {
+    this._modalEl.find('#kt_service_edit_submit').on('click', () => {
       that.onFormSubmit(table.ajax);
     });
 
-    this._modalEl.find('#kt_service_edit_cancel').on('click', function () {
+    this._modalEl.find('#kt_service_edit_cancel').on('click', () => { 
       that._modalEl.modal('hide');
     });
 
-    this._modalEl.on('shown.bs.modal', function () {
+    this._modalEl.on('shown.bs.modal', () => {
       new EditModalMap().start(that._x, that._y);
     });
 
-    this._modalEl.on('hidden.bs.modal', function () {
+    this._modalEl.on('hidden.bs.modal', () => {
       that.showBlockOverlay(false);
       that._disabledForm.attr('disabled', true);
       ['lep_cde', 'pip_dip'].forEach(code => {
-        that[code].parent().removeAttr('hidden');
+        that[code].parent().attr('hidden', false);
       });
     });
   }
@@ -76,10 +76,15 @@ export default class EditModal {
         if (resultObj[code] != null) {
           that[code].selectpicker('val', resultObj[code]);
         } else {
-          // that[code].parent().attr('hidden', true);
           that[code].val('').selectpicker('refresh');
         }
       });
+
+      if (resultObj['apy_cde'] !== '도로 누수') {
+        ['lep_cde', 'pip_dip'].forEach(code => {
+          that[code].parent().prop('hidden', true);
+        });
+      }
 
       that._modalEl.modal('show');
     }
@@ -95,7 +100,7 @@ export default class EditModal {
     let that = this;
 
     that.showBlockOverlay(true);
-    that._disabledForm.removeAttr('disabled');
+    that._disabledForm.attr('disabled', false);
 
     that._modalForm.ajaxSubmit({
       url: `${window.location.origin}/service/search?api=editto`,
