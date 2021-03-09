@@ -296,6 +296,15 @@ export default {
       '가압장명',
     ],
   },
+  viw_wtl_prme_ps: {
+    maxZ: 21,
+    minZ: 12,
+    propertyName: [
+      'geom',
+      '방향각',
+      '주기명',
+    ],
+  },
   viw_wtl_puri_as: {
     maxZ: 21,
     minZ: 7,

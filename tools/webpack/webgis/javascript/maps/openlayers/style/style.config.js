@@ -164,6 +164,20 @@ export default {
         width: null,
       },
     },
+    'viw_wtl_prme_ps': {
+      image: {
+        opacity: 1,
+        scale: 0.8,
+        src: 'EP003',
+      },
+      text: {
+        color: '#ff0000',
+        font: '1rem 맑은 고딕',
+        offsetY: 12,
+        stroke: '#ffffff',
+        width: 3,
+      },
+    },
     'viw_wtl_taper_ps': {
       image: {
         opacity: 1,
