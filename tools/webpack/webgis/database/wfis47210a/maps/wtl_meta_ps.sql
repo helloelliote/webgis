@@ -73,7 +73,7 @@ CREATE INDEX wtl_meta_ps_wsg_cde_idx
 
 CREATE VIEW viw_wtl_meta_ps
             (id, geom, 레이어, 관리번호, 급수구역, 원관구경, 원관재질, 급수구경, 급수관재질, 연장, 접합종류, 최저깊이, 최고깊이, 수용가번호, 수용가성명, 수용가주소설명, 가구수, 업종,
-             계량기기물번호, 계량기구경, 계량기형식, 계량기제작회사명, 읍면동, 법정동, 급수분구, 급수블럭, 설치일자, 공사명, 관리기관, 도엽번호, 관라벨)
+             계량기기물번호, 계량기구경, 계량기형식, 급수공사시공업체, 읍면동, 법정동, 급수분구, 급수블럭, 설치일자, 공사명, 관리기관, 도엽번호, 관라벨)
 AS
 SELECT meta_tb.id,
        meta_tb.geom,
@@ -96,7 +96,7 @@ SELECT meta_tb.id,
        meta_tb.met_num        AS 계량기기물번호,
        meta_tb.met_dip        AS 계량기구경,
        mof_tb.cname           AS 계량기형식,
-       meta_tb.prd_num        AS 계량기제작회사명,
+       meta_tb.prd_num        AS 급수공사시공업체,
        bjd_tb.hjd_nam         AS 읍면동,
        bjd_tb.bjd_nam         AS 법정동,
        wsb_tb.wsb_nam         AS 급수분구,
@@ -119,6 +119,3 @@ FROM wtl_meta_ps meta_tb
          LEFT JOIN private.cd_jht jht_tb ON sply_tb.jht_cde = jht_tb.codeno
          LEFT JOIN private.cd_sbi sbi_tb ON meta_tb.sbi_cde = sbi_tb.codeno
          LEFT JOIN private.cd_mof mof_tb ON meta_tb.met_mof = mof_tb.codeno AND mof_tb.tbl_nam = '계량기형식'::BPCHAR;
-
-ALTER TABLE viw_wtl_meta_ps
-    OWNER TO postgres;
