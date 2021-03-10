@@ -6,7 +6,8 @@
     "buildServer": "webpack --watch --config ./webpack.server.js",
     "prodServer": "webpack --mode=production --config ./webpack.server.js",
     "test": "jest --coverage",
-    "ncu(devDependencies)": "ncu --dep dev"
+    "ncu(devDependencies)": "ncu --dep dev",
+    "eslint": "eslint ./"
   },
   "repository": {
     "type": "git",
