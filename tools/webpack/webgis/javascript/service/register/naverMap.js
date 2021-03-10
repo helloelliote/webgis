@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { LocalStorage } from '../../maps/Storage';
 import { roundCustom } from '../../maps/math';
 import { getAddressFromLatLng } from '../../maps/naver/geoCoder';

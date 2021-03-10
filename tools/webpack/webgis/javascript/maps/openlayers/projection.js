@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
 import { Projection } from 'ol/proj';

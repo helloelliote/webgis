@@ -6,7 +6,6 @@ import { formatSchedule } from '../format/register';
 const ServiceRegister = function () {
 
   let validation;
-  let isPending = false;
   // Form elements
   let _card;
   let _form;
@@ -131,7 +130,7 @@ const ServiceRegister = function () {
 
       validation.validate().then(function (status) {
         if (status === 'Valid') {
-          _toggleBlockOverlay(isPending = true);
+          _toggleBlockOverlay(true);
 
           _form.ajaxSubmit({
             url: `${window.location.origin}/service/register`,
@@ -143,7 +142,7 @@ const ServiceRegister = function () {
               setTimeout(function () {
                 _form.resetForm();
                 _resetSelectpicker();
-                _toggleBlockOverlay(isPending = false);
+                _toggleBlockOverlay(false);
                 $.notify({
                   message: '민원이 등록되었습니다',
                 }, { type: 'success' });
@@ -154,7 +153,7 @@ const ServiceRegister = function () {
                 // message: '민원을 등록하지 못하였습니다',
                 message: xhr,
               }, { type: 'danger' });
-              _toggleBlockOverlay(isPending = false);
+              _toggleBlockOverlay(false);
             },
           },
           null,

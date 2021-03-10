@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import { coordinateToLatLng } from './util';
 
 const geoCoder = new kakao.maps.services.Geocoder();

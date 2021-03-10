@@ -1,11 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const del = require('del');
+// const del = require('del');
 const glob = require('glob');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackRTLPlugin = require('webpack-rtl-plugin');
+// const WebpackRTLPlugin = require('webpack-rtl-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
@@ -103,12 +103,12 @@ function addtionalSettings() {
 
   if (!js && css) {
     // exclude js files
-    exclude.push('\.js$');
+    exclude.push('.js$');
   }
 
   if (js && !css) {
     // exclude css files
-    exclude.push('\.s?css$');
+    exclude.push('.s?css$');
   }
 
   if (exclude.length) {
@@ -366,7 +366,7 @@ function getDemos(pathDemos) {
       try {
         // sync reusable source code with demo1 for all other demos
         demos = fs.readdirSync(pathDemos).filter((file) => {
-          return !/(^|\/)\.[^\/\.]/g.test(file) && /^demo\d+$/g.test(file) && file !== 'demo0';
+          return !/(^|\/)\.[^/.]/g.test(file) && /^demo\d+$/g.test(file) && file !== 'demo0';
         });
       } catch (err) {
         console.error('Failed to read demo folder: ' + pathDemos);

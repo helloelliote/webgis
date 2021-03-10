@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { and, during } from 'ol/format/filter';
 import { geoJson, wfs } from '../format';
 import { property } from '../layer';
@@ -43,6 +42,7 @@ const FeatureFilter = function () {
     _featureTypeMap.get(index)['filters'].push(filter);
   }
 
+  // eslint-disable-next-line no-unused-vars
   function _removeFilter(index, filterIndex) {
     _featureTypeMap.get(index)['filters'].splice(filterIndex, 1);
   }

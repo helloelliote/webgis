@@ -4,7 +4,7 @@ const ServiceSchedule = function () {
 
   let _table;
   let _tableMemo;
-  let _time;
+  // let _time;
   let _modalTitle;
   let _tableButtonOpts;
 
@@ -62,7 +62,7 @@ const ServiceSchedule = function () {
         },
       ],
       initComplete: function () {
-        _time = _table.column(0).data()[0].slice();
+        // _time = _table.column(0).data()[0].slice();
       },
 
       processing: true,

@@ -12,7 +12,6 @@ const KTLayoutSearch = function () {
   let _resultDropdown;
   let _resultDropdownToggle;
   let _closeIconContainer;
-  let _inputGroup;
   let _query = '';
 
   let _hasResult = false;
@@ -239,7 +238,6 @@ const KTLayoutSearch = function () {
       _resultWrapper = KTUtil.find(_target, '.quick-search-wrapper');
       _resultDropdown = KTUtil.find(_target, '.dropdown-menu');
       _resultDropdownToggle = KTUtil.find(_target, '[data-toggle="dropdown"]');
-      _inputGroup = KTUtil.find(_target, '.input-group');
       _closeIconContainer = KTUtil.find(_target, '.input-group .input-group-append');
       _toggle = KTUtil.find(_target, '.input-group-prepend .input-group-text a[data-toggle="tooltip"]');
 
@@ -265,6 +263,3 @@ const KTLayoutSearch = function () {
 if (typeof module !== 'undefined') {
   module.exports = KTLayoutSearch;
 }
-
-const KTLayoutSearchInline = KTLayoutSearch;
-const KTLayoutSearchOffcanvas = KTLayoutSearch;
