@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { map as olMap, selectInteraction } from '../openlayers/map';
 import { default as projection } from '../openlayers/projection';
 import { view as olView } from '../openlayers/view';

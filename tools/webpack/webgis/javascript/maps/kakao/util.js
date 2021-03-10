@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { toLonLat } from 'ol/proj';
 import { roundCustom } from '../math';
 import { LocalStorage } from '../Storage';

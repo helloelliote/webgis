@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import { coordinateToLatLng } from './util';
 
 const service = naver.maps.Service;

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 'use strict';
 
 import { setMapMarker, setMapMarkerSet } from './kakaoMap';
@@ -15,7 +14,7 @@ const ServiceSearch = function () {
   let _tableSearchButtonLabel;
   let _tableSearchResetButton;
   let _searchResultSet;
-  let _isFilter = false;
+  // eslint-disable-next-line no-undef
   let _dateRangeFilter = yadcf;
   let _contextmenuAjaxDefault;
 
@@ -481,14 +480,12 @@ const ServiceSearch = function () {
     _updateSearchLabel(filterRows.length);
 
     if (filterRows.length < 1) {
-      _isFilter = false;
       $.notify({
         message: '지도에 표시할 검색결과가 없습니다',
       }, { type: 'danger' });
       _searchResultSet.clear();
       setMapMarkerSet(null);
     } else {
-      _isFilter = true;
       _searchResultSet.clear();
       filterRows.each((d, j) => _searchResultSet.add([d['x'], d['y']]));
       setTimeout(() => setMapMarkerSet(_searchResultSet), 250);
@@ -513,7 +510,6 @@ const ServiceSearch = function () {
 
     _updateSearchLabel(0);
 
-    _isFilter = false;
     _searchResultSet.clear();
     setMapMarkerSet(null);
   }

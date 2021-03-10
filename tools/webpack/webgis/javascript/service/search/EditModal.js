@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { formatSchedule } from '../format/register';
 import { getDefaultCenter, onWindowResize } from '../../maps/kakao/util';
 import { latLngToAddress } from '../../maps/kakao/geoCoder';
