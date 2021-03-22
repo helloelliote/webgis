@@ -9,7 +9,7 @@ import SourceLoader from '../worker/sourceLoader.worker';
 import { default as FeatureFilter } from '../feature/filter';
 import { geoJson } from '../format';
 import { arrowheadStyle, closedPipeStyle, lineStyleMap, pointStyleMap, polygonStyleMap } from '../style';
-import { layerNameFilter, styleDirectionFilter, styleRotationFilter } from '../filter';
+import { layerSelectFilter, styleDirectionFilter, styleRotationFilter } from '../filter';
 
 export default class Vector extends Layer {
 
@@ -33,7 +33,7 @@ function createVectorLayer(key) {
     source: key.includes('filter') ? new VectorSource() : createVectorSource(key),
     style: createVectorStyle,
   });
-  if (!layerNameFilter.has(key)) {
+  if (!layerSelectFilter.has(key)) {
     vectorLayer.set('selectable', true, true);
   }
   return vectorLayer;

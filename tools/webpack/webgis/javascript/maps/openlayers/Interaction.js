@@ -102,11 +102,12 @@ export class SelectInteraction extends Select {
     if (!feature) return;
     switch (feature.getGeometry().getType()) {
       case GeometryType.LINE_STRING:
-      case GeometryType.MULTI_LINE_STRING:
+      case GeometryType.MULTI_LINE_STRING: {
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
         });
         break;
+      }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
         this._overlayFeature.setStyle(selectPointStyle);
@@ -124,8 +125,9 @@ export class SelectInteraction extends Select {
         this._overlay.setOverlay(this._overlayFeature);
         break;
       }
-      default:
+      default: {
         break;
+      }
     }
   }
 
