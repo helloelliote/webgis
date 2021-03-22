@@ -193,6 +193,9 @@ export function createVectorStyle(feature) {
         case 'viw_bml_hadm_as':
           polygonStyle.setLabel(feature.get('행정동'));
           break;
+        case 'viw_wtl_userlabel_as':
+          polygonStyle.setLabel(feature.get('주기명'));
+          break;
         case 'viw_wtl_wtsa_as':
           polygonStyle.setLabel(feature.get('급수구역명'));
           break;

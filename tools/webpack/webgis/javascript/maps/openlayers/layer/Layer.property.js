@@ -343,6 +343,15 @@ export default {
       '배수지명',
     ],
   },
+  viw_wtl_spcnt_as: {
+    maxZ: 21,
+    minZ: 12,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+    ],
+  },
   viw_wtl_sply_ls: {
     maxZ: 21,
     minZ: 14,
@@ -359,6 +368,14 @@ export default {
     propertyName: [
       'geom',
       '방향각',
+    ],
+  },
+  viw_wtl_userlabel_as: {
+    maxZ: 21,
+    minZ: 12,
+    propertyName: [
+      'geom',
+      '주기명',
     ],
   },
   viw_wtl_userlabel_ps: {

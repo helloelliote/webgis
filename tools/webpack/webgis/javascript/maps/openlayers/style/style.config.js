@@ -906,6 +906,23 @@ export default {
         width: 6,
       },
     },
+    'viw_wtl_userlabel_as': {
+      fill: {
+        color: '#ff525266',
+      },
+      stroke: {
+        color: '#ff1744',
+        dash: null,
+        width: 3,
+      },
+      text: {
+        color: '#ff0000',
+        font: '1rem 맑은 고딕',
+        offsetY: 20,
+        stroke: '#ffffff',
+        width: 3,
+      },
+    },
     'viw_wtl_wtsa_as': {
       fill: {
         color: '#ffffff00',
@@ -1000,6 +1017,22 @@ export default {
         font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 3,
+      },
+    },
+    '특수시공': {
+      fill: {
+        color: '#2677ff66',
+      },
+      stroke: {
+        color: '#2677ff',
+        dash: null,
+        width: 3,
+      },
+      text: {
+        color: '#ff0000',
+        font: '1rem 맑은 고딕',
+        stroke: '#fff',
+        width: 6,
       },
     },
     '하수처리장': {

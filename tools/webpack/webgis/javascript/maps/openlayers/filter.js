@@ -10,6 +10,7 @@ const layerNameFilter = new Set([
   'viw_wtl_pipe_dir_ps',
   'viw_wtl_prme_ps',
   'viw_wtl_taper_ps',
+  'viw_wtl_userlabel_as',
   'viw_wtl_userlabel_ps',
   'viw_wtl_wspipe_ls',
 ]);
@@ -59,8 +60,6 @@ const styleRotationFilter = new Set([
 ]);
 
 const styleDirectionFilter = new Set([
-  '도수관',
-  '송수관',
   '오수관',
   '우수관',
   '차집관',
