@@ -1,4 +1,4 @@
-const layerNameFilter = new Set([
+const layerSelectFilter = new Set([
   'geo_line_as',
   'n3a_a0010000',
   'n3a_b0010000',
@@ -68,7 +68,7 @@ const styleDirectionFilter = new Set([
 ]);
 
 export {
-  layerNameFilter,
+  layerSelectFilter,
   featureNameFilter,
   featureDateFilter,
   styleRotationFilter,
