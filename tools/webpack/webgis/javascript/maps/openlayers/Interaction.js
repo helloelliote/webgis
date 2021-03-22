@@ -123,6 +123,9 @@ export class SelectInteraction extends Select {
         this._overlayFeature.setStyle(selectPolygonStyle);
         this._overlayFeature.setGeometry(feature.getGeometry());
         this._overlay.setOverlay(this._overlayFeature);
+        this._infoModal.setFeatureAsync(feature).then(modal => {
+          modal.showModal();
+        });
         break;
       }
       default: {
