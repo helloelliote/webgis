@@ -23,8 +23,4 @@ export default class FeatureOverlay extends VectorLayer {
   addFeature(feature) {
     this.getSource().addFeature(feature);
   }
-
-  clear() {
-    this.getSource().clear();
-  }
 }

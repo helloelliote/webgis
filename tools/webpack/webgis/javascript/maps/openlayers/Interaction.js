@@ -152,6 +152,10 @@ export class SelectInteraction extends Select {
       }
     }
   }
+
+  getOverlay() {
+    return this._overlay;
+  }
 }
 
 export class MeasureInteraction extends Draw {

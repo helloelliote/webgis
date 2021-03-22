@@ -30,6 +30,7 @@ export default class InfoModal extends ModalOverlay {
 
     this._modalEl.on('hidden.bs.modal', function () {
       that._featureMap.clear();
+      that._interaction.getOverlay().setOverlay(null);
       that._interaction.getFeatures().clear();
     });
   }
