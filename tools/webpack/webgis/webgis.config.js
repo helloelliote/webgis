@@ -51,20 +51,6 @@ const webpackRules = {
     exclude: [/(node_modules|bower_components)/, /__tests__/],
     loader: 'babel-loader',
     options: {
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            targets: {
-              node: 'current', // !!!DO NOT REMOVE!!!
-            },
-          },
-        ],
-      ],
-      plugins: [
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-transform-runtime',
-      ],
       cacheDirectory: true,
       rootMode: 'upward',
     },
