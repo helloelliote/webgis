@@ -113,7 +113,7 @@ export default class HistoryModal extends ModalOverlay {
 
   setFeature(feature) {
     super.setFeature(feature);
-    this._featureMap.set('layerSub', this._getLayerSub(feature));
+    this._featureMap.set('layerSub', this.getLayerSubName(feature));
   }
 
   setFeatureAsync(feature) {

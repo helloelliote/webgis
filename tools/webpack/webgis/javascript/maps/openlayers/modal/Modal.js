@@ -3,17 +3,6 @@ export default class ModalOverlay {
   constructor(element) {
     this._modalEl = $(`${element}`);
 
-    this._getLayer = function (feature) {
-      return (feature.get('레이어') || feature.get('layer') || feature.get('시설물구분') || '').trim();
-    };
-
-    this._getLayerSub = function (feature) {
-      return (feature.get('시설물구분') || this._getLayer(feature))
-        .replace(/역지변|이토변|배기변|감압변|안전변/g, '제수변')
-        .replace('블럭', '')
-        .trim();
-    };
-
     this._featureMap = new Map();
   }
 
@@ -23,12 +12,23 @@ export default class ModalOverlay {
     }, this);
   }
 
+  getLayerName(feature) {
+    return (feature.get('레이어') || feature.get('layer') || feature.get('시설물구분') || '').trim();
+  }
+
+  getLayerSubName(feature) {
+    return (feature.get('시설물구분') || feature.get('레이어') || feature.get('layer'))
+      .replace(/역지변|이토변|배기변|감압변|안전변/g, '제수변')
+      .replace('블럭', '')
+      .trim();
+  }
+
   getFeature(key) {
     return this._featureMap.get(key);
   }
 
   setFeature(feature) {
-    this._featureMap.set('layer', this._getLayer(feature));
+    this._featureMap.set('layer', this.getLayerName(feature));
     this._featureMap.set('id', feature.get('관리번호') || feature.get('ftr_idn'));
   }
 
