@@ -52,7 +52,7 @@ function onClickQuickSearchInline(event) {
       const [lng, lat] = [latLng[0], latLng[1]];
       const coords = fromLonLat([lng, lat], projection);
       this.setCenter(coords);
-      setTimeout(function () {
+      setTimeout(() => {
         addressOverlay.popover('dispose');
         addressOverlay.setPosition(coords);
         addressOverlay.popover({
@@ -143,8 +143,9 @@ function onWindowLoad(event) {
       });
       break;
     }
-    default:
+    default: {
       break;
+    }
   }
 }
 

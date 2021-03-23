@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-'use strict';
-
 import { formatSchedule } from '../format/register';
 
 const ServiceRegister = function () {

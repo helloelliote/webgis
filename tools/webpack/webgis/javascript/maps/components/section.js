@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-'use strict';
-
 const { formatSectionSearch } = require('./format/section');
 
 const OLWaterSection = function () {
