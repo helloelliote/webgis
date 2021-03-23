@@ -1,5 +1,3 @@
-'use strict';
-
 const { formatFacilitySearch, formatAddressSearch, formatKeywordSearch } = require('./format/search');
 
 const KTLayoutSearch = function () {

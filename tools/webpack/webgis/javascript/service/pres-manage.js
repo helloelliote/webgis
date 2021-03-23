@@ -1,5 +1,3 @@
-'use strict';
-
 const ServicePresManage = function () {
 
   let _table;

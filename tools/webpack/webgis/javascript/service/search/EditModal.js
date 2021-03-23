@@ -28,7 +28,7 @@ export default class EditModal {
       that.onFormSubmit(table.ajax);
     });
 
-    this._modalEl.find('#kt_service_edit_cancel').on('click', () => { 
+    this._modalEl.find('#kt_service_edit_cancel').on('click', () => {
       that._modalEl.modal('hide');
     });
 
@@ -147,8 +147,6 @@ class EditModalMap {
     EditModalMap.instance = this;
     EditModalMap.exists = true;
 
-    let that = this;
-
     const mapOptions = {
       center: getDefaultCenter(),
       level: 3,
@@ -161,36 +159,38 @@ class EditModalMap {
 
     const mapContainer = document.getElementById('search_map_modal');
 
-    this.map = new kakao.maps.Map(mapContainer, mapOptions);
+    this._map = new kakao.maps.Map(mapContainer, mapOptions);
 
     const mapTypeControl = new kakao.maps.MapTypeControl();
-    this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
-    this.map.setMinLevel(1);
-    this.map.setMaxLevel(7);
+    this._map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+    this._map.setMinLevel(1);
+    this._map.setMaxLevel(7);
 
-    this.marker = new kakao.maps.Marker({
-      map: that.map,
-      position: that.map.getCenter(),
+    let that = this;
+
+    this._marker = new kakao.maps.Marker({
+      map: that._map,
+      position: that._map.getCenter(),
     });
 
-    kakao.maps.event.addListener(that.map, 'click', that.onKakaoMapClick.bind(that));
+    kakao.maps.event.addListener(that._map, 'click', that.onKakaoMapClick.bind(that));
 
-    window.addEventListener('resize', onWindowResize.bind(that.map), { passive: true });
+    window.addEventListener('resize', onWindowResize.bind(that._map), { passive: true });
 
     return this;
   }
 
   start(x, y) {
     const defaultLatLng = new kakao.maps.LatLng(y, x);
-    this.map.setLevel(3);
-    this.map.setCenter(defaultLatLng);
-    this.marker.setPosition(defaultLatLng);
+    this._map.setLevel(3);
+    this._map.setCenter(defaultLatLng);
+    this._marker.setPosition(defaultLatLng);
   }
 
   onKakaoMapClick(event) {
     let latLng = event.latLng;
-    this.marker.setPosition(latLng);
-    latLngToAddress(latLng).then(function (response) {
+    this._marker.setPosition(latLng);
+    latLngToAddress(latLng).then(response => {
       let address = response['address'];
       let road = response['road_address'];
       let jibun = address['address_name'];

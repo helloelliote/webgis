@@ -76,8 +76,9 @@ export class SelectInteraction extends Select {
             selectStyle.setFill(selectPolygonStyle.getFill());
             return selectStyle;
           }
-          default:
+          default: {
             return createDefaultStyle(feature, 0);
+          }
         }
       },
     });
@@ -87,7 +88,12 @@ export class SelectInteraction extends Select {
       map: options['map'],
     });
 
-    this._overlayFeature = new Feature();
+    this._setSelectOverlay = function (feature, style) {
+      let selectFeature = new Feature();
+      selectFeature.setGeometry(feature.getGeometry());
+      selectFeature.setStyle(style);
+      this._overlay.setOverlay(selectFeature);
+    };
 
     this._infoModal = new InfoModal('#kt_chat_modal');
     this._infoModal.addInteraction(this);
@@ -110,9 +116,7 @@ export class SelectInteraction extends Select {
       }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
-        this._overlayFeature.setStyle(selectPointStyle);
-        this._overlayFeature.setGeometry(feature.getGeometry());
-        this._overlay.setOverlay(this._overlayFeature);
+        this._setSelectOverlay(feature, selectPointStyle);
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
         });
@@ -120,9 +124,7 @@ export class SelectInteraction extends Select {
       }
       case GeometryType.POLYGON:
       case GeometryType.MULTI_POLYGON: {
-        this._overlayFeature.setStyle(selectPolygonStyle);
-        this._overlayFeature.setGeometry(feature.getGeometry());
-        this._overlay.setOverlay(this._overlayFeature);
+        this._setSelectOverlay(feature, selectPolygonStyle);
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
         });
@@ -140,16 +142,12 @@ export class SelectInteraction extends Select {
     switch (feature.getGeometry().getType()) {
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
-        this._overlayFeature.setStyle(selectPointStyle);
-        this._overlayFeature.setGeometry(feature.getGeometry());
-        this._overlay.setOverlay(this._overlayFeature);
+        this._setSelectOverlay(feature, selectPointStyle);
         break;
       }
       case GeometryType.POLYGON:
       case GeometryType.MULTI_POLYGON: {
-        this._overlayFeature.setStyle(selectPolygonStyle);
-        this._overlayFeature.setGeometry(feature.getGeometry());
-        this._overlay.setOverlay(this._overlayFeature);
+        this._setSelectOverlay(feature, selectPolygonStyle);
         break;
       }
       default: {
@@ -230,10 +228,10 @@ export class MeasureInteraction extends Draw {
 
   onDrawStart(event) {
     this._drawFeature = event.feature;
-    this._drawListener = this._drawFeature.getGeometry().on('change', event => {
+    this._drawListener = this._drawFeature.getGeometry().on('change', e => {
       let output;
       let position;
-      let geometry = event.target;
+      let geometry = e.target;
       if (geometry.getType() === GeometryType.LINE_STRING) {
         output = formatLength(geometry);
         position = geometry.getLastCoordinate();

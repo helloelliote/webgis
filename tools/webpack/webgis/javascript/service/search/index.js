@@ -1,5 +1,3 @@
-'use strict';
-
 import { setMapMarker, setMapMarkerSet } from './kakaoMap';
 import { default as EditModal } from './EditModal';
 import { default as sweetalert } from '../../plugins/sweetalert-mixin';
