@@ -140,6 +140,11 @@ export class SelectInteraction extends Select {
     this._overlay.setOverlay(null);
     this.getFeatures().setAt(0, feature);
     switch (feature.getGeometry().getType()) {
+      case GeometryType.LINE_STRING:
+      case GeometryType.MULTI_LINE_STRING: {
+        this._setSelectOverlay(feature, selectLineStyle);
+        break;
+      }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
         this._setSelectOverlay(feature, selectPointStyle);
