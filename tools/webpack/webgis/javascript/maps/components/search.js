@@ -15,7 +15,7 @@ const KTLayoutSearch = function () {
   let _hasResult = false;
   let _timeout = false;
   let _isProcessing = false;
-  let _requestTimeout = 200; // ajax request fire timeout in milliseconds
+  let _requestTimeout = 500; // ajax request fire timeout in milliseconds
   let _spinnerClass = 'spinner spinner-sm spinner-primary';
   let _resultClass = 'quick-search-has-result';
   let _minLength = 2;
@@ -109,6 +109,11 @@ const KTLayoutSearch = function () {
 
     setTimeout(() => {
       if (_toggleIndex > 0) { // Is either WTL or SWL search
+        if (_query === '') {
+          _hideProgress();
+          _handleCancel();
+          return;
+        }
         $.ajax({
           url: _toggleArray[_toggleIndex].url,
           headers: _toggleArray[_toggleIndex].headers,
@@ -141,7 +146,7 @@ const KTLayoutSearch = function () {
           })
           .catch(_handleError);
       }
-    }, 250);
+    }, 200);
   };
 
   const _searchAddress = function () {
@@ -188,6 +193,9 @@ const KTLayoutSearch = function () {
   };
 
   const _handleSearch = function () {
+    // Set minimum length of 'ftr_idn' search value to 1, otherwise 2
+    _minLength = _input.value.match('^[0-9]+$') ? 1 : 2;
+
     if (_input.value.length < _minLength) {
       _hideProgress();
       _hideDropdown();
