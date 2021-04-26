@@ -41,7 +41,7 @@ const globalOptions = Object.assign(defaultOptions, {
     ],
     maintenance: 'viw_web_wutl_ht_img',
     photo: 'viw_wtt_st_image',
-    repairPhoto: 'viw_wtt_subimge_et',
+    repairPhoto: 'viw_swt_subimge_et',
     repair: 'viw_wtt_wutl_ht_re',
   },
 });
