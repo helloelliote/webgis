@@ -40,6 +40,13 @@ map.on('singleclick', onSingleClick);
 document.getElementById('kt_quick_search_inline')
   .addEventListener('click', onClickQuickSearchInline.bind(view), false);
 
+document.getElementById('btn-map-hybrid').addEventListener('mousedown', () => {
+  window.webgis.isMapTypeIdRoadMap = !window.webgis.isMapTypeIdRoadMap;
+  imageLayer.getLayer('geo_line_as').getSource().updateParams({
+    ENV: window.webgis.isMapTypeIdRoadMap ? 'COLOR:#1118A8' : 'COLOR:#FFFF5A',
+  });
+});
+
 // [...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
 //   element.addEventListener('mousedown', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);
 // });
