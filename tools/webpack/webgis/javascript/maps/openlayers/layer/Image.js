@@ -33,6 +33,7 @@ function createImageSource(key) {
       STYLES: null,
       TILED: false,
       VERSION: '1.1.1',
+      ENV: window.webgis.isMapTypeIdRoadMap ? 'COLOR:#1118A8' : 'COLOR:#FFFF5A',
     },
     ratio: 1,
   });
