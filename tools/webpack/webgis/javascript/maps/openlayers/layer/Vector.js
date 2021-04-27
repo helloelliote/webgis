@@ -145,7 +145,8 @@ export function createVectorStyle(feature) {
           break;
         }
         case '가압장':
-        case '배수지': {
+        case '배수지':
+        case '취수장': {
           pointStyle.setLabel(feature.get(`${layer}명`));
           break;
         }

@@ -626,6 +626,20 @@ export default {
         width: null,
       },
     },
+    '취수장': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SA206',
+      },
+      text: {
+        color: '#fff',
+        font: '1rem 맑은 고딕',
+        offsetY: 22.5,
+        stroke: '#e65100',
+        width: 3,
+      },
+    },
     '토구': {
       image: {
         opacity: 1,
