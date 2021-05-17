@@ -165,6 +165,9 @@ export default {
     minZ: 10,
     propertyName: [
       'geom',
+      '레이어',
+      '관리번호',
+      '관라벨',
     ],
   },
   viw_swl_pump_ps: {
