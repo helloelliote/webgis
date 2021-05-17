@@ -89,7 +89,7 @@ export default {
       stroke: {
         color: '#ff5252',
         dash: null,
-        width: 1,
+        width: 1.25,
       },
     },
     '우수관': {
@@ -103,7 +103,7 @@ export default {
       stroke: {
         color: '#c2185b',
         dash: null,
-        width: 1,
+        width: 1.25,
       },
     },
     '취수관': {
