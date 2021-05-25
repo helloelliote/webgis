@@ -25,6 +25,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_swl_pump_ps',
       'viw_swl_spot_ps',
       'viw_swl_manh_ps',
+      'viw_wtl_userlabel_ps',
     ],
     image: [
       'n3a_a0010000',

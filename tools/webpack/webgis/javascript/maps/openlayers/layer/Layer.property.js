@@ -240,7 +240,7 @@ export default {
   },
   viw_swl_vent_ps: {
     maxZ: 21,
-    minZ: 13,
+    minZ: 10,
     propertyName: [
       'geom',
       '레이어',
@@ -434,7 +434,6 @@ export default {
     minZ: 12,
     propertyName: [
       'geom',
-      '방향각',
       '주기명',
     ],
   },

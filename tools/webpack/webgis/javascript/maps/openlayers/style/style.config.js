@@ -82,7 +82,7 @@ export default {
       stroke: {
         color: '#ff9100',
         dash: null,
-        width: 1,
+        width: 1.5,
       },
     },
     '오수관': {
@@ -94,14 +94,14 @@ export default {
     },
     '우수관': {
       stroke: {
-        color: '#76ff03',
+        color: '#0045ff',
         dash: null,
         width: 1.5,
       },
     },
     '차집관': {
       stroke: {
-        color: '#c2185b',
+        color: '#7b7bc0',
         dash: null,
         width: 1.25,
       },
@@ -109,6 +109,13 @@ export default {
     '취수관': {
       stroke: {
         color: '#ff7e00',
+        dash: null,
+        width: 2,
+      },
+    },
+    '측구': {
+      stroke: {
+        color: '#40e0d0',
         dash: null,
         width: 2,
       },
@@ -430,6 +437,20 @@ export default {
         width: null,
       },
     },
+    '역사이펀': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB100',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
     '역지변': {
       image: {
         opacity: 1,
@@ -462,6 +483,20 @@ export default {
       image: {
         opacity: 1,
         scale: 1,
+        src: 'SB102_3',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
+    '오수받이_영천환경사업소': {
+      image: {
+        opacity: 1,
+        scale: 1,
         src: 'SB1022',
       },
       text: {
@@ -476,7 +511,7 @@ export default {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'SB101_1',
+        src: 'SB101_4',
       },
       text: {
         color: null,
@@ -490,7 +525,21 @@ export default {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'SB102',
+        src: 'SB102_2',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
+    '우수토실': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB103',
       },
       text: {
         color: null,
@@ -612,11 +661,25 @@ export default {
         width: null,
       },
     },
+    '집수맨홀': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB101_6',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
     '차집맨홀': {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'SB101_2',
+        src: 'SB101_5', // #7b7bc0
       },
       text: {
         color: null,
@@ -668,25 +731,39 @@ export default {
         width: null,
       },
     },
+    '하수처리장': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB200',
+      },
+      text: {
+        color: '#fff',
+        font: '1rem 맑은 고딕',
+        offsetY: 22.5,
+        stroke: '#e65100',
+        width: 3,
+      },
+    },
     '하수펌프장': {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'SB210',
+        src: 'SB210_2',
       },
       text: {
-        color: null,
-        font: null,
-        offsetY: null,
-        stroke: null,
-        width: null,
+        color: '#fff',
+        font: '1rem 맑은 고딕',
+        offsetY: 22.5,
+        stroke: '#e65100',
+        width: 3,
       },
     },
     '합류맨홀': {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'SB101_3',
+        src: 'SB101_7', // #8b8b00
       },
       text: {
         color: null,
@@ -700,7 +777,7 @@ export default {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'HA',
+        src: 'SB410',
       },
       text: {
         color: null,
@@ -813,12 +890,12 @@ export default {
         color: '#ffffff00',
       },
       stroke: {
-        color: '#ff1744',
+        color: '#a84fac',
         dash: null,
         width: 3,
       },
       text: {
-        color: '#ff0000',
+        color: '#a84fac',
         font: '1.4rem 맑은 고딕',
         stroke: '#fff',
         width: 6,
@@ -829,12 +906,12 @@ export default {
         color: '#ffffff00',
       },
       stroke: {
-        color: '#ff1744',
+        color: '#2ce5ba',
         dash: null,
         width: 3,
       },
       text: {
-        color: '#ff0000',
+        color: '#2ce5ba',
         font: '1.4rem 맑은 고딕',
         stroke: '#fff',
         width: 6,
@@ -847,10 +924,10 @@ export default {
       stroke: {
         color: '#ff1744',
         dash: null,
-        width: 3,
+        width: 2,
       },
       text: {
-        color: '#ff0000',
+        color: '#ff1744',
         font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 6,
@@ -861,15 +938,31 @@ export default {
         color: '#ffffff00',
       },
       stroke: {
-        color: '#ff1744',
+        color: '#ffc0cb',
         dash: null,
         width: 3,
       },
       text: {
-        color: '#ff0000',
+        color: '#ffc0cb',
         font: '1.4rem 맑은 고딕',
         stroke: '#fff',
         width: 6,
+      },
+    },
+    'viw_swl_pipe_as': {
+      fill: {
+        color: '#ffff00',
+      },
+      stroke: {
+        color: '#00c6c6',
+        dash: null,
+        width: 1,
+      },
+      text: {
+        color: '#ffffff00',
+        font: '0.95rem Noto Sans KR',
+        stroke: '#ffffff00',
+        width: 0,
       },
     },
     'viw_wtl_gain_ps': {
