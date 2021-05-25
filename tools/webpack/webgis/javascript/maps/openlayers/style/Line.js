@@ -23,7 +23,7 @@ const arrowheadStyle = new StyleMap({
       image: new Icon({
         anchor: [1.5, 0.55],
         color: opt.stroke.color,
-        scale: 0.6,
+        scale: 0.5,
         src: '/assets/media/symbols/A01.png',
         rotateWithView: true,
       }),

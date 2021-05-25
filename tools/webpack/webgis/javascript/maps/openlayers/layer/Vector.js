@@ -153,9 +153,19 @@ export function createVectorStyle(feature) {
         case '블럭유량계':
           pointStyle.setLabel(feature.get('유량계명칭'));
           break;
+        case '오수받이': {
+          if (feature.get('EDDATE') && feature.get('관리기관') === '환경사업소') {
+            pointStyle = pointStyleMap['오수받이_영천환경사업소'];
+          }
+          break;
+        }
         case '펌프시설':
         case '하수펌프장': {
           pointStyle.setLabel(feature.get('하수펌프장명'));
+          break;
+        }
+        case '하수처리장': {
+          pointStyle.setLabel(feature.get('하수처리장명'));
           break;
         }
         case 'viw_wtl_prme_ps':

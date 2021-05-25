@@ -13,16 +13,27 @@ const globalOptions = Object.assign(defaultOptions, {
   table: {
     filter: false,
     vector: [
+      'viw_swl_pipe_as',
+      'viw_swl_clay_ps',
+      'viw_swl_dran_ps',
+      'viw_swl_spew_ps',
+      'viw_swl_rsph_ps',
+      'viw_swl_vent_ps',
       'viw_swl_pipe_lm',
+      'viw_swl_side_ls',
+      'viw_swl_conn_ls',
+      'viw_swl_pump_ps',
+      'viw_swl_spot_ps',
+      'viw_swl_manh_ps',
     ],
     image: [
       'n3a_a0010000',
       'n3a_b0010000',
     ],
-    maintenance: 'viw_web_wutl_ht_img',
-    photo: 'viw_wtt_st_image',
-    repairPhoto: 'viw_wtt_subimge_et_re',
-    repair: 'viw_wtt_wutl_ht_re',
+    // maintenance: 'viw_web_wutl_ht_img',
+    photo: 'viw_web_bs_img_et',
+    // repairPhoto: 'viw_wtt_subimge_et_re',
+    // repair: 'viw_wtt_wutl_ht_re',
   },
 });
 

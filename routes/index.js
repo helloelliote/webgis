@@ -1,7 +1,7 @@
 import { default as main } from './main';
 import { default as passportRoute } from './passport';
 import { default as wtl } from './wtl';
-// import { default as swl } from './swl';
+import { default as swl } from './swl';
 import { default as service } from './service';
 
 export default function (router, passport) {
@@ -12,6 +12,10 @@ export default function (router, passport) {
     return passportRoute.login(req, res, next, passport);
   });
   
+  router.get('/api/swl/search', swl.search, onError);
+  router.get('/api/swl/info', swl.info, onError);
+  router.get('/api/swl/info/photo', swl.infoPhoto, onError);
+
   router.get('/api/wtl/search', wtl.search, onError);
   router.get('/api/wtl/section', wtl.section, onError);
   router.get('/api/wtl/info', wtl.info, onError);

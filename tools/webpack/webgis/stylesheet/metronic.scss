@@ -149,9 +149,9 @@ body {
     }
 
     // Reserved for SWL search
-    //.label-danger::before {
-    //  content: '하수도 시설물';
-    //}
+    .label-danger::before {
+      content: '하수도 시설물';
+    }
 
     .label-info::before {
       content: '주소 및 장소';
