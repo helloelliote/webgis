@@ -62,33 +62,41 @@ export default {
     ],
   },
   viw_swl_aodp_as: {
-    childColumn: '처리분구명',
-    childElementId: 'kt-notification-section-m',
-    childTable: 'viw_swl_dodp_as',
-    column: '처리구역명',
-    elementId: 'kt-notification-section-l',
+    childColumn: null,
+    childElementId: null,
+    childTable: null,
+    column: null,
+    elementId: null,
     maxZ: 10,
     minZ: 6,
     propertyName: [
       'geom',
-      'layer',
       '관리번호',
       '처리구역명',
     ],
   },
   viw_swl_aodr_as: {
-    childColumn: '배수분구명',
-    childElementId: 'kt-notification-section-m',
-    childTable: 'viw_swl_dodr_as',
-    column: '배수구역명',
-    elementId: 'kt-notification-section-l',
-    maxZ: 10,
+    childColumn: null,
+    childElementId: null,
+    childTable: null,
+    column: null,
+    elementId: null,
+    maxZ: 13,
     minZ: 6,
     propertyName: [
       'geom',
-      'layer',
       '관리번호',
       '배수구역명',
+    ],
+  },
+  viw_swl_clay_ps: {
+    maxZ: 21,
+    minZ: 10,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '방향각',
     ],
   },
   viw_swl_conn_ls: {
@@ -104,13 +112,12 @@ export default {
     childColumn: null,
     childElementId: null,
     childTable: null,
-    column: '처리분구명',
-    elementId: 'kt-notification-section-m',
-    maxZ: 10,
+    column: null,
+    elementId: null,
+    maxZ: 21,
     minZ: 6,
     propertyName: [
       'geom',
-      'layer',
       '관리번호',
       '처리분구명',
     ],
@@ -119,13 +126,12 @@ export default {
     childColumn: null,
     childElementId: null,
     childTable: null,
-    column: '배수분구명',
-    elementId: 'kt-notification-section-m',
-    maxZ: 10,
+    column: null,
+    elementId: null,
+    maxZ: 21,
     minZ: 6,
     propertyName: [
       'geom',
-      'layer',
       '관리번호',
       '배수분구명',
     ],
@@ -137,6 +143,7 @@ export default {
       'geom',
       '레이어',
       '관리번호',
+      '하수처리장명',
     ],
   },
   viw_swl_hmconn_ls: {
@@ -158,6 +165,16 @@ export default {
     minZ: 14,
     propertyName: [
       'geom',
+      '레이어',
+      '관리번호',
+      '방향각',
+    ],
+  },
+  viw_swl_pipe_as: {
+    maxZ: 21,
+    minZ: 10,
+    propertyName: [
+      'geom',
     ],
   },
   viw_swl_pipe_lm: {
@@ -175,7 +192,28 @@ export default {
     minZ: 9,
     propertyName: [
       'geom',
+      '레이어',
+      '관리번호',
       '하수펌프장명',
+    ],
+  },
+  viw_swl_rsph_ps: {
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '방향각',
+    ],
+  },
+  viw_swl_side_ls: {
+    maxZ: 21,
+    minZ: 10,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
     ],
   },
   viw_swl_spew_ps: {
@@ -183,6 +221,9 @@ export default {
     minZ: 10,
     propertyName: [
       'geom',
+      '레이어',
+      '관리번호',
+      '방향각',
     ],
   },
   viw_swl_spot_ps: {
@@ -190,6 +231,11 @@ export default {
     minZ: 14,
     propertyName: [
       'geom',
+      '레이어',
+      '관리기관',
+      '관리번호',
+      '방향각',
+      'EDDATE',
     ],
   },
   viw_swl_vent_ps: {
@@ -197,6 +243,8 @@ export default {
     minZ: 13,
     propertyName: [
       'geom',
+      '레이어',
+      '관리번호',
     ],
   },
   viw_wtl_cap_ps: {

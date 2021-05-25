@@ -55,6 +55,10 @@ document.querySelectorAll('.ol-table-code-wtl').forEach(element => {
   element.addEventListener('mousedown', onClickTableCode.bind(vectorLayer), false);
 });
 
+document.querySelectorAll('.ol-table-code-swl').forEach(element => {
+  element.addEventListener('mousedown', onClickTableCode.bind(vectorLayer), false);
+});
+
 document.querySelectorAll('.ol-table-code-geo').forEach(element => {
   element.addEventListener('mousedown', onClickTableCode.bind(imageLayer), false);
 });

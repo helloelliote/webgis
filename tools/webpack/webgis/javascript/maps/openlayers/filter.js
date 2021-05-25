@@ -6,6 +6,7 @@ const layerSelectFilter = new Set([
   'swl_hmpipe_ls',
   'viw_bml_badm_as',
   'viw_bml_hadm_as',
+  'viw_swl_pipe_as',
   'viw_wtl_cap_ps',
   'viw_wtl_pipe_dir_ps',
   'viw_wtl_prme_ps',
@@ -24,6 +25,7 @@ const featureNameFilter = new Set([
   'layer',
   '방향각',
   '회전방향',
+  'EDDATE',
 ]);
 
 const featureDateFilter = new Set([
@@ -45,6 +47,7 @@ const styleRotationFilter = new Set([
   '배기변',
   '상수맨홀',
   '스케일부스터',
+  '역사이펀',
   '오수맨홀',
   '오수받이',
   '우수맨홀',
@@ -52,6 +55,7 @@ const styleRotationFilter = new Set([
   '이토변',
   '제수변',
   '지수전',
+  '집수맨홀',
   '차집맨홀',
   '토구',
   '펌프시설',
