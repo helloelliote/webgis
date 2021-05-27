@@ -180,7 +180,7 @@ export function createVectorStyle(feature) {
         pointStyle.getImage().setRotation(
           fromDegree(
             // CS(=MySql)의 방향각은 왼쪽 회전이 기본이며, ol 은 오른쪽회전이 기본임
-            feature.get('방향각').toString(),
+            feature.get('방향각') ? feature.get('방향각').toString() : 0,
             false,
           ),
         );
