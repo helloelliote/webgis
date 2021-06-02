@@ -103,7 +103,7 @@ export function createVectorStyle(feature) {
       if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
         lineStyle.setLabel(null);
       } else {
-        lineStyle.setLabel(feature.get('관라벨'));
+        lineStyle.setLabelAndStroke(feature.get('관라벨'));
       }
       if (!styleDirectionFilter.has(layer)) {
         return lineStyle;
@@ -125,7 +125,7 @@ export function createVectorStyle(feature) {
       if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
         lineStyle.setLabel(null);
       } else {
-        lineStyle.setLabel(feature.get('관라벨'));
+        lineStyle.setLabelAndStroke(feature.get('관라벨'));
       }
       return lineStyle;
     }

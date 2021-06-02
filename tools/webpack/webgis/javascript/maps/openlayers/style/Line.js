@@ -71,9 +71,6 @@ const labelStyle = new Text({
   // overflow: true,
   font: 'bold 0.9rem Noto Sans KR',
   placement: 'line',
-  fill: new Fill({
-    color: '#00f',
-  }),
   stroke: new Stroke({
     color: '#fff',
     width: 3,
