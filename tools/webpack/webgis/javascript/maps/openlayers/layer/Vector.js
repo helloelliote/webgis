@@ -86,25 +86,18 @@ function createVectorSourceRequestUrl(key) {
 }
 
 export function createVectorStyle(feature) {
-  let layer =
-    feature.get('레이어') ||
-    feature.get('layer') ||
-    feature.getId().match(/[^.]+/)[0];
-  if (!layer) {
+  const featureId = feature.getId().match(/[^.]+/)[0];
+  const layer = (feature.get('레이어') || feature.get('layer') || featureId || '').trim();
+  if (layer === '') {
     return createDefaultStyle(feature, 0);
   }
-  layer = layer.trim();
   switch (feature.getGeometry().getType()) {
     case GeometryType.LINE_STRING: {
       if (feature.get('폐관일자')) {
         return closedPipeStyle;
       }
       const lineStyle = lineStyleMap[layer];
-      if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
-        lineStyle.setLabel(null);
-      } else {
-        lineStyle.setLabelAndStroke(feature.get('관라벨'));
-      }
+      lineStyle.setLabel(feature.get(property[featureId].label), true);
       if (!styleDirectionFilter.has(layer)) {
         return lineStyle;
       }
@@ -122,16 +115,15 @@ export function createVectorStyle(feature) {
         return closedPipeStyle;
       }
       const lineStyle = lineStyleMap[layer];
-      if (layer === '가정급수관' || layer === 'swl_hmpipe_ls') {
-        lineStyle.setLabel(null);
-      } else {
-        lineStyle.setLabelAndStroke(feature.get('관라벨'));
-      }
+      lineStyle.setLabel(feature.get(property[featureId].label), true);
       return lineStyle;
     }
     case GeometryType.POINT:
     case GeometryType.MULTI_POINT: {
       let pointStyle = pointStyleMap[layer];
+      if (property[featureId].label) {
+        pointStyle.setLabel(feature.get(property[featureId].label), false);
+      }
       // noinspection JSNonASCIINames,FallThroughInSwitchStatementJS
       switch (layer) {
         case '경계변':
@@ -144,33 +136,10 @@ export function createVectorStyle(feature) {
           pointStyle = pointStyleMap[`${layer}_${valveState}`];
           break;
         }
-        case '가압장':
-        case '배수지':
-        case '취수장': {
-          pointStyle.setLabel(feature.get(`${layer}명`));
-          break;
-        }
-        case '블럭유량계':
-          pointStyle.setLabel(feature.get('유량계명칭'));
-          break;
         case '오수받이': {
           if (feature.get('EDDATE') && feature.get('관리기관') === '환경사업소') {
             pointStyle = pointStyleMap['오수받이_영천환경사업소'];
           }
-          break;
-        }
-        case '펌프시설':
-        case '하수펌프장': {
-          pointStyle.setLabel(feature.get('하수펌프장명'));
-          break;
-        }
-        case '하수처리장': {
-          pointStyle.setLabel(feature.get('하수처리장명'));
-          break;
-        }
-        case 'viw_wtl_prme_ps':
-        case 'viw_wtl_userlabel_ps': {
-          pointStyle.setLabel(feature.get('주기명'));
           break;
         }
         default:
@@ -190,46 +159,8 @@ export function createVectorStyle(feature) {
     case GeometryType.POLYGON:
     case GeometryType.MULTI_POLYGON: {
       const polygonStyle = polygonStyleMap[layer];
-      switch (layer) {
-        case '가압장':
-        case '배수지':
-        case '정수장':
-        case '하수처리장': {
-          polygonStyle.setLabel(feature.get(`${layer}명`));
-          break;
-        }
-        case 'viw_bml_badm_as':
-          polygonStyle.setLabel(feature.get('법정동'));
-          break;
-        case 'viw_bml_hadm_as':
-          polygonStyle.setLabel(feature.get('행정동'));
-          break;
-        case 'viw_wtl_userlabel_as':
-          polygonStyle.setLabel(feature.get('주기명'));
-          break;
-        case 'viw_wtl_wtsa_as':
-          polygonStyle.setLabel(feature.get('급수구역명'));
-          break;
-        case 'viw_wtl_wtssa_as':
-          polygonStyle.setLabel(feature.get('급수분구명'));
-          break;
-        case 'viw_wtl_wtsba_as':
-          polygonStyle.setLabel(feature.get('급수블럭명'));
-          break;
-        case 'viw_swl_aodr_as':
-          polygonStyle.setLabel(feature.get('배수구역명'));
-          break;
-        case 'viw_swl_dodr_as':
-          polygonStyle.setLabel(feature.get('배수분구명'));
-          break;
-        case 'viw_swl_aodp_as':
-          polygonStyle.setLabel(feature.get('처리구역명'));
-          break;
-        case 'viw_swl_dodp_as':
-          polygonStyle.setLabel(feature.get('처리분구명'));
-          break;
-        default:
-          break;
+      if (property[featureId].label) {
+        polygonStyle.setLabel(feature.get(property[featureId].label), false);
       }
       return polygonStyle;
     }

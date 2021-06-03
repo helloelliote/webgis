@@ -3,15 +3,13 @@ import { default as MapObject } from '../../Object';
 import { default as MapError } from '../../Error';
 import { default as config } from './style.config';
 
-Style.prototype.setLabel = function (value) {
-  this.getText().setText(value);
-};
-
 const labelFill = new Fill();
 
-Style.prototype.setLabelAndStroke = function (value) {
-  labelFill.setColor(this.getStroke().getColor());
-  this.getText().setFill(labelFill);
+Style.prototype.setLabel = function (value = null, isColorized = false) {
+  if (isColorized) {
+    labelFill.setColor(this.getStroke().getColor());
+    this.getText().setFill(labelFill);
+  }
   this.getText().setText(value);
 };
 
