@@ -1,16 +1,24 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const TerserJSPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
 
 const args = getParameters();
 
 function getParameters() {
-  // remove first 2 unused elements from array
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(2);
-  argv = argv.map((arg) => {
-    return arg.replace(/--/i, '');
+  const possibleArgs = [
+    'js', 'prod',
+  ];
+
+  const args = [];
+  possibleArgs.forEach(function (key) {
+    if (process.env['npm_config_' + key]) {
+      args.push(key);
+    }
   });
-  return argv;
+
+  return args;
 }
 
 module.exports = {
@@ -22,11 +30,48 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.join(__dirname, '.build'),
+    path: path.resolve(__dirname, '.build'),
     publicPath: './public',
   },
-  devtool: 'source-map',
-  plugins: [],
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({
+        terserOptions: {
+          ecma: 2015,
+          module: true,
+        },
+      }),
+    ],
+  },
+  devtool: args.indexOf('prod') === 0 ? false : 'source-map',
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'server.json'),
+          to: path.resolve(__dirname, '.build', 'server.json'),
+        },
+      ],
+    }),
+    new MergeJsonWebpackPlugin({
+      files: [
+        './package.json',
+        './tools/package.json',
+      ],
+      output: {
+        fileName: 'package.json',
+      },
+      space: 2,
+    }),
+  ],
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      // This makes all dependencies of this file - build dependencies
+      config: [__filename],
+      // By default webpack and loaders are build dependencies
+    },
+  },
   node: {
     // Need this when working with express, otherwise the build fails
     __dirname: false, // if you don't put this is, __dirname
@@ -41,24 +86,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    node: 'current',
-                  },
-                },
-              ],
-            ],
-            plugins: [
-              [
-                '@babel/plugin-proposal-class-properties', 
-                { 
-                  loose: false,
-                },
-              ],
-            ],
             cacheDirectory: true,
           },
         },

@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All Tests" type="JavaScriptTestRunnerJest">
+    <config-file value="$PROJECT_DIR$/.jest/jest.config.js" />
+    <node-interpreter value="/usr/local/Cellar/node/14.8.0/bin/node" />
+    <node-options value="" />
+    <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+    <working-dir value="$PROJECT_DIR$" />
+    <jest-options value="--coverage --runInBand --detectOpenHandles" />
+    <envs />
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/intellij,node,database,dotenv
-# Edit at https://www.toptal.com/developers/gitignore?templates=intellij,node,database,dotenv
+# Created by https://www.toptal.com/developers/gitignore/api/intellij,database,node,dotenv,yarn
+# Edit at https://www.toptal.com/developers/gitignore?templates=intellij,database,node,dotenv,yarn
 
 ### Database ###
 *.accdb
@@ -95,12 +95,15 @@ fabric.properties
 # *.ipr
 
 # Sonarlint plugin
+# https://plugins.jetbrains.com/plugin/7973-sonarlint
 .idea/**/sonarlint/
 
 # SonarQube Plugin
+# https://plugins.jetbrains.com/plugin/7238-sonarqube-community-plugin
 .idea/**/sonarIssues.xml
 
 # Markdown Navigator plugin
+# https://plugins.jetbrains.com/plugin/7896-markdown-navigator-enhanced
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator-enh.xml
 .idea/**/markdown-navigator/
@@ -108,6 +111,10 @@ fabric.properties
 # Cache file creation bug
 # See https://youtrack.jetbrains.com/issue/JBR-2257
 .idea/$CACHE_FILE$
+
+# CodeStream plugin
+# https://plugins.jetbrains.com/plugin/12206-codestream
+.idea/codestream.xml
 
 ### Node ###
 # Logs
@@ -166,6 +173,9 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+# Optional stylelint cache
+.stylelintcache
+
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/
@@ -183,16 +193,26 @@ typings/
 
 # dotenv environment variables file
 .env.test
+.env*.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
 # Next.js build output
 .next
 
 # Nuxt.js build / generate output
 .nuxt
-#dist
+# dist
+
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static
+
+# rollup.js default build output
+# dist/
 
 # Gatsby files
 .cache/
@@ -218,7 +238,34 @@ typings/
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# End of https://www.toptal.com/developers/gitignore/api/intellij,node,database,dotenv
+# Temporary folders
+tmp/
+temp/
 
-build/
+### yarn ###
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+# !.yarn/cache
+
+# and uncomment the following lines
+.pnp.*
+
+# End of https://www.toptal.com/developers/gitignore/api/intellij,database,node,dotenv,yarn
+
 .build/
+.resources/
+
+tools/.yarn/*
+!tools/.yarn/releases
+!tools/.yarn/plugins
+!tools/.yarn/sdks
+!tools/.yarn/versions
+tools/.pnp.*

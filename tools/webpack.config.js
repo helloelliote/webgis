@@ -1,16 +1,17 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const del = require('del');
+// const del = require('del');
 const glob = require('glob');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackRTLPlugin = require('webpack-rtl-plugin');
+// const WebpackRTLPlugin = require('webpack-rtl-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackMessages = require('webpack-messages');
 const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
-const ConcatPlugin = require('webpack-concat-plugin');
+const MergeIntoSingle = require('webpack-merge-and-include-globally/index');
+const { webpackEntries, webpackCopy, webpackRules } = require('./webpack/webgis/webgis.config');
 
 // paths
 const rootPath = path.resolve(__dirname, '..');
@@ -18,87 +19,86 @@ const rootPath = path.resolve(__dirname, '..');
 // arguments/params from the line command
 const args = getParameters();
 // get theme name
-let theme = getTheme();
+let theme = 'metronic';
 // get selected demo, default demo1
 let demo = getDemos(rootPath)[0];
 
 // under demo paths
 const demoPath = rootPath + '/' + demo;
-// const distPath = demoPath + '/dist';
-const distPath = path.resolve(__dirname, '..', '.build', 'public');
-const assetDistPath = distPath + '/assets';
+const distPath = path.resolve(__dirname, '..', '.build');
+const assetDistPath = path.resolve(distPath, 'public', 'assets');
 const srcPath = demoPath + '/src';
 
 const extraPlugins = [];
 const exclude = [];
-const extraConfig = [];
 
 const js = args.indexOf('js') !== -1;
 const css = args.indexOf('css') !== -1 || args.indexOf('scss') !== -1;
 
 addtionalSettings();
-// importDatatables();
+importDatatables();
 
 function importDatatables() {
   // Optional: Import datatables.net
-  extraPlugins.push(new ConcatPlugin({
-    name: 'datatables',
-    outputPath: 'plugins/custom/datatables/',
-    fileName: '[name].bundle.js',
-    filesToConcat: [
-      'datatables.net/js/jquery.dataTables.js',
-      'datatables.net-bs4/js/dataTables.bootstrap4.js',
-      '@/src/js/vendors/plugins/datatables.init.js',
-      'datatables.net-autofill/js/dataTables.autoFill.min.js',
-      'datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
-      'jszip/dist/jszip.min.js',
-      'pdfmake/build/pdfmake.min.js',
-      'pdfmake/build/vfs_fonts.js',
-      'datatables.net-buttons/js/dataTables.buttons.min.js',
-      'datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
-      'datatables.net-buttons/js/buttons.colVis.js',
-      'datatables.net-buttons/js/buttons.flash.js',
-      'datatables.net-buttons/js/buttons.html5.js',
-      'datatables.net-buttons/js/buttons.print.js',
-      'datatables.net-colreorder/js/dataTables.colReorder.min.js',
-      'datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
-      'datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
-      'datatables.net-keytable/js/dataTables.keyTable.min.js',
-      'datatables.net-responsive/js/dataTables.responsive.min.js',
-      'datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
-      'datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
-      'datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
-      'datatables.net-scroller/js/dataTables.scroller.min.js',
-      'datatables.net-select/js/dataTables.select.min.js',
-    ],
-  }));
-  extraPlugins.push(new ConcatPlugin({
-    name: 'datatables',
-    outputPath: 'plugins/custom/datatables/',
-    fileName: '[name].bundle.css',
-    filesToConcat: [
-      'datatables.net-bs4/css/dataTables.bootstrap4.css',
-      'datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
-      'datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
-      'datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
-      'datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
-      'datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
-      'datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
-      'datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
-      'datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
-      'datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
-      'datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
-      'datatables.net-select-bs4/css/select.bootstrap4.min.css',
+  extraPlugins.push(new MergeIntoSingle({
+    files: [
+      {
+        src: [
+          'node_modules/datatables.net/js/jquery.dataTables.js',
+          'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js',
+          '@/src/js/vendors/plugins/datatables.init.js',
+          // 'node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js',
+          // 'node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
+          'node_modules/jszip/dist/jszip.min.js',
+          // 'node_modules/pdfmake/build/pdfmake.min.js',
+          // 'node_modules/pdfmake/build/vfs_fonts.js',
+          'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
+          'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
+          // 'node_modules/datatables.net-buttons/js/buttons.colVis.js',
+          // 'node_modules/datatables.net-buttons/js/buttons.flash.js',
+          'node_modules/datatables.net-buttons/js/buttons.html5.js',
+          'node_modules/datatables.net-buttons/js/buttons.print.js',
+          // 'node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js',
+          // 'node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
+          // 'node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
+          // 'node_modules/datatables.net-keytable/js/dataTables.keyTable.min.js',
+          'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
+          'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
+          // 'node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
+          // 'node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
+          'node_modules/datatables.net-scroller/js/dataTables.scroller.min.js',
+          'node_modules/datatables.net-select/js/dataTables.select.min.js',
+        ],
+        dest: 'plugins/custom/datatables/datatables.bundle.js',
+      },
+      {
+        src: [
+          'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css',
+          'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
+          // 'node_modules/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
+          // 'node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
+          // 'node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
+          // 'node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
+          // 'node_modules/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
+          'node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
+          // 'node_modules/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
+          // 'node_modules/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
+          'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
+          'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css',
+        ],
+        dest: 'plugins/custom/datatables/datatables.bundle.css',
+      },
     ],
   }));
 }
 
 function addtionalSettings() {
   if (args.indexOf('rtl') !== -1) {
+    // NOTE: at the moment, this plugin does not yet support for webpack 5
     // enable rtl for css
-    extraPlugins.push(new WebpackRTLPlugin({
-      filename: '[name].rtl.css',
-    }));
+    // extraPlugins.push(new WebpackRTLPlugin({
+    //   filename: '[name].rtl.css',
+    // }));
   }
 
   if (!js && css) {
@@ -124,7 +124,7 @@ function getEntryFiles() {
     // 3rd party plugins css/js
     'plugins/global/plugins.bundle': ['./webpack/plugins/plugins.js', './webpack/plugins/plugins.scss'],
     // Metronic css/js
-    'css/style.bundle': path.relative('./', srcPath) + '/sass/style.scss',
+    'css/style.bundle': './' + path.relative('./', srcPath) + '/sass/style.scss',
     'js/scripts.bundle': './webpack/scripts.' + demo + '.js',
   };
 
@@ -133,8 +133,7 @@ function getEntryFiles() {
     let loc = file.replace('webpack/', '').replace('./', '');
     if (path.basename(file) === 'gmaps.js') {
       loc = loc.replace('.js', '');
-    }
-    else {
+    } else {
       loc = loc.replace('.js', '.bundle');
     }
     entries[loc] = file;
@@ -142,21 +141,19 @@ function getEntryFiles() {
 
   // Metronic css pages (single page use)
   (glob.sync(path.relative('./', srcPath) + '/sass/pages/**/!(_)*.scss') || []).forEach(file => {
-    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = file;
+    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = './' + file;
   });
   (glob.sync(path.relative('./', srcPath) + '/js/pages/**/!(_)*.js') || []).forEach(file => {
-    entries[file.replace(/.*js\/(.*?)\.js$/ig, 'js/$1')] = file;
+    entries[file.replace(/.*js\/(.*?)\.js$/ig, 'js/$1')] = './' + file;
   });
 
   // Metronic theme
   (glob.sync(path.relative('./', srcPath) + '/sass/themes/**/!(_)*.scss') || []).forEach(file => {
-    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = file;
+    entries[file.replace(/.*sass\/(.*?)\.scss$/ig, 'css/$1')] = './' + file;
   });
 
   // webgis
-  Object.assign(entries,
-    { 'js/maps.bundle': ['./webpack/webgis/maps/index.js'] },
-  );
+  Object.assign(entries, webpackEntries);
 
   return entries;
 }
@@ -165,6 +162,7 @@ function mainConfig() {
   return {
     // enabled/disable optimizations
     mode: args.indexOf('prod') === 0 ? 'production' : 'development',
+    target: 'web',
     // console logs output, https://webpack.js.org/configuration/stats/
     stats: 'errors-warnings',
     performance: {
@@ -185,11 +183,16 @@ function mainConfig() {
     resolve: {
       alias: {
         jquery: path.join(__dirname, 'node_modules/jquery/src/jquery'),
+        $: path.join(__dirname, 'node_modules/jquery/src/jquery'),
         '@': demoPath,
+        '@webgis': path.join(__dirname, 'webpack', 'webgis'),
       },
       extensions: ['.js', '.scss'],
+      fallback: {
+        util: false,
+      },
     },
-    devtool: 'source-map',
+    devtool: args.indexOf('prod') === 0 ? false : 'source-map',
     plugins: [
       new WebpackMessages({
         name: theme,
@@ -199,57 +202,32 @@ function mainConfig() {
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
-      new CopyWebpackPlugin([
-        {
-          // copy media
-          from: srcPath + '/media',
-          to: assetDistPath + '/media',
-        },
-        {
-          // copy tinymce skins
-          from: path.resolve(__dirname, 'node_modules') + '/tinymce/skins',
-          to: assetDistPath + '/plugins/custom/tinymce/skins',
-        },
-        {
-          // copy tinymce plugins
-          from: path.resolve(__dirname, 'node_modules') + '/tinymce/plugins',
-          to: assetDistPath + '/plugins/custom/tinymce/plugins',
-        },
-      ]),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            // copy media
+            from: srcPath + '/media',
+            to: assetDistPath + '/media',
+          },
+          webpackCopy.view,
+          webpackCopy.media,
+        ],
+      }),
+      // load only 'moment/locale/ko.js'
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
     ].concat(extraPlugins),
+    cache: {
+      type: 'filesystem',
+      buildDependencies: {
+        // This makes all dependencies of this file - build dependencies
+        config: [__filename],
+        // By default webpack and loaders are build dependencies
+      },
+    },
     module: {
       rules: [
-        {
-          test: /\.m?js$/,
-          exclude: [/(node_modules|bower_components)/, /__tests__/],
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-              ],
-            ],
-            plugins: [
-              [
-                '@babel/plugin-proposal-class-properties',
-                {
-                  loose: false,
-                },
-              ],
-            ],
-            cacheDirectory: true,
-          },
-        },
-        {
-          test: /^.*-worker.*$/,
-          use: {
-            loader: 'worker-loader',
-            options: {
-              inline: true,
-              fallback: false,
-            },
-          },
-        },
+        webpackRules.js,
+        webpackRules.worker,
         {
           test: /\.css$/,
           use: [
@@ -263,29 +241,38 @@ function mainConfig() {
             MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
-              options: {
-                url: (url, resourcePath) => {
-                  // Don't handle local urls
-                  return !!url.includes('media');
-                },
-              },
+              // options: {
+              //   url: (url, resourcePath) => {
+              //     // Don't handle local urls
+              //     return !!url.includes('media');
+              //   },
+              // },
             },
-            {
+            /*{
               loader: 'postcss-loader', // Run post css actions
               options: {
-                plugins: function() { // post css plugins, can be exported to postcss.config.js
-                  return [
+                postcssOptions: {
+                  plugins: function () { // post css plugins, can be exported to postcss.config.js
+                    return [
                     // require('precss'),
                     require('autoprefixer'),
-                  ];
+                    ];
                 },
+                }
               },
-            },
+            },*/
             {
               loader: 'sass-loader',
               options: {
+                // Prefer `dart-sass`
+                implementation: require('sass'),
                 sourceMap: false,
-                includePaths: [demoPath],
+                sassOptions: {
+                  includePaths: [
+                    demoPath,
+                    path.resolve(__dirname, 'node_modules'),
+                  ],
+                },
               },
             },
           ],
@@ -300,13 +287,13 @@ function mainConfig() {
             {
               loader: 'file-loader',
               options: {
-                // emitFile: false,
                 // prevent name become hash
                 name: '[name].[ext]',
                 // move files
                 outputPath: 'plugins/global/fonts',
                 // rewrite path in css
                 publicPath: 'fonts',
+                esModule: false,
               },
             },
           ],
@@ -340,34 +327,26 @@ function mainConfig() {
     },
     // webpack dev server config
     devServer: {
-      contentBase: demoPath,
+      contentBase: demoPath + '/dist',
       compress: true,
-      port: 4004,
+      port: 3000,
     },
   };
 }
 
 function getParameters() {
-  // remove first 2 unused elements from array
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(2);
-  argv = argv.map((arg) => {
-    return arg.replace(/--/i, '');
-  });
-  return argv;
-}
+  const possibleArgs = [
+    'js', 'css', 'scss', 'prod',
+  ];
 
-function getTheme() {
-  // debug
-  // console.log('getTheme()');
-
-  const themes = ['metronic', 'keen', 'craft'];
-  let theme = themes[0];
-  themes.forEach((th) => {
-    if (args.indexOf(th) === 0) {
-      theme = th;
+  const args = [];
+  possibleArgs.forEach(function (key) {
+    if (process.env['npm_config_' + key]) {
+      args.push(key);
     }
   });
-  return theme;
+
+  return args;
 }
 
 function getDemos(pathDemos) {
@@ -381,15 +360,14 @@ function getDemos(pathDemos) {
   });
 
   if (demos.length === 0) {
-    demos = ['demo11'];
+    demos = ['demo5'];
     if (args.indexOf('alldemos') !== -1) {
       try {
         // sync reusable source code with demo1 for all other demos
         demos = fs.readdirSync(pathDemos).filter((file) => {
           return !/(^|\/)\.[^/.]/g.test(file) && /^demo\d+$/g.test(file) && file !== 'demo0';
         });
-      }
-      catch (err) {
+      } catch (err) {
         console.error('Failed to read demo folder: ' + pathDemos);
       }
     }
