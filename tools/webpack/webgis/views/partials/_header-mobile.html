@@ -1,39 +1,48 @@
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile header-mobile-fixed">
 
-  <!--begin::Logo-->
-  <a href="/">
-    <img alt="Logo" src="assets/media/logos/logo-{{company_en}}.png" class="logo-sticky max-h-35px"/>
-  </a>
-
-  <!--end::Logo-->
-
-  <!--begin::Toolbar-->
-  <div class="d-flex align-items-center">
-    <button class="btn p-0 burger-icon rounded-0 burger-icon-left" id="kt_aside_tablet_and_mobile_toggle">
-      <span></span>
+  <div class="d-flex align-items-start">
+    <!--begin::Aside Toggle-->
+    <button class="btn btn-icon aside-toggle mr-3 align-self-center"
+            id="kt_aside_tablet_and_mobile_toggle">
+        <span class="svg-icon svg-icon-white svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo7\dist/../src/media/svg/icons\Text\Menu.svg--><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5"/>
+        <path
+            d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z"
+            fill="#000000" opacity="0.8"/>
+    </g>
+        </svg><!--end::Svg Icon--></span>
     </button>
-    <button class="btn btn-hover-text-primary p-0 ml-3" id="kt_header_mobile_topbar_toggle">
-					<span class="svg-icon svg-icon-xl">
+    <!--end::Aside Toggle-->
 
-						<!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
-						<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<polygon points="0 0 24 0 24 24 0 24"/>
-								<path
-                    d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z"
-                    fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-								<path
-                    d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z"
-                    fill="#000000" fill-rule="nonzero"/>
-							</g>
-						</svg>
-
-            <!--end::Svg Icon-->
-					</span>
-    </button>
+    <!--begin::Logo-->
+    <a href="/" class="align-self-center">
+      <img alt="Logo" src="assets/media/logos/logo-{{company_en}}.png" class="logo-sticky max-h-30px"/>
+    </a>
+    <!--end::Logo-->
   </div>
 
+  <div class="d-flex align-items-center">
+    <span class="font-size-lg font-weight-bolder align-self-center" style="display: none">
+      {{company_ko}} {{role_ko}}도 조회시스템
+    </span>
+  </div>
+
+  <!--begin::Toolbar-->
+  <div class="d-flex align-items-end">
+    <button type="button"
+            class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-1 font-size-lg"
+            id="kt_header_mobile_topbar_toggle">
+      메뉴
+    </button>
+
+    <span class="font-size-lg font-weight-bolder align-self-center" style="display: none">
+    </span>
+  </div>
   <!--end::Toolbar-->
 </div>
 

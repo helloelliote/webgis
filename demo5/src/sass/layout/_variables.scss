@@ -52,7 +52,7 @@ $header-config: (
 	tablet-and-mobile: (
 		// Default Mode
 		default: (
-			height: 55px,
+			height: 40px,
 			bg-color: $white,
 			border: 1px solid $gray-200
 		),
@@ -60,7 +60,7 @@ $header-config: (
 		// Fixed Mode
 		fixed: (
 			zindex: 97,
-			height: 55px
+			height: 40px
 		)
 	)
 ) !default;
@@ -69,7 +69,7 @@ $header-config: (
 $header-topbar-config: (
 	// Tablet & Mobile Modes
 	tablet-and-mobile: (
-		height: 50px,
+		height: 40px,
 		bg-color: $white,
 		border: 1px solid $gray-200
 	)
