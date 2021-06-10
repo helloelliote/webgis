@@ -42,9 +42,11 @@ document.getElementById('kt_quick_search_inline')
 
 document.getElementById('btn-map-hybrid').addEventListener('mousedown', () => {
   window.webgis.isMapTypeIdRoadMap = !window.webgis.isMapTypeIdRoadMap;
-  imageLayer.getLayer('geo_line_as').getSource().updateParams({
-    ENV: window.webgis.isMapTypeIdRoadMap ? 'COLOR:#1118A8' : 'COLOR:#FFFF5A',
-  });
+  if (imageLayer.hasLayer('geo_line_as')) {
+    imageLayer.getLayer('geo_line_as').getSource().updateParams({
+      ENV: window.webgis.isMapTypeIdRoadMap ? 'COLOR:#1118A8' : 'COLOR:#FFFF5A',
+    });
+  }
 });
 
 // [...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
