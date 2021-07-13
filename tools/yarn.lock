@@ -53,9 +53,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/mapbox-gl-style-spec@npm:^13.14.0":
-  version: 13.18.0
-  resolution: "@mapbox/mapbox-gl-style-spec@npm:13.18.0"
+"@mapbox/mapbox-gl-style-spec@npm:^13.20.1":
+  version: 13.20.1
+  resolution: "@mapbox/mapbox-gl-style-spec@npm:13.20.1"
   dependencies:
     "@mapbox/jsonlint-lines-primitives": ~2.0.2
     "@mapbox/point-geometry": ^0.1.0
@@ -70,7 +70,7 @@ __metadata:
     gl-style-format: bin/gl-style-format
     gl-style-migrate: bin/gl-style-migrate
     gl-style-validate: bin/gl-style-validate
-  checksum: 201db88d625d40279ded05bbcabce51785d0b5404785e4a7de545589adde05891a28655688d0ebac947f462ac9ede6a517ab380521d7869a6638de1d39295293
+  checksum: 0c164ffd0ded67be43cdc0c63783acbc6fc8dd1c640a302f704c83385c0168a711625f8dae39c73cfa325702a29aaef72187fd00a94ae04f35f4a253d19acf31
   languageName: node
   linkType: hard
 
@@ -2976,22 +2976,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"del@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "del@npm:6.0.0"
-  dependencies:
-    globby: ^11.0.1
-    graceful-fs: ^4.2.4
-    is-glob: ^4.0.1
-    is-path-cwd: ^2.2.0
-    is-path-inside: ^3.0.2
-    p-map: ^4.0.0
-    rimraf: ^3.0.2
-    slash: ^3.0.0
-  checksum: da72707c9221154db6d6b05890ac1ae771d1b4ffc2759a6b8fca58e8a8289e07d22b68f68666a6c540dd99f1021b29ef77918dcaf4dbfeb9f99f49bd7fcc6fb5
-  languageName: node
-  linkType: hard
-
 "delegate@npm:^3.1.2":
   version: 3.2.0
   resolution: "delegate@npm:3.2.0"
@@ -3149,13 +3133,6 @@ __metadata:
   dependencies:
     is-obj: ^2.0.0
   checksum: 76e6693d8803eeff9cb920988446bf223cf1f6e5b1c0c2fe07a66906392134931a481b11e3c0bd852c5cfc97fad65258bcb4359169ad1d8d624cb3f56932be98
-  languageName: node
-  linkType: hard
-
-"duplexer@npm:~0.1.1":
-  version: 0.1.2
-  resolution: "duplexer@npm:0.1.2"
-  checksum: 5c2ccea7c8e130bffabeafeadaf58dd38d4abd1b2c563d462f026f78d4b2f2085d64342b964660241591ade874f9a54890a965324f6c56e2bd1924d0cf583c5a
   languageName: node
   linkType: hard
 
@@ -3460,13 +3437,6 @@ __metadata:
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: f18341a3c12a554ec46c0d4756bc9cae177e92f25a4ebd9ceefebf0ee448b675972fc110879f22b1bf514174713921ae5de9ff77af2062d422b1085588465a57
-  languageName: node
-  linkType: hard
-
-"eve-raphael@npm:0.5.0":
-  version: 0.5.0
-  resolution: "eve-raphael@npm:0.5.0"
-  checksum: dabfeb735fbc29320d552e8ffa0c705088e50390af3574cee621749353fffe2f6c33f46cefef8d8b78613c0d1cf829197a81937eff6fe43d0f08540ea1c9d1be
   languageName: node
   linkType: hard
 
@@ -4030,20 +4000,6 @@ fsevents@~2.3.1:
   version: 9.18.0
   resolution: "globals@npm:9.18.0"
   checksum: ad86a4b4d7348a259c4a0748c5f4c7c1c51c624567a48538092b7fc0b6cba7d9de9d16e7b788c693b590856608f9a697af2295ff278ff442d8fa705dd1240164
-  languageName: node
-  linkType: hard
-
-"globby@npm:^11.0.1":
-  version: 11.0.1
-  resolution: "globby@npm:11.0.1"
-  dependencies:
-    array-union: ^2.1.0
-    dir-glob: ^3.0.1
-    fast-glob: ^3.1.1
-    ignore: ^5.1.4
-    merge2: ^1.3.0
-    slash: ^3.0.0
-  checksum: e7239e9e468c3692aec31dc97b5efc13dd21edf38820baeda98118ade39f475c4ff9e7610859eb4a3c75277ca2616e371265fec3c626aba5db4335bc41c59ac7
   languageName: node
   linkType: hard
 
@@ -4884,7 +4840,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"is-path-cwd@npm:^2.0.0, is-path-cwd@npm:^2.2.0":
+"is-path-cwd@npm:^2.0.0":
   version: 2.2.0
   resolution: "is-path-cwd@npm:2.2.0"
   checksum: 900f6e81445b9979705952189d7dbada79dbe6d77be3b5fc95aed3dc1cc9d77de5b286db2d525942a72a717c81aa549509b76705883415fb655183dfefce9541
@@ -4906,13 +4862,6 @@ fsevents@~2.3.1:
   dependencies:
     path-is-inside: ^1.0.2
   checksum: e289fc4ec6df457600bac34068b7c564bf17eee703888d9eea2b0a363a0ac67bb5864e715ba428904dd683287154cab0f7f9536d7e4c23e3410c5cc024a5839b
-  languageName: node
-  linkType: hard
-
-"is-path-inside@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "is-path-inside@npm:3.0.2"
-  checksum: 709ba85a713d25fb058a4c2f62e9e7160bcc1a3e48af2f201045cde027fc1efe61a6e1b5c1cf21b8329f764e3649e160976fde14317c1b848caa9c1f31d5beec
   languageName: node
   linkType: hard
 
@@ -5299,15 +5248,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"lazypipe@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "lazypipe@npm:1.0.2"
-  dependencies:
-    stream-combiner: "*"
-  checksum: ad0d11197ba041df727452e5af9b6a9bd9804566c491d868116213c79ed84bf781f12b56eb0349e7bfd6d7d81117fe0a94e3a5e10899666d80a5edc37030a8f6
-  languageName: node
-  linkType: hard
-
 "lie@npm:~3.3.0":
   version: 3.3.0
   resolution: "lie@npm:3.3.0"
@@ -5601,7 +5541,6 @@ fsevents@~2.3.1:
     datatables.net-responsive-bs4: ^2.2.6
     datatables.net-scroller-bs4: ^2.0.3
     datatables.net-select-bs4: ^1.3.1
-    del: ^6.0.0
     es6-promise: ^4.2.8
     es6-promise-polyfill: ^1.2.0
     es6-shim: ^0.35.5
@@ -5619,14 +5558,13 @@ fsevents@~2.3.1:
     jquery-ui: ^1.12.1
     jquery.repeater: ^1.2.1
     jszip: ^3.2.2
-    lazypipe: ^1.0.2
     line-awesome: ^1.3.0
     merge-stream: ^2.0.0
     mini-css-extract-plugin: ^2.1.0
     moment: ^2.24.0
     morris.js: ^0.5.0
     nouislider: ^14.1.1
-    ol: ^6.5.0
+    ol: ^6.6.0
     optimize-css-assets-webpack-plugin: ^6.0.1
     owl.carousel: ^2.2.0
     pace: 0.0.4
@@ -5637,7 +5575,6 @@ fsevents@~2.3.1:
     postcss-loader: ^6.1.1
     pretty: ^2.0.0
     proj4: ^2.6.2
-    raphael: ^2.2.7
     replace-in-file-webpack-plugin: ^1.0.6
     sass: ^1.35.2
     sass-loader: ^12.1.0
@@ -5645,11 +5582,9 @@ fsevents@~2.3.1:
     select2: ^4.0.12
     socicon: ^3.0.5
     sticky-js: ^1.2.0
-    stream-exhaust: ^1.0.2
     sweetalert2: ^9.10.12
     tempusdominus-bootstrap-4: ^5.1.2
     terser-webpack-plugin: ^5.1.4
-    tether: ^1.4.3
     typeahead.js: ^0.11.1
     underscore: ^1.12.1
     url-loader: ^4.1.1
@@ -5661,7 +5596,7 @@ fsevents@~2.3.1:
     webpack-merge-and-include-globally: ^2.3.4
     webpack-messages: ^2.0.4
     webpack-rtl-plugin: ^2.0.0
-    whatwg-fetch: ^3.0.0
+    whatwg-fetch: ^3.6.2
     wnumb: ^1.1.0
     worker-loader: ^3.0.8
     yadcf: ^0.9.3
@@ -6283,27 +6218,27 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"ol-mapbox-style@npm:^6.1.1":
-  version: 6.2.1
-  resolution: "ol-mapbox-style@npm:6.2.1"
+"ol-mapbox-style@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "ol-mapbox-style@npm:6.4.1"
   dependencies:
-    "@mapbox/mapbox-gl-style-spec": ^13.14.0
+    "@mapbox/mapbox-gl-style-spec": ^13.20.1
     mapbox-to-css-font: ^2.4.0
     webfont-matcher: ^1.1.0
   peerDependencies:
-    ol: ^6.1.0
-  checksum: fb621508725c6352c93e056cf900d1760e0af16d54de912149a3f388b11d570a74f57d2995e4d87eb20a14fc46721e045212b1aca5bbfc51bcb482b7605bfc24
+    ol: ">= 6.1.0 < 7"
+  checksum: f998d8e8a2b802eafff458d1e540dd4b8be85ac76e9296881a33871e11eeb66d6c254ca84e7fce3b47589fcd1befc6ee55d046138f92a3fec90c8498f4a80b60
   languageName: node
   linkType: hard
 
-"ol@npm:6.5.0, ol@npm:^6.5.0":
-  version: 6.5.0
-  resolution: "ol@npm:6.5.0"
+"ol@npm:6.6.0, ol@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "ol@npm:6.6.0"
   dependencies:
-    ol-mapbox-style: ^6.1.1
+    ol-mapbox-style: ^6.4.1
     pbf: 3.2.1
     rbush: ^3.0.1
-  checksum: b27bd413ca3d730af5f97c2450a351f65c693c1f98f839b923af1acaded66d0ed9f97c3d0b87745e42753c8e5415fe2609b70b156975d193cee769ff3f24a665
+  checksum: de1fe6c04b7054a33f909c8386268a33fba724361e8a55003105871e34a6385819093711fcb9f5fe49e011b4d2d04d13ec7cc771e5fd4ea0c86fabc4b5048516
   languageName: node
   linkType: hard
 
@@ -7668,15 +7603,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"raphael@npm:^2.2.7":
-  version: 2.3.0
-  resolution: "raphael@npm:2.3.0"
-  dependencies:
-    eve-raphael: 0.5.0
-  checksum: ceeef8c28573aacc554352738890099b205fdb431737d52a261a4f1c38af23e8c98ea600a9bcdf33dacaeb2dcf6b6e3e703113da84a6eebcb209b3385af1ed45
-  languageName: node
-  linkType: hard
-
 "raw-body@npm:2.4.0":
   version: 2.4.0
   resolution: "raw-body@npm:2.4.0"
@@ -8727,23 +8653,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"stream-combiner@npm:*":
-  version: 0.2.2
-  resolution: "stream-combiner@npm:0.2.2"
-  dependencies:
-    duplexer: ~0.1.1
-    through: ~2.3.4
-  checksum: a045526eaf93a50077e890fb4764c41a047b6f705064823832141f5fa7d4bd9efcb3aea317c1be607dca85bc405920d31393a5c56d7cb95a7ebaa04e2616eaa4
-  languageName: node
-  linkType: hard
-
-"stream-exhaust@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "stream-exhaust@npm:1.0.2"
-  checksum: 58c54239fd095173fe27f8a0c31e34fe8454c7a63c34bbf072bc8d99b59421fff6c83da48d86058e99e601cb71633e4933829db9b77f6980ea81a6b8204cafb4
-  languageName: node
-  linkType: hard
-
 "string-width@npm:^1.0.1":
   version: 1.0.2
   resolution: "string-width@npm:1.0.2"
@@ -9097,24 +9006,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"tether@npm:^1.4.3":
-  version: 1.4.7
-  resolution: "tether@npm:1.4.7"
-  checksum: c60d742a0626dca753771526d3f977bfd19e20674557a5f56fc5c5adf828ed10ac294d609c400e2916eea30b48b1c67c71138103e020125a48ea5f0c56254493
-  languageName: node
-  linkType: hard
-
 "text-table@npm:^0.2.0":
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: 373904ce70524ba11ec7e1905c44fb92671132d5e0b0aba2fb48057161f8bf9cbf7f6178f0adf31810150cf44fb52c7b912dc722bff3fddf9688378596dbeb56
-  languageName: node
-  linkType: hard
-
-"through@npm:~2.3.4":
-  version: 2.3.8
-  resolution: "through@npm:2.3.8"
-  checksum: 918d9151680b5355990011eb8c4b02e8cb8cf6e9fb6ea3d3e5a1faa688343789e261634ae35de4ea9167ab029d1e7bac6af2fe61b843931768d405fdc3e8897c
   languageName: node
   linkType: hard
 
@@ -9721,10 +9616,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"whatwg-fetch@npm:^3.0.0":
-  version: 3.5.0
-  resolution: "whatwg-fetch@npm:3.5.0"
-  checksum: dd41999927e87c4cd0af572fe9976dcb1529c00b89c2074b0d1c02baa03670ff7b7cc45ca5b475c02a4a5b274cc1def56a9be7870df7af5c0f9b7d4fb4588ae6
+"whatwg-fetch@npm:^3.6.2":
+  version: 3.6.2
+  resolution: "whatwg-fetch@npm:3.6.2"
+  checksum: eaa370015f81fbf7fc69d5410a13c2200d3342fa783397e9a7e64215498276459993c05e826ed736d28a8abe4e7cc3f97e9b2ffadbc58129a55f443abdfea494
   languageName: node
   linkType: hard
 

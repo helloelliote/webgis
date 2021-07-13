@@ -3244,7 +3244,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1":
+"debug@npm:4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
   dependencies:
@@ -3376,10 +3376,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^8.2.0":
-  version: 8.6.0
-  resolution: "dotenv@npm:8.6.0"
-  checksum: f4649999a157061dd169118f459d88db56380b2eef68e87fa9de7201796e5f6d94fa337658d7e148f404b48652a0eefe11222d9eba0cd464497911ae56cd6f93
+"dotenv@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "dotenv@npm:10.0.0"
+  checksum: 9c45712e213de63bdb646b8e5344749b7566e25a67bbd3f03711d54e40eff10066c1f23eff0081d0949fda7c8efcc6e9e8bf18d0f023a8274f55f5d5f97bb6db
   languageName: node
   linkType: hard
 
@@ -3739,7 +3739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-handlebars@npm:^5.3.0":
+"express-handlebars@npm:^5.3.2":
   version: 5.3.2
   resolution: "express-handlebars@npm:5.3.2"
   dependencies:
@@ -3767,7 +3767,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-session@npm:^1.17.1":
+"express-session@npm:^1.17.2":
   version: 1.17.2
   resolution: "express-session@npm:1.17.2"
   dependencies:
@@ -4243,7 +4243,7 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"helmet@npm:^4.5.0":
+"helmet@npm:^4.6.0":
   version: 4.6.0
   resolution: "helmet@npm:4.6.0"
   checksum: 5018633703ac6933b35c581d878f279b3be642c7ce68dcccbaf31be059aefb723a08ed86831df657b82fd2994b4163404b51c76a0dc3ea9cdd67794bf1b0466d
@@ -6348,10 +6348,10 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"rate-limiter-flexible@npm:^2.2.1":
-  version: 2.2.2
-  resolution: "rate-limiter-flexible@npm:2.2.2"
-  checksum: a6fc63c50332cd726ad305c71729e4cca09c4e2907bac92a869a93719565751cb04c1daca8d97cda6a7e357771e6336d699864ad2435969ba66138f405bbeec2
+"rate-limiter-flexible@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "rate-limiter-flexible@npm:2.2.3"
+  checksum: 01f3e265eb39830a504d3410bf6cf0a0649af264238f05f2e7e784fee983b4fe5a473dca993a4934d3eabaaa2d3ffa7f5b916dbf987020cca6d89d6c93dbc27f
   languageName: node
   linkType: hard
 
@@ -7475,14 +7475,14 @@ fsevents@^2.3.2:
     copy-webpack-plugin: ^9.0.1
     cors: ^2.8.5
     csurf: ^1.11.0
-    debug: ^4.3.1
-    dotenv: ^8.2.0
+    debug: ^4.3.2
+    dotenv: ^10.0.0
     eslint: ^7.30.0
     express: ~4.17.1
-    express-handlebars: ^5.3.0
+    express-handlebars: ^5.3.2
     express-promise-router: ^4.1.0
-    express-session: ^1.17.1
-    helmet: ^4.5.0
+    express-session: ^1.17.2
+    helmet: ^4.6.0
     http-errors: ^1.8.0
     jest: ^27.0.6
     jest-config: ^27.0.6
@@ -7493,7 +7493,7 @@ fsevents@^2.3.2:
     passport: ^0.4.1
     passport-local: ^1.0.0
     pg: ^8.6.0
-    rate-limiter-flexible: ^2.2.1
+    rate-limiter-flexible: ^2.2.3
     regenerator-runtime: ^0.13.7
     terser-webpack-plugin: ^5.1.4
     webpack: ^5.44.0
