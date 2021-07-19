@@ -26,7 +26,6 @@ function onTilesLoaded() {
 function onClickMapTypeButton(event) {
   event.preventDefault();
 
-  const view = this['view'];
   const map = this['map'];
   const mapContainer = this['mapContainer'];
 
@@ -36,7 +35,7 @@ function onClickMapTypeButton(event) {
         // $.notify({
         //   message: '항공 지도를 보시려면 지도를 축소해주세요',
         // }, { type: 'danger' });
-        view.setZoom(this['newZoom']);
+        this['view'].setZoom(this['newZoom']);
       }
       event.target.textContent = '위성 지도';
       event.target.classList.add('active');
