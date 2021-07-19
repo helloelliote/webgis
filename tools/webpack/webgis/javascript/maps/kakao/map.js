@@ -1,4 +1,4 @@
-import { getDefaultCenter, onClickMapTypeButton, onClickTerrainMapButton, onTilesLoaded, onWindowResize } from './util';
+import { getDefaultCenter, onClickTerrainMapButton, onTilesLoaded, onWindowResize } from './util';
 
 const mapOptions = {
   center: getDefaultCenter(),
@@ -17,9 +17,6 @@ map.setMinLevel(1);
 map.setMaxLevel(9);
 
 kakao.maps.event.addListener(map, 'tilesloaded', onTilesLoaded.bind(map));
-
-const mapTypeButton = document.getElementById('btn-map-hybrid');
-mapTypeButton.addEventListener('mousedown', onClickMapTypeButton.bind({ map, mapContainer }));
 
 const terrainMapButton = document.getElementById('btn-map-terrain');
 terrainMapButton.addEventListener('mousedown', onClickTerrainMapButton.bind(map));

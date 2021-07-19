@@ -32,9 +32,10 @@ function onClickMapTypeButton(event) {
   switch (map.getMapTypeId()) {
     case kakao.maps.MapTypeId.ROADMAP: {
       if (mapContainer.style.display === 'none') {
-        $.notify({
-          message: '항공 지도를 보시려면 지도를 축소해주세요',
-        }, { type: 'danger' });
+        // $.notify({
+        //   message: '항공 지도를 보시려면 지도를 축소해주세요',
+        // }, { type: 'danger' });
+        this['view'].setZoom(this['newZoom']);
       }
       event.target.textContent = '위성 지도';
       event.target.classList.add('active');

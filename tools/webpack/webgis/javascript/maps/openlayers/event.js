@@ -96,7 +96,7 @@ function onClickSectionCode(event) {
   });
 }
 
-function onClickTableCode(event) {
+function onClickTableCodeAside(event) {
   event.preventDefault();
   const targetEl = event.target;
   // Do not allow toggle of ol-table-code-geo road/building tile layer & always show it
@@ -110,6 +110,32 @@ function onClickTableCode(event) {
     targetEl.classList.remove('fa-times-circle', 'text-danger');
   }
   this.toggleLayers([targetEl.id]);
+}
+
+function onClickTableCodeTop(event) {
+  event.preventDefault();
+  const targetEl = event.target;
+  // Do not allow toggle of ol-table-code-geo road/building tile layer & always show it
+  if (targetEl.id === 'n3a_a0010000') return;
+
+  if (this['layer'].hasLayer(targetEl.id)) {
+    targetEl.classList.remove('active');
+  } else {
+    targetEl.classList.add('active');
+  }
+  this['layer'].toggleLayers([targetEl.id]);
+
+  this['layer'].updateParamsByZoom(~~this['view'].getZoom());
+}
+
+function onImageLayerUpdate(event) {
+  event.preventDefault();
+
+  if (event.target.id === 'btn-map-hybrid') {
+    this['layer'].toggleMapTypeId();
+  }
+
+  this['layer'].updateParamsByZoom(~~this['view'].getZoom());
 }
 
 function onWindowLoad(event) {
@@ -154,6 +180,8 @@ export {
   onContextMenu,
   onClickQuickSearchInline,
   onClickSectionCode,
-  onClickTableCode,
+  onClickTableCodeAside,
+  onClickTableCodeTop,
+  onImageLayerUpdate,
   onWindowLoad,
 };

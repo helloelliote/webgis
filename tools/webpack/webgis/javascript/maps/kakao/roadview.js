@@ -31,54 +31,57 @@ kakao.maps.event.addListener(roadView, 'init', function () {
 
 const rvContainer = document.getElementById('map-container');
 const rvButton = document.getElementById('btn-map-roadview');
-rvButton.addEventListener('mousedown', onClickRoadviewButton);
+rvButton.addEventListener('mousedown',
+  onClickRoadviewButton.bind({ newZoom: viewSyncOptions.zoom.max + viewSyncOptions.zoom.decimal }),
+);
 
 function onClickRoadviewButton(event) {
   event.preventDefault();
 
-  if (olView.getZoom() > viewSyncOptions.zoom.max + viewSyncOptions.zoom.decimal) {
-    $.notify({
-      message: '현재 지도에서는 로드뷰를 시작할 수 없습니다',
-    }, { type: 'danger' });
-    return;
-  }
+  if (olView.getZoom() > this['newZoom']) olView.setZoom(this['newZoom']);
 
-  isActive = !isActive;
-  rvContainer.classList.toggle('grid-parent', isActive);
-  rvButton.classList.toggle('active', isActive);
-  window.dispatchEvent(new Event('resize'));
+  setTimeout(function () {
+    isActive = !isActive;
+    rvContainer.classList.toggle('grid-parent', isActive);
+    rvButton.classList.toggle('active', isActive);
+    window.dispatchEvent(new Event('resize'));
 
-  if (isActive) {
-    olMap.getTargetElement().style.cursor = 'pointer';
-    olMap.removeInteraction(selectInteraction);
-    olMap.on('singleclick', onSingleClick);
-    if (roadViewWalker.getMap() == null) {
-      roadViewWalker.setMap(map);
-    }
-    coordinateToLatLng(olView.getCenter()).then(function (latLng) {
-      map.setCenter(latLng);
-      map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
-      roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
-        if (panoId) {
-          roadViewWalker.setPosition(map.getCenter());
-          roadView.setPanoId(panoId, map.getCenter());
-        } else {
-          $.notify({
-            message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
-          }, { type: 'primary' });
-        }
+    if (isActive) {
+      olMap.getTargetElement().style.cursor = 'pointer';
+      olMap.removeInteraction(selectInteraction);
+      olMap.on('singleclick', onSingleClick);
+      if (roadViewWalker.getMap() == null) {
+        roadViewWalker.setMap(map);
+      }
+      coordinateToLatLng(olView.getCenter()).then(function (latLng) {
+        map.setCenter(latLng);
+        onClickRoadviewButtonActive(map);
       });
-    });
-  } else {
-    olMap.getTargetElement().style.cursor = '';
-    olMap.addInteraction(selectInteraction);
-    olMap.un('singleclick', onSingleClick);
-    roadViewWalker.setMap(null);
-    coordinateToLatLng(olView.getCenter()).then(function (latLng) {
-      map.setCenter(latLng);
-      map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
-    });
-  }
+    } else {
+      olMap.getTargetElement().style.cursor = '';
+      olMap.addInteraction(selectInteraction);
+      olMap.un('singleclick', onSingleClick);
+      roadViewWalker.setMap(null);
+      coordinateToLatLng(olView.getCenter()).then(function (latLng) {
+        map.setCenter(latLng);
+        map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+      });
+    }
+  }, 500);
+}
+
+function onClickRoadviewButtonActive(map) {
+  map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+  roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
+    if (panoId) {
+      roadViewWalker.setPosition(map.getCenter());
+      roadView.setPanoId(panoId, map.getCenter());
+    } else {
+      $.notify({
+        message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
+      }, { type: 'primary' });
+    }
+  });
 }
 
 function onSingleClick(event) {
@@ -91,3 +94,7 @@ function onSingleClick(event) {
     });
   });
 }
+
+export {
+  onClickRoadviewButtonActive,
+};
