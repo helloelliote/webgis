@@ -21,6 +21,7 @@ const ROWS = 'rows';
 const CNAME = 'cname';
 const CNAME_filter = new Set([
   // 상수관로
+  '공업용수관',
   '급수관',
   '도수관',
   '배수관',
