@@ -317,7 +317,7 @@ const ServiceSearch = function () {
 
   function _initTableContextMenu() {
     _tableEl.contextMenu({
-      selector: 'tbody > tr[role="row"]',
+      selector: 'tbody > tr.selected',
       build: ($trigger, e) => {
         let sData = _table.rows({ selected: true }).data();
         let isSelected = sData.length > 0;
