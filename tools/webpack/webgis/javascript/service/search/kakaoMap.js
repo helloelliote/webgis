@@ -1,5 +1,4 @@
 import { getDefaultCenter, onClickMapTypeButton, onTilesLoaded, onWindowResize } from '../../maps/kakao/util';
-import { onClickRoadviewButtonActive } from '../../maps/kakao/roadview';
 import { roadView, roadViewClient } from '../../maps/kakao/roadview/client';
 import { default as roadViewWalker } from '../../maps/kakao/roadview/walker';
 
@@ -134,7 +133,17 @@ function onClickRoadviewButton(event) {
     if (!roadViewWalker.getMap()) {
       roadViewWalker.setMap(map);
     }
-    onClickRoadviewButtonActive(map);
+    map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+    roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
+      if (panoId) {
+        roadViewWalker.setPosition(map.getCenter());
+        roadView.setPanoId(panoId, map.getCenter());
+      } else {
+        $.notify({
+          message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
+        }, { type: 'primary' });
+      }
+    });
   } else {
     kakao.maps.event.removeListener(map, 'click', onSingleClick);
     roadViewWalker.setMap(null);

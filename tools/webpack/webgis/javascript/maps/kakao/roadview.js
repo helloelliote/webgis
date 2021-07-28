@@ -55,7 +55,17 @@ function onClickRoadviewButton(event) {
       }
       coordinateToLatLng(olView.getCenter()).then(function (latLng) {
         map.setCenter(latLng);
-        onClickRoadviewButtonActive(map);
+        map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+        roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
+          if (panoId) {
+            roadViewWalker.setPosition(map.getCenter());
+            roadView.setPanoId(panoId, map.getCenter());
+          } else {
+            $.notify({
+              message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
+            }, { type: 'primary' });
+          }
+        });
       });
     } else {
       olMap.getTargetElement().style.cursor = '';
@@ -70,20 +80,6 @@ function onClickRoadviewButton(event) {
   }, 500);
 }
 
-function onClickRoadviewButtonActive(map) {
-  map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
-  roadViewClient.getNearestPanoId(map.getCenter(), 10, function (panoId) {
-    if (panoId) {
-      roadViewWalker.setPosition(map.getCenter());
-      roadView.setPanoId(panoId, map.getCenter());
-    } else {
-      $.notify({
-        message: '로드뷰 정보가 있는 도로 영역을 클릭하세요',
-      }, { type: 'primary' });
-    }
-  });
-}
-
 function onSingleClick(event) {
   event.preventDefault();
   coordinateToLatLng(event.coordinate, projection.getCode()).then(function (rvPosition) {
@@ -94,7 +90,3 @@ function onSingleClick(event) {
     });
   });
 }
-
-export {
-  onClickRoadviewButtonActive,
-};
