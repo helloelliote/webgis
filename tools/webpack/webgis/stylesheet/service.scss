@@ -122,6 +122,11 @@
 
   .card-body {
     .dataTables_wrapper {
+
+      .row:first-child {
+        display: block;
+      }
+
       .row {
         width: auto;
         margin: 0 10px;
