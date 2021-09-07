@@ -12,6 +12,7 @@ import csrf from 'csurf';
 import rateLimiter from './middlewares/rate-limiter/index';
 import cors from 'cors';
 import passport from 'passport';
+import fs from 'fs';
 import passportSetup from './middlewares/passport/index';
 import routes from './routes/index';
 
@@ -68,6 +69,10 @@ app.use(cors({
 app.use(passport.initialize({}));
 app.use(passport.session(false));
 app.use(express.static(path.join(__dirname, 'public')));
+
+if (!fs.existsSync(path.join(__dirname, 'public', 'uploads'))){
+  fs.mkdirSync(path.join(__dirname, 'public', 'uploads'));
+}
 
 passportSetup(passport);
 
