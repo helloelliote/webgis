@@ -3,6 +3,7 @@ import { default as passportRoute } from './passport';
 import { default as wtl } from './wtl';
 import { default as swl } from './swl';
 import { default as service } from './service';
+import { default as data } from './data';
 
 export default function (router, passport) {
   router.get('/', main.index);
@@ -11,7 +12,7 @@ export default function (router, passport) {
   router.post('/auth/signin', function (req, res, next) {
     return passportRoute.login(req, res, next, passport);
   });
-  
+
   router.get('/api/swl/search', swl.search, onError);
   router.get('/api/swl/info', swl.info, onError);
   router.get('/api/swl/info/photo', swl.infoPhoto, onError);
@@ -31,7 +32,13 @@ export default function (router, passport) {
 
   router.get('/service/search', service.searchGet, onError);
   router.post('/service/search', service.searchPost, onError);
-  
+
+  router.get('/data/storage', data.dataStorageGet, onError);
+  router.get('/data/storage/list', data.dataStorageListGet, onError);
+  router.post('/data/storage/list/delete', data.dataStorageDeletePost, onError);
+  router.get('/data/storage/download', data.dataStorageDownloadGet, onError);
+  router.post('/data/storage/upload', data.dataStorageUploadPost, onError);
+
   function onError(err, req, res, next) {
     console.error(err.stack);
     console.error(`[REQUEST QUERY]: ${JSON.stringify(req.query, null, 2)}`);

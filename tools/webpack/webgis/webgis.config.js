@@ -17,6 +17,10 @@ const webpackEntries = {
     '@webgis/javascript/service/search/kakaoMap.js',
     '@webgis/javascript/service/search/index.js',
   ],
+  'js/data.storage': [
+    '@webgis/config/index.js',
+    '@webgis/javascript/data/storage.js',
+  ],
   'js/serv.pres': [
     '@webgis/javascript/service/pres-manage.js',
   ],
