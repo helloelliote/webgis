@@ -14,7 +14,6 @@ const centerY = Math.round(mapContainer.clientHeight / 2);
 
 function onSingleClick() {
   // Do NOT use #preventDefault(), it blocks select interaction
-  addressOverlay.popover('dispose');
 }
 
 function onContextMenu(event) {
@@ -28,9 +27,15 @@ function onContextMenu(event) {
         container: addressOverlay.getElement(),
         html: true,
         content: htmlContent,
+        trigger: 'manual',
       });
       addressOverlay.popover('show');
       $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
+    })
+    .then(() => {
+      document.getElementById('popover-close').addEventListener('mousedown', () => {
+        addressOverlay.popover('hide');
+      });
     });
 }
 
@@ -176,7 +181,7 @@ function onWindowLoad(event) {
 }
 
 export {
-  onSingleClick,
+  // onSingleClick,
   onContextMenu,
   onClickQuickSearchInline,
   onClickSectionCode,

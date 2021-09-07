@@ -9,7 +9,7 @@ import {
   onClickTableCodeAside,
   onClickTableCodeTop,
   onContextMenu,
-  onSingleClick,
+  // onSingleClick,
   onImageLayerUpdate,
   onWindowLoad,
 } from './event';
@@ -42,7 +42,7 @@ map.on('contextmenu', onContextMenu);
 
 map.on('moveend', onMoveEnd);
 
-map.on('singleclick', onSingleClick);
+// map.on('singleclick', onSingleClick);
 
 view.on('change:resolution', onImageLayerUpdate.bind({ layer: imageLayer, view }));
 
