@@ -8,38 +8,29 @@ import { viewSyncOptions } from '../kakao/map';
 import { addressOverlay } from './overlay';
 import { selectInteraction } from './map';
 
-const mapContainer = document.getElementById('map-container');
-const centerX = Math.round(mapContainer.clientWidth / 2);
-const centerY = Math.round(mapContainer.clientHeight / 2);
-
-function onSingleClick() {
-  // Do NOT use #preventDefault(), it blocks select interaction
-}
+// function onSingleClick() {
+// Do NOT use #preventDefault(), it blocks select interaction
+// }
 
 function onContextMenu(event) {
   event.preventDefault();
   coordinateToAddress(event.coordinate)
     .then(htmlContent => {
-      addressOverlay.popover('dispose');
-      addressOverlay.setPosition(event.coordinate);
-      addressOverlay.popover({
-        placement: 'top',
-        container: addressOverlay.getElement(),
-        html: true,
-        content: htmlContent,
-        trigger: 'manual',
-      });
-      addressOverlay.popover('show');
-      $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
-    })
-    .then(() => {
-      document.getElementById('popover-close').addEventListener('mousedown', () => {
-        addressOverlay.popover('hide');
-      });
+      addressOverlay.setPositionAndContent(event.coordinate, htmlContent);
     });
 }
 
-function onClickQuickSearchInline(event) {
+function setCenterOnSelect(view, element) {
+  const latLng = element.nextElementSibling.textContent.split(',');
+  const coords = fromLonLat([latLng[0], latLng[1]], projection);
+  view.setCenter(coords);
+  if (view.getZoom() < viewSyncOptions.zoom.base) {
+    view.setZoom(viewSyncOptions.zoom.base + 1);
+  }
+  addressOverlay.setPositionAndContent(coords, element.textContent);
+}
+
+function onSelectQuickSearch(event) {
   event.preventDefault();
   let targetEl = event.target;
   if (targetEl) {
@@ -53,31 +44,26 @@ function onClickQuickSearchInline(event) {
       }
       selectInteraction.addFeature(feature);
     } else if (targetEl.className.includes('quick-search-result-address')) {
-      const latLng = targetEl.nextElementSibling.textContent.split(',');
-      const [lng, lat] = [latLng[0], latLng[1]];
-      const coords = fromLonLat([lng, lat], projection);
-      this.setCenter(coords);
-      setTimeout(() => {
-        addressOverlay.popover('dispose');
-        addressOverlay.setPosition(coords);
-        addressOverlay.popover({
-          placement: 'top',
-          container: addressOverlay.getElement(),
-          html: true,
-          content: targetEl.textContent,
-        });
-        addressOverlay.popover('show');
-        $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
-      }, 500);
-      if (this.getZoom() < viewSyncOptions.zoom.base) {
-        this.setZoom(viewSyncOptions.zoom.base + 1);
-      }
+      setCenterOnSelect(this, targetEl);
     }
   }
 }
 
+function onSelectQuickSearchSingleResult(event) {
+  event.preventDefault();
+  const targetEl =
+    document.querySelector('.quick-search-result-place') ||
+    document.querySelector('.quick-search-result-road');
+  setCenterOnSelect(this, targetEl);
+}
+
 function onClickSectionCode(event) {
   event.preventDefault();
+
+  const mapContainer = document.getElementById('map-container');
+  const centerX = Math.round(mapContainer.clientWidth / 2);
+  const centerY = Math.round(mapContainer.clientHeight / 2);
+
   const elementId = event.target.id.split(':');
   const [table, column, section] = [elementId[0], elementId[1], elementId[2]];
 
@@ -183,7 +169,8 @@ function onWindowLoad(event) {
 export {
   // onSingleClick,
   onContextMenu,
-  onClickQuickSearchInline,
+  onSelectQuickSearch,
+  onSelectQuickSearchSingleResult,
   onClickSectionCode,
   onClickTableCodeAside,
   onClickTableCodeTop,

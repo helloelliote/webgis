@@ -2,36 +2,36 @@
 
 .popover {
   min-width: max-content;
+  font-weight: bolder;
 
   .popover-body {
     color: #7337EE;
     font-size: 1.05rem !important;
-    font-weight: bolder;
     min-width: max-content;
     padding: 0;
+  }
+
+  .popover-close {
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+  }
+
+  .popover-close:after {
+    color: #7337EE;
+    content: "✖";
   }
 }
 
 .popover-info {
-  padding: 0.5rem 2.5rem 0.5rem 1.5rem;
+  padding: 0.5rem 2rem 0.5rem 1.5rem;
   border-color: #7337EE;
   color: white;
 }
 
 .popover-info .arrow:before {
   border-top-color: #7337EE;
-}
-
-.popover-close {
-  text-decoration: none;
-  position: absolute;
-  top: 0;
-  right: 0.5rem;
-}
-
-.popover-close:after {
-  color: #7337EE;
-  content: "✖";
 }
 
 // notification

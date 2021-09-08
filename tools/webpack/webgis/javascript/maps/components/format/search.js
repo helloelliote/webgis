@@ -130,7 +130,7 @@ function formatAddressSearch(results, status) {
           continue;
         }
         const itemEl = _itemEl.cloneNode(true);
-        itemEl.querySelector('a').classList.add('quick-search-result-address');
+        itemEl.querySelector('a').classList.add('quick-search-result-address', 'quick-search-result-road');
         itemEl.querySelector('a').innerHTML = address;
         itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
         itemEl.querySelector('span').innerHTML = `${address_alt} ${building}`;
@@ -161,7 +161,7 @@ function formatKeywordSearch(results, status, pagination) {
     if (status === STATUS_OK) {
       for (const item of results) {
         const itemEl = _itemEl.cloneNode(true);
-        itemEl.querySelector('a').classList.add('quick-search-result-address');
+        itemEl.querySelector('a').classList.add('quick-search-result-address', 'quick-search-result-place');
         itemEl.querySelector('a').innerHTML = item['place_name'];
         itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
         itemEl.querySelector('span').innerHTML =
