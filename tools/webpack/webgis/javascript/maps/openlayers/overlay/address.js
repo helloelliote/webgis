@@ -1,16 +1,33 @@
 import Overlay from 'ol/Overlay';
 
-Overlay.prototype.popover = function (options) {
-  $(this.getElement()).popover(options);
+const addressOverlayDefault = {
+  html: true,
+  placement: 'top',
+  trigger: 'manual',
+  template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div><a href="#" class="popover-close"></a></div>',
+};
+
+Overlay.prototype.setPositionAndContent = function (position, content) {
+  setTimeout(function () {
+    const overlayElement = $(this.getElement());
+    overlayElement.popover('dispose');
+    this.setPosition(position);
+    overlayElement.popover({
+      ...addressOverlayDefault,
+      container: this.getElement(),
+      content: content,
+    });
+    overlayElement.popover('show');
+    overlayElement.find('.popover').addClass('popover-info');
+    overlayElement.find('.popover-close').on('mousedown', () => {
+      overlayElement.popover('hide');
+    });
+  }.bind(this), 250);
 };
 
 const addressOverlay = new Overlay({
   element: document.getElementById('popup'),
 });
-
-const addressOverlayElement = addressOverlay.getElement();
-
-$(addressOverlayElement).popover({ placement: 'auto' });
 
 $(document).on('click', '.addr-clipboard', function (event) {
   event.stopPropagation();
@@ -23,7 +40,7 @@ $(document).on('click', '.addr-clipboard', function (event) {
   el.select();
   document.execCommand('copy');
   document.body.removeChild(el);
-  $(addressOverlayElement).popover('hide');
+  $(addressOverlay.getElement()).popover('hide');
   $.notify({
     message: '선택한 주소가 클립보드에 저장되었습니다',
   });

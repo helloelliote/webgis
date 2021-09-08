@@ -5,11 +5,12 @@ import { addressOverlay } from './overlay';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './Interaction';
 import {
-  onClickQuickSearchInline,
+  // onSingleClick,
+  onContextMenu,
+  onSelectQuickSearch,
+  onSelectQuickSearchSingleResult,
   onClickTableCodeAside,
   onClickTableCodeTop,
-  onContextMenu,
-  // onSingleClick,
   onImageLayerUpdate,
   onWindowLoad,
 } from './event';
@@ -51,7 +52,9 @@ document.getElementById('btn-map-hybrid')
 
 // Fired when the DOM is ready which can be prior to images and other external content is loaded.
 document.getElementById('kt_quick_search_inline')
-  .addEventListener('click', onClickQuickSearchInline.bind(view), false);
+  .addEventListener('click', onSelectQuickSearch.bind(view), false);
+
+document.addEventListener('singleresult', onSelectQuickSearchSingleResult.bind(view), false);
 
 // [...document.getElementById('ol-section-code-wtl').getElementsByClassName('dropdown-menu')].forEach(element => {
 //   element.addEventListener('mousedown', onClickSectionCode.bind({ view: view, size: map.getSize() }), false);

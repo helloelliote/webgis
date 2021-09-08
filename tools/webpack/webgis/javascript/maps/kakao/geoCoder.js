@@ -39,9 +39,6 @@ function addressToHtml(address) {
         `지&nbsp;&nbsp;&nbsp;번 주소: <a href="#" class="addr-clipboard">${address['address']['address_name']}</a>`,
       );
     }
-    htmlContent.push(
-      `<a href="#" id="popover-close" class="popover-close"></a>`,
-    );
     resolve(htmlContent.join('<br />'));
   });
 }

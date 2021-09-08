@@ -13,6 +13,7 @@ const KTLayoutSearch = function () {
   let _query = '';
 
   let _hasResult = false;
+  let _hasSingleResultEvent = new CustomEvent('singleresult', null);
   let _timeout = false;
   let _isProcessing = false;
   let _requestTimeout = 500; // ajax request fire timeout in milliseconds
@@ -141,7 +142,13 @@ const KTLayoutSearch = function () {
             _hideProgress();
             KTUtil.addClass(_target, _resultClass);
             KTUtil.setHTML(_resultWrapper, result);
-            _showDropdown();
+            const placeCount = (result.match(/quick-search-result-place/g) || []).length;
+            const addressCount = (result.match(/quick-search-result-road/g) || []).length;
+            if (placeCount === 1 || addressCount === 1) {
+              document.dispatchEvent(_hasSingleResultEvent);
+            } else {
+              _showDropdown();
+            }
             KTUtil.scrollUpdate(_resultWrapper);
           })
           .catch(_handleError);
