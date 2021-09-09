@@ -4946,6 +4946,13 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"loglevelnext@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "loglevelnext@npm:3.0.1"
+  checksum: e12c9ad800b534832af64bb9fbcd5d6a1f4cb5eaa9276e36d171eb56bfcae09c1e41ed5054c64eda12088dd65c3c45b592489f0e6610d669d4c4edb9d2ee40fe
+  languageName: node
+  linkType: hard
+
 "loose-envify@npm:^1.0.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
@@ -5194,6 +5201,7 @@ fsevents@~2.3.2:
     webpack-cli: ^4.8.0
     webpack-dev-server: ^4.1.1
     webpack-exclude-assets-plugin: ^0.1.1
+    webpack-log: ^3.0.2
     webpack-merge-and-include-globally: ^2.3.4
     webpack-messages: ^2.0.4
     webpack-rtl-plugin: ^2.0.0
@@ -5485,6 +5493,13 @@ fsevents@~2.3.2:
   version: 2.0.1
   resolution: "namespace-emitter@npm:2.0.1"
   checksum: 2a514356664c92543a991fe48900044ba5548cd9724447bac8b6091e84d8003b8237975eeb3f73d92502cfc60cac32875f88f63005dac5fb0afa565ec9d4d348
+  languageName: node
+  linkType: hard
+
+"nanoid@npm:^2.0.3":
+  version: 2.1.11
+  resolution: "nanoid@npm:2.1.11"
+  checksum: 41453e344e3abb189cd3baa3ab52685601d7220f86ce73f6a1d9594ebae286c2acf47a20b5aa9cf11933b587b69c6007e88f190ca266450c2fbe20be6db43a29
   languageName: node
   linkType: hard
 
@@ -8699,6 +8714,17 @@ fsevents@~2.3.2:
   dependencies:
     kleur: ^3.0.0
   checksum: 76b99588d2a11a513e434955c204fba18cd09f5aa0d6485d55d5453eeb1e87defb464237b7dc9022e835fd55886a096e702ef5a637cedc8e91b86514f2659949
+  languageName: node
+  linkType: hard
+
+"webpack-log@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "webpack-log@npm:3.0.2"
+  dependencies:
+    chalk: ^2.4.2
+    loglevelnext: ^3.0.1
+    nanoid: ^2.0.3
+  checksum: 2a60ea9967e9163fa8155b425206cd1ab2abfc4374814f3d52d5d1522c24bf9d89d43c7cef40c23d5c0c57d0bc0535695f6bef4b561e7208486d6b6005af71f5
   languageName: node
   linkType: hard
 
