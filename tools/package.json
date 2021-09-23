@@ -94,7 +94,6 @@
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.1.1",
     "webpack-exclude-assets-plugin": "^0.1.1",
-    "webpack-log": "^3.0.2",
     "webpack-merge-and-include-globally": "^2.3.4",
     "webpack-messages": "^2.0.4",
     "webpack-rtl-plugin": "^2.0.0",
