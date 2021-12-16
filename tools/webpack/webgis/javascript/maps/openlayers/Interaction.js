@@ -3,7 +3,14 @@ import { mouseActionButton, singleClick } from 'ol/events/condition';
 import { Vector as VectorSource } from 'ol/source';
 import { defaults as defaultInteractions, Draw, MouseWheelZoom, Select } from 'ol/interaction';
 import MapError from '../Error';
-import { measureResultStyle, measureStyle, selectLineStyle, selectPointStyle, selectPolygonStyle } from './style';
+import {
+  measureResultStyle,
+  measureStyle,
+  selectLineStyle,
+  selectPointSpiStyle,
+  selectPointStyle,
+  selectPolygonStyle,
+} from './style';
 import {
   FeatureOverlay,
   getMeasureTooltipOverlay,
@@ -20,7 +27,7 @@ import {
  */
 import { Feature } from 'ol';
 import { createDefaultStyle } from 'ol/style/Style';
-import { createVectorStyle } from './layer';
+import { createVectorSpiStyle, createVectorStyle } from './layer';
 import { InfoModal } from './modal';
 /**
  * For ol/Interaction/Draw
@@ -68,7 +75,8 @@ export class SelectInteraction extends Select {
           }
           case GeometryType.POINT:
           case GeometryType.MULTI_POINT: {
-            return createVectorStyle(feature).clone();
+            let selectStyle = feature.get('spi_id') ? createVectorSpiStyle(feature) : createVectorStyle(feature);
+            return selectStyle.clone();
           }
           case GeometryType.POLYGON:
           case GeometryType.MULTI_POLYGON: {
@@ -116,6 +124,15 @@ export class SelectInteraction extends Select {
       }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
+        if (feature.get('spi_id')) {
+          this._setSelectOverlay(feature, selectPointSpiStyle);
+          window.open(
+            `//espi.kr/pipe/write?pipe_id=${feature.get('pipe_id')}`,
+            `SPI ${feature.get('pipe')}`,
+            `location, resizable, height=${screen.height}, width=${screen.width}`,
+          );
+          break;
+        }
         this._setSelectOverlay(feature, selectPointStyle);
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
@@ -147,7 +164,8 @@ export class SelectInteraction extends Select {
       }
       case GeometryType.POINT:
       case GeometryType.MULTI_POINT: {
-        this._setSelectOverlay(feature, selectPointStyle);
+        let selectStyle = feature.get('pipe_id') ? selectPointSpiStyle : selectPointStyle;
+        this._setSelectOverlay(feature, selectStyle);
         break;
       }
       case GeometryType.POLYGON:

@@ -69,6 +69,12 @@ export default {
       '행정동',
     ],
   },
+  viw_spi_ps: {
+    label: null,
+    maxZ: 21,
+    minZ: 11,
+    propertyName: null,
+  },
   viw_swl_aodp_as: {
     label: '처리구역명',
     childColumn: null,

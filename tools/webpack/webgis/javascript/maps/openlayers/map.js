@@ -1,5 +1,5 @@
 import Map from 'ol/Map';
-import { Image, Vector } from './layer';
+import { Image, Vector, VectorSpi } from './layer';
 import { onMoveEnd, view } from './view';
 import { addressOverlay } from './overlay';
 import { default as defaultControls } from './control';
@@ -18,6 +18,9 @@ import {
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers(window.webgis.table.vector);
 
+const vectorSpiLayer = new VectorSpi();
+vectorSpiLayer.toggleLayers(window.webgis.table.spi);
+
 const imageLayer = new Image();
 imageLayer.toggleLayers(window.webgis.table.image);
 
@@ -26,6 +29,7 @@ const map = new Map({
   view: view,
   layers: [
     imageLayer.layers,
+    vectorSpiLayer.layers,
     vectorLayer.layers,
   ],
   controls: defaultControls,
