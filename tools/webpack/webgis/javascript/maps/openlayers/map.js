@@ -29,8 +29,8 @@ const map = new Map({
   view: view,
   layers: [
     imageLayer.layers,
-    vectorSpiLayer.layers,
     vectorLayer.layers,
+    vectorSpiLayer.layers,
   ],
   controls: defaultControls,
   interactions: defaultInteractions,
