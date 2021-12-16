@@ -12,6 +12,9 @@ const globalOptions = Object.assign(defaultOptions, {
   rect: '128.372325,36.686060,128.787714,37.073914',
   table: {
     filter: true,
+    spi: [
+      'viw_spi_ps',
+    ],
     vector: [
       'viw_wtl_puri_as',
       // 'viw_wtl_taper_ps',

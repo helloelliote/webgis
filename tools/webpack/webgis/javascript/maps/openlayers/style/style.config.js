@@ -1159,4 +1159,84 @@ export default {
       },
     },
   },
+  spi: {
+    '가로등': {
+      image: {
+        fill: '#919191bf',
+        radius: 5,
+      },
+    },
+    '광케이블': {
+      image: {
+        fill: '#9649ffbf',
+        radius: 5,
+      },
+    },
+    '기타관로': {
+      image: {
+        fill: '#000000bf',
+        radius: 5,
+      },
+    },
+    '난방관로': {
+      image: {
+        fill: '#1d66b7bf',
+        radius: 5,
+      },
+    },
+    '도시가스': {
+      image: {
+        fill: '#f10000bf',
+        radius: 5,
+      },
+    },
+    '상수관로': {
+      image: {
+        fill: '#36dfebbf',
+        radius: 5,
+      },
+    },
+    '오수관로': {
+      image: {
+        fill: '#f3763cbf',
+        radius: 5,
+      },
+    },
+    '우수관로': {
+      image: {
+        fill: '#e025e1bf',
+        radius: 5,
+      },
+    },
+    '유류관로': {
+      image: {
+        fill: '#1f325cbf',
+        radius: 5,
+      },
+    },
+    '전기관로': {
+      image: {
+        fill: '#5c0e0ebf',
+        radius: 5,
+      },
+    },
+    '통신관로': {
+      image: {
+        fill: '#0323d6bf',
+        radius: 5,
+      },
+    },
+    '하수관로': {
+      image: {
+        fill: '#047a40bf',
+        radius: 5,
+      },
+    },
+    'CCTV': {
+      image: {
+        fill: '#000000bf',
+        radius: 5,
+      },
+    },
+  },
 };
