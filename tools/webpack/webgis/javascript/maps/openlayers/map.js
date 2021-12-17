@@ -5,13 +5,12 @@ import { addressOverlay } from './overlay';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './Interaction';
 import {
-  // onSingleClick,
-  onContextMenu,
-  onSelectQuickSearch,
-  onSelectQuickSearchSingleResult,
   onClickTableCodeAside,
   onClickTableCodeTop,
+  onContextMenu,
   onImageLayerUpdate,
+  onSelectQuickSearch,
+  onSelectQuickSearchSingleResult,
   onWindowLoad,
 } from './event';
 

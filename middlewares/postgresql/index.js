@@ -27,6 +27,16 @@ class Postgresql {
     return this._pool;
   }
 
+  static onError(err) {
+    return new Error(err.code);
+  }
+
+  static onFinally(client) {
+    if (client) {
+      client.release();
+    }
+  }
+
   executeQuery(text, params) {
     return this._pool
       .connect()
@@ -40,16 +50,6 @@ class Postgresql {
           .finally(() => Postgresql.onFinally(client));
       });
     // .catch(Postgresql.onError);
-  }
-
-  static onError(err) {
-    return new Error(err.code);
-  }
-
-  static onFinally(client) {
-    if (client) {
-      client.release();
-    }
   }
 }
 

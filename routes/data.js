@@ -60,7 +60,7 @@ export default {
                              FROM wtt_file_et file_tb
                                       LEFT JOIN private.cd_fle fle_tb ON file_tb.fle_cde = fle_tb.codeno
                              WHERE fle_idn = $1;`,
-    [req.query['id']],
+      [req.query['id']],
     ).then(response => {
       const row = response['rows'][0];
       const localFile = path.join(defaultFormidableOptions['uploadDir'], row['path']);

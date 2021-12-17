@@ -3,7 +3,7 @@ import { Vector as VectorSource } from 'ol/source';
 import { createDefaultStyle } from 'ol/style/Style';
 import Layer from './Layer';
 import property from './Layer.property';
-import SourceLoader from '../worker/sourceLoader.worker';
+import { default as loadSource } from './sourceLoader.vector';
 import { default as FeatureFilter } from '../feature/filter';
 import { geoJsonWGS } from '../format';
 import GeometryType from 'ol/geom/GeometryType';
@@ -39,31 +39,14 @@ function createVectorSpiLayer(key) {
 }
 
 function createVectorSpiSource(key) {
-  const vectorSpiSource =
-    new VectorSource(({
-      format: geoJsonWGS,
-      overlaps: false,
-      loader: function (extent, resolution, projection) {
-        const url = createVectorSpiSourceRequestUrl(key);
-        const sourceLoader = new SourceLoader();
-        sourceLoader.postMessage(url);
-        sourceLoader.onerror = error => {
-          vectorSpiSource.removeLoadedExtent(extent);
-        };
-        sourceLoader.onmessage = response => {
-          (async () => {
-            vectorSpiSource.addFeatures(vectorSpiSource.getFormat().readFeatures(response.data));
-          })()
-            .catch(() => {
-              // TODO: Error Handling
-            })
-            .finally(() => {
-              sourceLoader.terminate();
-            });
-        };
-      },
-    }));
-  return vectorSpiSource;
+  return new VectorSource(({
+    format: geoJsonWGS,
+    overlaps: false,
+    loader: function (extent, resolution, projection, success, failure) {
+      const url = createVectorSpiSourceRequestUrl(key);
+      loadSource(this, url, extent, success, failure);
+    },
+  }));
 }
 
 // noinspection HttpUrlsUsage
