@@ -15,7 +15,7 @@ const ServicePresManage = function () {
 
   const _initTable = function () {
     if (_table) return;
-    
+
     _table = $('#kt_datatable_pres').DataTable({
       responsive: true,
 

@@ -27,6 +27,10 @@ class Mysql {
     return this._pool;
   }
 
+  static onError(err) {
+    return new Error(err.code);
+  }
+
   executeQuery(text, params) {
     return this._pool
       .promise()
@@ -35,10 +39,6 @@ class Mysql {
         return result;
       });
     // .catch(Mysql.onError);
-  }
-
-  static onError(err) {
-    return new Error(err.code);
   }
 }
 
