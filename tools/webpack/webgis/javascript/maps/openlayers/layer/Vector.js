@@ -5,7 +5,7 @@ import { Point } from 'ol/geom';
 import { createDefaultStyle } from 'ol/style/Style';
 import Layer from './Layer';
 import property from './Layer.property';
-import SourceLoader from '../worker/sourceLoader.worker';
+import { default as loadSource } from './sourceLoader.vector';
 import { default as FeatureFilter } from '../feature/filter';
 import { geoJson } from '../format';
 import { arrowheadStyle, closedPipeStyle, lineStyleMap, pointStyleMap, polygonStyleMap } from '../style';
@@ -40,31 +40,14 @@ function createVectorLayer(key) {
 }
 
 function createVectorSource(key) {
-  const vectorSource =
-    new VectorSource({
-      format: geoJson,
-      overlaps: false,
-      loader: function (extent, resolution, projection) {
-        const url = createVectorSourceRequestUrl(key);
-        const sourceLoader = new SourceLoader();
-        sourceLoader.postMessage(url);
-        sourceLoader.onerror = error => {
-          vectorSource.removeLoadedExtent(extent);
-        };
-        sourceLoader.onmessage = response => {
-          (async () => {
-            vectorSource.addFeatures(vectorSource.getFormat().readFeatures(response.data));
-          })()
-            .catch(() => {
-              // TODO: Error Handling
-            })
-            .finally(() => {
-              sourceLoader.terminate();
-            });
-        };
-      },
-    });
-  return vectorSource;
+  return new VectorSource({
+    format: geoJson,
+    overlaps: false,
+    loader: function (extent, resolution, projection, success, failure) {
+      const url = createVectorSourceRequestUrl(key);
+      loadSource(this, url, extent, success, failure);
+    },
+  });
 }
 
 function createVectorSourceRequestUrl(key) {
