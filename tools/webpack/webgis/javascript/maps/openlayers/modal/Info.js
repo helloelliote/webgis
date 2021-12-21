@@ -16,6 +16,8 @@ export default class InfoModal extends ModalOverlay {
       '.card-title span',
       '.card-body tbody',
       '.card-footer a.btn',
+      '.card-footer #btn_photo_modal',
+      '.card-footer #btn_history_modal',
     ]);
 
     this._feature = null;
@@ -39,6 +41,7 @@ export default class InfoModal extends ModalOverlay {
     super.setFeature(feature);
     this._feature = feature;
     this._featureMap.set('table', feature.get('layer') || feature.getId().match(/[^.]+/)[0]);
+    this._featureMap.set('layerSub', this.getLayerSubName(feature));
     this._featureMap.set('isClosed', feature.get('폐관일자') !== null && feature.get('폐관일자') !== undefined);
   }
 
@@ -87,6 +90,37 @@ export default class InfoModal extends ModalOverlay {
       that['.card-body tbody'].html(tableRows);
       that['.card-body tbody'][0].scrollIntoView();
       return that;
+    }
+  }
+
+  checkPhotoAndHistory() {
+    let that = this;
+    let _layer = that.getFeature('layer');
+    let _id = that.getFeature('id');
+    fetchWorker.fetch('wtl/info/check', {
+      table_image: _layer === '보수공사' ? window.webgis.table.repairPhoto : window.webgis.table.photo,
+      table_history: window.webgis.table.maintenance,
+      layer: that.getFeature('layerSub'),
+      id: _id,
+    }).then(updateModal);
+
+    function updateModal(result) {
+      if (result?.length > 0) {
+        result[0]['photo'] ? onButtonEnable(that['.card-footer #btn_photo_modal']) : onButtonDisable(that['.card-footer #btn_photo_modal']);
+        result[0]['history'] ? onButtonEnable(that['.card-footer #btn_history_modal']) : onButtonDisable(that['.card-footer #btn_history_modal']);
+      }
+    }
+
+    function onButtonEnable(element) {
+      element
+        .removeClass('disabled btn-outline-secondary btn-hover-secondary')
+        .addClass('btn-outline-success btn-hover-success');
+    }
+
+    function onButtonDisable(element) {
+      element
+        .removeClass('btn-outline-success btn-hover-success')
+        .addClass('disabled btn-outline-secondary btn-hover-secondary');
     }
   }
 

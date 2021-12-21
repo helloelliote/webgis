@@ -119,6 +119,9 @@ export class SelectInteraction extends Select {
       case GeometryType.MULTI_LINE_STRING: {
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
+          return modal;
+        }).then(modal => {
+          modal.checkPhotoAndHistory();
         });
         break;
       }
@@ -136,6 +139,9 @@ export class SelectInteraction extends Select {
         this._setSelectOverlay(feature, selectPointStyle);
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
+          return modal;
+        }).then(modal => {
+          modal.checkPhotoAndHistory();
         });
         break;
       }
