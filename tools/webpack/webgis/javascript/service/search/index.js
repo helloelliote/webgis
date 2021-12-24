@@ -309,6 +309,10 @@ const ServiceSearch = function () {
     ]);
     let selectpickers = _tableEl.find('.datatable-input.selectpicker');
     selectpickers.selectpicker('refresh');
+
+    _tableEl.find('input').on('keyup', event => {
+      if (event.key === 'Enter') _onClickTableSearch(event);
+    });
   }
 
   function _initTableContextMenuModal() {
