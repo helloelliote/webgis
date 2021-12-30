@@ -4,7 +4,6 @@ import { createDefaultStyle } from 'ol/style/Style';
 import Layer from './Layer';
 import property from './Layer.property';
 import { default as loadSource } from './sourceLoader.vector';
-import { default as FeatureFilter } from '../feature/filter';
 import { geoJsonWGS } from '../format';
 import GeometryType from 'ol/geom/GeometryType';
 import { pointSpiStyleMap } from '../style';
@@ -14,10 +13,6 @@ export default class VectorSpi extends Layer {
 
   constructor(props) {
     super(props);
-
-    if (window.webgis.table.filter) {
-      FeatureFilter.init(this);
-    }
   }
 
   toggleLayers(keyArray) {
