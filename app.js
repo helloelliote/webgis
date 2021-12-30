@@ -2,7 +2,7 @@ import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import exphbs from 'express-handlebars';
+import { engine } from 'express-handlebars';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import postgresql from './middlewares/postgresql/index';
@@ -27,7 +27,7 @@ const app = express();
  */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
-app.engine('html', exphbs({ extname: '.html' }));
+app.engine('html', engine({ extname: '.html' }));
 
 app.use(helmet({
   contentSecurityPolicy: false,
