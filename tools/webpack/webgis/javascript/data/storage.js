@@ -25,7 +25,7 @@ const DataStorage = function () {
   let _uppyImageEditorOptions;
   let _uppyXHRUploadOptions;
 
-  let _form;
+  // let _form;
   let _dateRangeFilter = yadcf;
 
   let _tableAjaxDefault;
@@ -435,7 +435,7 @@ const DataStorage = function () {
 
   function _onClickDone() {
     _uppy.reset();
-    _form.resetForm();
+    // _form.resetForm();
   }
 
   function _onFormReset() {
@@ -468,7 +468,7 @@ const DataStorage = function () {
       _uppy.on('upload-success', _onUploadSuccess);
       _uppy.on('upload-error', _onUploadError);
 
-      _form.on('reset', _onFormReset);
+      // _form.on('reset', _onFormReset);
     },
   };
 }();
