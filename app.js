@@ -69,9 +69,10 @@ app.use(cors({
 app.use(passport.initialize({}));
 app.use(passport.session(false));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'upload')));
 
-if (!fs.existsSync(path.join(__dirname, 'public', 'uploads'))){
-  fs.mkdirSync(path.join(__dirname, 'public', 'uploads'));
+if (!fs.existsSync(path.join(__dirname, 'upload'))){
+  fs.mkdirSync(path.join(__dirname, 'upload'));
 }
 
 passportSetup(passport);

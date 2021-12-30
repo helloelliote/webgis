@@ -10,7 +10,7 @@ const defaultFormidableOptions = {
   allowEmptyFiles: false,
   keepExtensions: false,
   multiples: true,
-  uploadDir: path.join(__dirname, 'public', 'uploads'),
+  uploadDir: path.join(__dirname, 'upload'),
 };
 
 export default {
