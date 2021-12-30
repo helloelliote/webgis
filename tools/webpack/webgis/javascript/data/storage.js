@@ -133,7 +133,7 @@ const DataStorage = function () {
       },
       limit: 10,
       formData: true,
-      fieldNames: 'files[]',
+      bundle: false,
       metaFields: null, // send all metadata fields
     };
 
