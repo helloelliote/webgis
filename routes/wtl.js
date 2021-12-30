@@ -55,12 +55,12 @@ export default {
        (SELECT EXISTS(SELECT 관리번호)
         FROM ${req.query['table_image']} AS t1
         WHERE t1.관리번호 = ${req.query['id']}
-          AND t1.시설물구분 = ${req.query['layer']}
+          AND t1.시설물구분 = "${req.query['layer']}"
         LIMIT 1) AS 'photo',
        (SELECT EXISTS(SELECT 관리번호)
         FROM ${req.query['table_history']} AS t2
         WHERE t2.관리번호 = ${req.query['id']}
-          AND t2.시설물구분 = ${req.query['layer']}
+          AND t2.시설물구분 = "${req.query['layer']}"
         LIMIT 1) AS 'history'`,
     [],
     ).then(result => {
