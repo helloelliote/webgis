@@ -110,7 +110,7 @@ export default {
           fields['name'].replace(/\.(jpe?g|png|pdf|xlsx?)$/, ''),
           fields['fle_exp'] !== '' ? fields['fle_exp'] : null,
           files['file']['size'],
-          files['file']['path'].match(/upload_.*$/).toString().replace(/[{"}]/, ''),
+          files['file']['newFilename'],
           fields['lastModified'],
           fields['reg_nam'] !== '' ? fields['reg_nam'] : null,
           fields['reg_cde'] !== '' ? fields['reg_cde'] : null,
