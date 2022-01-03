@@ -81,9 +81,21 @@ export default class EditModal {
 
       if (resultObj['apy_cde'] !== '도로 누수') {
         ['lep_cde', 'pip_dip'].forEach(code => {
-          that[code].parent().prop('hidden', true);
+          that[code].parents().eq(1).css('display', 'none');
         });
       }
+
+      that['apy_cde'].on('change', function (event) {
+        if (event.target.value === '도로 누수') {
+          that['pip_dip'].parents().eq(1).css('display', 'block');
+          that['lep_cde'].parents().eq(1).css('display', 'block');
+        } else {
+          that['pip_dip'].parents().eq(1).css('display', 'none');
+          that['lep_cde'].parents().eq(1).css('display', 'none');
+          that['pip_dip'].val('default').selectpicker('refresh');
+          that['lep_cde'].val('default').selectpicker('refresh');
+        }
+      });
 
       that._modalEl.modal('show');
     }
