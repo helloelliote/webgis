@@ -1,6 +1,6 @@
 import { coordinateToLatLng } from './util';
 
-const geoCoder = new kakao.maps.services.Geocoder();
+// const geoCoder = new kakao.maps.services.Geocoder();
 
 function coordinateToAddress(coordinate) {
   return new Promise((resolve, reject) => {
@@ -18,10 +18,24 @@ function coordinateToAddress(coordinate) {
 
 function latLngToAddress(latLng) {
   return new Promise((resolve) => {
-    geoCoder.coord2Address(latLng.getLng(), latLng.getLat(), (res, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        resolve(res[0]);
-      }
+    // geoCoder.coord2Address(latLng.getLng(), latLng.getLat(), (res, status) => {
+    //   if (status === kakao.maps.services.Status.OK) {
+    //     resolve(res[0]);
+    //   }
+    // });
+    $.ajax({
+      url: 'https://dapi.kakao.com/v2/local/geo/coord2address.json',
+      headers: {
+        'Authorization': `KakaoAK ${window.webgis.kakao.rest}`,
+      },
+      data: {
+        x: latLng.getLng(),
+        y: latLng.getLat(),
+      },
+      dataType: 'json',
+      success: function (res) {
+        resolve(res['documents'][0]);
+      },
     });
   });
 }
