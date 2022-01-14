@@ -35,9 +35,9 @@ const globalOptions = Object.assign(defaultOptions, {
     photo: 'viw_web_bs_img_et',
     // repairPhoto: 'viw_wtt_subimge_et_re',
     // repair: 'viw_wtt_wutl_ht_re',
-    kakao: {
-      rest: '2f84e559976c9198df8ea702196b6550',
-    },
+  },
+  kakao: {
+    rest: '2f84e559976c9198df8ea702196b6550',
   },
 });
 
