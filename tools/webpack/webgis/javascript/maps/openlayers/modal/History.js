@@ -124,7 +124,7 @@ export default class HistoryModal extends ModalOverlay {
     let _layer = that.getFeature('layer');
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {
-      fetchWorker.fetch('wtl/info/history', {
+      fetchWorker.fetch(`${window.webgis.role}/info/history`, {
         table: window.webgis.table.maintenance,
         layer: that.getFeature('layerSub'),
         id: _id,
