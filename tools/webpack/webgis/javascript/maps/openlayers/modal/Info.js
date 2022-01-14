@@ -50,7 +50,7 @@ export default class InfoModal extends ModalOverlay {
 
     let that = this;
     return new Promise((resolve, reject) => {
-      fetchWorker.fetch('wtl/info', {
+      fetchWorker.fetch(`${window.webgis.role}/info`, {
         table: that.getFeature('table'),
         id: that.getFeature('id'),
       }).then(updateTableRows)
@@ -96,11 +96,13 @@ export default class InfoModal extends ModalOverlay {
   checkPhotoAndHistory() {
     let that = this;
     let _layer = that.getFeature('layer');
+    let _layerSub = that.getFeature('layerSub');
+    _layerSub = _layerSub.match(/(.*받이)/g) !== null ? '물받이' : _layerSub;
     let _id = that.getFeature('id');
-    fetchWorker.fetch('wtl/info/check', {
+    fetchWorker.fetch(`${window.webgis.role}/info/check`, {
       table_image: _layer === '보수공사' ? window.webgis.table.repairPhoto : window.webgis.table.photo,
       table_history: window.webgis.table.maintenance,
-      layer: that.getFeature('layerSub'),
+      layer: _layerSub,
       id: _id,
     }).then(updateModal);
 
