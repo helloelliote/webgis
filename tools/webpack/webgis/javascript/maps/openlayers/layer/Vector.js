@@ -120,7 +120,7 @@ export function createVectorStyle(feature) {
           break;
         }
         case '오수받이': {
-          if (feature.get('EDDATE') && feature.get('관리기관') === '환경사업소') {
+          if (feature.get('관리기관') === '환경사업소') {
             pointStyle = pointStyleMap['오수받이_영천환경사업소'];
           }
           break;
