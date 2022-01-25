@@ -493,7 +493,7 @@ export default {
         width: null,
       },
     },
-    '오수받이_영천환경사업소': {
+    '오수받이_개인': {
       image: {
         opacity: 1,
         scale: 1,

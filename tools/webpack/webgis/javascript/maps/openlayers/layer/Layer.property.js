@@ -266,7 +266,6 @@ export default {
       '관리기관',
       '관리번호',
       '방향각',
-      'EDDATE',
     ],
   },
   viw_swl_vent_ps: {
