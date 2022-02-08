@@ -113,7 +113,9 @@ function formatAddressSearch(results) {
     sectionEl.append('주소');
     if (results['meta']['total_count'] > 0) {
       const items = results['documents'];
-      for (const item of items) {
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description
+      const sortedItems = items.sort(element => element['address_name'].includes(window.webgis.workspaceLocale) ? -1 : 1);
+      for (const item of sortedItems) {
         let address, address_alt, building;
         if (item['address_type'].match(/(REGION)/)) {
           address = item['address_name'];

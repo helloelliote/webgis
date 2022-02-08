@@ -4,6 +4,7 @@ window.KTLayoutSearch = window.KTLayoutSearchInline = require('../javascript/map
 
 const globalOptions = Object.assign(defaultOptions, {
   workspace: 'yeongcheon_a',
+  workspaceLocale: '영천',
   role: 'wtl',
   center: {
     latitude: 35.9732633,
