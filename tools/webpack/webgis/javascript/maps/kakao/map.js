@@ -34,8 +34,12 @@ const viewSyncOptions = {
   rotation: -0.02307,
 };
 
+const marker = new kakao.maps.Marker({
+  position: undefined,
+});
+
 kakao.maps.Map.prototype.setZoom = function (value) {
   map.setLevel(value);
 };
 
-export { map, mapContainer, viewSyncOptions };
+export { map, mapContainer, marker, viewSyncOptions };
