@@ -4,7 +4,7 @@ import { geoJson } from './format';
 import { default as projection } from './projection';
 // import { searchCoordinateToAddress } from '../naver/geoCoder';
 import { coordinateToAddress } from '../kakao/geoCoder';
-import { viewSyncOptions } from '../kakao/map';
+import { map as kakaoMap, marker as kakaoMarker, viewSyncOptions } from '../kakao/map';
 import { addressOverlay } from './overlay';
 import { selectInteraction } from './map';
 
@@ -28,6 +28,8 @@ function setCenterOnSelect(view, element) {
     view.setZoom(viewSyncOptions.zoom.base + 1);
   }
   addressOverlay.setPositionAndContent(coords, element.textContent);
+  kakaoMarker.setPosition(new kakao.maps.LatLng(latLng[1], latLng[0]));
+  kakaoMarker.setMap(kakaoMap);
 }
 
 function onSelectQuickSearch(event) {
