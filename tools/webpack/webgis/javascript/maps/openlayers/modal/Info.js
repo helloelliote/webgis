@@ -137,13 +137,19 @@ export default class InfoModal extends ModalOverlay {
       case 'btn_history_modal': {
         this._historyModal.setFeatureAsync(this._feature).then(modal => {
           modal.showModal();
-        }, reject => $.notify({ message: reject }, { type: 'warning' }));
+        }, reject => {
+          // return $.notify({ message: reject }, { type: 'warning' });
+          console.error(reject);
+        });
         break;
       }
       case 'btn_photo_modal': {
         this._photoModal.setFeatureAsync(this._feature).then(modal => {
           modal.showModal();
-        }, reject => $.notify({ message: reject }, { type: 'warning' }));
+        }, reject => {
+          // return $.notify({ message: reject }, { type: 'warning' });
+          console.error(reject);
+        });
         break;
       }
       default: {

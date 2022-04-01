@@ -248,3 +248,54 @@
   font-weight: bold;
   color: #00a0e9;
 }
+
+#rvWrapper {
+  position: relative;
+  touch-action: manipulation;
+
+  #map-roadview {
+    height: 100%;
+  }
+
+  #map-roadview-control {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .map-roadview-rotate {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  #map-roadview-clockwise {
+    pointer-events: auto;
+    position: absolute;
+    height: 100%;
+    width: 10vw;
+    right: 0;
+
+    button {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+    }
+  }
+
+  #map-roadview-counterclockwise {
+    pointer-events: auto;
+    position: absolute;
+    height: 100%;
+    width: 10vw;
+    left: 0;
+
+    button {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+    }
+  }
+}

@@ -38,9 +38,12 @@ import { unByKey } from 'ol/Observable';
 
 export default defaultInteractions({
   altShiftDragRotate: false,
+  onFocusOnly: true,
   doubleClickZoom: false,
+  keyboard: false,
   shiftDragZoom: false,
   pinchRotate: false,
+  pinchZoom: false,
   dragPan: true,
   zoomDelta: 1,
   zoomDuration: 0,
