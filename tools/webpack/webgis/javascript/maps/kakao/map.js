@@ -12,9 +12,11 @@ const mapOptions = {
 
 const mapContainer = document.getElementById('map');
 
+// kakao.maps.disableHD();
 const map = new kakao.maps.Map(mapContainer, mapOptions);
 map.setMinLevel(1);
 map.setMaxLevel(9);
+// map.setZoomable(false);
 
 kakao.maps.event.addListener(map, 'tilesloaded', onTilesLoaded.bind(map));
 

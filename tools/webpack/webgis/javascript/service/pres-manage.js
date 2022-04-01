@@ -46,7 +46,9 @@ const ServicePresManage = function () {
       processing: true,
       serverSide: false,
       autoWidth: true,
-      paging: false,
+      paging: true,
+      pageLength: 15,
+      pagingType: 'full_numbers',
       info: false,
       order: [[0, 'asc']],
       buttons: [
@@ -54,6 +56,11 @@ const ServicePresManage = function () {
           extend: 'excelHtml5',
         }),
       ],
+      fixedHeader: {
+        header: true,
+        footer: true,
+      },
+      lengthChange: false,
     });
 
     $('#export_excel_pres').on('click', function (e) {

@@ -2,6 +2,7 @@
   <code_scheme name="Project" version="173">
     <HTMLCodeStyleSettings>
       <option name="HTML_UNIFORM_INDENT" value="true" />
+      <option name="HTML_KEEP_BLANK_LINES" value="0" />
     </HTMLCodeStyleSettings>
     <JSCodeStyleSettings version="0">
       <option name="FORCE_SEMICOLON_STYLE" value="true" />
