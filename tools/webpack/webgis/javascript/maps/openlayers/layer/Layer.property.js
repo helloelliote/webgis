@@ -1,4 +1,12 @@
 export default {
+  city_planning_road: {
+    label: null,
+    maxZ: 21,
+    minZ: 13,
+    propertyName: [
+      'geom',
+    ],
+  },
   geo_line_as: {
     label: null,
     maxZ: 21,

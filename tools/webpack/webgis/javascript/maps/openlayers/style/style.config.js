@@ -789,6 +789,22 @@ export default {
     },
   },
   polygon: {
+    'city_planning_road': {
+      fill: {
+        color: '#ffffff00',
+      },
+      stroke: {
+        color: '#ff00ff',
+        dash: [15, 3, 3, 3],
+        width: 1.5,
+      },
+      text: {
+        color: '#ff00ff',
+        font: '1.2rem 맑은 고딕',
+        stroke: '#fff',
+        width: 6,
+      },
+    },
     'geo_line_as': {
       fill: {
         color: '#ffffff00',
