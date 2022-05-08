@@ -16,34 +16,41 @@ function onPassportLocalSignUp(req, username, password, done) {
       VALUES ($8, NULL, (SELECT id FROM ins1), (SELECT sel1.id FROM sel1), (SELECT sel2.id FROM sel2), FALSE, TRUE)
   `;
 
-  const sqlInsertNewUserParams = parseInsertParams(reqPayload);
+  bcrypt.hash(reqPayload['LoginKeyNew'], 10, function (err, hash) {
+    const sqlInsertNewUserParams = [
+      reqPayload['UserFirstName'],
+      reqPayload['UserLastName'],
+      reqPayload['LoginNameNew'],
+      reqPayload['LoginNameNew'],
+      hash,
+      reqPayload['CompanyName'],
+      reqPayload['RoleName'],
+      // reqPayload['EmailNew'],
+    ];
 
-  postgresql.executeQuery(sqlInsertNewUser, sqlInsertNewUserParams)
-    .then(function () {
-      return done(null, true);
-    })
-    .catch(function () {
-      return done(null, false);
-    });
+    postgresql.executeQuery(sqlInsertNewUser, sqlInsertNewUserParams)
+      .then(function () {
+        return done(null, true);
+      })
+      .catch(function () {
+        return done(null, false);
+      });
+  });
 }
 
 function parseInsertParams(reqPayload) {
-  return [
-    reqPayload['UserFirstName'],
-    reqPayload['UserLastName'],
-    reqPayload['LoginNameNew'],
-    reqPayload['LoginNameNew'],
-    setPasswordHash(),
-    reqPayload['CompanyName'],
-    reqPayload['RoleName'],
-    reqPayload['EmailNew'],
-  ];
-
-  function setPasswordHash(reqPayload) {
-    bcrypt.hash(reqPayload['LoginKeyNew'], 10, function (err, hash) {
-      return hash;
-    });
-  }
+  bcrypt.hash(reqPayload['LoginKeyNew'], 10, function (err, hash) {
+    return [
+      reqPayload['UserFirstName'],
+      reqPayload['UserLastName'],
+      reqPayload['LoginNameNew'],
+      reqPayload['LoginNameNew'],
+      hash,
+      reqPayload['CompanyName'],
+      reqPayload['RoleName'],
+      // reqPayload['EmailNew'],
+    ];
+  });
 }
 
 export default new passportLocal.Strategy(

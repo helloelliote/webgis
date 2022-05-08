@@ -47,4 +47,12 @@ export default function (router, passport) {
     console.error(`[REQUEST BODY]: ${JSON.stringify(req.body, null, 2)}`);
     res.status(400).json(err.stack.match('[\n]*.*'));
   }
+
+  function checkAuth(req, res, next) {
+    if (!req.isAuthenticated()) {
+      res.redirect('/auth/signin');
+    } else {
+      next();
+    }
+  }
 }
