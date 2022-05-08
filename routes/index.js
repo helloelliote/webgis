@@ -12,6 +12,10 @@ export default function (router, passport) {
   router.post('/auth/signin', function (req, res, next) {
     return passportRoute.login(req, res, next, passport);
   });
+  router.post('/auth/signup', function (req, res, next) {
+    return passportRoute.signUp(req, res, next, passport);
+  });
+  router.get('/auth/signout', passportRoute.signOut);
 
   router.get('/api/swl/search', swl.search, onError);
   router.get('/api/swl/info', swl.info, onError);
