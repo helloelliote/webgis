@@ -265,3 +265,4 @@ tools/.yarn/*
 !tools/.yarn/sdks
 !tools/.yarn/versions
 .tools/pnp.*
+.DS_Store
