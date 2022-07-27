@@ -2492,17 +2492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-bs4@npm:1.10.22":
-  version: 1.10.22
-  resolution: "datatables.net-bs4@npm:1.10.22"
-  dependencies:
-    datatables.net: 1.10.22
-    jquery: ">=1.7"
-  checksum: 6a3750fccd29247743f324c5838a59b45b2a3733c97ec331f7e901df7fa14592ae9a1cc7225587a0361b0029121d11d89774a77df05e98c219839796ee302099
-  languageName: node
-  linkType: hard
-
-"datatables.net-bs4@npm:>=1.11.3, datatables.net-bs4@npm:^1.10.15":
+"datatables.net-bs4@npm:1.12.1, datatables.net-bs4@npm:>=1.11.3":
   version: 1.12.1
   resolution: "datatables.net-bs4@npm:1.12.1"
   dependencies:
@@ -2512,28 +2502,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-buttons-bs4@npm:^1.6.3":
-  version: 1.7.1
-  resolution: "datatables.net-buttons-bs4@npm:1.7.1"
+"datatables.net-buttons-bs4@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "datatables.net-buttons-bs4@npm:2.2.3"
   dependencies:
-    datatables.net-bs4: ^1.10.15
-    datatables.net-buttons: 1.7.1
+    datatables.net-bs4: ">=1.11.3"
+    datatables.net-buttons: ">=2.0.1"
     jquery: ">=1.7"
-  checksum: ebe8124433de8ec078b10722548e43590ec880182cd443eac719b31645af538944b832d361184047ff9fa6d5426cd933a25e7af08313879de6a946548810c317
+  checksum: 3480a32d7a17b59ffa28514c5f96303715b8420e6ec88d07df405ce67a22f3d5bd3fc3af45093a3ddaba4046314682e2e6f71b6455595cd1e1b7de46608cb496
   languageName: node
   linkType: hard
 
-"datatables.net-buttons@npm:1.7.1":
-  version: 1.7.1
-  resolution: "datatables.net-buttons@npm:1.7.1"
+"datatables.net-buttons@npm:>=2.0.1":
+  version: 2.2.3
+  resolution: "datatables.net-buttons@npm:2.2.3"
   dependencies:
-    datatables.net: ^1.10.15
+    datatables.net: ">=1.11.3"
     jquery: ">=1.7"
-  checksum: 3f176a226bca0708113bf99650edc495982cdebcb60c9c375ba2a808f6fce395c9ebf418ae5e10561a4850f735f83e9413ac3203123991c22f6a0bba63867a2f
+  checksum: d29bcc69f17c6091e7dfedf550a2a033a7abc43b8544424fd8fa8fbfefc2def8e9e71cffc4a8299dee2b0e6eee80c65b855ab4cbae078e76b5dc3828fbc67610
   languageName: node
   linkType: hard
 
-"datatables.net-colreorder-bs4@npm:^1.5.2":
+"datatables.net-colreorder-bs4@npm:^1.5.6":
   version: 1.5.6
   resolution: "datatables.net-colreorder-bs4@npm:1.5.6"
   dependencies:
@@ -2554,28 +2544,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-fixedcolumns-bs4@npm:^3.3.2":
-  version: 3.3.3
-  resolution: "datatables.net-fixedcolumns-bs4@npm:3.3.3"
+"datatables.net-fixedcolumns-bs4@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "datatables.net-fixedcolumns-bs4@npm:4.1.0"
   dependencies:
-    datatables.net-bs4: ^1.10.15
-    datatables.net-fixedcolumns: 3.3.3
+    datatables.net-bs4: ">=1.11.3"
+    datatables.net-fixedcolumns: ">=4.0.0"
     jquery: ">=1.7"
-  checksum: ed4ca4f79c6c9552c1e41664481616a7eff6fab9df5fe07fb3e8995a1be297f865dea63073a74b413743d5bab81edbf1470e3a3fb95f6766a04e6b5027c88ecf
+  checksum: c82d21287d090d724a11ae2978fb5416b839ca50be3a5f42044f55f082abb4123b7eb48ac69de48f0c24d26f5d2547b9cc1f62d93cf8b410aec4ba5d373b2e7b
   languageName: node
   linkType: hard
 
-"datatables.net-fixedcolumns@npm:3.3.3":
-  version: 3.3.3
-  resolution: "datatables.net-fixedcolumns@npm:3.3.3"
+"datatables.net-fixedcolumns@npm:>=4.0.0":
+  version: 4.1.0
+  resolution: "datatables.net-fixedcolumns@npm:4.1.0"
   dependencies:
-    datatables.net: ^1.10.15
+    datatables.net: ">=1.11.3"
     jquery: ">=1.7"
-  checksum: 731845e47695b1a992695b569412500d169cdd1c7ad9274d4a0d67d34a75a827c4f5fd1b9c7255bc9c336ceacbbfd67d6de37fb4cb56e78c96da5e3936a5ac58
+  checksum: 78cde58a8e6ea8fda923d57ba9b77b5d8ad6caef4d8ba22694b6ea7d34f1af3a5271af69c9096da81e042aea6950193eb4b6acbfb643078f0a0dfb53da67ba19
   languageName: node
   linkType: hard
 
-"datatables.net-keytable-bs4@npm:^2.5.3":
+"datatables.net-keytable-bs4@npm:^2.7.0":
   version: 2.7.0
   resolution: "datatables.net-keytable-bs4@npm:2.7.0"
   dependencies:
@@ -2596,7 +2586,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-responsive-bs4@npm:^2.2.6":
+"datatables.net-responsive-bs4@npm:^2.3.0":
   version: 2.3.0
   resolution: "datatables.net-responsive-bs4@npm:2.3.0"
   dependencies:
@@ -2617,7 +2607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-scroller-bs4@npm:^2.0.3":
+"datatables.net-scroller-bs4@npm:^2.0.7":
   version: 2.0.7
   resolution: "datatables.net-scroller-bs4@npm:2.0.7"
   dependencies:
@@ -2638,7 +2628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-select-bs4@npm:^1.3.1":
+"datatables.net-select-bs4@npm:^1.4.0":
   version: 1.4.0
   resolution: "datatables.net-select-bs4@npm:1.4.0"
   dependencies:
@@ -2659,16 +2649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net@npm:1.10.22":
-  version: 1.10.22
-  resolution: "datatables.net@npm:1.10.22"
-  dependencies:
-    jquery: ">=1.7"
-  checksum: c5c7ab00c45a2906ff28bd234732d2c8c08c31aebeacf545ed4415a92f20e4ee584a8570408299079e9bf162b2476db361dc580b6e4cb5975b5a11e2651500be
-  languageName: node
-  linkType: hard
-
-"datatables.net@npm:>=1.11.3, datatables.net@npm:^1.10.15, datatables.net@npm:^1.10.22":
+"datatables.net@npm:>=1.11.3, datatables.net@npm:^1.12.1":
   version: 1.12.1
   resolution: "datatables.net@npm:1.12.1"
   dependencies:
@@ -4591,15 +4572,15 @@ __metadata:
     copy-webpack-plugin: ^10.2.0
     counterup: ^1.0.2
     css-loader: ^5.2.6
-    datatables.net: ^1.10.22
-    datatables.net-bs4: 1.10.22
-    datatables.net-buttons-bs4: ^1.6.3
-    datatables.net-colreorder-bs4: ^1.5.2
-    datatables.net-fixedcolumns-bs4: ^3.3.2
-    datatables.net-keytable-bs4: ^2.5.3
-    datatables.net-responsive-bs4: ^2.2.6
-    datatables.net-scroller-bs4: ^2.0.3
-    datatables.net-select-bs4: ^1.3.1
+    datatables.net: ^1.12.1
+    datatables.net-bs4: 1.12.1
+    datatables.net-buttons-bs4: ^2.2.3
+    datatables.net-colreorder-bs4: ^1.5.6
+    datatables.net-fixedcolumns-bs4: ^4.1.0
+    datatables.net-keytable-bs4: ^2.7.0
+    datatables.net-responsive-bs4: ^2.3.0
+    datatables.net-scroller-bs4: ^2.0.7
+    datatables.net-select-bs4: ^1.4.0
     es6-promise: ^4.2.8
     es6-promise-polyfill: ^1.2.0
     es6-shim: ^0.35.5
