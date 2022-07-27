@@ -7,6 +7,10 @@ const geoJson = new GeoJSON({
   featureProjection: projection,
 });
 
+const geoJsonWGS = new GeoJSON({
+  featureProjection: projection,
+});
+
 const wfs = new WFS({
   version: '2.0.0',
   gmlFormat: GML32,
@@ -14,5 +18,6 @@ const wfs = new WFS({
 
 export {
   geoJson,
+  geoJsonWGS,
   wfs,
 };

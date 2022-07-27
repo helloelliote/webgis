@@ -36,11 +36,13 @@ export default class PhotoModal extends ModalOverlay {
 
     let that = this;
     let _layer = that.getFeature('layer');
+    let _layerSub = that.getFeature('layerSub');
+    _layerSub = _layerSub.match(/(.*받이)/g) !== null ? '물받이' : _layerSub;
     let _id = that.getFeature('id');
     return new Promise((resolve, reject) => {
-      fetchWorker.fetch('wtl/info/photo', {
+      fetchWorker.fetch(`${window.webgis.role}/info/photo`, {
         table: _layer === '보수공사' ? window.webgis.table.repairPhoto : window.webgis.table.photo,
-        layer: that.getFeature('layerSub'),
+        layer: _layerSub,
         id: _id,
       }, 'image/jpg')
         .then(updateModal)

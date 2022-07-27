@@ -3,10 +3,10 @@
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="justify-content: flex-start">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
         <!--begin::Dropdown-->
-        <div class="dropdown dropdown-inline">
+        <div class="dropdown dropdown-inline ml-2">
           <button type="button" class="btn btn-light-primary btn-sm font-weight-bolder" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
             <i class="la la-download"></i>내보내기
@@ -33,6 +33,11 @@
           </div>
         </div>
         <!--end::Dropdown-->
+        <div class="card-toolbar mr-2" style="position: absolute;right: 0">
+          <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary" data-dismiss="modal">
+            <i class="ki ki-close icon-nm"></i>
+          </a>
+        </div>
       </div>
       <div class="modal-body">
         <div data-scroll="true" data-height="625">

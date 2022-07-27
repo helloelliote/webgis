@@ -4,7 +4,8 @@ window.KTLayoutSearch = window.KTLayoutSearchInline = require('../javascript/map
 
 const globalOptions = Object.assign(defaultOptions, {
   workspace: 'yeongju_a',
-  role: '상수',
+  workspaceLocale: '영주',
+  role: 'wtl',
   center: {
     latitude: 36.805679,
     longitude: 128.624043,
@@ -12,6 +13,9 @@ const globalOptions = Object.assign(defaultOptions, {
   rect: '128.372325,36.686060,128.787714,37.073914',
   table: {
     filter: true,
+    spi: [
+      'viw_spi_ps',
+    ],
     vector: [
       'viw_wtl_puri_as',
       // 'viw_wtl_taper_ps',
@@ -42,6 +46,9 @@ const globalOptions = Object.assign(defaultOptions, {
     photo: 'viw_wtt_st_image',
     repairPhoto: 'viw_swt_subimge_et',
     repair: 'viw_wtt_wutl_ht',
+  },
+  kakao: {
+    rest: '6f9d4d0e21c06821096587024beeb8a7',
   },
 });
 

@@ -5,7 +5,7 @@ import { default as projection } from './projection';
 // import { map, viewSyncOptions } from '../naver/map';
 // import { coordinateToLatLng } from '../naver/util';
 import { map, mapContainer, viewSyncOptions } from '../kakao/map';
-import { coordinateToLatLng } from '../kakao/util';
+import { coordinateToLatLng, onClickMapTypeButton } from '../kakao/util';
 
 const localStorage = new LocalStorage();
 
@@ -23,6 +23,9 @@ const view = new View({
   constrainRotation: false,
   rotation: viewSyncOptions.rotation,
 });
+
+document.getElementById('btn-map-hybrid')
+  .addEventListener('mousedown', onClickMapTypeButton.bind({ map, mapContainer, view, newZoom: max + decimal }), false);
 
 view.on('change:center', onChangeCenter);
 

@@ -110,7 +110,7 @@
         <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
 
           <!--[html-partial:include:{"file":"partials/_extras/dropdown/search-dropdown.html"}]/-->{{>
-        _extras/dropdown/search-dropdown}}
+          _extras/dropdown/search-dropdown}}
         </div>
 
         <!--end::Dropdown-->
@@ -141,6 +141,21 @@
                 class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
                 id="btn-map-roadview">
           로드뷰
+        </button>
+
+        <!--end::Toggle-->
+      </div>
+
+      <!--end::Create-->
+
+      <!--begin::Create-->
+      <div class="topbar-item">
+
+        <!--begin::Toggle-->
+        <button type="button"
+                class="ol-table-code ol-table-code-geo-top btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                id="geo_line_as">
+          지적선
         </button>
 
         <!--end::Toggle-->
@@ -205,6 +220,23 @@
 
         <!--begin::Dropdown-->
         <div class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right dropdown-menu-anim-up">
+
+          <!--begin::Navigation-->
+          <ul class="navi navi-hover navi-active navi-accent py-3">
+            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">문서자료실</li>
+            <li class="navi-item">
+              <a href="/data/storage" class="navi-link" id="navi-data-link-0">
+                <span class="navi-bullet">
+                  <i class="bullet bullet-dot"></i>
+                </span>
+                <span class="navi-text">&nbsp;업로드 및 다운로드</span>
+              </a>
+            </li>
+          </ul>
+
+          <!--end::Navigation-->
+
+          <div class="separator separator-dashed my-1"></div>
 
           <!--begin::Navigation-->
           <ul class="navi navi-hover navi-active navi-accent py-3" id="viw_wtl_pipe_lm_filter">

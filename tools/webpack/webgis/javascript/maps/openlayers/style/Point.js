@@ -11,6 +11,16 @@ const selectPointStyle = new Style({
   }),
 });
 
+const selectPointSpiStyle = new Style({
+  image: new Circle({
+    stroke: new Stroke({
+      color: '#ff1744',
+      width: 4,
+    }),
+    radius: 15,
+  }),
+});
+
 const pointStyleMap = new StyleMap({
   identifier: 'point',
   styleFunction: function (opt) {
@@ -39,4 +49,23 @@ const pointStyleMap = new StyleMap({
   },
 });
 
-export { pointStyleMap, selectPointStyle };
+const pointSpiStyleMap = new StyleMap({
+  identifier: 'spi',
+  styleFunction: function (opt) {
+    return new Style({
+      image: new Circle({
+        fill: new Fill({
+          color: opt.image.fill,
+        }),
+        stroke: new Stroke({
+          // color: '#FFFFFF',
+          color: '#00000080',
+          width: 2,
+        }),
+        radius: opt.image.radius,
+      }),
+    });
+  },
+});
+
+export { pointStyleMap, pointSpiStyleMap, selectPointStyle, selectPointSpiStyle };

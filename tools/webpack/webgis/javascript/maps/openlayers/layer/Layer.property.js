@@ -1,4 +1,12 @@
 export default {
+  city_planning_road: {
+    label: null,
+    maxZ: 21,
+    minZ: 13,
+    propertyName: [
+      'geom',
+    ],
+  },
   geo_line_as: {
     label: null,
     maxZ: 21,
@@ -68,6 +76,12 @@ export default {
       'geom',
       '행정동',
     ],
+  },
+  viw_spi_ps: {
+    label: null,
+    maxZ: 21,
+    minZ: 11,
+    propertyName: null,
   },
   viw_swl_aodp_as: {
     label: '처리구역명',
@@ -260,7 +274,6 @@ export default {
       '관리기관',
       '관리번호',
       '방향각',
-      'EDDATE',
     ],
   },
   viw_swl_vent_ps: {

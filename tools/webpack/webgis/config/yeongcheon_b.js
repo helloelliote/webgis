@@ -4,7 +4,8 @@ window.KTLayoutSearch = window.KTLayoutSearchInline = require('../javascript/map
 
 const globalOptions = Object.assign(defaultOptions, {
   workspace: 'yeongcheon_b',
-  role: '하수',
+  workspaceLocale: '영천',
+  role: 'swl',
   center: {
     latitude: 35.9732633,
     longitude: 128.9386044,
@@ -35,6 +36,9 @@ const globalOptions = Object.assign(defaultOptions, {
     photo: 'viw_web_bs_img_et',
     // repairPhoto: 'viw_wtt_subimge_et_re',
     // repair: 'viw_wtt_wutl_ht_re',
+  },
+  kakao: {
+    rest: '2f84e559976c9198df8ea702196b6550',
   },
 });
 

@@ -60,7 +60,7 @@ const OLWaterSection = function () {
     _query = _resultWrapper.id;
 
     KTUtil.removeClass(_resultWrapper, _resultClass);
-    
+
     $.ajax({
       url: `${window.location.origin}/api/wtl/section`,
       headers: {
@@ -89,7 +89,7 @@ const OLWaterSection = function () {
       },
     });
   };
-  
+
   const _processSearchPost = function () {
     KTUtil.addEvent(_resultDropdown, 'click', function (event) {
       const elementId = event.target.id.split(':');

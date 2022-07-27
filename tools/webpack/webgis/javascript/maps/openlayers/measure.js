@@ -1,5 +1,6 @@
 import { MeasureInteraction } from './Interaction';
 import { map, selectInteraction } from './map';
+import { onContextMenu } from './event';
 
 let isLength = false, isArea = false;
 let measureType, measureInteraction;
@@ -42,6 +43,8 @@ function removeOldInteraction() {
     measureInteraction.reset();
     measureInteraction = null;
   }
+
+  setUndoInteraction();
 }
 
 function setNewInteraction() {
@@ -54,5 +57,16 @@ function setNewInteraction() {
     map.addInteraction(measureInteraction);
   } else {
     map.addInteraction(selectInteraction);
+  }
+
+  setUndoInteraction(measureInteraction);
+}
+
+function setUndoInteraction(targetInteraction) {
+  if (targetInteraction) {
+    map.un('contextmenu', onContextMenu);
+    map.on('contextmenu', () => targetInteraction.removeLastPoint());
+  } else {
+    map.on('contextmenu', onContextMenu);
   }
 }

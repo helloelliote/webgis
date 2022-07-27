@@ -309,6 +309,10 @@ const ServiceSearch = function () {
     ]);
     let selectpickers = _tableEl.find('.datatable-input.selectpicker');
     selectpickers.selectpicker('refresh');
+
+    _tableEl.find('input').on('keyup', event => {
+      if (event.key === 'Enter') _onClickTableSearch(event);
+    });
   }
 
   function _initTableContextMenuModal() {
@@ -317,7 +321,7 @@ const ServiceSearch = function () {
 
   function _initTableContextMenu() {
     _tableEl.contextMenu({
-      selector: 'tbody > tr[role="row"]',
+      selector: 'tbody > tr.selected',
       build: ($trigger, e) => {
         let sData = _table.rows({ selected: true }).data();
         let isSelected = sData.length > 0;

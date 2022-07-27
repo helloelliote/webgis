@@ -1,4 +1,4 @@
-import { getDefaultCenter, onClickMapTypeButton, onClickTerrainMapButton, onTilesLoaded, onWindowResize } from './util';
+import { getDefaultCenter, onClickTerrainMapButton, onTilesLoaded, onWindowResize } from './util';
 
 const mapOptions = {
   center: getDefaultCenter(),
@@ -12,14 +12,13 @@ const mapOptions = {
 
 const mapContainer = document.getElementById('map');
 
+// kakao.maps.disableHD();
 const map = new kakao.maps.Map(mapContainer, mapOptions);
 map.setMinLevel(1);
 map.setMaxLevel(9);
+// map.setZoomable(false);
 
 kakao.maps.event.addListener(map, 'tilesloaded', onTilesLoaded.bind(map));
-
-const mapTypeButton = document.getElementById('btn-map-hybrid');
-mapTypeButton.addEventListener('mousedown', onClickMapTypeButton.bind({ map, mapContainer }));
 
 const terrainMapButton = document.getElementById('btn-map-terrain');
 terrainMapButton.addEventListener('mousedown', onClickTerrainMapButton.bind(map));
@@ -37,8 +36,12 @@ const viewSyncOptions = {
   rotation: -0.02307,
 };
 
+const marker = new kakao.maps.Marker({
+  position: undefined,
+});
+
 kakao.maps.Map.prototype.setZoom = function (value) {
   map.setLevel(value);
 };
 
-export { map, mapContainer, viewSyncOptions };
+export { map, mapContainer, marker, viewSyncOptions };

@@ -4,37 +4,35 @@ import { geoJson } from './format';
 import { default as projection } from './projection';
 // import { searchCoordinateToAddress } from '../naver/geoCoder';
 import { coordinateToAddress } from '../kakao/geoCoder';
-import { viewSyncOptions } from '../kakao/map';
+import { map as kakaoMap, marker as kakaoMarker, viewSyncOptions } from '../kakao/map';
 import { addressOverlay } from './overlay';
 import { selectInteraction } from './map';
 
-const mapContainer = document.getElementById('map-container');
-const centerX = Math.round(mapContainer.clientWidth / 2);
-const centerY = Math.round(mapContainer.clientHeight / 2);
-
-function onSingleClick() {
-  // Do NOT use #preventDefault(), it blocks select interaction
-  addressOverlay.popover('dispose');
-}
+// function onSingleClick() {
+// Do NOT use #preventDefault(), it blocks select interaction
+// }
 
 function onContextMenu(event) {
   event.preventDefault();
   coordinateToAddress(event.coordinate)
     .then(htmlContent => {
-      addressOverlay.popover('dispose');
-      addressOverlay.setPosition(event.coordinate);
-      addressOverlay.popover({
-        placement: 'top',
-        container: addressOverlay.getElement(),
-        html: true,
-        content: htmlContent,
-      });
-      addressOverlay.popover('show');
-      $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
+      addressOverlay.setPositionAndContent(event.coordinate, htmlContent);
     });
 }
 
-function onClickQuickSearchInline(event) {
+function setCenterOnSelect(view, element) {
+  const latLng = element.nextElementSibling.textContent.split(',');
+  const coords = fromLonLat([latLng[0], latLng[1]], projection);
+  view.setCenter(coords);
+  if (view.getZoom() < viewSyncOptions.zoom.base) {
+    view.setZoom(viewSyncOptions.zoom.base + 1);
+  }
+  addressOverlay.setPositionAndContent(coords, element.textContent);
+  kakaoMarker.setPosition(new kakao.maps.LatLng(latLng[1], latLng[0]));
+  kakaoMarker.setMap(kakaoMap);
+}
+
+function onSelectQuickSearch(event) {
   event.preventDefault();
   let targetEl = event.target;
   if (targetEl) {
@@ -48,31 +46,26 @@ function onClickQuickSearchInline(event) {
       }
       selectInteraction.addFeature(feature);
     } else if (targetEl.className.includes('quick-search-result-address')) {
-      const latLng = targetEl.nextElementSibling.textContent.split(',');
-      const [lng, lat] = [latLng[0], latLng[1]];
-      const coords = fromLonLat([lng, lat], projection);
-      this.setCenter(coords);
-      setTimeout(() => {
-        addressOverlay.popover('dispose');
-        addressOverlay.setPosition(coords);
-        addressOverlay.popover({
-          placement: 'top',
-          container: addressOverlay.getElement(),
-          html: true,
-          content: targetEl.textContent,
-        });
-        addressOverlay.popover('show');
-        $(addressOverlay.getElement()).find('.popover').addClass('popover-info');
-      }, 500);
-      if (this.getZoom() < viewSyncOptions.zoom.base) {
-        this.setZoom(viewSyncOptions.zoom.base + 1);
-      }
+      setCenterOnSelect(this, targetEl);
     }
   }
 }
 
+function onSelectQuickSearchSingleResult(event) {
+  event.preventDefault();
+  const targetEl =
+    document.querySelector('.quick-search-result-place') ||
+    document.querySelector('.quick-search-result-road');
+  setCenterOnSelect(this, targetEl);
+}
+
 function onClickSectionCode(event) {
   event.preventDefault();
+
+  const mapContainer = document.getElementById('map-container');
+  const centerX = Math.round(mapContainer.clientWidth / 2);
+  const centerY = Math.round(mapContainer.clientHeight / 2);
+
   const elementId = event.target.id.split(':');
   const [table, column, section] = [elementId[0], elementId[1], elementId[2]];
 
@@ -96,7 +89,7 @@ function onClickSectionCode(event) {
   });
 }
 
-function onClickTableCode(event) {
+function onClickTableCodeAside(event) {
   event.preventDefault();
   const targetEl = event.target;
   // Do not allow toggle of ol-table-code-geo road/building tile layer & always show it
@@ -110,6 +103,32 @@ function onClickTableCode(event) {
     targetEl.classList.remove('fa-times-circle', 'text-danger');
   }
   this.toggleLayers([targetEl.id]);
+}
+
+function onClickTableCodeTop(event) {
+  event.preventDefault();
+  const targetEl = event.target;
+  // Do not allow toggle of ol-table-code-geo road/building tile layer & always show it
+  if (targetEl.id === 'n3a_a0010000') return;
+
+  if (this['layer'].hasLayer(targetEl.id)) {
+    targetEl.classList.remove('active');
+  } else {
+    targetEl.classList.add('active');
+  }
+  this['layer'].toggleLayers([targetEl.id]);
+
+  this['layer'].updateParamsByZoom(~~this['view'].getZoom());
+}
+
+function onImageLayerUpdate(event) {
+  event.preventDefault();
+
+  if (event.target.id === 'btn-map-hybrid') {
+    this['layer'].toggleMapTypeId();
+  }
+
+  this['layer'].updateParamsByZoom(~~this['view'].getZoom());
 }
 
 function onWindowLoad(event) {
@@ -150,10 +169,13 @@ function onWindowLoad(event) {
 }
 
 export {
-  onSingleClick,
+  // onSingleClick,
   onContextMenu,
-  onClickQuickSearchInline,
+  onSelectQuickSearch,
+  onSelectQuickSearchSingleResult,
   onClickSectionCode,
-  onClickTableCode,
+  onClickTableCodeAside,
+  onClickTableCodeTop,
+  onImageLayerUpdate,
   onWindowLoad,
 };

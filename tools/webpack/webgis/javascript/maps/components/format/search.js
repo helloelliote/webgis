@@ -21,6 +21,7 @@ const ROWS = 'rows';
 const CNAME = 'cname';
 const CNAME_filter = new Set([
   // 상수관로
+  '공업용수관',
   '급수관',
   '도수관',
   '배수관',
@@ -98,20 +99,23 @@ function formatFacilitySearch(response) {
   });
 }
 
-const STATUS_OK = kakao.maps.services.Status.OK;
-const STATUS_ZERO_RESULT = kakao.maps.services.Status.ZERO_RESULT;
-const STATUS_ERROR = kakao.maps.services.Status.ERROR;
+// const STATUS_OK = kakao.maps.services.Status.OK;
+// const STATUS_ZERO_RESULT = kakao.maps.services.Status.ZERO_RESULT;
+// const STATUS_ERROR = kakao.maps.services.Status.ERROR;
 
 let resultEl;
 
-function formatAddressSearch(results, status) {
+function formatAddressSearch(results) {
   return new Promise((resolve, reject) => {
     resultEl = _resultEl.cloneNode(true);
     const itemWrapperEl = _itemWrapperEl.cloneNode(true);
     const sectionEl = _sectionEl.cloneNode(true);
     sectionEl.append('주소');
-    if (status === STATUS_OK) {
-      for (const item of results) {
+    if (results['meta']['total_count'] > 0) {
+      const items = results['documents'];
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description
+      const sortedItems = items.sort(element => element['address_name'].includes(window.webgis.workspaceLocale) ? -1 : 1);
+      for (const item of sortedItems) {
         let address, address_alt, building;
         if (item['address_type'].match(/(REGION)/)) {
           address = item['address_name'];
@@ -129,7 +133,7 @@ function formatAddressSearch(results, status) {
           continue;
         }
         const itemEl = _itemEl.cloneNode(true);
-        itemEl.querySelector('a').classList.add('quick-search-result-address');
+        itemEl.querySelector('a').classList.add('quick-search-result-address', 'quick-search-result-road');
         itemEl.querySelector('a').innerHTML = address;
         itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
         itemEl.querySelector('span').innerHTML = `${address_alt} ${building}`;
@@ -138,7 +142,7 @@ function formatAddressSearch(results, status) {
       sectionEl.appendChild(itemWrapperEl);
       resultEl.appendChild(sectionEl);
       resolve();
-    } else if (status === STATUS_ZERO_RESULT) {
+    } else if (results['meta']['total_count'] === 0) {
       const itemEl = _itemEl.cloneNode(true);
       itemEl.querySelector('a').classList.add('text-muted');
       itemEl.querySelector('a').innerHTML = '검색 결과가 없습니다';
@@ -146,21 +150,22 @@ function formatAddressSearch(results, status) {
       sectionEl.appendChild(itemWrapperEl);
       resultEl.appendChild(sectionEl);
       resolve();
-    } else if (status === STATUS_ERROR) {
+    } else {
       reject();
     }
   });
 }
 
-function formatKeywordSearch(results, status, pagination) {
+function formatKeywordSearch(results) {
   return new Promise((resolve, reject) => {
     const itemWrapperEl = _itemWrapperEl.cloneNode(true);
     const sectionEl = _sectionEl.cloneNode(true);
     sectionEl.append('장소');
-    if (status === STATUS_OK) {
-      for (const item of results) {
+    if (results['meta']['total_count'] > 0) {
+      const items = results['documents'];
+      for (const item of items) {
         const itemEl = _itemEl.cloneNode(true);
-        itemEl.querySelector('a').classList.add('quick-search-result-address');
+        itemEl.querySelector('a').classList.add('quick-search-result-address', 'quick-search-result-place');
         itemEl.querySelector('a').innerHTML = item['place_name'];
         itemEl.querySelector('p').innerHTML = item['x'] + ',' + item['y'];
         itemEl.querySelector('span').innerHTML =
@@ -172,7 +177,7 @@ function formatKeywordSearch(results, status, pagination) {
       sectionEl.appendChild(itemWrapperEl);
       resultEl.appendChild(sectionEl);
       resolve(resultEl.outerHTML);
-    } else if (status === STATUS_ZERO_RESULT) {
+    } else if (results['meta']['total_count'] === 0) {
       const itemEl = _itemEl.cloneNode(true);
       itemEl.querySelector('a').classList.add('text-muted');
       itemEl.querySelector('a').innerHTML = '검색 결과가 없습니다';
@@ -180,7 +185,7 @@ function formatKeywordSearch(results, status, pagination) {
       sectionEl.appendChild(itemWrapperEl);
       resultEl.appendChild(sectionEl);
       resolve(resultEl.outerHTML);
-    } else if (status === STATUS_ERROR) {
+    } else {
       reject();
     }
   });

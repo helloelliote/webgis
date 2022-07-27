@@ -148,7 +148,8 @@ SET geom    = ST_SetSRID(ST_MakePoint($1, $2), 5187),
     pro_cde = (SELECT codeno FROM private.cd_pro WHERE cname = $10),
     pro_nam = $11,
     opr_nam = $12,
-    eddate  = CURRENT_TIMESTAMP
+    eddate  = CURRENT_TIMESTAMP,
+    apl_cde = (SELECT codeno FROM private.cd_apy WHERE cname = $14)
 WHERE rcv_num = $13;`;
         sqlParams = [
           _body['x'],
@@ -164,6 +165,7 @@ WHERE rcv_num = $13;`;
           _body['pro_nam'],
           _body['opr_nam'],
           _body['rcv_num'],
+          _body['apy_cde'],
         ];
         break;
       }

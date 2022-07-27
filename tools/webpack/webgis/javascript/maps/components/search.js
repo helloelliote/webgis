@@ -13,6 +13,7 @@ const KTLayoutSearch = function () {
   let _query = '';
 
   let _hasResult = false;
+  let _hasSingleResultEvent = new CustomEvent('singleresult', null);
   let _timeout = false;
   let _isProcessing = false;
   let _requestTimeout = 500; // ajax request fire timeout in milliseconds
@@ -27,7 +28,7 @@ const KTLayoutSearch = function () {
       class: 'label-info',
       url: `https://dapi.kakao.com/v2/local/search/keyword.json?rect=${window.webgis.rect}`, // Not Used
       headers: {
-        'Authorization': 'KakaoAK 2b80b94ece8eb5cace6ef21359edac62', // Not Used
+        'Authorization': `KakaoAK ${window.webgis.kakao.rest}`,
       },
       format: formatAddressSearch,
       formatTwo: formatKeywordSearch,
@@ -52,8 +53,8 @@ const KTLayoutSearch = function () {
     //   formatTwo: null,
     // },
   ];
-  const placeSearch = new kakao.maps.services.Places();
-  const geoCoder = new kakao.maps.services.Geocoder();
+  // const placeSearch = new kakao.maps.services.Places();
+  // const geoCoder = new kakao.maps.services.Geocoder();
 
   // Private functions
   const _showProgress = function () {
@@ -141,7 +142,13 @@ const KTLayoutSearch = function () {
             _hideProgress();
             KTUtil.addClass(_target, _resultClass);
             KTUtil.setHTML(_resultWrapper, result);
-            _showDropdown();
+            const placeCount = (result.match(/quick-search-result-place/g) || []).length;
+            const addressCount = (result.match(/quick-search-result-road/g) || []).length;
+            if (placeCount === 1 || addressCount === 1) {
+              document.dispatchEvent(_hasSingleResultEvent);
+            } else {
+              _showDropdown();
+            }
             KTUtil.scrollUpdate(_resultWrapper);
           })
           .catch(_handleError);
@@ -152,25 +159,54 @@ const KTLayoutSearch = function () {
   const _searchAddress = function () {
     return new Promise((resolve, reject) => {
       _hideProgress();
-      geoCoder.addressSearch(_query, (results, status) => {
-        _toggleArray[_toggleIndex]
-          .format(results, status)
-          .then(() => resolve())
-          .catch(() => reject());
+      $.ajax({
+        url: 'https://dapi.kakao.com/v2/local/search/address.json',
+        headers: _toggleArray[_toggleIndex].headers,
+        data: {
+          query: _query,
+        },
+        dataType: 'json',
+        success: function (res) {
+          _toggleArray[_toggleIndex]
+            .format(res)
+            .then(() => resolve())
+            .catch(() => reject());
+        },
       });
+      // geoCoder.addressSearch(_query, (results, status) => {
+      //   _toggleArray[_toggleIndex]
+      //     .format(results, status)
+      //     .then(() => resolve())
+      //     .catch(() => reject());
+      // });
     });
   };
 
   const _searchPlaces = function () {
     return new Promise((resolve, reject) => {
-      placeSearch.keywordSearch(_query, (results, status, pagination) => {
-        _toggleArray[_toggleIndex]
-          .formatTwo(results, status, pagination)
-          .then(result => resolve(result))
-          .catch(() => reject());
-      }, {
-        rect: window.webgis.rect,
+      $.ajax({
+        url: 'https://dapi.kakao.com/v2/local/search/keyword.json',
+        headers: _toggleArray[_toggleIndex].headers,
+        data: {
+          query: _query,
+          rect: window.webgis.rect,
+        },
+        dataType: 'json',
+        success: function (res) {
+          _toggleArray[_toggleIndex]
+            .formatTwo(res)
+            .then(result => resolve(result))
+            .catch(() => reject());
+        },
       });
+      // placeSearch.keywordSearch(_query, (results, status, pagination) => {
+      //   _toggleArray[_toggleIndex]
+      //     .formatTwo(results, status, pagination)
+      //     .then(result => resolve(result))
+      //     .catch(() => reject());
+      // }, {
+      //   rect: window.webgis.rect,
+      // });
     });
   };
 

@@ -2,7 +2,7 @@ import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import exphbs from 'express-handlebars';
+import { engine } from 'express-handlebars';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import postgresql from './middlewares/postgresql/index';
@@ -12,6 +12,7 @@ import csrf from 'csurf';
 import rateLimiter from './middlewares/rate-limiter/index';
 import cors from 'cors';
 import passport from 'passport';
+import fs from 'fs';
 import passportSetup from './middlewares/passport/index';
 import routes from './routes/index';
 
@@ -26,7 +27,7 @@ const app = express();
  */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
-app.engine('html', exphbs({ extname: '.html' }));
+app.engine('html', engine({ extname: '.html' }));
 
 app.use(helmet({
   contentSecurityPolicy: false,
@@ -68,6 +69,11 @@ app.use(cors({
 app.use(passport.initialize({}));
 app.use(passport.session(false));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'upload')));
+
+if (!fs.existsSync(path.join(__dirname, 'upload'))){
+  fs.mkdirSync(path.join(__dirname, 'upload'));
+}
 
 passportSetup(passport);
 

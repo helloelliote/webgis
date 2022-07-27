@@ -493,7 +493,7 @@ export default {
         width: null,
       },
     },
-    '오수받이_영천환경사업소': {
+    '오수받이_개인': {
       image: {
         opacity: 1,
         scale: 1,
@@ -789,6 +789,22 @@ export default {
     },
   },
   polygon: {
+    'city_planning_road': {
+      fill: {
+        color: '#ffffff00',
+      },
+      stroke: {
+        color: '#ff00ff',
+        dash: [15, 3, 3, 3],
+        width: 1.5,
+      },
+      text: {
+        color: '#ff00ff',
+        font: '1.2rem 맑은 고딕',
+        stroke: '#fff',
+        width: 6,
+      },
+    },
     'geo_line_as': {
       fill: {
         color: '#ffffff00',
@@ -1156,6 +1172,86 @@ export default {
         font: '1rem 맑은 고딕',
         stroke: '#fff',
         width: 4,
+      },
+    },
+  },
+  spi: {
+    '가로등': {
+      image: {
+        fill: '#919191bf',
+        radius: 5,
+      },
+    },
+    '광케이블': {
+      image: {
+        fill: '#9649ffbf',
+        radius: 5,
+      },
+    },
+    '기타관로': {
+      image: {
+        fill: '#000000bf',
+        radius: 5,
+      },
+    },
+    '난방관로': {
+      image: {
+        fill: '#1d66b7bf',
+        radius: 5,
+      },
+    },
+    '도시가스': {
+      image: {
+        fill: '#f10000bf',
+        radius: 5,
+      },
+    },
+    '상수관로': {
+      image: {
+        fill: '#36dfebbf',
+        radius: 5,
+      },
+    },
+    '오수관로': {
+      image: {
+        fill: '#f3763cbf',
+        radius: 5,
+      },
+    },
+    '우수관로': {
+      image: {
+        fill: '#e025e1bf',
+        radius: 5,
+      },
+    },
+    '유류관로': {
+      image: {
+        fill: '#1f325cbf',
+        radius: 5,
+      },
+    },
+    '전기관로': {
+      image: {
+        fill: '#5c0e0ebf',
+        radius: 5,
+      },
+    },
+    '통신관로': {
+      image: {
+        fill: '#0323d6bf',
+        radius: 5,
+      },
+    },
+    '하수관로': {
+      image: {
+        fill: '#047a40bf',
+        radius: 5,
+      },
+    },
+    'CCTV': {
+      image: {
+        fill: '#000000bf',
+        radius: 5,
       },
     },
   },

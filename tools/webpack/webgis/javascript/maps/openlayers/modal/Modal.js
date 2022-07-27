@@ -68,7 +68,7 @@ export default class ModalOverlay {
   resetCarousel() {
     if (this['.carousel-inner']) {
       this['.carousel-inner'].children().slice(1).remove();
-      this['.carousel-item img'].attr('src', './assets/media/bg/bg-yeongju.png');
+      this['.carousel-item img'].attr('src', './assets/media/bg/bg-default.png');
       this['.carousel-item button'].html('등록된 사진이 없습니다');
       this['.carousel-item button'].off('mousedown');
       this['.carousel-item'].addClass('active');

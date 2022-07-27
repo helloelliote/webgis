@@ -1,4 +1,5 @@
 const layerSelectFilter = new Set([
+  'city_planning_road',
   'geo_line_as',
   'n3a_a0010000',
   'n3a_b0010000',
