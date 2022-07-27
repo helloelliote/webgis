@@ -1,4 +1,3 @@
-import GeometryType from 'ol/geom/GeometryType';
 import { mouseActionButton, singleClick } from 'ol/events/condition';
 import { Vector as VectorSource } from 'ol/source';
 import { defaults as defaultInteractions, Draw, MouseWheelZoom, Select } from 'ol/interaction';
@@ -72,17 +71,17 @@ export class SelectInteraction extends Select {
       },
       style: function (feature) {
         switch (feature.getGeometry().getType()) {
-          case GeometryType.LINE_STRING:
-          case GeometryType.MULTI_LINE_STRING: {
+          case 'LineString':
+          case 'MultiLineString': {
             return selectLineStyle;
           }
-          case GeometryType.POINT:
-          case GeometryType.MULTI_POINT: {
+          case 'Point':
+          case 'MultiPoint': {
             let selectStyle = feature.get('spi_id') ? createVectorSpiStyle(feature) : createVectorStyle(feature);
             return selectStyle.clone();
           }
-          case GeometryType.POLYGON:
-          case GeometryType.MULTI_POLYGON: {
+          case 'Polygon':
+          case 'MultiPolygon': {
             let selectStyle = createVectorStyle(feature).clone();
             selectStyle.setFill(selectPolygonStyle.getFill());
             return selectStyle;
@@ -118,8 +117,8 @@ export class SelectInteraction extends Select {
     let feature = event.selected ? event.selected[0] : this.getFeatures().item(0);
     if (!feature) return;
     switch (feature.getGeometry().getType()) {
-      case GeometryType.LINE_STRING:
-      case GeometryType.MULTI_LINE_STRING: {
+      case 'LineString':
+      case 'MultiLineString': {
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
           return modal;
@@ -128,8 +127,8 @@ export class SelectInteraction extends Select {
         });
         break;
       }
-      case GeometryType.POINT:
-      case GeometryType.MULTI_POINT: {
+      case 'Point':
+      case 'MultiPoint': {
         if (feature.get('spi_id')) {
           this._setSelectOverlay(feature, selectPointSpiStyle);
           window.open(
@@ -148,8 +147,8 @@ export class SelectInteraction extends Select {
         });
         break;
       }
-      case GeometryType.POLYGON:
-      case GeometryType.MULTI_POLYGON: {
+      case 'Polygon':
+      case 'MultiPolygon': {
         this._setSelectOverlay(feature, selectPolygonStyle);
         this._infoModal.setFeatureAsync(feature).then(modal => {
           modal.showModal();
@@ -166,19 +165,19 @@ export class SelectInteraction extends Select {
     this._overlay.setOverlay(null);
     this.getFeatures().setAt(0, feature);
     switch (feature.getGeometry().getType()) {
-      case GeometryType.LINE_STRING:
-      case GeometryType.MULTI_LINE_STRING: {
+      case 'LineString':
+      case 'MultiLineString': {
         this._setSelectOverlay(feature, selectLineStyle);
         break;
       }
-      case GeometryType.POINT:
-      case GeometryType.MULTI_POINT: {
+      case 'Point':
+      case 'MultiPoint': {
         let selectStyle = feature.get('pipe_id') ? selectPointSpiStyle : selectPointStyle;
         this._setSelectOverlay(feature, selectStyle);
         break;
       }
-      case GeometryType.POLYGON:
-      case GeometryType.MULTI_POLYGON: {
+      case 'Polygon':
+      case 'MultiPolygon': {
         this._setSelectOverlay(feature, selectPolygonStyle);
         break;
       }
@@ -247,7 +246,7 @@ export class MeasureInteraction extends Draw {
     }
     if (this._drawFeature) {
       const geometry = this._drawFeature.getGeometry();
-      if (geometry.getType() === GeometryType.LINE_STRING) {
+      if (geometry.getType() === 'LineString') {
         this._tooltipMsg = this._continueLineMsg;
       } else {
         this._tooltipMsg = this._continuePolygonMsg;
@@ -264,7 +263,7 @@ export class MeasureInteraction extends Draw {
       let output;
       let position;
       let geometry = e.target;
-      if (geometry.getType() === GeometryType.LINE_STRING) {
+      if (geometry.getType() === 'LineString') {
         output = formatLength(geometry);
         position = geometry.getLastCoordinate();
       } else {

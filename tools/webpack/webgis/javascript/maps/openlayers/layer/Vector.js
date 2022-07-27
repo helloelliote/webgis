@@ -1,6 +1,5 @@
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
-import GeometryType from 'ol/geom/GeometryType';
 import { Point } from 'ol/geom';
 import { createDefaultStyle } from 'ol/style/Style';
 import Layer from './Layer';
@@ -75,7 +74,7 @@ export function createVectorStyle(feature) {
     return createDefaultStyle(feature, 0);
   }
   switch (feature.getGeometry().getType()) {
-    case GeometryType.LINE_STRING: {
+    case 'LineString': {
       if (feature.get('폐관일자')) {
         return closedPipeStyle;
       }
@@ -93,7 +92,7 @@ export function createVectorStyle(feature) {
       });
       return [lineStyle, lineSegments.pop()];
     }
-    case GeometryType.MULTI_LINE_STRING: {
+    case 'MultiLineString': {
       if (feature.get('폐관일자')) {
         return closedPipeStyle;
       }
@@ -101,8 +100,8 @@ export function createVectorStyle(feature) {
       lineStyle.setLabel(feature.get(property[featureId].label), true);
       return lineStyle;
     }
-    case GeometryType.POINT:
-    case GeometryType.MULTI_POINT: {
+    case 'Point':
+    case 'MultiPoint': {
       let pointStyle = pointStyleMap[layer];
       if (property[featureId].label) {
         pointStyle.setLabel(feature.get(property[featureId].label), false);
@@ -139,8 +138,8 @@ export function createVectorStyle(feature) {
       }
       return pointStyle;
     }
-    case GeometryType.POLYGON:
-    case GeometryType.MULTI_POLYGON: {
+    case 'Polygon':
+    case 'MultiPolygon': {
       const polygonStyle = polygonStyleMap[layer];
       if (property[featureId].label) {
         polygonStyle.setLabel(feature.get(property[featureId].label), false);

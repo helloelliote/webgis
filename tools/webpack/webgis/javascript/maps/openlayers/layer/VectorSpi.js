@@ -5,7 +5,7 @@ import Layer from './Layer';
 import property from './Layer.property';
 import { default as loadSource } from './sourceLoader.vector';
 import { geoJsonWGS } from '../format';
-import GeometryType from 'ol/geom/GeometryType';
+import { Type } from 'ol/geom/Geometry';
 import { pointSpiStyleMap } from '../style';
 import { layerSelectFilter } from '../filter';
 
@@ -66,7 +66,7 @@ function createVectorSpiSourceRequestUrl(key) {
 export function createVectorSpiStyle(feature) {
   const layer = (feature.get('pipe') || '기타관로').trim();
   switch (feature.getGeometry().getType()) {
-    case GeometryType.POINT: {
+    case 'Point': {
       return pointSpiStyleMap[layer];
     }
     default: {
