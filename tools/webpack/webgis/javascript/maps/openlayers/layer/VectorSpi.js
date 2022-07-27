@@ -5,7 +5,6 @@ import Layer from './Layer';
 import property from './Layer.property';
 import { default as loadSource } from './sourceLoader.vector';
 import { geoJsonWGS } from '../format';
-import { Type } from 'ol/geom/Geometry';
 import { pointSpiStyleMap } from '../style';
 import { layerSelectFilter } from '../filter';
 
