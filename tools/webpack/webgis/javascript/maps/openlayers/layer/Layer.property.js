@@ -40,6 +40,30 @@ export default {
       'nume',
     ],
   },
+  lake: {
+    label: null,
+    maxZ: 21,
+    minZ: 15,
+    propertyName: [
+      'geom',
+    ],
+  },
+  road: {
+    label: null,
+    maxZ: 21,
+    minZ: 15,
+    propertyName: [
+      'geom',
+    ],
+  },
+  buld_mah: {
+    label: null,
+    maxZ: 21,
+    minZ: 15,
+    propertyName: [
+      'geom',
+    ],
+  },
   swl_hmpipe_ls: {
     label: null,
     maxZ: 21,
