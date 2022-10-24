@@ -383,6 +383,17 @@ export default {
       '레이어',
       '관리번호',
       '관라벨',
+      '시설물구분',
+    ],
+  },
+  viw_wtl_pipe_close_lm: {
+    label: null,
+    maxZ: 21,
+    minZ: 9,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
       '폐관일자',
       '시설물구분',
     ],
