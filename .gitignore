@@ -247,8 +247,8 @@ temp/
 
 .yarn/*
 !.yarn/patches
-!.yarn/releases
 !.yarn/plugins
+!.yarn/releases
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
@@ -260,8 +260,8 @@ temp/
 
 tools/.yarn/*
 !tools/.yarn/patches
-!tools/.yarn/releases
 !tools/.yarn/plugins
+!tools/.yarn/releases
 !tools/.yarn/sdks
 !tools/.yarn/versions
 .tools/pnp.*
