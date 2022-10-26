@@ -1,2 +1,2 @@
-export { default as ModalOverlay } from './Modal';
 export { default as InfoModal } from './Info';
+export { default as SearchModal } from './Search';

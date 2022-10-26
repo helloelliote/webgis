@@ -1,6 +1,7 @@
-import { and, during } from 'ol/format/filter';
+import { and, between, during, greaterThanOrEqualTo } from 'ol/format/filter';
 import { geoJson, wfs } from '../format';
 import { property } from '../layer';
+import { SearchModal } from '../modal';
 
 /**
  * @link https://openlayers.org/en/latest/apidoc/module-ol_format_filter.html
@@ -10,10 +11,23 @@ const FeatureFilter = function () {
   let _vectorLayer;
   let _requestUrl;
   let _requestDefaults;
-  let _form;
+  let _form1, _form2;
   let _featureTypeMap = new Map();
+  let _searchModal;
+  let _isActive = false;
 
   function _init() {
+    document.getElementById('btn-search').addEventListener('mousedown', event => {
+      event.preventDefault();
+      _isActive = !_isActive;
+      event.target.classList.toggle('active', _isActive);
+      if (_isActive) {
+        _searchModal.showModal();
+      } else {
+        _searchModal.hideModal();
+      }
+    }, false);
+
     _requestUrl = `${window.webgis.geoserverHost}/geoserver/${window.webgis.workspace}/wfs`;
     _requestDefaults = {
       featurePrefix: window.webgis.workspace,
@@ -98,21 +112,34 @@ const FeatureFilter = function () {
    */
 
   function _initPipeSearch() {
-    const pipeFilterMenu = document.getElementById('viw_wtl_pipe_lm_filter');
-    pipeFilterMenu.querySelectorAll('.navi-item').forEach(element => {
-      element.addEventListener('click', _onClickPipeFilterMenu, false);
+    const istYmdFilterMenu = document.getElementById('viw_wtl_pipe_lm_filter_ist_ymd');
+    istYmdFilterMenu.querySelectorAll('.navi-item').forEach(element => {
+      element.addEventListener('click', _onClickIstYmdFilterMenu, false);
     });
-    _form = pipeFilterMenu.querySelector('.form');
-    _form.querySelectorAll('input').forEach(element => {
+    _form1 = istYmdFilterMenu.querySelector('.form');
+    _form1.querySelectorAll('input').forEach(element => {
       $(element).inputmask({
         mask: '9999',
         placeholder: '', // remove underscores from the input mask
       });
     });
-    _form.querySelector('button').addEventListener('click', _onClickPipeFilterButton, false);
+    _form1.querySelector('button').addEventListener('click', _onClickIstYmdFilterButton, false);
+
+    const pipDipFilterMenu = document.getElementById('viw_wtl_pipe_lm_filter_pip_dip');
+    pipDipFilterMenu.querySelectorAll('.navi-item').forEach(element => {
+      element.addEventListener('click', _onClickPipDipFilterMenu, false);
+    });
+    _form2 = pipDipFilterMenu.querySelector('.form');
+    _form2.querySelectorAll('input').forEach(element => {
+      $(element).inputmask({
+        mask: '9999',
+        placeholder: '', // remove underscores from the input mask
+      });
+    });
+    _form2.querySelector('button').addEventListener('click', _onClickPipDipFilterButton, false);
   }
 
-  function _onClickPipeFilterMenu(event) {
+  function _onClickIstYmdFilterMenu(event) {
     event.preventDefault();
     const range = event.target.title;
     switch (range) {
@@ -121,27 +148,51 @@ const FeatureFilter = function () {
         break;
       }
       default: {
-        const begin = '1000-01-01';
+        const begin = '1901-01-01';
         const end = moment().subtract(range, 'years').format('YYYY-MM-DD');
-        _executePipeSearch(begin, end);
+        _executePipeSearch(during('설치일자', begin, end));
         break;
       }
     }
   }
 
-  function _onClickPipeFilterButton(event) {
+  function _onClickPipDipFilterMenu(event) {
     event.preventDefault();
-    let begin = _form.querySelector('input[name="begin"]').value;
-    begin = begin.length === 0 ? '1000-01-01' : `${begin}-01-01`;
-    let end = _form.querySelector('input[name="end"]').value;
-    end = end.length === 0 ? moment().format('YYYY-MM-DD') : `${end}-12-31`;
-    _executePipeSearch(begin, end);
+    const range = event.target.title;
+    switch (range) {
+      case '-1': {
+        _resetPipeSearch();
+        break;
+      }
+      default: {
+        _executePipeSearch(greaterThanOrEqualTo('구경', range));
+        break;
+      }
+    }
   }
 
-  function _executePipeSearch(begin, end) {
+  function _onClickIstYmdFilterButton(event) {
+    event.preventDefault();
+    let begin = _form1.querySelector('input[name="begin"]').value;
+    begin = begin.length === 0 ? '1901-01-01' : `${begin}-01-01`;
+    let end = _form1.querySelector('input[name="end"]').value;
+    end = end.length === 0 ? moment().format('YYYY-MM-DD') : `${end}-12-31`;
+    _executePipeSearch(during('설치일자', begin, end));
+  }
+
+  function _onClickPipDipFilterButton(event) {
+    event.preventDefault();
+    let begin = _form2.querySelector('input[name="begin"]').value;
+    begin = begin.length === 0 ? 0 : begin;
+    let end = _form2.querySelector('input[name="end"]').value;
+    end = end.length === 0 ? 1000 : end;
+    _executePipeSearch(between('구경', begin, end));
+  }
+
+  function _executePipeSearch(filter) {
     _removeFeatureType(-1);
     _addFeatureType(-1, 'viw_wtl_pipe_lm');
-    _addFilter(-1, during('설치일자', begin, end));
+    _addFilter(-1, filter);
     _executeSearch();
   }
 
@@ -155,6 +206,7 @@ const FeatureFilter = function () {
   return {
     init: function (layer) {
       _vectorLayer = layer;
+      _searchModal = new SearchModal('#kt_search_modal');
 
       _init();
       _initPipeSearch();
