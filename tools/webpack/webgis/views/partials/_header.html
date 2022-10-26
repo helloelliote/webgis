@@ -219,6 +219,66 @@
         <!--end::Toggle-->
       </div>
 
+      <div class="outer ml-4 mr-2">
+        <div class="inner"></div>
+      </div>
+
+      <div class="topbar-item">
+
+        <!--begin::Toggle-->
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                data-offset="0,10">
+          민원 관리
+        </button>
+
+        <!--end::Toggle-->
+
+        <!--begin::Dropdown-->
+        <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-sm">
+
+          <!--[html-partial:begin:{"id":"demo1/dist/inc/view/partials/content/dropdowns/dropdown-4","page":"index"}]/-->
+
+          <!--begin::Navigation-->
+          <ul class="navi navi-hover navi-active navi-accent py-3">
+            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">민원</li>
+            <li class="navi-item">
+              <a href="/service/register" class="navi-link active" id="navi-search-link-0">
+                <span class="navi-bullet">
+                  <i class="bullet bullet-dot"></i>
+                </span>
+                <span class="navi-text">&nbsp;민원 등록</span>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a href="service/search" class="navi-link" id="navi-search-link-2">
+                <span class="navi-bullet">
+                  <i class="bullet bullet-dot"></i>
+                </span>
+                <span class="navi-text">&nbsp;민원 조회</span>
+              </a>
+            </li>
+            <div class="separator separator-dashed my-3"></div>
+            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">근무</li>
+            <li class="navi-item" data-toggle="modal" data-target="#serv_sche_modal">
+              <a href="javascript:;" class="navi-link">
+                <span class="navi-bullet">
+                  <i class="bullet bullet-dot"></i>
+                </span>
+                <span class="navi-text">&nbsp;비상근무 편성</span>
+              </a>
+            </li>
+          </ul>
+
+          <!--end::Navigation-->
+
+          <!--[html-partial:end:{"id":"demo1/dist/inc/view/partials/content/dropdowns/dropdown-4","page":"index"}]/-->
+        </div>
+
+        <!--end::Dropdown-->
+      </div>
+
       <!--end::Create-->
 
       <!--begin::Quick Panel-->
