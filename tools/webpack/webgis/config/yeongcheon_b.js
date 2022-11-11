@@ -33,7 +33,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'n3a_a0010000',
       'n3a_b0010000',
     ],
-    maintenance: 'viw_swt_subimge_et',
+    maintenance: 'viw_web_wutl_ht_img',
     photo: 'viw_web_bs_img_et',
     repairPhoto: 'viw_swt_subimge_et_re',
     repair: 'viw_swt_repair_work_st',
