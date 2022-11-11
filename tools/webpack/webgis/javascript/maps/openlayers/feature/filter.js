@@ -74,7 +74,7 @@ const FeatureFilter = function () {
         if (response.ok) return response.json();
         throw new Error(response.statusText);
       }).then(result => {
-        _vectorLayer.hideLayers([featureTypeName, 'viw_wtl_cap_ps']);
+        _vectorLayer.hideLayers([featureTypeName, 'viw_wtl_cap_ps', 'viw_swl_conn_ls', 'viw_swl_side_ls']);
         _vectorLayer.getLayer(`${featureTypeName}_filter`).getSource().addFeatures(geoJson.readFeatures(result));
       }).catch(error => {
         $.notify({ message: `검색정보를 불러오지 못하였습니다<br>(${error})` },
@@ -108,7 +108,7 @@ const FeatureFilter = function () {
   }
 
   /**
-   * Filter 'VIW_WTL_PIPE_LM' by column '설치일자'
+   * Filter 'VIW_WTL_PIPE_LM' or 'VIW_SWL_PIPE_LM' by column '설치일자'
    */
 
   function _initPipeSearch() {
@@ -201,6 +201,7 @@ const FeatureFilter = function () {
       _vectorLayer.showLayers([featureType['name']]);
       _removeFeatureType(index);
     });
+    _vectorLayer.showLayers(['viw_wtl_cap_ps', 'viw_swl_conn_ls', 'viw_swl_side_ls']);
   }
 
   return {

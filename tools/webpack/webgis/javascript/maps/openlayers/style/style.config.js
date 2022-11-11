@@ -507,6 +507,20 @@ export default {
         width: null,
       },
     },
+    '오수처리시설': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB951',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
     '우수맨홀': {
       image: {
         opacity: 1,
@@ -568,6 +582,20 @@ export default {
         opacity: 1,
         scale: 1,
         src: 'SA202',
+      },
+      text: {
+        color: null,
+        font: null,
+        offsetY: null,
+        stroke: null,
+        width: null,
+      },
+    },
+    '정화조': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB950',
       },
       text: {
         color: null,

@@ -245,6 +245,19 @@ export default {
       '관라벨',
     ],
   },
+  viw_swl_pipe_lm_filter: {
+    label: '관라벨',
+    maxZ: 21,
+    minZ: 10,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '관라벨',
+      '폐관일자',
+      '시설물구분',
+    ],
+  },
   viw_swl_pump_ps: {
     label: '하수펌프장명',
     maxZ: 21,
@@ -300,6 +313,16 @@ export default {
       '방향각',
     ],
   },
+  viw_swl_tank_ps: {
+    label: null,
+    maxZ: 21,
+    minZ: 7,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+    ],
+  },
   viw_swl_vent_ps: {
     label: null,
     maxZ: 21,
@@ -308,6 +331,17 @@ export default {
       'geom',
       '레이어',
       '관리번호',
+    ],
+  },
+  viw_swt_repair_work_st: {
+    label: null,
+    maxZ: 21,
+    minZ: 11,
+    propertyName: [
+      'geom',
+      '레이어',
+      '관리번호',
+      '시설물구분',
     ],
   },
   viw_wtl_cap_ps: {
