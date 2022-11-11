@@ -19,6 +19,9 @@ export default class ModalOverlay {
   getLayerSubName(feature) {
     return (feature.get('시설물구분') || feature.get('레이어') || feature.get('layer'))
       .replace(/역지변|이토변|배기변|감압변|안전변/g, '제수변')
+      .replace(/오수관|우수관|차집관/g, '하수관거(암거)')
+      .replace(/오수받이|우수받이/g, '물받이')
+      .replace(/오수맨홀|우수맨홀|집수맨홀|차집맨홀|합류맨홀/g, '하수맨홀')
       .replace('블럭', '')
       .trim();
   }

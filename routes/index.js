@@ -21,6 +21,7 @@ export default function (router, passport) {
   router.get('/api/swl/info', swl.info, onError);
   router.get('/api/swl/info/check', swl.infoCheck, onError);
   router.get('/api/swl/info/photo', swl.infoPhoto, onError);
+  router.get('/api/swl/info/history', swl.infoHistory, onError);
 
   router.get('/api/wtl/search', wtl.search, onError);
   router.get('/api/wtl/section', wtl.section, onError);

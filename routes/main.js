@@ -2,7 +2,7 @@ export default {
   index(req, res, next) {
     res.render('index', {
       _csrfToken: req.csrfToken(),
-      title: '홈 | 상수도 조회시스템',
+      title: '홈 | 하수도 조회시스템',
       company_ko: process.env.COMPANY_KO,
       company_en: process.env.COMPANY_EN,
       role_ko: process.env.ROLE_KO,

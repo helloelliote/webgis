@@ -29,8 +29,13 @@ export default {
         FROM ${req.query['table_image']} AS t1
         WHERE t1.관리번호 = ${req.query['id']}
           AND t1.시설물구분 = "${req.query['layer']}"
-        LIMIT 1) AS 'photo'`,
-      [],
+        LIMIT 1) AS 'photo',
+       (SELECT EXISTS(SELECT 관리번호)
+        FROM ${req.query['table_history']} AS t2
+        WHERE t2.관리번호 = ${req.query['id']}
+          AND t2.시설물구분 = "${req.query['layer']}"
+        LIMIT 1) AS 'history'`,
+    [],
     ).then(result => {
       res.status(200).json(result);
     }).catch(next);
@@ -38,6 +43,14 @@ export default {
 
   infoPhoto(req, res, next) {
     mysql.executeQuery(`SELECT * FROM ${req.query['table']} WHERE 시설물구분="${req.query['layer']}" AND 관리번호=${req.query['id']} ORDER BY 사진일련번호 ASC;`,
+      [],
+    ).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
+  },
+
+  infoHistory(req, res, next) {
+    mysql.executeQuery(`SELECT * FROM ${req.query['table']} WHERE 시설물구분="${req.query['layer']}" AND 관리번호=${req.query['id']} ORDER BY 유지보수일련번호 DESC;`,
       [],
     ).then(result => {
       res.status(200).json(result);
