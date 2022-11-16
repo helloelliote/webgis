@@ -42,7 +42,7 @@ export default class InfoModal extends ModalOverlay {
     this._feature = feature;
     this._featureMap.set('table', feature.get('layer') || feature.getId().match(/[^.]+/)[0]);
     this._featureMap.set('layerSub', this.getLayerSubName(feature));
-    this._featureMap.set('isClosed', feature.get('폐관일자') !== undefined || feature.get('사용여부') !== '폐전');
+    this._featureMap.set('isClosed', feature.get('폐관일자') !== undefined || feature.get('사용여부') === '폐전');
   }
 
   setFeatureAsync(feature) {
