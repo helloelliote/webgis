@@ -42,7 +42,7 @@ export default class InfoModal extends ModalOverlay {
     this._feature = feature;
     this._featureMap.set('table', feature.get('layer') || feature.getId().match(/[^.]+/)[0]);
     this._featureMap.set('layerSub', this.getLayerSubName(feature));
-    this._featureMap.set('isClosed', feature.get('폐관일자') !== null && feature.get('폐관일자') !== undefined);
+    this._featureMap.set('isClosed', feature.get('폐관일자') !== undefined || feature.get('사용여부') !== '폐전');
   }
 
   setFeatureAsync(feature) {
@@ -81,7 +81,7 @@ export default class InfoModal extends ModalOverlay {
       if (that.getFeature('isClosed')) {
         that['.card-title span'].removeClass('label-success');
         that['.card-title span'].addClass('label-danger');
-        that['.card-title span'].html(`&nbsp;폐관`);
+        that['.card-title span'].html(`&nbsp;폐관•폐전`);
       } else {
         that['.card-title span'].removeClass('label-danger');
         that['.card-title span'].addClass('label-success');
