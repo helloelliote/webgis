@@ -34,6 +34,7 @@ const featureDateFilter = new Set([
   '유지보수일자',
   '준공일자',
   '폐관일자',
+  '폐전일자',
   '허가일자',
 ]);
 
