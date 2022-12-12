@@ -61,13 +61,19 @@ export default class InfoModal extends ModalOverlay {
 
     function updateTableRows(response) {
       let tableRow = '';
+      let filterKey = '';
       JSON.stringify(response[0], function (key, value) {
         if (featureNameFilter.has(key)) return undefined;
         if (featureDateFilter.has(key)) {
           value = moment(value).isValid() ? moment(value).format('YYYY년 M월 D일') : value;
         }
-        if (unitFilter.has(key)) {
-          value = `${value} ${unitFilter.get(key)}`;
+        if ([...unitFilter.keys()].some(filter => {
+          if (key.includes(filter)) {
+            filterKey = filter;
+            return true;
+          } return false;
+        }) && value != null) {
+          value = `${value} ${unitFilter.get(filterKey)}`;
         }
         if (key === '') {
           tableRow = '';

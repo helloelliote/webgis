@@ -74,10 +74,11 @@ const styleDirectionFilter = new Set([
 
 const unitFilter = new Map([
   ['구경', 'mm'],
+  ['길이', 'm'],
+  ['깊이', 'm'],
+  ['심도', 'm'],
   ['연장', 'm'],
-  ['용량', 'kW'],
-  ['최고깊이', 'm'],
-  ['최저깊이', 'm'],
+  ['펌프용량', 'kW'],
 ]);
 
 export {
