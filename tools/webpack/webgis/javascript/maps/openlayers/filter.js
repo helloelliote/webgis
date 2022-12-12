@@ -72,10 +72,19 @@ const styleDirectionFilter = new Set([
   '합류관',
 ]);
 
+const unitFilter = new Map([
+  ['구경', 'mm'],
+  ['연장', 'm'],
+  ['용량', 'kW'],
+  ['최대깊이', 'm'],
+  ['최저깊이', 'm'],
+]);
+
 export {
   layerSelectFilter,
   featureNameFilter,
   featureDateFilter,
   styleRotationFilter,
   styleDirectionFilter,
+  unitFilter,
 };
