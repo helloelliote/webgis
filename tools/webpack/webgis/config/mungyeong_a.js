@@ -38,8 +38,11 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_wtl_userlabel_ps',
     ],
     image: [
-      'n3a_a0010000',
-      'n3a_b0010000',
+      // 'n3a_a0010000',
+      // 'n3a_b0010000',
+      'lake',
+      'road',
+      'buld_mah',
     ],
     maintenance: 'viw_web_wutl_ht_img',
     photo: 'viw_wtt_st_image',
