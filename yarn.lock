@@ -3087,7 +3087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.3":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -3875,7 +3875,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -5872,13 +5872,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"passport@npm:^0.4.1":
-  version: 0.4.1
-  resolution: "passport@npm:0.4.1"
+"passport@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "passport@npm:0.6.0"
   dependencies:
     passport-strategy: 1.x.x
     pause: 0.0.1
-  checksum: 6e0d855e281df8568f4b361d8377995295e59b08391a1b57d18d1404dbaa67af1523c987e9a071d6b0d1550f022637d62f9854bbd31ebc30372f0bfb1acb2567
+    utils-merge: ^1.0.1
+  checksum: ef932ad671d50de34765c7a53cd1e058d8331a82a6df09265a9c6c1168911aee4a7b5215803d0101110ab7f317e096b4954ca7e18fb2c33b9929f0bd17dbe159
   languageName: node
   linkType: hard
 
@@ -6387,7 +6388,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -7207,7 +7208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"utils-merge@npm:1.0.1":
+"utils-merge@npm:1.0.1, utils-merge@npm:^1.0.1":
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
@@ -7294,7 +7295,7 @@ __metadata:
     copy-webpack-plugin: ^10.2.0
     cors: ^2.8.5
     csurf: ^1.11.0
-    debug: ^4.3.3
+    debug: ^4.3.4
     dotenv: ^10.0.0
     eslint: ^8.5.0
     express: ~4.17.2
@@ -7310,7 +7311,7 @@ __metadata:
     moment: ^2.29.2
     morgan: ~1.10.0
     mysql2: ^2.3.3
-    passport: ^0.4.1
+    passport: ^0.6.0
     passport-local: ^1.0.0
     pg: ^8.7.1
     rate-limiter-flexible: ^2.3.6

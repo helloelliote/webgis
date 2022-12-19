@@ -111,5 +111,6 @@
   "author": "Keenthemes",
   "license": "ISC",
   "homepage": "https://keenthemes.com/",
-  "private": true
+  "private": true,
+  "packageManager": "yarn@3.3.0"
 }

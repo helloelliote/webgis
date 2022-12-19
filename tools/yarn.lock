@@ -2492,7 +2492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-bs4@npm:1.12.1, datatables.net-bs4@npm:>=1.11.3":
+"datatables.net-bs4@npm:1.12.1":
   version: 1.12.1
   resolution: "datatables.net-bs4@npm:1.12.1"
   dependencies:
@@ -2502,159 +2502,169 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datatables.net-buttons-bs4@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "datatables.net-buttons-bs4@npm:2.2.3"
+"datatables.net-bs4@npm:>=1.12.1":
+  version: 1.13.1
+  resolution: "datatables.net-bs4@npm:1.13.1"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-buttons: ">=2.0.1"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: 3480a32d7a17b59ffa28514c5f96303715b8420e6ec88d07df405ce67a22f3d5bd3fc3af45093a3ddaba4046314682e2e6f71b6455595cd1e1b7de46608cb496
+  checksum: b6995c50c2ecf7f4d1f57a81540c6f9f18b4cf3d8d52b7f43213f1fded711d0ce7dc6a2f69568751755f2033c64a0d0e58e59adb7ef9cdd4de7a838a92c9e00a
   languageName: node
   linkType: hard
 
-"datatables.net-buttons@npm:>=2.0.1":
-  version: 2.2.3
-  resolution: "datatables.net-buttons@npm:2.2.3"
+"datatables.net-buttons-bs4@npm:^2.2.3":
+  version: 2.3.3
+  resolution: "datatables.net-buttons-bs4@npm:2.3.3"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-buttons: ">=2.2.3"
     jquery: ">=1.7"
-  checksum: d29bcc69f17c6091e7dfedf550a2a033a7abc43b8544424fd8fa8fbfefc2def8e9e71cffc4a8299dee2b0e6eee80c65b855ab4cbae078e76b5dc3828fbc67610
+  checksum: 6012ebbfefcd41b291d66ed995bb4fcb4cb69a335adc73f249a4f668f00866d633ae0e4f8b54d7250ab995e345c308a769ed729523bbb216a4192a926d26e385
+  languageName: node
+  linkType: hard
+
+"datatables.net-buttons@npm:>=2.2.3":
+  version: 2.3.3
+  resolution: "datatables.net-buttons@npm:2.3.3"
+  dependencies:
+    datatables.net: ">=1.12.1"
+    jquery: ">=1.7"
+  checksum: 6c8c76b3a3fbdf644e9d4db96f1946b934369cb52e3a280ad33c04ef8c6937f5a57df0d82f66e2e57c1fff9f52ff3536d03600d3956763f691f3869fddfe2123
   languageName: node
   linkType: hard
 
 "datatables.net-colreorder-bs4@npm:^1.5.6":
-  version: 1.5.6
-  resolution: "datatables.net-colreorder-bs4@npm:1.5.6"
+  version: 1.6.1
+  resolution: "datatables.net-colreorder-bs4@npm:1.6.1"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-colreorder: ">=1.5.4"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-colreorder: ">=1.5.6"
     jquery: ">=1.7"
-  checksum: 19d58064b19710497ed6dc42c62dc461bfa404448a95fed96e4ae212cbed608d7b154934bcfd29ae57f61eaeaa60d22346231f59cd91c0e6de79113e3d8bdad1
+  checksum: a263f6a4da48be54700d13db735065ca974c1284f08ab8e73a9a4864cfb85ddeb5e9282af8d5cdd1e34bb6f85249fcb2b3b3ed7e977f1ddfc7a5b9ad7b950491
   languageName: node
   linkType: hard
 
-"datatables.net-colreorder@npm:>=1.5.4":
-  version: 1.5.6
-  resolution: "datatables.net-colreorder@npm:1.5.6"
+"datatables.net-colreorder@npm:>=1.5.6":
+  version: 1.6.1
+  resolution: "datatables.net-colreorder@npm:1.6.1"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: 49073b83d07521edfb2921ad2c98db351d610015615c1c97182f8ef00932530ee1e4a4eb653089a9eb65c9c482f6d5d98f9d9baa504f320c26caa56496b106da
+  checksum: 731748c29ff6661de51ed4ccfb0fbd7034aac06793690d1c43b9db01e9c9f41ef7da8bbca3bdd0eb050b1af86132b23ab3f37944b1d9d87ce2bf50be29178bfa
   languageName: node
   linkType: hard
 
 "datatables.net-fixedcolumns-bs4@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "datatables.net-fixedcolumns-bs4@npm:4.1.0"
+  version: 4.2.1
+  resolution: "datatables.net-fixedcolumns-bs4@npm:4.2.1"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-fixedcolumns: ">=4.0.0"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-fixedcolumns: ">=4.1.0"
     jquery: ">=1.7"
-  checksum: c82d21287d090d724a11ae2978fb5416b839ca50be3a5f42044f55f082abb4123b7eb48ac69de48f0c24d26f5d2547b9cc1f62d93cf8b410aec4ba5d373b2e7b
+  checksum: a6157fbc66ebaa3ee3466c45d8e6c72e6d117977efb7ff0072058efc62b3fe796023c56c792524d249789b8b127e4d680192d67d65823c1ec5abc6656e5966f7
   languageName: node
   linkType: hard
 
-"datatables.net-fixedcolumns@npm:>=4.0.0":
-  version: 4.1.0
-  resolution: "datatables.net-fixedcolumns@npm:4.1.0"
+"datatables.net-fixedcolumns@npm:>=4.1.0":
+  version: 4.2.1
+  resolution: "datatables.net-fixedcolumns@npm:4.2.1"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: 78cde58a8e6ea8fda923d57ba9b77b5d8ad6caef4d8ba22694b6ea7d34f1af3a5271af69c9096da81e042aea6950193eb4b6acbfb643078f0a0dfb53da67ba19
+  checksum: d5f077a7bc31388a93c9050215d92d4a94c1859715e71bc4763841a6ef1ab68312677ad21d4f54ab91ec320c597e4707d3cf28f42c5fce352172280af86f7883
   languageName: node
   linkType: hard
 
 "datatables.net-keytable-bs4@npm:^2.7.0":
-  version: 2.7.0
-  resolution: "datatables.net-keytable-bs4@npm:2.7.0"
+  version: 2.8.0
+  resolution: "datatables.net-keytable-bs4@npm:2.8.0"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-keytable: ">=2.6.4"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-keytable: ">=2.7.0"
     jquery: ">=1.7"
-  checksum: b25b9b708d3d30f74b5563c2c80cf2e321231aca15cd48fb653c10094f6bf00081f662a3bf5370a8a8e90a1dbe302d6975a2e7fdac1d0bafe458a287a2d19111
+  checksum: 7db0a3d44e0f74bce531d18b44b9cece9c5f92a00418759dcffddc7a2622c22bd6a2553ffd3e04db07a95715a22a418787a5ec552c1f72d3f36b7b76f10db207
   languageName: node
   linkType: hard
 
-"datatables.net-keytable@npm:>=2.6.4":
-  version: 2.7.0
-  resolution: "datatables.net-keytable@npm:2.7.0"
+"datatables.net-keytable@npm:>=2.7.0":
+  version: 2.8.0
+  resolution: "datatables.net-keytable@npm:2.8.0"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: 5208136a077bc52f9e652f0a92aaa0f932d143476d55c8094a0969632af9058d1b04aa5cc0d9c90781ad7e35a4407a46c43bcfc6e0839665d0399ccb42c655a8
+  checksum: c3febe408db6f8cae6dc031af1b0e6117c8d2163427a1539990889f6b0834d31e55120dd7c80a3572c79e5f6544527e71062690d3faa3f80c16004368cc84840
   languageName: node
   linkType: hard
 
 "datatables.net-responsive-bs4@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "datatables.net-responsive-bs4@npm:2.3.0"
+  version: 2.4.0
+  resolution: "datatables.net-responsive-bs4@npm:2.4.0"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-responsive: ">=2.2.9"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-responsive: ">=2.3.0"
     jquery: ">=1.7"
-  checksum: 18dfa00d84d72726637d09a2a8bac0aa667dd5a1040147dc99167c2c15dd9593ec84dc46ed14f92db3fe0bdef79026325561de5b0a468d9e283651ff871f9151
+  checksum: 4076d547e547351beb635b2005aed539a45f18c3e8b854d07532afd6dd0d5353c9e59a7f3b61870d42c5cbd7937853a215b179273ad2c1108f7809ad0284b746
   languageName: node
   linkType: hard
 
-"datatables.net-responsive@npm:>=2.2.9":
-  version: 2.3.0
-  resolution: "datatables.net-responsive@npm:2.3.0"
+"datatables.net-responsive@npm:>=2.3.0":
+  version: 2.4.0
+  resolution: "datatables.net-responsive@npm:2.4.0"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: 62b8fedeaab7f004a7db318429115124f9f0c157ad5a93effe679cc367b34042e071d4a1695eb6a81da309f89c995bcf59c577b69492bb855e8e1df0788cf6ab
+  checksum: fc574552f1ef225385b6e1a16d66b99a194b99be543ff43c00ebe83811f140090c37042fec19a3b1a92a28e50a75876fa19160dda306d96c4548c349402ac047
   languageName: node
   linkType: hard
 
 "datatables.net-scroller-bs4@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "datatables.net-scroller-bs4@npm:2.0.7"
+  version: 2.1.0
+  resolution: "datatables.net-scroller-bs4@npm:2.1.0"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-scroller: ">=2.0.5"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-scroller: ">=2.0.7"
     jquery: ">=1.7"
-  checksum: 6edc0b8d333237e95c82a66ff7b5b8c04e3a3aa8e233deea89268657e8b791d1cb180dc6ccd313a94354898215d53b5f090fe53d7b51f556eb280e287c8d0b7b
+  checksum: ae7983703a1994a2f98e4f4fc8a40af5e2cbfbef14929bfb44547ab35ac411f7ef433c9df72ba091b3662ee8157c6349705d714b6d64a642b1445847e92751eb
   languageName: node
   linkType: hard
 
-"datatables.net-scroller@npm:>=2.0.5":
-  version: 2.0.7
-  resolution: "datatables.net-scroller@npm:2.0.7"
+"datatables.net-scroller@npm:>=2.0.7":
+  version: 2.1.0
+  resolution: "datatables.net-scroller@npm:2.1.0"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: edbc2969b46b397490934ff2bebc7e6ab959688b2a2a154f4ae50cc0bfe74400c2a079f1bd48283febf867fd14a368f323aa7003dabd1f3a82fbaff7456433bf
+  checksum: 7f0b7fe9e450df5ab4b15dcbe14a6f5ea4620add254462ba2d0133e3c280365574908f118303d6af94a939aac54ea7f4b73024b4e788cb342aaaecc18ddf3a3e
   languageName: node
   linkType: hard
 
 "datatables.net-select-bs4@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "datatables.net-select-bs4@npm:1.4.0"
+  version: 1.5.0
+  resolution: "datatables.net-select-bs4@npm:1.5.0"
   dependencies:
-    datatables.net-bs4: ">=1.11.3"
-    datatables.net-select: ">=1.3.3"
+    datatables.net-bs4: ">=1.12.1"
+    datatables.net-select: ">=1.4.0"
     jquery: ">=1.7"
-  checksum: 59b3f8b1d46d334b4e9ac0c9987db719891d48b6d7778a8e29bceedc0fc80814f34986572516473a7fbd036ebecfda3097a43efae37d655b8a66f032dc571cff
+  checksum: 2825b5a42fd08c9f1374f2b1563055a0ace79395243abddb14f1ade083cbc76d672e74fb8fb915a50f456ac81ba4724489ccd9fb377a162f7ab4388143946f4b
   languageName: node
   linkType: hard
 
-"datatables.net-select@npm:>=1.3.3":
-  version: 1.4.0
-  resolution: "datatables.net-select@npm:1.4.0"
+"datatables.net-select@npm:>=1.4.0":
+  version: 1.5.0
+  resolution: "datatables.net-select@npm:1.5.0"
   dependencies:
-    datatables.net: ">=1.11.3"
+    datatables.net: ">=1.12.1"
     jquery: ">=1.7"
-  checksum: fa2bf1440b0291b71a8f8be7ec8ae858e6ce952d14c8e5f7e249f317ab09231b990ac075d320ddd2b74d0c0bb775bf5cda0c4dca4df838a12bb5054485269e37
+  checksum: abef9a3c59f1dd824185252784158bfc54cffc2db1abbca631c7266cf51feddf5d6f7a0ec0ad9279d3a5000a9baba315fbe63aad7be953a234083ed6681ea79e
   languageName: node
   linkType: hard
 
-"datatables.net@npm:>=1.11.3, datatables.net@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "datatables.net@npm:1.12.1"
+"datatables.net@npm:>=1.11.3, datatables.net@npm:>=1.12.1, datatables.net@npm:^1.12.1":
+  version: 1.13.1
+  resolution: "datatables.net@npm:1.13.1"
   dependencies:
     jquery: ">=1.7"
-  checksum: 1cdbafd1c289de33c22090ad7effd2964185966c2fce76ea68e83a31c59853a9e126dba909473f978fe75390f6a6d273a93fd06c91e7bcf78e62018ebeeb1199
+  checksum: 0b473bf2b869a11389549b8073b53806a0a6844a203d56af39a2f40b23e1d99543b51e0512db65b203b1372c862f56624caf991ffcd7906a174dc82aeb1022de
   languageName: node
   linkType: hard
 
@@ -3226,7 +3236,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -6488,7 +6498,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
