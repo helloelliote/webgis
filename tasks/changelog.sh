@@ -40,6 +40,7 @@ EOF
 # follows the first parent of merge commits to avoid merges within a topic
 # branch (instead only showing merges to main).
 #
+
 main() {
   git log --first-parent --format='%aN|%s %b' ${1} |
   {
@@ -49,12 +50,12 @@ main() {
         number="${BASH_REMATCH[1]}"
         author="${BASH_REMATCH[2]}"
         summary="${BASH_REMATCH[3]}"
-        declare $output+=" * [#${number}](${PULLS_URL}/${number}) - ${summary//feature:/feat:} ([@${author}](${GITHUB_URL}/${author}))\n"
+        declare $output+=" * [#${number}](${PULLS_URL}/${number}) - ${summary} ([@${author}](${GITHUB_URL}/${author}))\n"
       elif [[ ${l} =~ ${SQUASH_RE} ]] ; then
         number="${BASH_REMATCH[3]}"
         author="${BASH_REMATCH[1]}"
         summary="${BASH_REMATCH[2]}"
-        declare $output+=" * [#${number}](${PULLS_URL}/${number}) - ${summary//feature:/feat:} ([${author}](${GITHUB_URL}/search?q=${author}&type=Users))\n"
+        declare $output+=" * [#${number}](${PULLS_URL}/${number}) - ${summary} ([${author}](${GITHUB_URL}/search?q=${author}&type=Users))\n"
       fi
     done
 
@@ -64,14 +65,14 @@ main() {
     echo
     echo "## List of all changes"
     echo
-    echo "$main_output"
+    echo -e "$main_output"
 
     if [ -n "$dependabot_output" ]; then
       echo
       echo "<details>"
       echo "  <summary>Dependency Updates</summary>"
       echo
-      echo "$dependabot_output"
+      echo -e "$dependabot_output"
       echo
       echo "</details>"
     fi
