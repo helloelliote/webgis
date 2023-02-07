@@ -136,3 +136,49 @@
     }
   }
 }
+
+#kt_search_modal {
+
+  max-width: 300px;
+
+  .card-header {
+    font-size: 13px !important;
+    min-height: 60px;
+
+    .label {
+      vertical-align: text-bottom;
+    }
+  }
+
+  .card-body {
+    font-size: 13px !important;
+    padding: 0;
+
+    .table th {
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0.5rem 0.5rem;
+    }
+
+    .table td {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+
+  .card-footer {
+
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0.75rem;
+
+    i {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    .btn {
+      font-size: 13px !important;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+}

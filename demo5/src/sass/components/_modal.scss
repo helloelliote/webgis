@@ -102,6 +102,61 @@
                 max-width: 90%;
             }
         }
+
+        &.modal-sticky-top-right {
+            $sticky-width: 800px;
+            $sticky-width-lg: 1000px;
+
+            padding: 0 !important;
+            max-width: $sticky-width;
+
+            height: auto;
+            position: fixed;
+            left: auto;
+            bottom: auto;
+            top: 55px;
+            right: 25px;
+            margin: 0;
+            box-shadow: 0px 0px 60px -15px rgba(0, 0, 0, 0.2);
+            @include border-radius($border-radius);
+            font-size: 1rem;
+
+            .modal-dialog {
+                position: static;
+                max-width: $sticky-width;
+                width: auto;
+                margin: 0;
+                @include border-radius($border-radius);
+
+                .modal-content {
+                    border: 0;
+                    @include border-radius($border-radius);
+                }
+            }
+
+            &.modal-sticky-lg {
+                max-width: $sticky-width-lg;
+
+                .modal-dialog {
+                    max-width: $sticky-width-lg;
+                }
+            }
+
+            // Tablet & Mobile Modess
+            @include media-breakpoint-down(md) {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            // Mobile mode
+            @include media-breakpoint-down(sm) {
+                max-width: 90%;
+            }
+        }
+
+        .accordion .card .card-header .card-title {
+            font-size: 1.0rem;
+        }
     }
 }
 

@@ -34,6 +34,7 @@ const featureDateFilter = new Set([
   '유지보수일자',
   '준공일자',
   '폐관일자',
+  '폐전일자',
   '허가일자',
 ]);
 
@@ -71,10 +72,20 @@ const styleDirectionFilter = new Set([
   '합류관',
 ]);
 
+const unitFilter = new Map([
+  ['구경', 'mm'],
+  ['길이', 'm'],
+  ['깊이', 'm'],
+  ['심도', 'm'],
+  ['연장', 'm'],
+  ['펌프용량', 'kW'],
+]);
+
 export {
   layerSelectFilter,
   featureNameFilter,
   featureDateFilter,
   styleRotationFilter,
   styleDirectionFilter,
+  unitFilter,
 };

@@ -17,6 +17,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_wtl_puri_as',
       // 'viw_wtl_taper_ps',
       // 'viw_wtl_cap_ps',
+      'viw_wtl_pipe_close_lm',
       'viw_wtl_pipe_lm',
       'viw_wtl_pipe_lm_filter',
       // 'viw_wtl_pipe_dir_ps',

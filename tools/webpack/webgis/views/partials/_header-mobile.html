@@ -35,6 +35,7 @@
                             <a class="label label-lg label-info label-inline font-weight-bolder mr-1"
                                data-container="body"
                                data-placement="bottom" data-theme="dark" data-toggle="tooltip" href="javascript:;"
+                               aria-label="시설물•주소를 검색합니다"
                                title="시설물•주소를 검색합니다">
                             </a>
 												</span>
@@ -139,98 +140,20 @@
         </button>
         <!--end::Toggle-->
       </div>
-      {{!
       <div class="outer ml-4 mr-2">
         <div class="inner"></div>
       </div>
       <div class="topbar-item">
         <!--begin::Toggle-->
-        <button aria-expanded="false"
-                aria-haspopup="false"
-                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-xl"
-                data-offset="0,10" data-toggle="dropdown"
-                type="button">
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                aria-haspopup="false" aria-expanded="false" id="btn-search"
+                data-offset="0,10">
           시설 관리
         </button>
         <!--end::Toggle-->
-        <!--begin::Dropdown-->
-        <div class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right dropdown-menu-anim-up">
-          <!--begin::Navigation-->
-          <ul class="navi navi-hover navi-active navi-accent py-3">
-            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">문서자료실</li>
-            <li class="navi-item">
-              <a class="navi-link" href="/data/storage" id="navi-data-link-0">
-                <span class="navi-bullet">
-                  <i class="bullet bullet-dot"></i>
-                </span>
-                <span class="navi-text">&nbsp;업로드 및 다운로드</span>
-              </a>
-            </li>
-          </ul>
-          <!--end::Navigation-->
-          <div class="separator separator-dashed my-1"></div>
-          <!--begin::Navigation-->
-          <ul class="navi navi-hover navi-active navi-accent py-3" id="viw_wtl_pipe_lm_filter">
-            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">가압장</li>
-            <li class="navi-item" data-target="#serv_pres_modal" data-toggle="modal">
-              <a class="navi-link" href="javascript:;" style="white-space: nowrap">
-                <span class="navi-bullet">
-                <i class="bullet bullet-dot"></i>
-                </span>
-                <span class="navi-text">&nbsp;가압장 관리업체 현황</span>
-              </a>
-            </li>
-            <div class="separator separator-dashed my-2"></div>
-            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">상수관로</li>
-            <li class="navi-item">
-              <a class="navi-link" href="javascript:;">
-                <span class="navi-text text-danger font-weight-bolder" title="-1">&nbsp;초기화</span>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a class="navi-link" href="javascript:;">
-                <span class="navi-text" title="5">&nbsp;5 년 이상</span>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a class="navi-link" href="javascript:;">
-                <span class="navi-text" title="10">&nbsp;10 년 이상</span>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a class="navi-link" href="javascript:;">
-                <span class="navi-text" title="15">&nbsp;15 년 이상</span>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a class="navi-link" href="javascript:;">
-                <span class="navi-text" title="20">&nbsp;20 년 이상</span>
-              </a>
-            </li>
-            <form class="form m-2 pl-5 pr-5">
-              <label class="text-primary font-weight-bolder">직접 지정...</label>
-              <div class="form-group form-group-sm row mb-2">
-                <div class="col-6 pl-0 pr-1">
-                  <input class="form-control form-control-sm kt_inputmask_range" name="begin" placeholder="시작 연도"
-                         type="text">
-                </div>
-                <div class="col-6 pl-1 pr-0">
-                  <input class="form-control form-control-sm kt_inputmask_range" name="end" placeholder="끝 연도"
-                         type="text">
-                </div>
-              </div>
-              <div class="form-group form-group-sm row mb-0">
-                <button class="btn btn-sm btn-block btn-light-primary font-weight-bolder p-2" type="button">
-                  적용
-                </button>
-              </div>
-            </form>
-          </ul>
-          <!--end::Navigation-->
-        </div>
-        <!--end::Dropdown-->
       </div>
-      <div class="outer ml-4 mr-2">
+ {{!--<div class="outer ml-4 mr-2">
         <div class="inner"></div>
       </div>
       <div class="topbar-item">
@@ -281,7 +204,7 @@
         </div>
         <!--end::Dropdown-->
       </div>
-      }}
+    --}}
     </div>
     <!--end::Topbar-->
   </div>

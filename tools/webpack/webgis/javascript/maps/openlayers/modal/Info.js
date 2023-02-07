@@ -3,7 +3,7 @@ import { default as ModalOverlay } from './Modal';
 import { default as HistoryModal } from './History';
 import { default as PhotoModal } from './Photo';
 import { default as fetchWorker } from '../worker/fetch.wrapper';
-import { featureDateFilter, featureNameFilter } from '../filter';
+import { featureDateFilter, featureNameFilter, unitFilter } from '../filter';
 import { view } from '../view';
 
 export default class InfoModal extends ModalOverlay {
@@ -42,7 +42,7 @@ export default class InfoModal extends ModalOverlay {
     this._feature = feature;
     this._featureMap.set('table', feature.get('layer') || feature.getId().match(/[^.]+/)[0]);
     this._featureMap.set('layerSub', this.getLayerSubName(feature));
-    this._featureMap.set('isClosed', feature.get('폐관일자') !== null && feature.get('폐관일자') !== undefined);
+    this._featureMap.set('isClosed', feature.get('폐관일자') !== undefined || feature.get('사용여부') === '폐전');
   }
 
   setFeatureAsync(feature) {
@@ -61,10 +61,19 @@ export default class InfoModal extends ModalOverlay {
 
     function updateTableRows(response) {
       let tableRow = '';
+      let filterKey = '';
       JSON.stringify(response[0], function (key, value) {
         if (featureNameFilter.has(key)) return undefined;
         if (featureDateFilter.has(key)) {
           value = moment(value).isValid() ? moment(value).format('YYYY년 M월 D일') : value;
+        }
+        if ([...unitFilter.keys()].some(filter => {
+          if (key.includes(filter)) {
+            filterKey = filter;
+            return true;
+          } return false;
+        }) && value != null) {
+          value = `${value} ${unitFilter.get(filterKey)}`;
         }
         if (key === '') {
           tableRow = '';
@@ -81,7 +90,7 @@ export default class InfoModal extends ModalOverlay {
       if (that.getFeature('isClosed')) {
         that['.card-title span'].removeClass('label-success');
         that['.card-title span'].addClass('label-danger');
-        that['.card-title span'].html(`&nbsp;폐관`);
+        that['.card-title span'].html(`&nbsp;폐관•폐전`);
       } else {
         that['.card-title span'].removeClass('label-danger');
         that['.card-title span'].addClass('label-success');

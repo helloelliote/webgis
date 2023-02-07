@@ -124,6 +124,14 @@ export function createVectorStyle(feature) {
           }
           break;
         }
+        case '급수전': {
+          const metaState = feature.get('사용여부');
+          if (metaState === undefined || metaState === null) {
+            break;
+          }
+          pointStyle = pointStyleMap[`${layer}_${metaState}`];
+          break;
+        }
         default:
           break;
       }
