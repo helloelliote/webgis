@@ -1,10 +1,19 @@
+const fs = require('fs');
 const path = require('path');
+const _ = require('lodash');
 const nodeExternals = require('webpack-node-externals');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
+const packageJson = require('./package.json');
+const packageJsonTools = require('./tools/package.json');
 
 const args = getParameters();
+const filterProperties = new Set([
+  'description',
+  'devDependencies',
+  'homepage',
+  'license',
+]);
 
 function getParameters() {
   const possibleArgs = [
@@ -53,16 +62,21 @@ module.exports = {
         },
       ],
     }),
-    new MergeJsonWebpackPlugin({
-      files: [
-        './package.json',
-        './tools/package.json',
-      ],
-      output: {
-        fileName: 'package.json',
+    {
+      apply: (compiler) => {
+        compiler.hooks.compile.tap('package.json', () => {
+          const mergedJson = JSON.stringify(
+            _.merge(packageJson, packageJsonTools),
+            (k, v) => (v == null || filterProperties.has(k) ? undefined : v),
+            2,
+          );
+          fs.writeFileSync(
+            path.resolve(__dirname, '.build', 'package.json'),
+            mergedJson,
+          );
+        });
       },
-      space: 2,
-    }),
+    },
   ],
   cache: {
     type: 'filesystem',
