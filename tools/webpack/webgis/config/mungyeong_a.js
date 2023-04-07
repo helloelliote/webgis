@@ -35,6 +35,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_wtl_serv_ps',
       'viw_wtl_pres_ps',
       // 'viw_wtt_wutl_ht_re',
+      'city_planning_road',
       'viw_wtl_userlabel_ps',
     ],
     image: [
