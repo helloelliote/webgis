@@ -30,8 +30,8 @@ function onPointerMove(event) {
   this['layer'].getFeatures(pixel).then(features => {
     const feature = features.length ? features[0] : undefined;
     if (features.length) {
-      if (currentFeatureId !== feature.getId()) {
-        addressOverlay.setPositionAndContent(event.coordinate, feature.get('주기명'));
+      if (currentFeatureId !== feature.getId() && feature.get('주기명').trim().length > 0) {
+        addressOverlay.setPositionAndContent(event.coordinate, feature.get('주기명').trim());
         currentFeatureId = feature.getId();
       }
     } else {
