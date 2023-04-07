@@ -9,6 +9,7 @@ import {
   onClickTableCodeTop,
   onContextMenu,
   onImageLayerUpdate,
+  onPointerMove,
   onSelectQuickSearch,
   onSelectQuickSearchSingleResult,
   onWindowLoad,
@@ -43,6 +44,8 @@ const selectInteraction = new SelectInteraction({ map: map });
 map.addInteraction(selectInteraction);
 
 map.on('contextmenu', onContextMenu);
+
+// map.on('pointermove', onPointerMove.bind({ layer: vectorLayer.getLayer('viw_wtl_pipe_dir_ps'), map }));
 
 map.on('moveend', onMoveEnd);
 

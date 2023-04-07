@@ -20,6 +20,27 @@ function onContextMenu(event) {
     });
 }
 
+let currentFeatureId = null;
+
+function onPointerMove(event) {
+  if (event.dragging || this['layer'] === undefined) {
+    return;
+  }
+  const pixel = this['map'].getEventPixel(event.originalEvent);
+  this['layer'].getFeatures(pixel).then(features => {
+    const feature = features.length ? features[0] : undefined;
+    if (features.length) {
+      if (currentFeatureId !== feature.getId()) {
+        addressOverlay.setPositionAndContent(event.coordinate, feature.get('주기명'));
+        currentFeatureId = feature.getId();
+      }
+    } else {
+      $(addressOverlay.getElement()).popover('hide');
+      currentFeatureId = null;
+    }
+  });
+}
+
 function setCenterOnSelect(view, element) {
   const latLng = element.nextElementSibling.textContent.split(',');
   const coords = fromLonLat([latLng[0], latLng[1]], projection);
@@ -171,6 +192,7 @@ function onWindowLoad(event) {
 export {
   // onSingleClick,
   onContextMenu,
+  onPointerMove,
   onSelectQuickSearch,
   onSelectQuickSearchSingleResult,
   onClickSectionCode,
