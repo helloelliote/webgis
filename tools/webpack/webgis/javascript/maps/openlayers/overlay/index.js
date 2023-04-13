@@ -1,5 +1,5 @@
 export { default as FeatureOverlay } from './Feature';
-export { default as addressOverlay } from './address';
+export { addressOverlay, hoverOverlay } from './address';
 export {
   tooltip,
   tooltipOverlay,

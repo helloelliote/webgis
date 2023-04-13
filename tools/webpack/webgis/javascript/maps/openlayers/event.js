@@ -5,7 +5,7 @@ import { default as projection } from './projection';
 // import { searchCoordinateToAddress } from '../naver/geoCoder';
 import { coordinateToAddress } from '../kakao/geoCoder';
 import { map as kakaoMap, marker as kakaoMarker, viewSyncOptions } from '../kakao/map';
-import { addressOverlay } from './overlay';
+import { addressOverlay, hoverOverlay } from './overlay';
 import { selectInteraction } from './map';
 
 // function onSingleClick() {
@@ -31,11 +31,11 @@ function onPointerMove(event) {
     const feature = features.length ? features[0] : undefined;
     if (features.length) {
       if (currentFeatureId !== feature.getId() && feature.get('상세내용').trim().length > 0) {
-        addressOverlay.setPositionAndContent(event.coordinate, feature.get('상세내용').trim());
+        hoverOverlay.setPositionAndContent(event.coordinate, feature.get('상세내용').trim());
         currentFeatureId = feature.getId();
       }
     } else {
-      $(addressOverlay.getElement()).popover('hide');
+      $(hoverOverlay.getElement()).popover('hide');
       currentFeatureId = null;
     }
   });

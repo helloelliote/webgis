@@ -1,7 +1,7 @@
 import Map from 'ol/Map';
 import { Image, Vector } from './layer';
 import { onMoveEnd, view } from './view';
-import { addressOverlay } from './overlay';
+import { addressOverlay, hoverOverlay } from './overlay';
 import { default as defaultControls } from './control';
 import { default as defaultInteractions, SelectInteraction } from './Interaction';
 import {
@@ -38,6 +38,7 @@ const map = new Map({
 });
 
 map.addOverlay(addressOverlay);
+map.addOverlay(hoverOverlay);
 
 const selectInteraction = new SelectInteraction({ map: map });
 

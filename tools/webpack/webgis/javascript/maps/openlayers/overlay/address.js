@@ -29,6 +29,10 @@ const addressOverlay = new Overlay({
   element: document.getElementById('popup'),
 });
 
+const hoverOverlay = new Overlay({
+  element: document.getElementById('popup_hover'),
+});
+
 $(document).on('click', '.addr-clipboard', function (event) {
   event.stopPropagation();
   const el = document.createElement('textarea');
@@ -46,4 +50,4 @@ $(document).on('click', '.addr-clipboard', function (event) {
   });
 });
 
-export default addressOverlay;
+export { addressOverlay, hoverOverlay };
