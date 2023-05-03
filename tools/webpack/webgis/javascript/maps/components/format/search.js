@@ -163,7 +163,9 @@ function formatKeywordSearch(results) {
     sectionEl.append('장소');
     if (results['meta']['total_count'] > 0) {
       const items = results['documents'];
-      for (const item of items) {
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description
+      const sortedItems = items.filter(element => element['address_name'].includes(window.webgis.workspaceLocale));
+      for (const item of sortedItems) {
         const itemEl = _itemEl.cloneNode(true);
         itemEl.querySelector('a').classList.add('quick-search-result-address', 'quick-search-result-place');
         itemEl.querySelector('a').innerHTML = item['place_name'];
