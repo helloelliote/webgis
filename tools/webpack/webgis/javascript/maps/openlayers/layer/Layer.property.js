@@ -365,7 +365,7 @@ export default {
     ],
   },
   viw_wtl_flow_ps: {
-    label: null,
+    label: '유량계명칭',
     maxZ: 21,
     minZ: 9,
     propertyName: [
