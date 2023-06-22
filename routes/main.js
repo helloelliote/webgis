@@ -8,6 +8,7 @@ export default {
       role_ko: process.env.ROLE_KO,
       role_en: process.env.ROLE_EN,
       KAKAO_API_KEY: process.env.KAKAO_API_KEY,
+      workspace: process.env.WORKSPACE,
     });
   },
 };

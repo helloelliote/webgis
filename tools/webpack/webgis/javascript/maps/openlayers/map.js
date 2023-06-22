@@ -14,6 +14,7 @@ import {
   onSelectQuickSearchSingleResult,
   onWindowLoad,
 } from './event';
+import { FileExport } from './file';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers(window.webgis.table.vector);
@@ -43,6 +44,14 @@ map.addOverlay(hoverOverlay);
 const selectInteraction = new SelectInteraction({ map: map });
 
 map.addInteraction(selectInteraction);
+
+// const fileImport = new FileImport({ map, view });
+const fileExport = new FileExport({ map, view });
+
+document.getElementById('btn-dev-export')
+  .addEventListener('mousedown', async () => {
+    await fileExport.exportShapefile();
+  });
 
 map.on('contextmenu', onContextMenu);
 

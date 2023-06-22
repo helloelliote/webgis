@@ -117,11 +117,11 @@ function onClickTableCodeAside(event) {
   if (targetEl.id === 'n3a_a0010000') return;
 
   if (this.hasLayer(targetEl.id)) {
-    targetEl.classList.add('fa-times-circle', 'text-danger');
-    targetEl.classList.remove('fa-check-circle', 'text-primary');
+    targetEl.classList.add('fa-minus-square', 'text-danger');
+    targetEl.classList.remove('fa-check-square', 'text-primary');
   } else {
-    targetEl.classList.add('fa-check-circle', 'text-primary');
-    targetEl.classList.remove('fa-times-circle', 'text-danger');
+    targetEl.classList.add('fa-check-square', 'text-primary');
+    targetEl.classList.remove('fa-minus-square', 'text-danger');
   }
   this.toggleLayers([targetEl.id]);
 }
@@ -162,9 +162,9 @@ function onWindowLoad(event) {
   let menuLabelEl = menuNavEl.querySelectorAll('span.menu-label > i.ol-table-code-wtl');
   menuLabelEl.forEach(element => {
     if (this.hasLayer(element.id)) {
-      element.classList.add('fas', 'fa-check-circle', 'text-primary', 'icon-lg');
+      element.classList.add('fas', 'fa-check-square', 'text-primary');
     } else {
-      element.classList.add('fas', 'fa-times-circle', 'text-danger', 'icon-lg');
+      element.classList.add('fas', 'fa-minus-square', 'text-danger');
     }
   });
   let role = '상수'; // TODO: Add Role
