@@ -81,10 +81,38 @@ const unitFilter = new Map([
   ['펌프용량', 'kW'],
 ]);
 
+const fileNameFilter = new Map([
+  ['buld_mah', '건물'],
+  ['lake', '호수'],
+  ['road', '도로경계면'],
+  ['viw_wtl_cap_ps', '상수관말'],
+  ['viw_wtl_fire_ps', '소방시설'],
+  ['viw_wtl_flow_ps', '유량계'],
+  ['viw_wtl_manh_ps', '상수맨홀'],
+  ['viw_wtl_meta_ps', '급수전'],
+  ['viw_wtl_pipe_close_lm', '폐관'],
+  ['viw_wtl_pipe_dir_ps', '물방향'],
+  ['viw_wtl_pipe_lm', '상수관로'],
+  ['viw_wtl_pipe_lm_filter', '상수관로_필터'],
+  ['viw_wtl_pres_psMPoint', '가압장'],
+  ['viw_wtl_prme_ps', '수압측정'],
+  ['viw_wtl_puri_as', '정수장'],
+  ['viw_wtl_serv_ps', '배수지'],
+  ['viw_wtl_scvst_ps', '스케일부스터'],
+  ['viw_wtl_sply_ls', '급수관'],
+  ['viw_wtl_taper_ps', '편락관'],
+  ['viw_wtl_userlabel_ps', '사용자주기'],
+  ['viw_wtl_valv_block_ps', '경계변'],
+  ['viw_wtl_valv_pres_ps', '감압변'],
+  ['viw_wtl_valv_ps', '변류시설'],
+  ['viw_wtt_wutl_ht', '보수공사'],
+]);
+
 export {
   layerSelectFilter,
   featureNameFilter,
   featureDateFilter,
+  fileNameFilter,
   styleRotationFilter,
   styleDirectionFilter,
   unitFilter,

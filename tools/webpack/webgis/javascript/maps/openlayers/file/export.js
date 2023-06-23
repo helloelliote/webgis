@@ -1,4 +1,5 @@
 import { default as projection } from '../projection';
+import { fileNameFilter } from '../filter';
 import JSZip from 'jszip';
 
 export default class FileExport {
@@ -6,7 +7,7 @@ export default class FileExport {
   constructor(options = {}) {
     this._map = options['map'];
     this._view = options['view'];
-    this._layer = options['vectorLayer'];
+    this._vectorLayer = options['vectorLayer'];
 
     this._onClickElement = undefined;
     this._intervalId = undefined;
@@ -21,20 +22,33 @@ export default class FileExport {
       version: '2.0.0',
     };
 
-    document.querySelectorAll('.ol-table-code-export').forEach(element => {
+    document.querySelectorAll('.ol-table-code-export-wfs').forEach(element => {
       element.addEventListener('click', async event => {
         const target = event.target;
         this._onClickElement = target;
+        const fileName = target.getAttribute('data-target'); // 상수관로
         const typeName = target.getAttribute('id'); // yeongju_a:viw_wtl_pipe_lm
         const layerName = typeName.split(':')[1]; // viw_wtl_pipe_lm
-        const fileName = target.getAttribute('data-target'); // 상수관로
-        const hasFeature = this._layer.getLayer(layerName).getSource().getFeaturesInExtent(this.extent).length > 0;
+        const hasFeature = this._vectorLayer.getLayer(layerName).getSource().getFeaturesInExtent(this.extent).length > 0;
         if (!hasFeature) {
           $.notify({
-            message: `현재 화면 범위 내에는 "${fileName}" 이(가) 없습니다.`,
+            message: `현재 화면 범위 내에는 "${fileName}" 이(가) 없습니다.<br>일부 시설물은 지도를 확대 후 생성됩니다.`,
           }, { type: 'info' });
           return;
         }
+        target.classList.remove('text-success', 'text-warning');
+        target.classList.add('text-danger');
+        target.style.pointerEvents = 'none';
+        await this.exportShapefile(typeName, fileName);
+      });
+    });
+
+    document.querySelectorAll('.ol-table-code-export-wms').forEach(element => {
+      element.addEventListener('click', async event => {
+        const target = event.target;
+        this._onClickElement = target;
+        const fileName = target.getAttribute('data-target');
+        const typeName = target.getAttribute('id');
         target.classList.remove('text-success', 'text-warning');
         target.classList.add('text-danger');
         target.style.pointerEvents = 'none';
@@ -89,8 +103,10 @@ export default class FileExport {
         const newZip = new JSZip();
         // Define a function to rename the file
         const renameFile = async (oldFile) => {
+          const extensionIndex = oldFile.name.lastIndexOf('.');
+          const oldName = oldFile.name.substring(0, extensionIndex);
           // Define new name based on the old file's extension
-          let newName = fileName + oldFile.name.substring(oldFile.name.lastIndexOf('.'));
+          const newName = fileNameFilter.get(oldName) + oldFile.name.substring(extensionIndex);
           // Read the old file's content
           const content = await oldFile.async('arraybuffer');
           // Add the old file's content to the new file with the new name
