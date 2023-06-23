@@ -46,7 +46,7 @@ const selectInteraction = new SelectInteraction({ map: map });
 map.addInteraction(selectInteraction);
 
 // const fileImport = new FileImport({ map, view });
-const fileExport = new FileExport({ map, view });
+const fileExport = new FileExport({ map, view, vectorLayer });
 
 document.getElementById('btn-dev-export')
   .addEventListener('mousedown', async () => {
