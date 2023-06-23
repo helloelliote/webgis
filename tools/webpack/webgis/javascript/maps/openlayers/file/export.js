@@ -8,6 +8,7 @@ export default class FileExport {
     this._view = options['view'];
     this._layer = options['vectorLayer'];
 
+    this._onClickElement = undefined;
     this._intervalId = undefined;
 
     this._host = `${window.webgis.geoserverHost}/geoserver/${window.webgis.workspace}/ows`;
@@ -21,17 +22,22 @@ export default class FileExport {
     };
 
     document.querySelectorAll('.ol-table-code-export').forEach(element => {
-      element.addEventListener('mousedown', async event => {
-        const typeName = event.target.getAttribute('id'); // yeongju_a:viw_wtl_pipe_lm
+      element.addEventListener('click', async event => {
+        const target = event.target;
+        this._onClickElement = target;
+        const typeName = target.getAttribute('id'); // yeongju_a:viw_wtl_pipe_lm
         const layerName = typeName.split(':')[1]; // viw_wtl_pipe_lm
-        const fileName = event.target.getAttribute('data-target'); // 상수관로
-        const isFeatureVisible = this._layer.getLayer(layerName).getSource().getFeaturesInExtent(this.extent).length > 0;
-        if (!isFeatureVisible) {
+        const fileName = target.getAttribute('data-target'); // 상수관로
+        const hasFeature = this._layer.getLayer(layerName).getSource().getFeaturesInExtent(this.extent).length > 0;
+        if (!hasFeature) {
           $.notify({
             message: `현재 화면 범위 내에는 "${fileName}" 이(가) 없습니다.`,
           }, { type: 'info' });
           return;
         }
+        target.classList.remove('text-success', 'text-warning');
+        target.classList.add('text-danger');
+        target.style.pointerEvents = 'none';
         await this.exportShapefile(typeName, fileName);
       });
     });
@@ -115,7 +121,10 @@ export default class FileExport {
     } catch (error) {
       console.error(error);
     } finally {
-      // Clear the existing interval if there is one
+      const target = this._onClickElement;
+      target.classList.add('text-warning');
+      target.classList.remove('text-danger');
+      target.style.pointerEvents = 'auto';
       if (this._intervalId) clearInterval(this._intervalId);
       // Start a new interval
       this._intervalId = setInterval(() => this._view.dispatchEvent('change:center'), 500);
