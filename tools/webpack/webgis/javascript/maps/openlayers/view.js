@@ -29,6 +29,12 @@ document.getElementById('btn-map-hybrid')
 
 view.on('change:center', onChangeCenter);
 
+window.addEventListener('resize', event => {
+  event.preventDefault();
+  view.dispatchEvent('change:center');
+  map.relayout();
+}, { passive: true });
+
 function onChangeCenter() {
   coordinateToLatLng(view.getCenter(), projection.getCode())
     .then(function (latLng) {
