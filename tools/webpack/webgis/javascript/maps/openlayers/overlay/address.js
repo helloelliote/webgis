@@ -42,11 +42,11 @@ $(document).on('click', '.addr-clipboard', function (event) {
   el.style.left = '-9999px';
   document.body.appendChild(el);
   el.select();
-  document.execCommand('copy');
+  navigator.clipboard.writeText(el.value);
   document.body.removeChild(el);
   $(addressOverlay.getElement()).popover('hide');
   $.notify({
-    message: '선택한 주소가 클립보드에 저장되었습니다',
+    message: '선택한 주소(좌표)가 클립보드에 저장되었습니다',
   });
 });
 
