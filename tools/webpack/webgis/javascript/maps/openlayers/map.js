@@ -14,6 +14,11 @@ import {
   onSelectQuickSearchSingleResult,
   onWindowLoad,
 } from './event';
+import { clickCoordinate, onAddClickOverlay } from './click';
+import { DragRotateAndZoom, KeyboardPan, Modify, Select, Snap } from 'ol/interaction';
+import Collection from 'ol/Collection';
+import { isUndefined } from 'underscore';
+import Transform from 'ol-ext/interaction/Transform';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers(window.webgis.table.vector);
@@ -23,6 +28,10 @@ vectorLayer.toggleLayers(window.webgis.table.vector);
 
 const imageLayer = new Image();
 imageLayer.toggleLayers(window.webgis.table.image);
+
+const select = new Select({
+  wrapX: false,
+})
 
 const map = new Map({
   target: 'map-openlayers',
@@ -37,12 +46,68 @@ const map = new Map({
   moveTolerance: 20,
 });
 
+const toggleModifyButton = document.getElementById('btn-toggle-modify');
+let isModifyActive = true;
+
+const interaction = new Transform({
+  enableRotatedTransform: false,
+  hitTolerance: 2,
+  translateFeature: false,//편집모드 on,off
+  scale: true,//extend 기능 대각
+  rotate: true,//객체회전기능
+  selection: true,//편집모드시 편집할려는 객체에 마우스 모양변함
+  // keepAspectRatio: $("#keepAspectRatio").prop('checked') ? ol.events.condition.always : undefined,
+  keepRectangle: true,//가능한 사각형을 유지하게만듬
+  translate: true, // move기능
+  stretch: true,//extend 기능 상하좌우
+  // Get scale on points
+})
+
+document.getElementById("btn-toggle-modify").onclick = function () {
+  isModifyActive = !isModifyActive; // Toggle the modify active state
+
+  console.log("백터",vectorLayer);
+  let startangle = 0;
+  let startRadius = 10;
+  let d=[0,100];
+  function setHandleStyle(){}
+  if (isModifyActive) {
+    // modify = new Modify({
+    //   features: select.getFeatures(),
+    // });
+    setHandleStyle();
+    map.addInteraction(interaction);
+    map.removeInteraction(selectInteraction)
+    interaction.on('rotating', function (e){
+      console.log(e.feature);
+      console.log(`라디안: ${e.angle}`);
+      e.feature.set('방향각', (e.angle * (180 / Math.PI)).toFixed(2));//라디안 값을 60분법으로 전환
+    });
+    toggleModifyButton.textContent = '편집중';
+    const snap = new Snap({
+      source: vectorLayer.getLayer('viw_wtl_sply_ls').getSource(),
+      vertex: true,
+      edge: false,
+    });
+    map.addInteraction(snap);
+  } else {
+    map.removeInteraction(interaction);
+    map.addInteraction(selectInteraction)
+    toggleModifyButton.textContent = '편집off';
+    select.getFeatures().clear();
+  }
+};
+
 map.addOverlay(addressOverlay);
 map.addOverlay(hoverOverlay);
 
 const selectInteraction = new SelectInteraction({ map: map });
 
 map.addInteraction(selectInteraction);
+//클릭한 위치의 좌표를 가져오기위한 이벤트
+map.on('pointermove', clickCoordinate);
+//다중 피쳐 선택 이벤트
+selectInteraction.on('select', onAddClickOverlay);
 
 map.on('contextmenu', onContextMenu);
 

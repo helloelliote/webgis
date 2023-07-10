@@ -81,3 +81,70 @@
 .ol-tooltip-static:before {
   border-top-color: #FFCC33;
 }
+
+.ol-popup-custom {
+  position: fixed;
+  display: inline-block;
+  background-color: white;
+  padding: 0px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: auto;
+  height: auto;
+  min-width: 150px;
+  max-height: 100px;
+  z-index: 1000;
+  overflow: auto;
+  cursor: pointer;
+}
+.ol-popup-custom input[type=radio]{
+  display: none;
+}
+.ol-popup-custom input[type=radio]:checked + label{
+  background: #184DA0;
+  color: #fff;
+}
+
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  margin: 1px;
+  padding: 1px;
+  z-index: 1000;
+}
+
+.popup-select {
+  margin-top: 3px;
+  padding: 1px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 1px;
+  z-index: 1000;
+}
+.popup-select:hover{
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+.popup-select:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.popup-select option {
+  display: none;
+}
+
+.popup-form label {
+  display: inline-block;
+  font-weight: 595;
+  margin-bottom: 5px;
+  font-size: 13px !important;
+  font-family: "Noto Sans KR", "sans-serif";
+}
+.popup-form label:hover{
+  color: blue;
+  cursor: pointer;
+}
+

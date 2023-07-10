@@ -1,6 +1,8 @@
+import ol from 'ol'
+import {map} from "./map"
 import { mouseActionButton, singleClick } from 'ol/events/condition';
 import { Vector as VectorSource } from 'ol/source';
-import { defaults as defaultInteractions, Draw, MouseWheelZoom, Select } from 'ol/interaction';
+import { defaults as defaultInteractions, Draw, Interaction, MouseWheelZoom, Select } from 'ol/interaction';
 import MapError from '../Error';
 import {
   measureResultStyle,
@@ -64,7 +66,9 @@ export class SelectInteraction extends Select {
     }
 
     super({
+      wrapX: false,
       condition: singleClick,
+      multi: true,
       hitTolerance: 10,
       filter: function (feature, layer) {
         return layer ? layer.get('selectable') : false;
@@ -111,11 +115,7 @@ export class SelectInteraction extends Select {
     this.on('select', this.onSelectEvent);
   }
 
-  onSelectEvent(event) {
-    event.preventDefault();
-    this._overlay.setOverlay(null);
-    let feature = event.selected ? event.selected[0] : this.getFeatures().item(0);
-    if (!feature) return;
+  onSelectFeature(feature) {
     switch (feature.getGeometry().getType()) {
       case 'LineString':
       case 'MultiLineString': {
@@ -159,6 +159,14 @@ export class SelectInteraction extends Select {
         break;
       }
     }
+  }
+
+  onSelectEvent(event) {
+    event.preventDefault();
+    this._overlay.setOverlay(null);
+    let feature = event.selected ? event.selected[0] : this.getFeatures().item(0);
+    if (!feature) return;
+    this.onSelectFeature(feature);
   }
 
   addFeature(feature) {
