@@ -67,7 +67,7 @@ function onAddClickOverlay(event) {
         selectInteraction.getFeatures().clear();
         selectInteraction.getFeatures().push(newFeature);
         const selectzoom = view.getZoom();//선택했을때의 줌을 가져옴
-        console.log("현재줌",selectzoom,newFeature,value.fac)
+        console.log("현재줌",selectzoom,newFeature)
 
         view.fit(newFeature.getGeometry(), {
           padding: [50, 50, 50, 50],
@@ -75,7 +75,6 @@ function onAddClickOverlay(event) {
             const callBackZoom = view.getZoom();
             if (~~selectzoom === ~~callBackZoom) {
               view.setZoom(selectzoom);
-              document.getElementById('map').style.display = 'block';
             }
             console.log('콜백줌', view.getZoom());
             selectInteraction.onSelectFeature(newFeature);
