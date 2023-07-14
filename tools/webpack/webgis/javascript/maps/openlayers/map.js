@@ -48,10 +48,10 @@ map.addInteraction(selectInteraction);
 // const fileImport = new FileImport({ map, view });
 const fileExport = new FileExport({ map, view, vectorLayer });
 
-document.getElementById('btn-dev-export')
-  .addEventListener('mousedown', async () => {
-    await fileExport.exportShapefile();
-  });
+// document.getElementById('btn-dev-export')
+//   .addEventListener('mousedown', async () => {
+//     await fileExport.exportShapefile();
+//   });
 
 map.on('contextmenu', onContextMenu);
 
