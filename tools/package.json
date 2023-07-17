@@ -112,5 +112,5 @@
   "license": "ISC",
   "homepage": "https://keenthemes.com/",
   "private": true,
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.6.1"
 }
