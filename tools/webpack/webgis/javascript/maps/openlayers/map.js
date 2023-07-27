@@ -9,12 +9,12 @@ import {
   onClickTableCodeTop,
   onContextMenu,
   onImageLayerUpdate,
-  onPointerMove,
   onSelectQuickSearch,
   onSelectQuickSearchSingleResult,
   onWindowLoad,
 } from './event';
 import { FileExport } from './file';
+import { default as dev } from './_dev_';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers(window.webgis.table.vector);
@@ -94,6 +94,8 @@ document.querySelectorAll('.ol-table-code-geo-top').forEach(element => {
 
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)
 window.addEventListener('load', onWindowLoad.bind(vectorLayer), false);
+
+dev.isDevModeEnabled(true);
 
 export {
   map,

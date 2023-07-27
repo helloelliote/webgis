@@ -124,6 +124,45 @@
 
         <!--begin::Toggle-->
         <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-warning btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg menu-dev"
+                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                data-offset="0,10">
+          개발
+        </button>
+
+        <!--end::Toggle-->
+
+        <!--begin::Dropdown-->
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-anim-up dropdown-menu-sm">
+
+          <button type="button"
+                  class="btn btn-sm font-weight-bolder btn-hover-text-primary px-2 py-2 font-size-lg m-2"
+                  id="btn-dev-export">
+            내보내기
+          </button>
+
+          <button type="button"
+                  class="btn btn-sm font-weight-bolder btn-hover-text-primary px-2 py-2 font-size-lg m-2"
+                  id="btn-dev-import">
+            불러오기
+          </button>
+
+          <button type="button"
+                  class="btn btn-sm font-weight-bolder btn-hover-text-primary px-2 py-2 font-size-lg m-2"
+                  id="btn-dev-edit">
+            편집
+          </button>
+
+          <!--[html-partial:end:{"id":"demo1/dist/inc/view/partials/content/dropdowns/dropdown-4","page":"index"}]/-->
+        </div>
+
+        <!--end::Dropdown-->
+      </div>
+
+      <div class="topbar-item">
+
+        <!--begin::Toggle-->
+        <button type="button"
                 class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
                 id="btn-map-hybrid">
           일반 지도
