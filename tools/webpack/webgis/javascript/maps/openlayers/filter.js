@@ -65,6 +65,7 @@ const styleRotationFilter = new Set([
   '펌프시설',
   '하수펌프장',
   '합류맨홀',
+  '이토변',
 ]);
 
 const styleDirectionFilter = new Set([

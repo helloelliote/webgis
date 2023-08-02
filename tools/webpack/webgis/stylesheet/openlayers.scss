@@ -40,3 +40,43 @@
     background-color: rgba(0, 120, 215, .5);
   }
 }
+
+.ol-popup.modifytouch {
+  background-color: transparent;
+  min-width: 0px;
+  min-height: 0px;
+  width: auto;
+  height: auto;
+  user-select: none;
+  padding: 0px;
+  filter: none;
+  border-radius: 0px;
+  bottom: auto;
+  margin: 0px;
+}
+.ol-popup.modifytouch:before {
+  border: hidden;
+}
+.ol-popup.modifytouch:after {
+  border: hidden;
+}
+.ol-popup.modifytouch .ol-popup-content {
+  padding: 0 0.25em;
+  font-size: 0.85em;
+  white-space: nowrap;
+  top: -5px;
+  position: relative;
+  background-color: grey;
+  //cursor: pointer;
+}
+.ol-popup.modifytouch .ol-popup-content a {
+  text-decoration: none;
+}
+.ol-popup.modifytouch a:before {
+  content: "\274C";
+  margin-right:.2em;
+}
+
+.ol-popup .closeBox {
+  display: none;
+}

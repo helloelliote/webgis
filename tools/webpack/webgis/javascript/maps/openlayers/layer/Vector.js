@@ -25,7 +25,7 @@ export default class Vector extends Layer {
   }
 }
 
-function createVectorLayer(key) {
+export function createVectorLayer(key) {
   const vectorLayer = new VectorLayer({
     maxZoom: property[key].maxZ,
     minZoom: property[key].minZ,
@@ -38,7 +38,7 @@ function createVectorLayer(key) {
   return vectorLayer;
 }
 
-function createVectorSource(key) {
+export function createVectorSource(key) {
   return new VectorSource({
     format: geoJson,
     overlaps: false,

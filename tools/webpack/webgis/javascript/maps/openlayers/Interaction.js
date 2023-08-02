@@ -1,5 +1,3 @@
-import ol from 'ol'
-import {map} from "./map"
 import { mouseActionButton, singleClick } from 'ol/events/condition';
 import { Vector as VectorSource } from 'ol/source';
 import { defaults as defaultInteractions, Draw, Interaction, MouseWheelZoom, Select } from 'ol/interaction';
@@ -7,7 +5,7 @@ import MapError from '../Error';
 import {
   measureResultStyle,
   measureStyle,
-  selectLineStyle,
+  selectLineStyle, selectLineStyles,
   selectPointSpiStyle,
   selectPointStyle,
   selectPolygonStyle,
@@ -28,7 +26,7 @@ import {
  */
 import { Feature } from 'ol';
 import { createDefaultStyle } from 'ol/style/Style';
-import { createVectorSpiStyle, createVectorStyle } from './layer';
+import { createVectorSpiStyle, createVectorStyle, Vector } from './layer';
 import { InfoModal } from './modal';
 /**
  * For ol/Interaction/Draw
@@ -36,6 +34,7 @@ import { InfoModal } from './modal';
 import { Vector as VectorLayer } from 'ol/layer';
 import { getArea, getLength } from 'ol/sphere';
 import { unByKey } from 'ol/Observable';
+import Transform from 'ol-ext/interaction/Transform';
 
 export default defaultInteractions({
   altShiftDragRotate: false,
@@ -57,7 +56,7 @@ export default defaultInteractions({
     useAnchor: true,
   }),
 ]);
-
+const toggleModifyButton = document.getElementById('btn-toggle-modify')
 export class SelectInteraction extends Select {
 
   constructor(options) {
@@ -77,7 +76,12 @@ export class SelectInteraction extends Select {
         switch (feature.getGeometry().getType()) {
           case 'LineString':
           case 'MultiLineString': {
-            return selectLineStyle;
+            if (toggleModifyButton.onclick) {
+              // console.log("why", toggleModifyButton);
+              return selectLineStyle;
+            } else {
+              return selectLineStyles
+            }
           }
           case 'Point':
           case 'MultiPoint': {
@@ -96,7 +100,6 @@ export class SelectInteraction extends Select {
         }
       },
     });
-
     this._overlay = new FeatureOverlay({
       source: new VectorSource(),
       map: options['map'],
@@ -318,3 +321,16 @@ function formatArea(polygon) {
   let area = Math.round(getArea(polygon) * 100) / 100;
   return `${area} m<sup>2</sup>`;
 }
+
+export const TransformInteraction = new Transform({
+  enableRotatedTransform: false,
+  hitTolerance: 20,
+  translateFeature: false,//편집모드 on,off
+  scale: true,//extend 기능 대각
+  rotate: true,//객체회전기능
+  selection: true,//편집모드시 편집할려는 객체에 마우스 모양변함
+  keepRectangle: true,//가능한 사각형을 유지하게만듬
+  translate: true, // move기능
+  stretch: true,//extend 기능 상하좌우
+  // Get scale on points
+})

@@ -7,7 +7,7 @@ const selectPointStyle = new Style({
       color: '#ff1744',
       width: 4,
     }),
-    radius: 25,
+    radius: 30,
   }),
 });
 

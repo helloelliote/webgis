@@ -1,12 +1,40 @@
 import { Circle, Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import { default as StyleMap } from './Style';
+import { MultiPoint } from 'ol/geom';
 
-const selectLineStyle = new Style({
+//선택시 지정되는 라인 스타일
+const selectLineStyle = [
+  new Style({
+    stroke: new Stroke({
+      color: '#f00',
+      width: 4,
+    }),
+  }),
+  new Style({
+    image: new Circle({
+      radius: 5,
+      fill: new Fill({
+        color: '#808080',
+      }),
+      stroke: new Stroke({
+        color: "#ff0",
+        width: 1
+      })
+    }),
+    geometry: function (feature) {
+      return new MultiPoint(feature.getGeometry().getCoordinates());
+    },
+  }),
+];
+
+export const selectLineStyles = [
+  new Style({
   stroke: new Stroke({
     color: '#f00',
-    width: 4.5,
+    width: 4,
   }),
-});
+})
+];
 
 const closedPipeStyle = new Style({
   stroke: new Stroke({

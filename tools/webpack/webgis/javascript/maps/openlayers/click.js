@@ -1,7 +1,8 @@
 import { map as olMap, selectInteraction } from './map';
 import { Overlay } from 'ol';
 import { view } from '../openlayers/view';
-import { Modify, Select } from 'ol/interaction';
+import { Modify, Select, Snap } from 'ol/interaction';
+import { Vector } from '@webgis/javascript/maps/openlayers/layer';
 //Feature가 들어올 빈 array
 const selected = [];
 let overlay;
@@ -12,12 +13,9 @@ let currentMouseCoordinates;
 function clickCoordinate(event) {
   currentMouseCoordinates = event.coordinate;
 }
-
 function onAddClickOverlay(event) {
   selectInteraction.set('multi', false, true);
-  // console.log(selectInteraction.setProperties())
   const newcollection = selectInteraction.getFeatures(); // select 이벤트로 모든 feautre들을 불러옴
-  console.log('step1', newcollection, view.getZoom());
 
   //불러온 피쳐들의 id,정보 들을 추출함
   const newcollection2 = newcollection.getArray().map(f => {
@@ -27,7 +25,6 @@ function onAddClickOverlay(event) {
     const featureArray = f;
     return { value, id, featureArray, fac };
   });
-  console.log('step2', newcollection2);
 
   //추출한 feature들의 좌표정보를 빈array를 만듬
   const coordinates = [];
@@ -36,7 +33,6 @@ function onAddClickOverlay(event) {
     coordinates.push(coordinate);
   });
 
-  console.log('확인', newcollection2.length, newcollection);
   selected.push(newcollection); //추출한 feature들의 좌표정보를 빈array에 넣어줌
 
   if (overlay) {
@@ -67,7 +63,6 @@ function onAddClickOverlay(event) {
         selectInteraction.getFeatures().clear();
         selectInteraction.getFeatures().push(newFeature);
         const selectzoom = view.getZoom();//선택했을때의 줌을 가져옴
-        console.log("현재줌",selectzoom,newFeature)
 
         view.fit(newFeature.getGeometry(), {
           padding: [50, 50, 50, 50],
@@ -76,13 +71,11 @@ function onAddClickOverlay(event) {
             if (~~selectzoom === ~~callBackZoom) {
               view.setZoom(selectzoom);
             }
-            console.log('콜백줌', view.getZoom());
             selectInteraction.onSelectFeature(newFeature);
             olMap.removeOverlay(overlay)
           },
         });
-        console.log('뉴피쳐:', newFeature, selectInteraction);
-        console.log('Selected option:', value, selectInteraction);
+        console.log('뉴피쳐:', newFeature, selectInteraction.getLayer(value.featureArray).get('레이어'));
       } else {
         console.error('Feature not found with ID:', value.id);
       }
@@ -108,11 +101,10 @@ function onAddClickOverlay(event) {
     stopEvent: true, // Allow events to propagate to the map
   });
   //feature의 개수가 1개 이상이고 급수전 이 나타나는 zoom레벨부터 overlay를 생성.
-  if (coordinates.length > 1 && view.getZoom() >= 14.3) {
+  if (coordinates.length > 1 && view.getZoom() >= 12.3) {
     overlay.setPosition(currentMouseCoordinates);//오버레이의 좌표를 지정
     olMap.addOverlay(overlay);
   }
-  console.log("좌표:",coordinates,currentMouseCoordinates)
 
 }
 

@@ -37,7 +37,6 @@ function onChangeCenter() {
 }
 
 function onMoveEnd(event) {
-  event.preventDefault();
   if (~~view.getZoom() !== currentZoom) {
     let newZoom = ~~view.getZoom();
     if (newZoom <= max) {
@@ -45,9 +44,6 @@ function onMoveEnd(event) {
         // case 5:
         //   _toggleOverlay(null);
         case 14:
-          if (mapContainer.style.display !== 'block') {
-            mapContainer.style.display = 'block';
-          }
         // eslint-disable-next-line no-fallthrough
         case 13:
         case 12:
@@ -57,6 +53,9 @@ function onMoveEnd(event) {
         case 8:
         case 7:
         case 6: {
+          if (mapContainer.style.display !== 'block') {
+            mapContainer.style.display = 'block';
+          }
           view.setZoom(newZoom + decimal);
           map.setZoom(coefficient * newZoom + delta);
           break;

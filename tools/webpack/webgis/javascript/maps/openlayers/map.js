@@ -3,22 +3,20 @@ import { Image, Vector } from './layer';
 import { onMoveEnd, view } from './view';
 import { addressOverlay, hoverOverlay } from './overlay';
 import { default as defaultControls } from './control';
-import { default as defaultInteractions, SelectInteraction } from './Interaction';
+import { default as defaultInteractions, SelectInteraction, TransformInteraction } from './Interaction';
 import {
   onClickTableCodeAside,
   onClickTableCodeTop,
   onContextMenu,
   onImageLayerUpdate,
-  onPointerMove,
   onSelectQuickSearch,
   onSelectQuickSearchSingleResult,
   onWindowLoad,
 } from './event';
 import { clickCoordinate, onAddClickOverlay } from './click';
-import { DragRotateAndZoom, KeyboardPan, Modify, Select, Snap } from 'ol/interaction';
-import Collection from 'ol/Collection';
+import { DragRotateAndZoom, Snap } from 'ol/interaction';
 import { isUndefined } from 'underscore';
-import Transform from 'ol-ext/interaction/Transform';
+import ModifyTouch from 'ol-ext/interaction/ModifyTouch';
 
 const vectorLayer = new Vector();
 vectorLayer.toggleLayers(window.webgis.table.vector);
@@ -28,10 +26,6 @@ vectorLayer.toggleLayers(window.webgis.table.vector);
 
 const imageLayer = new Image();
 imageLayer.toggleLayers(window.webgis.table.image);
-
-const select = new Select({
-  wrapX: false,
-})
 
 const map = new Map({
   target: 'map-openlayers',
@@ -46,64 +40,90 @@ const map = new Map({
   moveTolerance: 20,
 });
 
-const toggleModifyButton = document.getElementById('btn-toggle-modify');
-let isModifyActive = true;
+const selectInteraction = new SelectInteraction({
+  map: map ,
+});
+map.addInteraction(selectInteraction);
 
-const interaction = new Transform({
-  enableRotatedTransform: false,
-  hitTolerance: 2,
-  translateFeature: false,//편집모드 on,off
-  scale: true,//extend 기능 대각
-  rotate: true,//객체회전기능
-  selection: true,//편집모드시 편집할려는 객체에 마우스 모양변함
-  // keepAspectRatio: $("#keepAspectRatio").prop('checked') ? ol.events.condition.always : undefined,
-  keepRectangle: true,//가능한 사각형을 유지하게만듬
-  translate: true, // move기능
-  stretch: true,//extend 기능 상하좌우
-  // Get scale on points
-})
+const toggleModifyButton = document.getElementById('btn-toggle-modify');
+const revert = document.getElementById('btn-back-modify');
+let isModifyActive = false;
+let modify;
+let originalGeometries = {};
+
+selectInteraction.on('select', (event) => {
+  // Store the original geometries when a feature is selected
+  event.selected.forEach((feature) => {
+    originalGeometries[feature.getId()] = feature.getGeometry().clone();
+  });
+});
+
+const obj1 = {
+  '가정급수관': vectorLayer.getLayer('viw_wtl_pipe_lm').getSource(),
+  '급수전': vectorLayer.getLayer('viw_wtl_sply_ls').getSource()
+}
 
 document.getElementById("btn-toggle-modify").onclick = function () {
-  isModifyActive = !isModifyActive; // Toggle the modify active state
-
-  console.log("백터",vectorLayer);
-  let startangle = 0;
-  let startRadius = 10;
-  let d=[0,100];
-  function setHandleStyle(){}
+  isModifyActive = !isModifyActive; // Toggle the modify active state //편집모드버튼 on,off
   if (isModifyActive) {
-    // modify = new Modify({
-    //   features: select.getFeatures(),
-    // });
-    setHandleStyle();
-    map.addInteraction(interaction);
-    map.removeInteraction(selectInteraction)
-    interaction.on('rotating', function (e){
-      console.log(e.feature);
+    // map.removeInteraction(selectInteraction)
+    TransformInteraction.on('rotating', function (e){
       console.log(`라디안: ${e.angle}`);
       e.feature.set('방향각', (e.angle * (180 / Math.PI)).toFixed(2));//라디안 값을 60분법으로 전환
     });
-    toggleModifyButton.textContent = '편집중';
+    // TransformInteraction.on('select',function (e){
+    //   e.feature
+    // })
+
+    const 그때그때_다른_지금_선택한_레이어 = selectInteraction["지금 선택한 레이어 코드"];
+
+    toggleModifyButton.textContent = 'on';
     const snap = new Snap({
+      source: vectorLayer.getLayer('viw_wtl_pipe_lm').getSource(),
+      vertex: true,
+      edge: true,
+    });
+    const snap2 = new Snap({
       source: vectorLayer.getLayer('viw_wtl_sply_ls').getSource(),
       vertex: true,
-      edge: false,
+      edge: true,
     });
-    map.addInteraction(snap);
+    const snap3 = new Snap({
+      source: vectorLayer.getLayer('viw_wtl_meta_ps').getSource(),
+      vertex: true,
+      edge: true,
+    });
+    modify = new ModifyTouch({
+      features:selectInteraction.getFeatures(),
+      title: '점 제거',
+  })
+    revert.addEventListener('click', () => {
+      selectInteraction.getFeatures().forEach((feature) => {
+        const originalGeometry = originalGeometries[feature.getId()];
+        if (originalGeometry&&isModifyActive) {
+          feature.setGeometry(originalGeometry.clone());
+        }
+        console.log("실행취소",originalGeometry);
+      });
+    });
+    map.addInteraction(modify),
+    map.addInteraction(TransformInteraction);
+    map.addInteraction(snap)
+    map.addInteraction(snap2)
+    map.addInteraction(snap3)
   } else {
-    map.removeInteraction(interaction);
-    map.addInteraction(selectInteraction)
-    toggleModifyButton.textContent = '편집off';
-    select.getFeatures().clear();
+    map.removeInteraction(TransformInteraction);
+    if (modify) {
+      // modify.setActive(false)
+      map.removeInteraction(modify);
+      // modify = undefined
+    }
+    toggleModifyButton.textContent = 'off';
   }
 };
-
 map.addOverlay(addressOverlay);
 map.addOverlay(hoverOverlay);
 
-const selectInteraction = new SelectInteraction({ map: map });
-
-map.addInteraction(selectInteraction);
 //클릭한 위치의 좌표를 가져오기위한 이벤트
 map.on('pointermove', clickCoordinate);
 //다중 피쳐 선택 이벤트
@@ -114,8 +134,6 @@ map.on('contextmenu', onContextMenu);
 // map.on('pointermove', onPointerMove.bind({ layer: vectorLayer.getLayer('viw_wtl_pipe_dir_ps'), map }));
 
 map.on('moveend', onMoveEnd);
-
-// map.on('singleclick', onSingleClick);
 
 view.on('change:resolution', onImageLayerUpdate.bind({ layer: imageLayer, view }));
 
@@ -155,3 +173,5 @@ export {
   map,
   selectInteraction,
 };
+
+
