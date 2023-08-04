@@ -36,6 +36,7 @@
     "es6-promise": "^4.2.8",
     "es6-promise-polyfill": "^1.2.0",
     "es6-shim": "^0.35.5",
+    "fast-xml-parser": "^4.2.6",
     "flot": "^3.2.2",
     "inputmask": "^4.0.6",
     "ion-rangeslider": "^2.3.1",

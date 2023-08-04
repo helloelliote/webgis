@@ -3125,6 +3125,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-xml-parser@npm:^4.2.6":
+  version: 4.2.6
+  resolution: "fast-xml-parser@npm:4.2.6"
+  dependencies:
+    strnum: ^1.0.5
+  bin:
+    fxparser: src/cli/cli.js
+  checksum: 1628e4b2c5ae01fe35eb920f09c6def7e29fd455f307fc44c3372c78114504643f34b28e87c13a4f1657c10498dbb6729a341507044dc7cba498e457e8fe2573
+  languageName: node
+  linkType: hard
+
 "fastest-levenshtein@npm:^1.0.12":
   version: 1.0.14
   resolution: "fastest-levenshtein@npm:1.0.14"
@@ -4602,6 +4613,7 @@ __metadata:
     es6-promise-polyfill: ^1.2.0
     es6-shim: ^0.35.5
     extract-loader: ^5.1.0
+    fast-xml-parser: ^4.2.6
     file-loader: ^6.2.0
     flot: ^3.2.2
     glob: ^7.2.0
@@ -7081,6 +7093,13 @@ __metadata:
   version: 2.0.1
   resolution: "strip-json-comments@npm:2.0.1"
   checksum: 1074ccb63270d32ca28edfb0a281c96b94dc679077828135141f27d52a5a398ef5e78bcf22809d23cadc2b81dfbe345eb5fd8699b385c8b1128907dec4a7d1e1
+  languageName: node
+  linkType: hard
+
+"strnum@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "strnum@npm:1.0.5"
+  checksum: 651b2031db5da1bf4a77fdd2f116a8ac8055157c5420f5569f64879133825915ad461513e7202a16d7fec63c54fd822410d0962f8ca12385c4334891b9ae6dd2
   languageName: node
   linkType: hard
 
