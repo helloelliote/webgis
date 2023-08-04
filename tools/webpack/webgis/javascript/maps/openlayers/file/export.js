@@ -23,6 +23,7 @@ export default class FileExport {
     };
 
     document.querySelectorAll('.ol-table-code-export-wfs').forEach(element => {
+      element.parentElement.setAttribute('hidden', '');
       element.addEventListener('click', async event => {
         const target = event.target;
         this._onClickElement = target;
@@ -44,6 +45,7 @@ export default class FileExport {
     });
 
     document.querySelectorAll('.ol-table-code-export-wms').forEach(element => {
+      element.parentElement.setAttribute('hidden', '');
       element.addEventListener('click', async event => {
         const target = event.target;
         this._onClickElement = target;
@@ -54,6 +56,10 @@ export default class FileExport {
         target.style.pointerEvents = 'none';
         await this.exportShapefile(typeName, fileName);
       });
+    });
+
+    document.querySelectorAll('.ol-table-code-stats').forEach(element => {
+      element.parentElement.setAttribute('hidden', '');
     });
   }
 
