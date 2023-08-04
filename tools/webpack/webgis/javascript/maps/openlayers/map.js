@@ -93,6 +93,11 @@ document.getElementById("btn-toggle-modify").onclick = function () {
       vertex: true,
       edge: true,
     });
+    const snap4 = new Snap({
+      source: vectorLayer.getLayer('viw_wtl_pipe_close_lm').getSource(),
+      vertex: true,
+      edge: true,
+    });
     modify = new ModifyTouch({
       features:selectInteraction.getFeatures(),
       title: '점 제거',
@@ -111,6 +116,7 @@ document.getElementById("btn-toggle-modify").onclick = function () {
     map.addInteraction(snap)
     map.addInteraction(snap2)
     map.addInteraction(snap3)
+    map.addInteraction(snap4)
   } else {
     map.removeInteraction(TransformInteraction);
     if (modify) {
