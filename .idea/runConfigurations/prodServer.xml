@@ -6,7 +6,7 @@
       <script value="prodServer" />
     </scripts>
     <node-interpreter value="project" />
-    <package-manager value="C:\Dev\webgis3\programs\web\.yarn\releases\yarn-3.3.0.cjs" />
+    <package-manager value="yarn" />
     <envs />
     <method v="2" />
   </configuration>
