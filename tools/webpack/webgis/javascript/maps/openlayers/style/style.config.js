@@ -605,6 +605,20 @@ export default {
         width: null,
       },
     },
+    '정수장': {
+      image: {
+        opacity: 1,
+        scale: 1,
+        src: 'SB210_2',
+      },
+      text: {
+        color: '#fff',
+        font: '1rem 맑은 고딕',
+        offsetY: 22.5,
+        stroke: '#e65100',
+        width: 3,
+      },
+    },
     '정화조': {
       image: {
         opacity: 1,
