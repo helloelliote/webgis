@@ -29,6 +29,7 @@ const globalOptions = Object.assign(defaultOptions, {
       // 'viw_wtl_scvst_ps',
       // 'viw_wtl_manh_ps',
       'viw_wtl_meta_ps',
+      'viw_wtl_gain_ps',
       'viw_wtl_flow_ps',
       'viw_wtl_fire_ps',
       'viw_wtl_valv_ps',

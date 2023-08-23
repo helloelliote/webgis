@@ -609,7 +609,7 @@ export default {
       image: {
         opacity: 1,
         scale: 1,
-        src: 'SB210_2',
+        src: 'SA113',
       },
       text: {
         color: '#fff',
