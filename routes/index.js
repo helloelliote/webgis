@@ -46,6 +46,8 @@ export default function (router, passport) {
   router.get('/data/storage/download', data.dataStorageDownloadGet, onError);
   router.post('/data/storage/upload', data.dataStorageUploadPost, onError);
 
+  router.post('/wtl/dev/edit', wtl.devTest, onError);
+
   function onError(err, req, res, next) {
     console.error(err.stack);
     console.error(`[REQUEST QUERY]: ${JSON.stringify(req.query, null, 2)}`);

@@ -76,6 +76,18 @@ function onAddClickOverlay(event) {
           },
         });
         console.log('뉴피쳐:', newFeature, selectInteraction.getLayer(value.featureArray).get('레이어'));
+        fetch(`${window.webgis.role}/dev/edit`, {
+          method: 'POST',
+          body: JSON.stringify({ name: newFeature.get('레이어') }),
+          headers: {
+            'CSRF-Token': $('meta[name=\'csrf-token\']').attr('content'),
+            'Content-Type': 'application/json',
+          },
+        }).then(res =>
+           res.json()
+        ).then(json => {
+          console.log(json);
+        });
       } else {
         console.error('Feature not found with ID:', value.id);
       }

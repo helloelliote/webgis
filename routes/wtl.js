@@ -5,6 +5,17 @@ import moment from 'moment';
 moment.locale('ko');
 
 export default {
+  devTest(req, res, next) {
+    const name = req.body['name'];
+    // language=PostgreSQL
+    postgresql.executeQuery(
+      `CALL pn_test($1, NULL);`,
+      [name],
+    ).then(result => {
+      res.status(200).json(result);
+    }).catch(next);
+  },
+
   search(req, res, next) {
     postgresql.executeQuery(
       `SELECT *
