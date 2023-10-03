@@ -82,7 +82,7 @@
     "merge-stream": "^2.0.0",
     "mini-css-extract-plugin": "^2.4.5",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
-    "postcss": "^8.4.5",
+    "postcss": "^8.4.31",
     "postcss-loader": "^6.2.1",
     "pretty": "^2.0.0",
     "replace-in-file-webpack-plugin": "^1.0.6",
