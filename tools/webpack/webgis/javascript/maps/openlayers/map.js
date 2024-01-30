@@ -95,7 +95,7 @@ document.querySelectorAll('.ol-table-code-geo-top').forEach(element => {
 // Fired when the entire page loads, including its content (images, CSS, scripts, etc.)
 window.addEventListener('load', onWindowLoad.bind(vectorLayer), false);
 
-dev.isDevModeEnabled(false, { map, view, vectorLayer, imageLayer, selectInteraction });
+// dev.isDevModeEnabled(false, { map, view, vectorLayer, imageLayer, selectInteraction });
 
 export {
   map,

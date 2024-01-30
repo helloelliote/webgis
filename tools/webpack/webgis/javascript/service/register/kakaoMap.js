@@ -62,13 +62,13 @@ function onChangeLocation(latLng) {
   marker.setVisible(true);
   latLngToAddress(latLng).then(function (response) {
     let address = response['address'];
-    let road = response['road_address'];
-    let jibun = address['address_name'];
+    let road = address['road_address'];
+    let jibun = address['address'];
     $('#service_register_form input[name="apm_adr_road"]')
       .val(road !== null ? road['address_name'] : ' ')
       .change();
     $('#service_register_form input[name="apm_adr_jibun"]')
-      .val(jibun !== '' ? jibun : ' ')
+      .val(jibun !== '' ? jibun['address_name'] : ' ')
       .change();
 
     $('#service_register_form input[name="apl_hjd"]')
