@@ -72,10 +72,10 @@ function onChangeLocation(latLng) {
       .change();
 
     $('#service_register_form input[name="apl_hjd"]')
-      .val(null);
+      .val('');
 
     $('#service_register_form input[name="apl_adr"]')
-      .val(address['main_address_no'] + (address['sub_address_no'] === '' ? '' : '-' + address['sub_address_no']));
+      .val(jibun['main_address_no'] + (jibun['sub_address_no'] === '' ? '' : '-' + jibun['sub_address_no']));
 
     $('#service_register_form input[name="x"]')
       .val(latLng.getLng());
