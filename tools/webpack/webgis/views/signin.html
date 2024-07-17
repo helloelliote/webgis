@@ -10,7 +10,7 @@
       <div class="login-form text-center p-7 position-relative overflow-hidden">
         <!--begin::Login Header-->
         <div class="d-flex flex-center mb-15">
-          <a href="#">
+          <a href="/#">
             <img src="assets/media/logos/logo-yeongju-login.png" class="max-h-75px" alt=""/>
           </a>
         </div>
@@ -36,7 +36,7 @@
                   <input type="checkbox" name="remember"/>
                   <span></span> 아이디 저장</label>
               </div>
-<!--              <a href="javascript:;" id="kt_login_forgot" class="text-muted text-hover-primary">비밀번호 변경</a>-->
+              <a href="javascript:;" id="kt_login_forgot" class="text-muted text-hover-primary">비밀번호 변경</a>
             </div>
             <button id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">로그인
             </button>
@@ -72,8 +72,15 @@
 
             <div class="form-group row">
               <div class="col-lg-12">
-                <div class="form-group mb-2">
-                  <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="아이디"
+                <div class="form-group mb-2" style="display: flex;
+                          margin-top: 1.5rem;
+                          background-color: rgba(235, 237, 242, 0.8);
+                          border-radius: 4px 0 0 4px;
+                        ">
+                  <button type="button" class="btn" id="kt_login_signup_check_duplicate" style="position: relative; white-space: nowrap">
+                    중복확인
+                  </button>
+                  <input class="form-control h-auto form-control-solid py-4 px-8" id="kt-login__signup-loginname" type="text" placeholder="아이디 입력 (4~20자리)"
                          name="LoginNameNew" autocomplete="off"/>
                 </div>
               </div>
@@ -82,7 +89,7 @@
             <div class="form-group row">
               <div class="col-lg-6">
                 <div class="form-group mb-2">
-                  <input class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="비밀번호"
+                  <input class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="비밀번호 (9~20자리)"
                          name="LoginKeyNew"/>
                 </div>
               </div>
@@ -92,6 +99,19 @@
                          placeholder="비밀번호 확인" name="rLoginKeyNew"/>
                 </div>
               </div>
+            </div>
+            <div class="mb-3">
+<!--              <label for="EmailNew">이메일</label>-->
+              <div class="input-group">
+                <input
+                    type="email"
+                    class="form-control"
+                    name="EmailNew"
+                    placeholder="이메일 주소 입력"
+                />
+              </div>
+<!--              <div class="form-text text-muted">-->
+<!--              </div>-->
             </div>
 
             <div class="form-group row">
@@ -134,15 +154,15 @@
                      name="OldLoginName" autocomplete="off"/>
             </div>
             <div class="form-group mb-4">
-              <input class="form-control form-control-solid h-auto py-4 px-8" type="text" placeholder="기존 비밀번호를 입력하세요"
+              <input class="form-control form-control-solid h-auto py-4 px-8" type="password" placeholder="기존 비밀번호를 입력하세요"
                      name="OldLoginKey" autocomplete="off"/>
             </div>
             <div class="form-group mb-4">
-              <input class="form-control form-control-solid h-auto py-4 px-8" type="text" placeholder="새 비밀번호 (9~20자리 영문자, 숫자, 특수문자를 혼합)"
+              <input class="form-control form-control-solid h-auto py-4 px-8" type="password" placeholder="새 비밀번호 (9~20자리 영문자, 숫자, 특수문자를 혼합)"
                      name="NewLoginKey" autocomplete="off"/>
             </div>
             <div class="form-group mb-4">
-              <input class="form-control form-control-solid h-auto py-4 px-8" type="text" placeholder="새 비밀번호 재입력"
+              <input class="form-control form-control-solid h-auto py-4 px-8" type="password" placeholder="새 비밀번호 재입력"
                      name="rNewLoginKey" autocomplete="off"/>
             </div>
             <div class="form-group d-flex flex-wrap flex-center mt-10">
@@ -218,12 +238,12 @@
 <!--end::Global Config-->
 <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="assets/plugins/global/plugins.bundle.js"></script>
-<script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+<!--<script src="assets/plugins/custom/prismjs/prismjs.bundle.js"></script>-->
 <script src="assets/js/scripts.bundle.js"></script>
 <!--end::Global Theme Bundle-->
 <!--begin::Page Scripts(used by this page)-->
 <script src="assets/js/pages/widgets.js"></script>
-<script src="assets/js/login.js"></script>
+<script src="assets/js/login/login-general.js"></script>
 <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

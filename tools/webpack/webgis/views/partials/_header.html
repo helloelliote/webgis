@@ -70,6 +70,47 @@
 
         <!--end::Dropdown-->
       </div>
+      <div class="topbar-item">
+        <button type="button"
+                class="btn btn-sm font-weight-bolder btn-text-light btn-hover-bg-light btn-hover-text-primary ml-2 px-2 py-2 font-size-lg"
+                data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                data-offset="0,10" style="background: #f3f6f9; color: #48ace7">
+          {{role_ko}}
+        </button>
+        <div class="kt-notification">
+        <div class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right dropdown-menu-anim-up">
+          <ul class="navi navi-hover navi-active navi-accent py-3">
+            <li class="navi-header font-weight-bolder text-uppercase font-size-md pb-2">{{user.rolename}} {{user.name}}</li>
+            <li class="navi-item">
+            {{#if isAdmin}}
+            <a href="#" class="kt-notification__item">
+              <div class="kt-notification__item-icon">
+<!--                <i class="flaticon2-calendar-3 kt-font-success"></i>-->
+              </div>
+              <div class="kt-notification__item-details" id="kt-notification__item-details-account">
+                <span class="navi-text">&nbsp;계정 정보와 설정을 확인합니다</span>
+<!--                <div class="kt-notification__item-title kt-font-bold">-->
+<!--                  계정 관리자-->
+<!--                </div>-->
+<!--                <div class="kt-notification__item-time">-->
+<!--                  계정 정보와 설정을 확인합니다-->
+<!--                </div>-->
+              </div>
+            </a>
+            {{/if}}
+            <li class="kt-notification__custom kt-space-between navi-item">
+          <a href="/auth/signout" class="btn btn-label btn-label-brand btn-sm btn-bold" id="session-logout">
+                <span class="navi-bullet">
+                  <i class="bullet bullet-dot"></i>
+                </span>
+            <span class="navi-text">&nbsp;로그 아웃</span>
+          </a>
+            </li>
+            </li>
+        </ul>
+        </div>
+        </div>
+      </div>
 
       <!--end::Desktop Search-->
     </div>
@@ -153,6 +194,13 @@
                   id="btn-dev-edit">
             편집
           </button>
+
+          <button type="button"
+                  class="btn btn-sm font-weight-bolder btn-hover-text-primary px-2 py-2 font-size-lg m-2"
+                  id="download-btn">
+            dxf
+          </button>
+
 
           <!--[html-partial:end:{"id":"demo1/dist/inc/view/partials/content/dropdowns/dropdown-4","page":"index"}]/-->
         </div>
@@ -310,6 +358,14 @@
                 <span class="navi-text">&nbsp;비상근무 편성</span>
               </a>
             </li>
+<!--            <li class="navi-item">-->
+<!--              <a href="/auth/signin" class="navi-link" id="session-logout">-->
+<!--                <span class="navi-bullet">-->
+<!--                  <i class="bullet bullet-dot"></i>-->
+<!--                </span>-->
+<!--                <span class="navi-text">&nbsp;로그 아웃</span>-->
+<!--              </a>-->
+<!--            </li>-->
           </ul>
 
           <!--end::Navigation-->

@@ -51,6 +51,37 @@ class Postgresql {
       });
     // .catch(Postgresql.onError);
   }
+
+  executeTransaction(queries, values) {
+    return this._pool
+      .connect()
+      .then(async client => {
+        try {
+          await client.query('BEGIN');
+          const results = [];
+
+          for (let i = 0; i < queries.length; i++) {
+            const result = await client.query(queries[i], values[i]);
+            if (result.rowCount > 0) {
+              results.push(result);
+            }
+          }
+
+          if (results.length === 0) {
+            throw new Error('NONE');
+          }
+
+          await client.query('COMMIT');
+          return results;
+        } catch (err) {
+          await client.query('ROLLBACK');
+          throw err;
+        } finally {
+          client.release();
+        }
+      });
+  }
+
 }
 
 export default new Postgresql();

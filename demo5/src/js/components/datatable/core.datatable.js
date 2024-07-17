@@ -52,6 +52,9 @@
 				Plugin.setupBaseDOM.call();
 				Plugin.setupDOM(datatable.table);
 
+				// set custom query from options
+				Plugin.setDataSourceQuery(Plugin.getOption('data.source.read.params.query'));
+
 				// on event after layout had done setup, show datatable
 				$(datatable).on(pfx + 'datatable-on-layout-updated', Plugin.afterRender);
 
@@ -82,7 +85,9 @@
 				Plugin.spinnerCallback(true);
 				// get data
 				if (options.data.type === 'remote' || options.data.type === 'local') {
-					if (options.data.saveState === false) {
+					if (options.data.saveState === false
+						|| options.data.saveState.cookie === false
+						&& options.data.saveState.webstorage === false) {
 						Plugin.stateRemove(Plugin.stateId);
 					}
 					// get data for local datatable and local table

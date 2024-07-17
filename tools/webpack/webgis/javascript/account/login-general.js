@@ -19,8 +19,9 @@ var KTLogin = function () {
 
   var _handleSignInForm = function () {
     var validation;
-    
+
     let _form = $('#kt_login_signin_form');
+    console.log("login");
 
     // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
     validation = FormValidation.formValidation(
@@ -43,10 +44,10 @@ var KTLogin = function () {
       e.preventDefault();
 
       var btn = $(this);
-      
+
       btn
         .attr('disabled', true);
-      
+
       validation.validate().then(function (status) {
         if (status === 'Valid') {
           _form.ajaxSubmit(
@@ -303,6 +304,16 @@ var KTLogin = function () {
     });
   };
 
+  var handleSignInFormRemember = function () {
+    var userId = getCookie('cookieUserId');
+    $("input[id='form-username']").val(userId);
+
+    if ($("input[id='form-username']").val() != '') {
+      // Cookie에 만료되지 않은 아이디가 있어 입력됬으면 체크박스가 체크되도록 표시
+      $("input[name='remember']").attr('checked', true);
+    }
+  };
+
   function setRemember() {
     // Login Form을 Submit할 경우,
     if ($("input[name='remember']").is(':checked')) {
@@ -357,6 +368,7 @@ var KTLogin = function () {
       _handleSignInForm();
       _handleSignUpForm();
       _handleForgotForm();
+      handleSignInFormRemember();
     },
   };
 }();

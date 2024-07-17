@@ -18,6 +18,7 @@ const globalOptions = Object.assign(defaultOptions, {
     ],
     vector: [
       'viw_wtl_puri_as',
+      'viw_wtl_gain_ps',
       // 'viw_wtl_taper_ps',
       'viw_wtl_cap_ps',
       'viw_wtl_pipe_close_lm',
@@ -26,7 +27,7 @@ const globalOptions = Object.assign(defaultOptions, {
       'viw_wtl_pipe_dir_ps',
       'viw_wtl_sply_ls',
       // 'viw_wtl_scvst_ps',
-      // 'viw_wtl_manh_ps',
+      'viw_wtl_manh_ps',
       'viw_wtl_meta_ps',
       'viw_wtl_flow_ps',
       'viw_wtl_fire_ps',

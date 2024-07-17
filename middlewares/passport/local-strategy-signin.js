@@ -17,11 +17,15 @@ function onPassportLocalSignIn(req, username, password, done) {
     .executeQuery(sqlSelectUsernameAndStatus, [username])
     .then(isNotNull)
     .then(isActivatedUser)
-    .then(onAuthenticateUser);
+    .then(onAuthenticateUser)
+    .catch((err) => {
+      console.error('Database query error:', err);
+      return done(null, false, { message: err.message || 'Internal server error' });
+    });
 
   function isNotNull(result) {
-    if (result.rowCount === 0) {
-      return done(/* TODO: error */);
+    if (!result || result.rowCount === 0) {
+      throw new Error('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
     } else {
       return result;
     }
@@ -29,12 +33,11 @@ function onPassportLocalSignIn(req, username, password, done) {
 
   function isActivatedUser(result) {
     if (result.rows[0]['Status'] === false) {
-      return done(/* TODO: error*/);
+      throw new Error('관리자의 사용 승인이 필요한 계정입니다.');
     } else {
-      return true;
+      return result;
     }
   }
-
   function onAuthenticateUser() {
     const sqlSelectUserInfo = `
         SELECT login_tb.username       AS "LoginName",
@@ -54,9 +57,19 @@ function onPassportLocalSignIn(req, username, password, done) {
     `;
 
     postgresql.executeQuery(sqlSelectUserInfo, [username])
-      .then(onBcryptCompare);
+      .then(onBcryptCompare)
+      .catch((err) => {
+        console.error('Database query error:', err);
+        return done(null, false, { message: '등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.' });
+      })
+      .finally(() => {
+        console.log('User authentication query finished.');
+      });
 
     function onBcryptCompare(result) {
+      if (!result || result.rowCount === 0) {
+        throw new Error('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+      }
       const signIn = result.rows[0];
       bcrypt
         .compare(password, signIn['LoginKey'])
@@ -71,11 +84,15 @@ function onPassportLocalSignIn(req, username, password, done) {
               CompanySWL: signIn['CompanySWL'],
             });
           } else {
-            return done(/* TODO: error*/);
+            throw new Error('등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.');
           }
         })
         .catch(function (err) {
-          return done(/* TODO: error*/);
+          console.error('Bcrypt comparison error:', err);
+          return done(null, false, { message: '등록되지 않은 아이디이거나, 잘못된 비밀번호입니다.' });
+        })
+        .finally(() => {
+          console.log('Bcrypt comparison finished.');
         });
     }
   }

@@ -19,16 +19,19 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
+    "bootstrap": "^5.3.3",
     "connect-pg-simple": "^7.0.0",
     "cookie-parser": "~1.4.6",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "debug": "^4.3.4",
     "dotenv": "^16.0.3",
+    "dxf-writer": "^1.18.4",
     "express": "~4.17.2",
     "express-handlebars": "^6.0.2",
     "express-promise-router": "^4.1.1",
     "express-session": "^1.17.2",
+    "file-saver": "^2.0.5",
     "formidable": "v2",
     "helmet": "^4.6.0",
     "http-errors": "^2.0.0",
@@ -38,7 +41,9 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pg": "^8.7.1",
-    "rate-limiter-flexible": "^2.3.6"
+    "randomatic": "^3.1.1",
+    "rate-limiter-flexible": "^2.3.6",
+    "sweetalert2": "^11.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",

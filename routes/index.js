@@ -1,12 +1,12 @@
 import { default as main } from './main';
-import { default as passportRoute } from './passport';
+import { checkAdmin, default as passportRoute } from './passport';
 import { default as wtl } from './wtl';
 import { default as swl } from './swl';
 import { default as service } from './service';
 import { default as data } from './data';
 
 export default function (router, passport) {
-  router.get('/', main.index);
+  router.get('/', checkAuth, main.index);
 
   router.get('/auth/signin', passportRoute.index);
   router.post('/auth/signin', function (req, res, next) {
@@ -15,8 +15,25 @@ export default function (router, passport) {
   router.post('/auth/signup', function (req, res, next) {
     return passportRoute.signUp(req, res, next, passport);
   });
-  router.get('/auth/signout', passportRoute.signOut);
-
+  router.get('/auth/signout', function (req, res, next) {
+    return passportRoute.signOut(req, res, next, passport);
+  });
+  router.post('/api/account', checkAdmin, function (req, res, next){
+    return passportRoute.account(req, res, next, passport)
+  });
+  router.post('/auth/duplicate', function (req, res, next){
+    return passportRoute.duplicate(req, res, next, passport)
+  })
+  // router.post('/auth/update', checkAdmin, passportRoute.update, onError)
+  router.post('/auth/update', checkAdmin, function (req, res, next){
+    return passportRoute.update(req, res, next, passport)
+  });
+  router.post('/auth/delete', checkAdmin, function (req, res, next){
+    return passportRoute.delete(req, res, next, passport)
+  });
+  router.post('/auth/resetKey', function (req, res, next){
+    return passportRoute.resetKey(req, res, next, passport)
+  })
   router.get('/api/swl/search', swl.search, onError);
   router.get('/api/swl/info', swl.info, onError);
   router.get('/api/swl/info/check', swl.infoCheck, onError);

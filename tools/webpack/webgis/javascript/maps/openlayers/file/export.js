@@ -44,6 +44,28 @@ export default class FileExport {
       });
     });
 
+    document.querySelectorAll('.ol-table-code-export-wfs-dxf').forEach(element => {
+      element.parentElement.setAttribute('hidden', '');
+      element.addEventListener('click', async event => {
+        const target = event.target;
+        this._onClickElement = target;
+        const fileName = target.getAttribute('data-target'); // 상수관로
+        const typeName = target.getAttribute('id'); // yeongju_a:viw_wtl_pipe_lm
+        const layerName = typeName.split(':')[1]; // viw_wtl_pipe_lm
+        const hasFeature = this._vectorLayer.getLayer(layerName).getSource().getFeaturesInExtent(this.extent).length > 0;
+        if (!hasFeature) {
+          $.notify({
+            message: `현재 화면 범위 내에는 "${fileName}" 이(가) 없습니다.<br>일부 시설물은 지도를 확대 후 생성됩니다.`,
+          }, { type: 'info' });
+          return;
+        }
+        target.classList.remove('text-success', 'text-warning');
+        target.classList.add('text-danger');
+        target.style.pointerEvents = 'none';
+        await this.exportDxf(typeName, fileName);
+      });
+    });
+
     document.querySelectorAll('.ol-table-code-export-wms').forEach(element => {
       element.parentElement.setAttribute('hidden', '');
       element.addEventListener('click', async event => {
@@ -98,6 +120,8 @@ export default class FileExport {
 
   async _runExport(params, fileName) {
     try {
+      console.log('Export parameters:', params);
+      console.log('File name:', fileName);
       const response = await fetch(this._host, {
         method: 'POST',
         body: new URLSearchParams(params),
