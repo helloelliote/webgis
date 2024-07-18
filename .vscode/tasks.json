@@ -1,0 +1,20 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "npm: start",
+			"detail": "\nodejs\node.exe"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": ".build/",
+			"problemMatcher": [],
+			"label": "npm: start - .build",
+			"detail": "node -r dotenv/config ./build/app.bundle.js dotenv_config_path=./build/.env"
+		}
+	]
+}
