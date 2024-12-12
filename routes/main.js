@@ -9,11 +9,11 @@ export default {
       role_en: process.env.ROLE_EN,
       KAKAO_API_KEY: process.env.KAKAO_API_KEY,
       workspace: process.env.WORKSPACE,
-      user:{
-        name: req.user['UserName'],
-        rolename: req.user['RoleName']
-      },
-      isAdmin: req.user['LoginName'] === 'admin'
+      // user:{
+      //   name: req.user['UserName'],
+      //   rolename: req.user['RoleName']
+      // },
+      // isAdmin: req.user['LoginName'] === 'admin'
     });
   },
 };

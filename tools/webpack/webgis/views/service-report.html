@@ -1,6 +1,6 @@
 <!--begin::Body-->
 
-<body id="kt_body" draggable="false"
+<body id="kt_body"
       class="page-loading-enabled page-loading quick-panel-right demo-panel-right offcanvas-right header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-static page-loading">
 
 <!--[html-partial:include:{"file":"partials/_page-loader.html"}]/-->{{> _page-loader}}
@@ -9,7 +9,7 @@
 
 <!--[html-partial:include:{"file":"partials/_header-mobile.html"}]/-->
 
-<div class="d-flex flex-column flex-root">
+<div class="d-flex flex-column flex-root" data-scroll="true">
 
   <!--begin::Page-->
   <div class="d-flex flex-row flex-column-fluid page">
@@ -19,13 +19,16 @@
     <!--begin::Wrapper-->
     <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
-      <!--[html-partial:include:{"file":"partials/_header.html"}]/-->{{> _header}}
+      <!--[html-partial:include:{"file":"partials/_header.html"}]/-->{{> _header-service-register}}
 
       <!--begin::Content-->
+      <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
-      <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->
+        <!--[html-partial:include:{"file":"partials/_subheader/subheader-v6.html"}]/-->{{>
+        _subheader/_subheader-service-report}}
 
-      <!--[html-partial:include:{"file":"partials/_content.html"}]/-->{{> _content}}
+        <!--[html-partial:include:{"file":"partials/_content.html"}]/-->{{> _content-service-report}}
+      </div>
 
       <!--end::Content-->
 
@@ -48,7 +51,7 @@
 
 <!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-panel.html"}]/-->
 
-<!--[html-partial:include:{"file":"partials/_extras/chat.html"}]/-->{{> _modal/_ol-info}} {{> _modal/_ol-history}} {{> _modal/_ol-photo}} {{> _modal/_ol-search}} {{> _modal/ _modal-account}}
+<!--[html-partial:include:{"file":"partials/_extras/chat.html"}]/-->
 
 <!--[html-partial:include:{"file":"partials/_extras/scrolltop.html"}]/-->{{> _extras/scrolltop}}
 
@@ -136,24 +139,16 @@
 <!--begin::Page Vendors(used by this page)-->
 <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey={{KAKAO_API_KEY}}&libraries=services" type="text/javascript"></script>
-<!--<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=48ezy1hyob&submodules=panorama,geocoder" type="text/javascript"></script>-->
+<!--<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=48ezy1hyob&submodules=geocoder" type="text/javascript"></script>-->
 <!--end::Page Vendors-->
 
 <!--begin::Page Scripts(used by this page)-->
-<script src="assets/js/maps.bundle.js"></script>
+<script src="assets/js/serv.register.js"></script>
 <script src="assets/js/serv.schedule.js"></script>
 <script src="assets/js/serv.pres.js"></script>
-<!--<script src="assets/js/user/list-datatables.js"></script>-->
 <script>
   $('.navi-link').removeClass('active');
-  $(document).ready(function() {
-    // Attach click event to the 계정 관리자 button
-    $('#kt-notification__item-details-account').on('click', function(e) {
-      // e.preventDefault();
-      // Show the modal
-      $('#accountModal').modal('show');
-    });
-  });
+  $('#navi-report-link-01').addClass('active');
 </script>
 <!--end::Page Scripts-->
 </body>

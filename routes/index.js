@@ -6,7 +6,7 @@ import { default as service } from './service';
 import { default as data } from './data';
 
 export default function (router, passport) {
-  router.get('/', checkAuth, main.index);
+  router.get('/', main.index);
 
   router.get('/auth/signin', passportRoute.index);
   router.post('/auth/signin', function (req, res, next) {
@@ -70,11 +70,11 @@ export default function (router, passport) {
     res.status(400).json(err.stack.match('[\n]*.*'));
   }
 
-  function checkAuth(req, res, next) {
-    if (!req.isAuthenticated()) {
-      res.redirect('/auth/signin');
-    } else {
-      next();
-    }
-  }
+  // function checkAuth(req, res, next) {
+  //   if (!req.isAuthenticated()) {
+  //     res.redirect('/auth/signin');
+  //   } else {
+  //     next();
+  //   }
+  // }
 }
